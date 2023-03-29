@@ -1,6 +1,9 @@
+import React from 'react';
 import './App.css';
 import 'tailwindcss/tailwind.css';
 import MolForm from './components/molecule/MolForm';
+
+
 
 
 function App() {
@@ -8,6 +11,7 @@ function App() {
     <div className="App">
       <header className="App-header">
        <MolForm/>
+       
       </header>
     </div>
   );
