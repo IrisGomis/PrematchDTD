@@ -1,11 +1,13 @@
-import './components/atome/css/styles.css';
-import Drawer from './components/atome/drawer/Drawer';
+import './App.css';
+import 'tailwindcss/tailwind.css';
+import MolForm from './components/molecule/MolForm';
+
 
 function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <Drawer />
+       <MolForm/>
       </header>
     </div>
   );
