@@ -17,7 +17,7 @@ export default function MolForm() {
               />
             </div>
           </div>
-          <div className="flex justify-center  border-b border-orange-600 pb-6">
+          <div className="flex justify-center  border-b border-orange pb-6">
             <p className="text-start text-gray-900 text-sm mr-8 pt-4">Hora</p>
             <DatePicker />
             <p className="text-start text-gray-500 text-sm pt-4 my-3 mx-3">
@@ -26,7 +26,7 @@ export default function MolForm() {
             <DatePicker />
           </div>
 
-          <div className="border-b border-orange-600 pb-6">
+          <div className="border-b border-orange pb-6">
             <div className="mt-6 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
               <div className="sm:col-span-4">
                 <div className="mt-2">
@@ -47,7 +47,7 @@ export default function MolForm() {
               </div>
             </div>
           </div>
-          <div className="border-b border-orange-600 pb-12">
+          <div className="border-b border-orange pb-12">
             <div className="sm:col-span-4">
               <label
                 htmlFor="email"
@@ -65,7 +65,7 @@ export default function MolForm() {
               </div>
             </div>
           </div>
-          <div className="border-b border-orange-600 pb-12">
+          <div className="border-b border-orange pb-12">
             <div className="sm:col-span-3">
               <label
                 htmlFor="country"
@@ -87,7 +87,7 @@ export default function MolForm() {
               </div>
             </div>
           </div>
-          <div className="border-b border-orange-600 pb-12">
+          <div className="border-b border-orange pb-12">
             <div>
               <label
                 htmlFor="comment"
