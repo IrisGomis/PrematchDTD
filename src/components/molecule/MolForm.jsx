@@ -1,5 +1,5 @@
 import React from "react";
-import DatePicker from "./DatePicker";
+import DatePicker from "../atome/datepickerAtom/DatePicker";
 
 export default function MolForm() {
   return (
