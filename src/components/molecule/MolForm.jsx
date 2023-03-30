@@ -112,13 +112,13 @@ export default function MolForm() {
               type="button"
               className="rounded-md bg-stone6 py-2 px-3 text-sm font-semibold text-white shadow-sm hover:bg-stone3 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-stone4"
             >
-              Cancel
+              Cancelar
             </button>
             <button
               type="submit"
               className="rounded-md bg-orange py-2 px-3 text-sm font-semibold text-white shadow-sm hover:bg-orangel focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
             >
-              Save
+              Añadir
             </button>
           </div>
         </div>
