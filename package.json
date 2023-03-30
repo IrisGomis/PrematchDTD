@@ -9,12 +9,7 @@
     "@fortawesome/free-regular-svg-icons": "^6.4.0",
     "@fortawesome/free-solid-svg-icons": "^6.4.0",
     "@fortawesome/react-fontawesome": "^0.2.0",
-<<<<<<< HEAD
-    "@mui/icons-material": "^5.11.11",
-    "@mui/material": "^5.11.15",
-=======
     "@heroicons/react": "^2.0.16",
->>>>>>> 5e9d9bee5d0946ef7cba1b3ba74c16e68a0a6259
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
