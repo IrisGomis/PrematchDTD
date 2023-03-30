@@ -1,13 +1,13 @@
-import './App.css';
+//import './App.css';
 import 'tailwindcss/tailwind.css';
-import MolForm from './components/molecule/MolForm';
+import AtomSearch from './components/atome/header/AtomSearch';
 
 
 function App() {
   return (
     <div className="App">
       <header className="App-header">
-       <MolForm/>
+       <AtomSearch/>
       </header>
     </div>
   );
