@@ -3,17 +3,17 @@ import DatePicker from "../atome/datepickerAtom/DatePicker";
 
 export default function MolForm() {
   return (
-    <div className="bg-stone-300 my-10 rounded-lg p-8">
+    <div className="bg-stone4 my-10 rounded-lg p-8">
       <form>
         <div className="space-y-8 space-x-8">
-          <div className="border-b border-orange-600 pb-6">
+          <div className="border-b border-orange pb-6">
             <div className="mt-5">
               <input
                 type="text"
                 name="name"
                 id="name"
                 placeholder="Nombre del evento"
-                className="block w-full rounded-md border-0 p-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-orange-600 sm:text-sm sm:leading-6"
+                className="block w-full rounded-md border-0 p-1.5 text-stone8 shadow-sm ring-1 ring-inset ring-stone4 placeholder:text-stone4 focus:ring-2 focus:ring-inset focus:ring-orange sm:text-sm sm:leading-6"
               />
             </div>
           </div>
@@ -30,7 +30,7 @@ export default function MolForm() {
             <div className="mt-6 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
               <div className="sm:col-span-4">
                 <div className="mt-2">
-                  <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus:ring-orange-600 sm:max-w-md">
+                  <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-stone4 focus-within:ring-2 focus-within:ring-inset focus:ring-orange sm:max-w-md">
                     <span className="flex select-none items-center pl-3 text-gray-500 sm:text-sm">
                       Orgaizador
                     </span>
