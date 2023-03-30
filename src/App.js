@@ -1,6 +1,5 @@
 import './App.css';
 import 'tailwindcss/tailwind.css';
-import MolForm from './components/molecule/MolForm';
 
 
 function App() {
