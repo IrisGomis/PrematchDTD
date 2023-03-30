@@ -93,7 +93,7 @@ export default function MolForm() {
                 htmlFor="comment"
                 className="block text-sm font-medium leading-6 text-stone6"
               >
-                Add your comment
+                Comentarios
               </label>
               <div className="mt-2">
                 <textarea
