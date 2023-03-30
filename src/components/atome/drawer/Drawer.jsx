@@ -7,7 +7,6 @@ import {
   IdentificationIcon,
   FolderIcon,
   HomeIcon,
-  UsersIcon,
 } from '@heroicons/react/24/outline'
 
 const Drawer = () => {
@@ -28,7 +27,7 @@ const Drawer = () => {
     return classes.filter(Boolean).join(' ')
   }
   return (
-    <div className="flex grow flex-col gap-y-5 overflow-y-auto border-r border-gray-200 bg-orange-500 px-6 h-screen">
+    <div className="flex grow flex-col gap-y-5 overflow-y-auto border-r border-gray-200 bg-orange px-6 h-screen">
     <div className="flex h-16 shrink-0 items-center">
     <img
            className="h-8 w-auto"
@@ -48,7 +47,7 @@ const Drawer = () => {
     item.current
       ? 'bg-gray-50 text-indigo-600'
       : 'text-gray-700 hover:text-indigo-600 hover:bg-gray-50',
-    'group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold text-white' // Agregar la clase "text-white" aquí
+    'group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold text-white'
   )}
 >
     <item.icon
