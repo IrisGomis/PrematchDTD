@@ -16,6 +16,7 @@ module.exports = {
       'stone4': '#a3a3a3',
       'stone5': '#737373',
       'stone6': '#737373',
+      'stone7':'#44403c',
       'stone8':'#262626',
     },
     extend: {},
