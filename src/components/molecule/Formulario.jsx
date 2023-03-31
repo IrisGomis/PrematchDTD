@@ -2,24 +2,30 @@ import React, { useState } from "react";
 import axios from "axios";
 
 function EventForm() {
-  const [eventName, setEventName] = useState("");
-  const [guests, setGuests] = useState("");
+  const [name, setName] = useState("");
+  //const [guests, setGuests] = useState("");
+  const [date, setDate] = useState("");
+  const [url, setUrl] = useState("");
   const [min, setMin] = useState("");
   const [max, setMax] = useState("");
 
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = {
-      eventName: eventName,
-      guests: guests.split(",").map((guest) => guest.trim()),
+      name: name,
+      //guests: guests.split(",").map((guest) => guest.trim()),
+      date: date,
+      url:url,
       min: min,
       max:max,
     };
-    axios.post("/api/events", data).then((response) => {
+    axios.post("http://127.0.0.1:8000/api/events", data).then((response) => {
       console.log(response.data);
       // limpiar los campos después de enviar la solicitud
-      setEventName("");
-      setGuests("");
+      setName("");
+      //setGuests("");
+      setUrl("");
+      setDate("");
       setMin("");
       setMax("");
     });
@@ -32,12 +38,12 @@ function EventForm() {
         <input
          className="text-stone5"
           type="text"
-          id="eventName"
-          value={eventName}
-          onChange={(e) => setEventName(e.target.value)}
+          id="name"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
         />
       </div>
-      <div className="my-5 mx-4">
+      {/* <div className="my-5 mx-4">
         <label htmlFor="guests">Invitados:</label>
         <input
          className="text-stone5"
@@ -45,9 +51,27 @@ function EventForm() {
           value={guests}
           onChange={(e) => setGuests(e.target.value)}
         />
+      </div> */}
+      <div className="my-5 mx-4">
+        <label htmlFor="min">URL:</label>
+        <input
+          className="text-stone5"
+          id="URL"
+          value={url}
+          onChange={(e) => setUrl(e.target.value)}
+        />
       </div>
       <div className="my-5 mx-4">
-        <label htmlFor="min">Mínimo de coders invitados:</label>
+        <label htmlFor="min">Date:</label>
+        <input
+          className="text-stone5"
+          id="date"
+          value={date}
+          onChange={(e) => setDate(e.target.value)}
+        />
+      </div>
+      <div className="my-5 mx-4">
+        <label htmlFor="min">Entrevistas mínimas:</label>
         <input
           className="text-stone5"
           id="guests"
@@ -56,7 +80,7 @@ function EventForm() {
         />
       </div>
       <div className="my-5 mx-4">
-        <label htmlFor="max">Máximo de coders invitados:</label>
+        <label htmlFor="max">Entrevistas máximas:</label>
         <input
           className="text-stone5"
           id="guests"
