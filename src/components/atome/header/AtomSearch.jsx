@@ -3,15 +3,10 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 function Buscador() {
   return (
-    <div className="flex items-center rounded-lg bg-gray-100 p-2">
-      <input
-        type="text"
-        placeholder="Buscar personas, documentos y más"
-        className="w-full rounded-lg p-2 focus:outline-none"
-      />
-      <button className="bg-white rounded-lg p-2">
-        <FontAwesomeIcon icon={faSearch} />
-      </button>
+    <div className="mx-auto w-1/3 flex items-center rounded-full bg-stone3 p-0.5">
+      
+      <input type="text" placeholder="Buscar personas, documentos y más" className="bg-stone3 text-white py-2 px-4 w-full rounded-full focus:outline-none placeholder-white"/>
+      <FontAwesomeIcon icon={faSearch} className="text-white mr-2 text-2xl" />
     </div>
   );
 }

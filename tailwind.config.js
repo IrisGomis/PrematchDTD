@@ -8,6 +8,7 @@ module.exports = {
   content: [],
   theme: {
     colors:{
+      'white': '#FFFF',
       'orange': '#FF4700',
       'orangel':'#FED2C0',
       'green': '#OA4749',
