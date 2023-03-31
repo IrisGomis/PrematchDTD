@@ -77,7 +77,6 @@ export default function MolForm() {
                 <select
                   id="country"
                   name="country"
-                  autoComplete="country-name"
                   className="block w-full rounded-md border-0 py-1.5 text-stone6 shadow-sm ring-1 ring-inset ring-stone3 focus:ring-2 focus:ring-inset focus:ring-orange sm:max-w-xs sm:text-sm sm:leading-6"
                 >
                   <option>NttData</option>
@@ -87,19 +86,34 @@ export default function MolForm() {
               </div>
             </div>
           </div>
-          <div className="border-b border-orange pb-12">
+          <div className="flex border-b border-orange pb-12">
             <div>
               <label
                 htmlFor="comment"
                 className="block text-sm font-medium leading-6 text-stone6"
               >
-                Comentarios
+                Mínimo
+              </label>
+              <div className="my-2 mx-20">
+                <input
+                  name="min"
+                  id="min"
+                  className="block w-full rounded-md border-0 text-stone8 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-stone4 focus:ring-2 focus:ring-inset focus:ring-orange sm:py-1.5 sm:text-sm sm:leading-6"
+                  defaultValue={""}
+                />
+              </div>
+            </div>
+            <div>
+              <label
+                htmlFor="comment"
+                className="block text-sm font-medium leading-6 text-stone6"
+              >
+                Máximo
               </label>
               <div className="mt-2">
-                <textarea
-                  rows={4}
-                  name="comment"
-                  id="comment"
+                <input
+                  name="min"
+                  id="min"
                   className="block w-full rounded-md border-0 text-stone8 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-stone4 focus:ring-2 focus:ring-inset focus:ring-orange sm:py-1.5 sm:text-sm sm:leading-6"
                   defaultValue={""}
                 />
