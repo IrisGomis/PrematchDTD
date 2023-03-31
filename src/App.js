@@ -1,12 +1,12 @@
-import './App.css';
+//import './App.css';
 import 'tailwindcss/tailwind.css';
-
+import AtomLogin from './components/atome/header/AtomLogin';
 
 function App() {
   return (
     <div className="App">
       <header className="App-header">
-       <p>Hola open Sans</p>
+       
       </header>
     </div>
   );
