@@ -2,7 +2,7 @@ import React from 'react';
 import './App.css';
 import 'tailwindcss/tailwind.css';
 import FormularioDos from './components/molecule/FormularioDos';
-import Tabla from './components/molecule/Tabla';
+import TableEvent from './components/molecule/TableEvent';
 
 
 
@@ -11,7 +11,7 @@ function App() {
     <div className="App">
       <header className="App-header">
        <FormularioDos/>
-       <Tabla/>
+       <TableEvent/>
       </header>
     </div>
   );
