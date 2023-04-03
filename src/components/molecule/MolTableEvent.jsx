@@ -4,9 +4,11 @@ import { Link } from "react-router-dom";
 
 const API_BASE_URL = "http://127.0.0.1:8000/api";
 
+function classNames(...classes) {
+  return classes.filter(Boolean).join(' ')
+}
 
-
-export default function TableEvent() {
+export default function MolTableEvent() {
   
   const checkbox = useRef();
   const [checked, setChecked] = useState(false);
@@ -33,6 +35,9 @@ export default function TableEvent() {
   }, [selectedEvent, event]);
   
   function toggleAll() {
+    if (selectedEvent.length === 0) {
+      return;
+    }
     setSelectedEvent(checked || indeterminate ? [] : selectedEvent)
     setChecked(!checked && !indeterminate)
     setIndeterminate(false)
@@ -40,10 +45,11 @@ export default function TableEvent() {
 
   function handleDelete() {
     if (selectedEvent.length === 0) {
-      console.error("No events selected to delete");
+      console.warn("No events selected to delete");
       return;
     }
 
+  
     // Create an array of promises to delete each selected event
     const deletePromises = selectedEvent.map((event) =>
       axios.delete(`${API_BASE_URL}/events/${event.id}`)
@@ -67,30 +73,43 @@ export default function TableEvent() {
   }
 
   return (
-    <div className="px-4 sm:px-6 lg:px-8 bg-stone4">
+    <div className="bg-stone5 px-4 sm:px-6 lg:px-8">
       <div className="sm:flex sm:items-center">
         <div className="sm:flex-auto">
-          <h1 className="text-base font-semibold leading-6 text-gray-900">
-            Eventos
-          </h1>
+          <h1 className="text-base font-semibold leading-6 text-gray-900">Eventos Planing</h1>
+        </div>
+        <div className="mt-4 sm:ml-16 sm:mt-0 sm:flex-none">
+          <button
+            type="button"
+            className="block rounded-md bg-indigo-600 px-3 py-1.5 text-center text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+          >
+            Crear Evento
+          </button>
         </div>
       </div>
       <div className="mt-8 flow-root">
         <div className="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
           <div className="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
-            <div className="relative ">
+            <div className="relative">
               {selectedEvent.length > 0 && (
                 <div className="absolute left-14 top-0 flex h-12 items-center space-x-3 bg-white sm:left-12">
                   <button
                     type="button"
-                    className="inline-flex items-center rounded bg-white px-20 py-1 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 disabled:cursor-not-allowed disabled:opacity-30 disabled:hover:bg-white"
-                    onClick={() => handleDelete(selectedEvent[0].id)}
+                    className="inline-flex items-center rounded bg-white px-2 py-1 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 disabled:cursor-not-allowed disabled:opacity-30 disabled:hover:bg-white"
+                     onClick={() => handleDelete(selectedEvent[0].id)}
                   >
-                    Eliminar
+                    Bulk edit
+                  </button>
+                  <button
+                    type="button"
+                    className="inline-flex items-center rounded bg-white px-2 py-1 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 disabled:cursor-not-allowed disabled:opacity-30 disabled:hover:bg-white"
+                     onClick={() => handleDelete(selectedEvent[0].id)}
+                  >
+                    Delete all
                   </button>
                 </div>
               )}
-              <table className="min-w-full table-fixed divide-y divide-gray-300 mt-6">
+              <table className="min-w-full table-fixed divide-y divide-gray-300">
                 <thead>
                   <tr>
                     <th scope="col" className="relative px-7 sm:w-12 sm:px-6">
@@ -102,45 +121,27 @@ export default function TableEvent() {
                         onChange={toggleAll}
                       />
                     </th>
-                    <th
-                      scope="col"
-                      className="min-w-[12rem] py-3.5 pr-3 text-left text-sm font-semibold text-gray-900 mt-5"
-                    >
-                      Nombre
+                    <th scope="col" className="min-w-[12rem] py-3.5 pr-3 text-left text-sm font-semibold text-gray-900">
+                      Evento
                     </th>
-                    <th
-                      scope="col"
-                      className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
-                    >
-                      Url
+                    <th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
+                      Link enlace evento
                     </th>
-                    <th
-                      scope="col"
-                      className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
-                    >
+                    <th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
                       Fecha
                     </th>
-                    <th
-                      scope="col"
-                      className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
-                    >
-                      Num-Min-Ent
+                    <th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
+                      Max-Entrevistas
                     </th>
-                    <th
-                      scope="col"
-                      className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
-                    >
-                      Num-Max-Ent
+                    <th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
+                      Min-Entrevistas
                     </th>
-                    <th
-                      scope="col"
-                      className="relative py-3.5 pl-3 pr-4 sm:pr-3"
-                    >
+                    <th scope="col" className="relative py-3.5 pl-3 pr-4 sm:pr-3">
                       <span className="sr-only">Editar</span>
                     </th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-gray-300">
+                <tbody className="divide-y divide-gray-200 bg-white">
                   {event.map((e) => (
                     <tr key={e.id} className="hover:bg-gray-50">
                       <td className="px-7 py-4 whitespace-nowrap">
@@ -161,24 +162,19 @@ export default function TableEvent() {
                           }}
                         />
                       </td>
-                      <td className="px-6 py-4">
-                        <div className="text-sm font-semibold text-gray-900">
-                          {e.name}
-                        </div>
-                        <div className="text-sm text-gray-500">{e.date}</div>
+                      <td
+                        className={classNames(
+                          'whitespace-nowrap py-4 pr-3 text-sm font-medium',
+                          selectedEvent.includes(e.id) ? 'text-indigo-600' : 'text-gray-900'
+                        )}
+                      >
+                        {e.name}
                       </td>
-                      <td className="px-6 py-4">
-                        <div className="text-sm text-gray-900">{e.url}</div>
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                        {e.date}
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                        {e.min}
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                        {e.max}
-                      </td>
+                      <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{e.name}</td>
+                      <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{e.date}</td>
+                      <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{e.url}</td>
+                      <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{e.max}</td>
+                      <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{e.min}</td>
                       <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                         <Link
                           to={`/edit/${e.id}`}
@@ -190,22 +186,11 @@ export default function TableEvent() {
                     </tr>
                   ))}
                 </tbody>
-                <button
-                  type="submit"
-                  className="rounded-md bg-orange py-4 px-20 text-sm font-semibold text-white shadow-sm hover:bg-orangel focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-                >
-                  <Link
-                    to={"/"}
-                    className="text-indigo-600 hover:text-indigo-900"
-                  >
-                    Crear Evento
-                  </Link>
-                </button>
               </table>
             </div>
           </div>
         </div>
       </div>
     </div>
-  );
+  )
 }
