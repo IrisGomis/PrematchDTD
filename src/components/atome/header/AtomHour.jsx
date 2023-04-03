@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import React from 'react'
 
 const AtomHour = () => {
@@ -7,3 +8,28 @@ const AtomHour = () => {
 }
 
 export default AtomHour
+=======
+import React, { useState, useEffect } from "react";
+
+function Reloj() {
+  const [hora, setHora] = useState(new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}));
+
+  useEffect(() => {
+    const intervalo = setInterval(() => {
+      setHora(new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}));
+    }, 1000);
+
+    return () => {
+      clearInterval(intervalo);
+    };
+  }, []);
+
+  return (
+    <div>
+      <p className="text-4xl text-black">{hora}</p>
+    </div>
+  );
+}
+
+export default Reloj;
+>>>>>>> 68fdc1e5d024089dca649ce5646c3910e5444420
