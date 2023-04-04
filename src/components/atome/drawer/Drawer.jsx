@@ -48,7 +48,7 @@ const Drawer = () => {
                       item.current
                         ? 'bg-gray-50 text-white'
                         : 'text-white hover:text-orangel hover:bg-stone5',
-                      'group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold text-white'
+                      'group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold text-white text-base'
                     )}
                   >
                     <item.icon

@@ -10,11 +10,11 @@ function Home() {
         <div className="">
           <Drawer />
         </div>
-        <div className="w-full flex justify-between">
+        <div className="w-full h-20 flex justify-between">
           <AtomSearch />
           <AtomHour />
           <AtomLogin />
-          </div>
+        </div>
     </div>
     </>
   );

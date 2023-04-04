@@ -14,8 +14,8 @@ function Reloj() {
   }, []);
 
   return (
-    <div>
-      <p className="text-4xl text-black">{hora}</p>
+    <div className="mx-6 my-6">
+      <p className="text-2xl text-black">{hora}</p>
     </div>
   );
 }

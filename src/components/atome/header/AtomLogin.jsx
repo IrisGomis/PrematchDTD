@@ -10,10 +10,10 @@ function LoginIcon() {
   }
 
   return (
-    <div className="flex justify-end my-2.5 mx-5">
+    <div className="flex justify-end my-7 mx-10">
       <div className="relative h-8">
         <button onClick={handleButtonClick} className="flex items-center space-x-2 items-end">
-          <FontAwesomeIcon icon={faUser} className="text-stone6 text-lg" />
+          <FontAwesomeIcon icon={faUser} className="text-stone6 fa-xl" />
         </button>
         {showOptions && (
           <div className="absolute right-0 top-full mr-3 mt-2 w-40 bg-stone3 rounded-lg shadow-lg z-10">
