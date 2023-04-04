@@ -1,11 +1,11 @@
 import './App.css';
 import 'tailwindcss/tailwind.css';
-import Home from './components/views/Home';
+import Layout from './components/layout/Layout';
 
 function App() {
   return (
     <div className="App">
-      <Home />       
+      <Layout />       
     </div>
   );
 }
