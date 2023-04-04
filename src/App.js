@@ -1,9 +1,10 @@
 import React from 'react';
 import './App.css';
 import 'tailwindcss/tailwind.css';
-import MolTableEvent from './components/molecule/MolTableEvent';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import MolTableEvent from './components/molecule/MolTableEvent';
 import MolFormEvent from './components/molecule/MolFormEvent';
+// import MolFormEventEdit from './components/molecule/MolFormEventEdit';
 
 
 
@@ -15,7 +16,7 @@ function App() {
         <Routes>
         <Route path="/" element={<MolFormEvent />} />
         <Route path="/table" element={<MolTableEvent />} />
-        {/* <Route path="/edit/:eventId" element={<Editor />} /> */}
+        {/* <Route path="/edit/:eventId" element={<MolFormEventEdit />} /> */}
       </Routes>
       </Router>
       </div>
