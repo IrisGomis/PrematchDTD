@@ -10,10 +10,10 @@ module.exports = {
     colors:{
       'orange': '#FF4700',
       'orangel':'#FED2C0',
-      'green': '#OA4749',
+      'verde': '#0A4749',
       'purple': '#4311B9',
-      'lightg': '#33C8CD',
-      'lighp': '#CBBFE8',
+      'verdel': '#33C8CD',
+      'lightp': '#CBBFE8',
       'stone3': '#d6d3d1',
       'stone4': '#a8a29e',
       'stone5': '#78716c',
