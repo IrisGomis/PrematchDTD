@@ -1,14 +1,3 @@
-<<<<<<< HEAD
-import React from 'react'
-
-const AtomHour = () => {
-  return (
-    <div>AtomHour</div>
-  )
-}
-
-export default AtomHour
-=======
 import React, { useState, useEffect } from "react";
 
 function Reloj() {
@@ -25,11 +14,10 @@ function Reloj() {
   }, []);
 
   return (
-    <div>
-      <p className="text-4xl text-black">{hora}</p>
+    <div className="mx-6 my-6">
+      <p className="text-2xl text-black">{hora}</p>
     </div>
   );
 }
 
 export default Reloj;
->>>>>>> 68fdc1e5d024089dca649ce5646c3910e5444420
