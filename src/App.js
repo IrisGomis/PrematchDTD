@@ -16,7 +16,7 @@ function App() {
             <Routes>
             <Route path="/" element={<MolFormEvent />} />
             <Route path="/table" element={<MolTableEvent />} />
-            <Route path="/edit/:eventId" element={<MolFormEventEdit />} />
+            <Route path="/edit/:event_id" element={<MolFormEventEdit />} />
             </Routes>
           </Layout>
       </Router>

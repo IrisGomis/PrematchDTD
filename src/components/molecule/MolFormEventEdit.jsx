@@ -50,7 +50,7 @@ function PruebaApi() {
    
       <form onSubmit={handleSubmit}>
       <div className="mt-10 my-6 space-y-8 border-b border-orange pb-12 sm:space-y-0 sm:divide-y sm:divide-orange sm:border-t sm:pb-0">
-        <div className="flex justify-between text-sm">
+        <div className="flex justify-between text-sm ">
           <label className='mr-10 p-3'>Evento</label>
           <input
             className="w-1/2 bg-stone6 p-3 enabled:hover:border-orange disabled:opacity-75 ..."
