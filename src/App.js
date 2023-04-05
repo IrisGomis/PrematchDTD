@@ -5,7 +5,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import MolTableEvent from './components/molecule/MolTableEvent';
 import MolFormEvent from './components/molecule/MolFormEvent';
 import MolFormEventEdit from './components/molecule/MolFormEventEdit';
-import Update from './components/molecule/Update';
+// import Update from './components/molecule/Update';
 
 
 function App() {
@@ -13,7 +13,7 @@ function App() {
     <div className="App">
       <div className="App-header">
        <Router>
-        <Update/>
+        {/* <Update/> */}
         <Routes>
         <Route path="/" element={<MolFormEvent />} />
         <Route path="/table" element={<MolTableEvent />} />
