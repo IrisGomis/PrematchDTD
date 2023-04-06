@@ -2,9 +2,9 @@ import React from 'react';
 import './App.css';
 import 'tailwindcss/tailwind.css';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import MolTableEvent from './components/molecule/MolTableEvent';
-import MolFormEvent from './components/molecule/MolFormEvent';
-import MolFormEventEdit from './components/molecule/MolFormEventEdit';
+import MolTableEvent from './components/molecule/mol-event/MolTableEvent';
+import MolFormEvent from './components/molecule/mol-event/MolFormEvent';
+import MolFormEventEdit from './components/molecule/mol-event/MolFormEventEdit';
 import Layout from './components/layout/Layout';
 
 function App() {
