@@ -45,17 +45,17 @@ const Edit = () => {
 
   return (
     <>
-      <div className="bg-stone6 w-full max-w-screen-lg rounded-xl p-20 m-20">
+    <div className="bg-stone6 w-full max-w-screen-lg rounded-xl p-20 m-20">
         <h2 className="text-xl font-semibold leading-7 text-white">
           Editar evento
         </h2>
-
+        
         <form onSubmit={handleSubmit}>
           <div className="mt-10 my-6 space-y-8 border-b border-orange pb-12 sm:space-y-0 sm:divide-y sm:divide-orange sm:border-t sm:pb-0">
             <div className="flex justify-between text-sm">
               <label className="mr-10 p-3">Evento</label>
               <input
-                className="w-1/2 bg-stone6 p-3 enabled:hover:border-orange disabled:opacity-75 ..."
+                className="w-1/2 bg-stone3 p-3 enabled:hover:border-orange disabled:opacity-75 ..."
                 required
                 type="text"
                 placeholder="Entre el Nombre"
@@ -69,7 +69,7 @@ const Edit = () => {
             <div className="flex justify-between text-sm">
               <label className="mr-10 p-3">Fecha</label>
               <input
-                className="w-1/2 bg-stone6 p-3 enabled:hover:border-orange disabled:opacity-75 ..."
+                className="w-1/2 bg-stone3 p-3 enabled:hover:border-orange disabled:opacity-75 ..."
                 required
                 type="text"
                 placeholder="Entre la Fecha"
@@ -83,7 +83,7 @@ const Edit = () => {
         <div  className="flex justify-between text-sm">
           <label className='mr-10 p-3'>Enlace de la reunión</label>
           <input
-          className="w-1/2 bg-stone6 p-3 enabled:hover:border-orange disabled:opacity-75 ..."
+            className="w-1/2 bg-stone3 p-3 enabled:hover:border-orange disabled:opacity-75 ..."
             required
             type="text"
             placeholder="Entre la URL"
@@ -97,7 +97,7 @@ const Edit = () => {
         <div  className="flex justify-between text-sm">
           <label className='mr-10 p-3'>Maximo</label>
           <input
-            className="w-1/2 bg-stone6 p-3 enabled:hover:border-orange disabled:opacity-75 ..."
+            className="w-1/2 bg-stone3 p-3 enabled:hover:border-orange disabled:opacity-75 ..."
             required
             type="text"
             placeholder="Entre el Máximo"
@@ -111,7 +111,7 @@ const Edit = () => {
         <div  className="flex justify-between text-sm">
           <label className='mr-10 p-3'>Minimo</label>
           <input
-            className="w-1/2 bg-stone6 p-3 enabled:hover:border-orange disabled:opacity-75 ..."
+            className="w-1/2 bg-stone3 p-3 enabled:hover:border-orange disabled:opacity-75 ..."
             required
             type="text"
             placeholder="Entre el Mínimo"

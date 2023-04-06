@@ -1,47 +1,46 @@
-import React, { useState, useEffect } from 'react';
 import axios from "axios";
+import React, { useState, useEffect } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 
-const API_URL = "http://127.0.0.1:8000";
+const API_URL = "http://127.0.0.1:8000/api/";
 
-function MolFormEventEdit() {
+const Edit = () => {
   const [name, setName] = useState("");
   const [date, setDate] = useState("");
   const [url, setUrl] = useState("");
-  const [min, setMin] = useState("");
   const [max, setMax] = useState("");
-  const [event_id, setEventId] = useState(1);
+  const [min, setMin] = useState("");
+  const navigate = useNavigate();
+  const { id } = useParams();
 
-  useEffect(() => {
-    axios.get(`${API_URL}/api/events/${event_id}`).then((response) => {
-      const eventData = response.data.event;
-      setName(eventData.name);
-      setDate(eventData.date);
-      setUrl(eventData.url);
-      setMin(eventData.min);
-      setMax(eventData.max);
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    await axios.put(`${API_URL}events/${id}`, {
+      name,
+      date,
+      url,
+      min,
+      max,
     });
-  }, [event_id]);
-
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    axios({
-      method: "PUT",
-      url: `${API_URL}/api/events/${event_id}`,
-      data: {
-        name,
-        date,
-        url,
-        min,
-        max,
-      },
-    })
-      .then((res) => console.log(res.data))
-      .catch((err) => console.log(err));
+    navigate("/");
   };
 
-  if (event_id === 0) {
-    setEventId(36);
-  }
+  useEffect(() => {
+    const getProductById = async () => {
+      const eventData = await axios.get(`${API_URL}events/${id}`);
+      setName(eventData.data.name || '');
+      setDate(eventData.data.date || '');
+      setUrl(eventData.data.url || '');
+      setMax(eventData.data.max || '');
+      setMin(eventData.data.min || '');
+      console.log(eventData);
+    };
+   
+    getProductById();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    console.log(id);
+    
+  }, [id]);
 
   return (
     <>
