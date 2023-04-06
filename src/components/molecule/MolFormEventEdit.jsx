@@ -4,7 +4,7 @@ import { useNavigate, useParams } from "react-router-dom";
 
 const API_URL = "http://127.0.0.1:8000/api/";
 
-const Edit = () => {
+const MolFormEventEdit = () => {
   const [name, setName] = useState("");
   const [date, setDate] = useState("");
   const [url, setUrl] = useState("");
@@ -52,7 +52,7 @@ const Edit = () => {
         <div className="flex justify-between text-sm">
           <label className='mr-10 p-3'>Evento</label>
           <input
-            className="w-1/2 bg-stone6 p-3 enabled:hover:border-orange disabled:opacity-75 ..."
+            className="w-1/2 bg-stone6 text-white p-3 enabled:hover:border-orange disabled:opacity-75 ..."
             required
             type="text"
             placeholder="Entre el Nombre"
