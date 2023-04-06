@@ -1,82 +1,84 @@
-import React, { useState, useEffect } from 'react';
 import axios from "axios";
+import React, { useState, useEffect } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 
-const API_URL = "http://127.0.0.1:8000";
+const API_URL = "http://127.0.0.1:8000/api/";
 
-function MolFormEventEdit() {
+const Edit = () => {
   const [name, setName] = useState("");
   const [date, setDate] = useState("");
   const [url, setUrl] = useState("");
-  const [min, setMin] = useState("");
   const [max, setMax] = useState("");
-  const [event_id, setEventId] = useState(1);
+  const [min, setMin] = useState("");
+  const navigate = useNavigate();
+  const { id } = useParams();
 
-  useEffect(() => {
-    axios.get(`${API_URL}/api/events/${event_id}`).then((response) => {
-      const eventData = response.data.event;
-      setName(eventData.name);
-      setDate(eventData.date);
-      setUrl(eventData.url);
-      setMin(eventData.min);
-      setMax(eventData.max);
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    await axios.put(`${API_URL}events/${id}`, {
+      name,
+      date,
+      url,
+      min,
+      max,
     });
-  }, [event_id]);
-
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    axios({
-      method: "PUT",
-      url: `${API_URL}/api/events/${event_id}`,
-      data: {
-        name,
-        date,
-        url,
-        min,
-        max,
-      },
-    })
-      .then((res) => console.log(res.data))
-      .catch((err) => console.log(err));
+    navigate("/");
   };
 
-  if (event_id === 0) {
-    setEventId(36);
-  }
+  useEffect(() => {
+    const getProductById = async () => {
+      const eventData = await axios.get(`${API_URL}events/${id}`);
+      setName(eventData.data.name || '');
+      setDate(eventData.data.date || '');
+      setUrl(eventData.data.url || '');
+      setMax(eventData.data.max || '');
+      setMin(eventData.data.min || '');
+      console.log(eventData);
+    };
+   
+    getProductById();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    console.log(id);
+    
+  }, [id]);
+
 
   return (
     <>
-    <div className="bg-stone6 w-full max-w-screen-lg rounded-xl p-20 m-20">
-    <h2 className="text-xl font-semibold leading-7 text-white">Editar evento</h2>
-   
-      <form onSubmit={handleSubmit}>
-      <div className="mt-10 my-6 space-y-8 border-b border-orange pb-12 sm:space-y-0 sm:divide-y sm:divide-orange sm:border-t sm:pb-0">
-        <div className="flex justify-between text-sm">
-          <label className='mr-10 p-3'>Evento</label>
-          <input
-            className="w-1/2 bg-stone6 p-3 enabled:hover:border-orange disabled:opacity-75 ..."
-            required
-            type="text"
-            placeholder="Entre el Nombre"
-            name="name"
-            id="name"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-          />
-        </div>
+      <div className="bg-stone6 w-full max-w-screen-lg rounded-xl p-20 m-20">
+        <h2 className="text-xl font-semibold leading-7 text-white">
+          Editar evento
+        </h2>
 
-        <div className="flex justify-between text-sm">
-          <label className='mr-10 p-3'>Fecha</label>
-          <input
-          className="w-1/2 bg-stone6 p-3 enabled:hover:border-orange disabled:opacity-75 ..."
-            required
-            type="text"
-            placeholder="Entre la Fecha"
-            id="date"
-            name="date"
-            value={date}
-            onChange={(e) => setDate(e.target.value)}
-          />
-        </div>
+        <form onSubmit={handleSubmit}>
+          <div className="mt-10 my-6 space-y-8 border-b border-orange pb-12 sm:space-y-0 sm:divide-y sm:divide-orange sm:border-t sm:pb-0">
+            <div className="flex justify-between text-sm">
+              <label className="mr-10 p-3">Evento</label>
+              <input
+                className="w-1/2 bg-stone6 p-3 enabled:hover:border-orange disabled:opacity-75 ..."
+                required
+                type="text"
+                placeholder="Entre el Nombre"
+                name="name"
+                id="name"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+              />
+            </div>
+
+            <div className="flex justify-between text-sm">
+              <label className="mr-10 p-3">Fecha</label>
+              <input
+                className="w-1/2 bg-stone6 p-3 enabled:hover:border-orange disabled:opacity-75 ..."
+                required
+                type="text"
+                placeholder="Entre la Fecha"
+                id="date"
+                name="date"
+                value={date}
+                onChange={(e) => setDate(e.target.value)}
+              />
+            </div>
 
         <div  className="flex justify-between text-sm">
           <label className='mr-10 p-3'>Enlace de la reunión</label>
@@ -143,4 +145,4 @@ function MolFormEventEdit() {
   );
 }
 
-export default MolFormEventEdit;
+export default Edit;
