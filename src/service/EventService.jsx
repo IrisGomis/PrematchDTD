@@ -1,6 +1,8 @@
-import axios from 'axios';
+import axios, { useContext } from 'axios';
+import { UserContext } from '../context/UserContext';
 
-const baseUrl = import.meta.env.BACKEND_URL
+// const baseUrl = import.meta.env.REACT_APP_BACKEND_URL;
+const { baseUrl } = useContext(UserContext);
 
 export const getEvento = () => {
   return axios.get(baseUrl + "/categories")
