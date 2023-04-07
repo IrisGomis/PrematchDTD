@@ -3,7 +3,7 @@ import React, { useState, Fragment } from "react";
 import { Listbox, Transition } from "@headlessui/react";
 import { CheckIcon, ChevronUpDownIcon } from "@heroicons/react/20/solid";
 
-const API_URL = "http://127.0.0.1:8000";
+const API_URL = "http://127.0.0.1:8000/api";
 
 const MolFormEvent = () => {
   const people = [
@@ -34,7 +34,7 @@ const MolFormEvent = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = { name, date, url, min, max };
-    axios.post(`${API_URL}/api/events`, data).then((response) => {
+    axios.post(`${API_URL}/events`, data).then((response) => {
       console.log(response.data);
       // limpiar los campos después de enviar la solicitud
       setState({ name: "", date: "", url: "", min: "", max: "" });

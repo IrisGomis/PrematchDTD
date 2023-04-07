@@ -2,7 +2,7 @@ import axios from "axios";
 import React, { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
-const API_URL = "http://127.0.0.1:8000/api/";
+const API_URL = "http://127.0.0.1:8000/api";
 
 const MolFormEventEdit = () => {
   const [name, setName] = useState("");
@@ -15,7 +15,7 @@ const MolFormEventEdit = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    await axios.put(`${API_URL}events/${id}`, {
+    await axios.put(`${API_URL}/events/${id}`, {
       name,
       date,
       url,
