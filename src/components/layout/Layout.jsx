@@ -7,7 +7,7 @@ function Layout({ children }) {
   return (
     <>
       <div className="flex">
-        <div className="">
+        <div>
           <Drawer />
         </div>
         <div>
