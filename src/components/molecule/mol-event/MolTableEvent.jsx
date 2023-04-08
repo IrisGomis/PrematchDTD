@@ -118,10 +118,10 @@ export default function MolTableEvent() {
                       Evento
                     </th>
                     <th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
-                      Link enlace evento
+                     Fecha
                     </th>
                     <th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
-                      Fecha
+                    Link enlace evento
                     </th>
                     <th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
                       Max-Entrevistas
@@ -163,7 +163,7 @@ export default function MolTableEvent() {
                       >
                         {e.name}
                       </td>
-                      <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{e.name}</td>
+                      {/* <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{e.name}</td> */}
                       <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{e.date}</td>
                       <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{e.url}</td>
                       <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{e.max}</td>
