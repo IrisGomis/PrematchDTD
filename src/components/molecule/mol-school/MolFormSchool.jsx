@@ -1,15 +1,13 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { createRecruiters } from "../../../service/RecruitersService";
+import { createRegions } from "../../../service/RegionsService";
 import Swal from "sweetalert2";
 
-export default function MolFormRecruitersCreate() {
+export default function MolFormRegionsCreate() {
   const [name, setName] = useState("");
-  const [charge, setCharge] = useState("");
-  const [remote, setRemote] = useState("");
-  const [email, setEmail] = useState("");
-  const [phone, setPhone] = useState("");
-  const [linkedin, setLinkedin] = useState("");
+  const [lat, setLat] = useState("");
+  const [long, setLong] = useState("");
+  const [iso, setIso] = useState("");
   const navigate = useNavigate();
 
   const handleSubmit = async (event) => {
@@ -17,13 +15,12 @@ export default function MolFormRecruitersCreate() {
     try {
       const formData = new FormData();
       formData.append("name", name);
-      formData.append("charge", charge);
-      formData.append("remote", remote);
-      formData.append("email", email);
-      formData.append("phone", phone);
-      formData.append("linkedin", linkedin);
+      formData.append("lat", lat);
+      formData.append("long", long);
+      formData.append("iso", iso);
+     
 
-      const { data } = await createRecruiters(formData);
+      const { data } = await createRegions(formData);
       console.log(data);
       Swal.fire({
         position: "center",
@@ -78,60 +75,37 @@ export default function MolFormRecruitersCreate() {
               </div>
 
               <div className="mb-6">
-                <label htmlFor="date">Cargo</label>
+                <label htmlFor="lat">Latitud</label>
                 <input
-                  type="text"
-                  title="charge"
-                  id="charge"
-                  value={charge}
-                  onChange={(event) => setCharge(event.target.value)}
+                  type="number"
+                  title="latitud"
+                  id="lat"
+                  value={lat}
+                  onChange={(event) => setLat(event.target.value)}
                   required
                 />
               </div>
               <div className="mb-6">
-                <label htmlFor="default-input">LinkedIn</label>
+                <label htmlFor="long">Longitud</label>
                 <input
-                  type="url"
-                  id="linkendin"
-                  value={linkedin}
-                  onChange={(event) => setLinkedin(event.target.value)}
+                  type="number"
+                  title="longitud"
+                  id="long"
+                  value={long}
+                  onChange={(event) => setLong(event.target.value)}
                 />
               </div>
               <div className="mb-6">
-                <label htmlFor="default-input">Email</label>
+                <label htmlFor="iso">ISO</label>
                 <input
-                  type="email"
-                  id="email"
-                  value={email}
-                  onChange={(event) => setEmail(event.target.value)}
+                  type="number"
+                  id="iso"
+                  value={iso}
+                  onChange={(event) => setIso(event.target.value)}
                   required
                 />
               </div>
-              <div className="mb-6">
-                <label
-                  htmlFor="default-input"
-                  className="block mb-2 text-base font-semibold text-gray-900 dark:text-slate-900"
-                >
-                  Teléfono
-                </label>
-                <input
-                  type="phone"
-                  id="phone"
-                  value={phone}
-                  onChange={(event) => setPhone(event.target.value)}
-                />
-              </div>
-              <div className="mb-6">
-                <label htmlFor="url">Remote</label>
-                <input
-                  type='checkbox'
-                  id="remote"
-                  onChange={(event) => setRemote(event.target.value)}
-                  required
-                />
-              </div>
-
-              <button type="submit">Crear evento</button>
+               <button type="submit">Crear evento</button>
             </form>
           </div>
         </div>

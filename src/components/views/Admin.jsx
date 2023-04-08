@@ -1,8 +1,9 @@
-import React from 'react'
+import React from 'react';
+import MolFormRegionsCreate from "../molecule/mol-school/MolFormSchool";
 
 const Admin = () => {
   return (
-    <div>Admin</div>
+    <div><MolFormRegionsCreate/></div>
   )
 }
 

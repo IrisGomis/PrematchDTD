@@ -1,8 +1,9 @@
-import React from 'react'
+import React from 'react';
+import FormCreateEvent from '../molecule/mol-event/FormCreateEvent';
 
 const Taks = () => {
   return (
-    <div>Tareas</div>
+    <div><FormCreateEvent/></div>
   )
 }
 
