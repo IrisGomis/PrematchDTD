@@ -16,10 +16,10 @@ export const createEvento = (data) => {
   return axios.post(baseUrl + "/events", data)
 }
 
-export const updateCategory = (id, data) => {
+export const updateEvento = (id, data) => {
   return axios.put(baseUrl + "/events/" + id, data)
 }
 
-export const deleteCategory = (id) => {
+export const deleteEvento = (id) => {
   return axios.delete(baseUrl + "/events/" + id)
 }
