@@ -8,7 +8,7 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
 }
 
-export default function MolTableEvent() {
+export default function MolTableEventShowDelete() {
   
   const checkbox = useRef();
   const [checked, setChecked] = useState(false);
@@ -92,7 +92,7 @@ export default function MolTableEvent() {
           <div className="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
             <div className="relative">
               {selectedEvent.length > 0 && (
-                <div className="block left-14 top-0 flex h-12 items-center space-x-3 sm:left-12">
+                <div className="block left-14 top-0 h-12 items-center space-x-3 sm:left-12">
                   <button
                     type="button"
                     className="inline-flex items-center rounded px-2 py-1 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 disabled:cursor-not-allowed disabled:opacity-30 disabled:hover:bg-white"
@@ -118,10 +118,10 @@ export default function MolTableEvent() {
                       Evento
                     </th>
                     <th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
-                      Link enlace evento
+                     Fecha
                     </th>
                     <th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
-                      Fecha
+                    Link enlace evento
                     </th>
                     <th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
                       Max-Entrevistas
@@ -163,14 +163,14 @@ export default function MolTableEvent() {
                       >
                         {e.name}
                       </td>
-                      <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{e.name}</td>
+                      {/* <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{e.name}</td> */}
                       <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{e.date}</td>
                       <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{e.url}</td>
                       <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{e.max}</td>
                       <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{e.min}</td>
                       <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                         <Link
-                          to={`/edit/${e.id}`}
+                          to={`/eventedit/${e.id}`}
                           className="text-indigo-600 hover:text-indigo-900"
                         >
                           Editar

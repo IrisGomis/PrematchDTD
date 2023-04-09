@@ -1,6 +1,7 @@
 import React from 'react';
 import "../css/styles.css";
 import SomosF5LogoWhite from '../../../assets/img/SomosF5LogoWhite.png';
+import { Link } from 'react-router-dom';
 import {
   CalendarIcon,
   ChartBarIcon,
@@ -12,29 +13,31 @@ import {
 
 const Drawer = () => {
   const navigation = [
-    { name: 'Evento', href: '#', icon: CalendarIcon, current: false },
-    { name: 'Tareas', href: '#', icon: DocumentIcon, current: false },
-    { name: 'Archivos', href: '#', icon: FolderIcon, current: false },
-    { name: 'Empresas', href: '#', icon: IdentificationIcon, current: false },
-    { name: 'Escuelas', href: '#', icon: HomeIcon, current: false },
-    { name: 'Estadísticas', href: '#', icon: ChartBarIcon, current: false },
+    { name: 'Evento', href: '/', icon: CalendarIcon, current: false },
+    { name: 'Tareas', href: 'taks', icon: DocumentIcon, current: false },
+    { name: 'Admin', href: 'admin', icon: FolderIcon, current: false },
+    { name: 'Empresas', href: 'companies', icon: IdentificationIcon, current: false },
+    { name: 'Escuelas', href: 'schools', icon: HomeIcon, current: false },
+    { name: 'Estadísticas', href: 'statistics', icon: ChartBarIcon, current: false },
   ];
-  const teams = [
-    { id: 1, name: 'Heroicons', href: '#', initial: 'H', current: false },
-    { id: 2, name: 'Tailwind Labs', href: '#', initial: 'T', current: false },
-    { id: 3, name: 'Workcation', href: '#', initial: 'W', current: false },
-  ];
+  // const teams = [
+  //   { id: 1, name: 'Heroicons', href: '#', initial: 'H', current: false },
+  //   { id: 2, name: 'Tailwind Labs', href: '#', initial: 'T', current: false },
+  //   { id: 3, name: 'Workcation', href: '#', initial: 'W', current: false },
+  // ];
   function classNames(...classes) {
     return classes.filter(Boolean).join(' ')
   }
   return (
     <div className="drawer-component flex grow flex-col gap-y-5 overflow-y-auto border-r border-gray-200 bg-orange px-6 h-screen">
       <div className="flex h-16 shrink-0 items-center">
+        <Link to="/">
         <img
           className="h-8 w-auto"
           src={SomosF5LogoWhite}
           alt="Logo de SomosF5"
         />
+        </Link>
       </div>
       <nav className="flex flex-1 flex-col">
         <ul role="list" className="flex flex-1 flex-col gap-y-7">
@@ -48,7 +51,7 @@ const Drawer = () => {
                       item.current
                         ? 'bg-gray-50 text-white'
                         : 'text-white hover:text-orangel hover:bg-stone5',
-                      'group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold text-white text-base'
+                      'group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold text-white'
                     )}
                   >
                     <item.icon
