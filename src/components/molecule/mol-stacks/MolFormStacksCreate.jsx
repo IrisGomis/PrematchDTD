@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { createLanguages } from "../../../service/LenguagesService";
+import { createStacks } from "../../../service/StacksService";
 import Swal from "sweetalert2";
 
-export default function MolFormLenguagesCreate() {
+export default function MolFormStacksCreate() {
   const [name, setName] = useState("");
   const navigate = useNavigate();
 
@@ -13,7 +13,7 @@ export default function MolFormLenguagesCreate() {
       const formData = new FormData();
       formData.append("name", name);
 
-      const { data } = await createLanguages(formData);
+      const { data } = await createStacks(formData);
       console.log(data);
       Swal.fire({
         position: "center",
@@ -23,7 +23,7 @@ export default function MolFormLenguagesCreate() {
         timer: 2000,
       });
       setTimeout(() => {
-        navigate("/lenguagescreate");
+        navigate("/stackscreate");
       }, 2000); // Delay the navigation for 2 seconds (2000 milliseconds)
     } catch (error) {
       console.log(error);
@@ -40,7 +40,7 @@ export default function MolFormLenguagesCreate() {
   return (
     <>
       <div className="bg-stone6 w-full max-w-screen-lg rounded-xl p-20 m-20">
-        <h2 className="text-2xl font-semibold leading-7 text-orange">Añadir idioma</h2>
+        <h2 className="text-2xl font-semibold leading-7 text-orange">Añadir Stack</h2>
 
         <form className="bg-stone6" onSubmit={handleSubmit}>
           <div className="mt-10 space-y-8 border-b border-orange pb-12 sm:space-y-0 sm:divide-y sm:divide-orange sm:border-t sm:pb-0">
@@ -49,7 +49,7 @@ export default function MolFormLenguagesCreate() {
                 htmlFor="first-name"
                 className="block text-sm font-medium leading-6 text-white sm:pt-1.5"
               >
-                Idioma
+                Nombre del Stack
               </label>
               <div className="mt-2 sm:col-span-2 sm:mt-0">
                 <input
@@ -69,13 +69,13 @@ export default function MolFormLenguagesCreate() {
             type="submit"
             className="text-sm my-10 px-24 py-3.5 rounded-xl bg-gradient-to-r from-orange to-orangel hover:from-verde hover:to-verdel ..."
           >
-            Añadir idioma
+            Añadir Stack
           </button>
           <button
             className="text-sm my-10 mx-10 px-24 py-3.5 rounded-xl bg-gradient-to-r from-orangel to-orange hover:from-verde hover:to-verdel ..."
             type="button"
           >
-            <a href="/stackstable">Ver idioma</a>
+            <a href="/stackstable">Ver Stacks</a>
           </button>
         </form>
       </div>
