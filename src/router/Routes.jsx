@@ -1,8 +1,8 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import MolTableEvent from '../components/molecule/mol-event/MolTableEvent';
-import MolFormEvent from '../components/molecule/mol-event/MolFormEvent';
-import MolFormEventEdit from '../components/molecule/mol-event/MolFormEventEdit';
+import MolFormEventII from '../components/molecule/mol-event/MolFormEventII';
+import MolFormEventEditII from '../components/molecule/mol-event/MolFormEventEditII';
 import Layout from '../components/layout/Layout';
 import Home from '../components/views/Home';
 import Companies from '../components/views/Companies';
@@ -17,7 +17,7 @@ function App() {
        <Router>
           <Layout>
             <Routes>
-            <Route path="/" element={<MolFormEvent />} />
+            <Route path="/" element={<MolFormEventII />} />
             <Route path="/home" element={<Home />} />
             <Route path="/admin" element={<Admin />} />
             <Route path="/taks" element={<Tareas />} />
@@ -25,7 +25,7 @@ function App() {
             <Route path="/companies" element={<Companies />} />
             <Route path="/statistics" element={<Statistics />} />
             <Route path="/table" element={<MolTableEvent />} />
-            <Route path="/edit/:id" element={<MolFormEventEdit />} />
+            <Route path="/edit/:id" element={<MolFormEventEditII />} />
             </Routes>
           </Layout>
       </Router>
