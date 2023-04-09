@@ -1,6 +1,6 @@
 import React from 'react';
 import MolFormStacksCreate from '../molecule/mol-stacks/MolFormStacksCreate';
-import MolFormLenguageCreate from '../molecule/mol-lenguages/MolFormLenguagesCreate';
+import MolFormLenguageCreate from '../molecule/mol-languages/MolFormLanguagesCreate';
 
 
 const Admin = () => {

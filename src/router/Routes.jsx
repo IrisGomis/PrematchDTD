@@ -9,9 +9,13 @@ import MolFormCodersEdit from '../components/molecule/mol-coders/MolFormCodersEd
 import MolTableCodersShowDelete from '../components/molecule/mol-coders/MolTableCodersShowDelete';
 import MolFormCodersCreate from '../components/molecule/mol-coders/MolFormCodersCreate';
 
-import MolTableStacksShowDelete from '../components/molecule/mol-stacks/MolTableStacksShowDelete';
+// import MolTableStacksShowDelete from '../components/molecule/mol-stacks/MolTableStacksShowDelete';
 import MolFormStacksCreate from '../components/molecule/mol-stacks/MolFormStacksCreate';
 import MolFormStacksEdit from '../components/molecule/mol-stacks/MolFormStacksEdit';
+
+import MolFormLanguagesCreate from '../components/molecule/mol-languages/MolFormLanguagesCreate';
+// import MolTableLanguagesDelete from '../components/molecule/mol-languages/MolTableLanguagesDelete';
+// import MolFormLanguagesEdit from '../components/molecule/mol-languages/MolFormLanguagesEdit';
 
 import Layout from '../components/layout/Layout';
 
@@ -21,6 +25,7 @@ import Statistics from '../components/views/Statistics';
 import Admin from '../components/views/Admin';
 import Tareas from '../components/views/Taks';
 import Schools from '../components/views/Schools';
+
 function App() {
   return (
     <div className="App">
@@ -45,8 +50,12 @@ function App() {
             <Route path="/coderedit/:id" element={<MolFormCodersEdit />} />
 
             <Route path="/stackscreate" element={<MolFormStacksCreate />} />
-            <Route path="/stackstable" element={<MolTableStacksShowDelete />} />
+            {/* <Route path="/stackstable" element={<MolTableStacksShowDelete />} /> */}
             <Route path="/stacksedit/:id" element={<MolFormStacksEdit />} />
+
+            <Route path="/languagescreate" element={<MolFormLanguagesCreate />} />
+            {/* <Route path="/languagestable" element={<MolTableLanguagesDelete />} />
+            <Route path="/languagesedit/:id" element={<MolFormLanguagesEdit />} /> */}
 
             </Routes>
           </Layout>

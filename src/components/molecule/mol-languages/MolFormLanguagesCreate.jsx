@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { createLanguages } from "../../../service/LenguagesService";
 import Swal from "sweetalert2";
+import { createLanguages } from "../../../service/LanguagesService";
 
-export default function MolFormLenguagesCreate() {
+
+export default function MolFormLanguagesCreate() {
   const [name, setName] = useState("");
   const navigate = useNavigate();
 
