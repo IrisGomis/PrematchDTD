@@ -8,7 +8,7 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
 }
 
-export default function MolTableEvent() {
+export default function MolTableCodersShowDelete() {
   
   const checkbox = useRef();
   const [checked, setChecked] = useState(false);
@@ -83,7 +83,7 @@ export default function MolTableEvent() {
             className="text-sm text-stone2 my-10 mx-10 px-6 py-1.5 rounded-xl bg-gradient-to-r from-orangel to-orange hover:from-verde hover:to-verdel ..."
             type="button"
           >
-            <a href="/">Crear Evento</a>
+            <a href="/codercreate">Añadir coder</a>
           </button>
         </div>
       </div>
@@ -170,7 +170,7 @@ export default function MolTableEvent() {
                       <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{e.min}</td>
                       <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                         <Link
-                          to={`/edit/${e.id}`}
+                          to={`/coderedit/${e.id}`}
                           className="text-indigo-600 hover:text-indigo-900"
                         >
                           Editar

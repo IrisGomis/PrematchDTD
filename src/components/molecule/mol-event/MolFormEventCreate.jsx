@@ -5,7 +5,7 @@ import Swal from "sweetalert2";
 import { Listbox, Transition } from "@headlessui/react";
 import { CheckIcon, ChevronUpDownIcon } from "@heroicons/react/20/solid";
 
-const MolFormEvent = () => {
+const MolFormEventCreate = () => {
   const people = [
     { id: 1, name: "Wade Cooper" },
     { id: 2, name: "Arlene Mccoy" },
@@ -259,7 +259,7 @@ const MolFormEvent = () => {
             className="text-sm my-10 mx-10 px-24 py-3.5 rounded-xl bg-gradient-to-r from-orangel to-orange hover:from-verde hover:to-verdel ..."
             type="button"
           >
-            <a href="/table">Ver Evento</a>
+            <a href="/eventtable">Ver Evento</a>
           </button>
         </form>
       </div>
@@ -267,4 +267,4 @@ const MolFormEvent = () => {
   );
 };
 
-export default MolFormEvent;
+export default MolFormEventCreate;

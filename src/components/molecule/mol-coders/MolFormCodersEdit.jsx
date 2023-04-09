@@ -1,11 +1,11 @@
 import React, { useState, useEffect, Fragment } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { getEventoById, updateEvento } from "../../../service/EventService";
+import { getCodersById, updateCoders } from "../../../service/CodersService";
 import Swal from "sweetalert2";
 import { Listbox, Transition } from "@headlessui/react";
 import { CheckIcon, ChevronUpDownIcon } from "@heroicons/react/20/solid";
 
-const MolFormEventEditII = ({ event }) => {
+const MolFormCodersEdit = ({ event }) => {
   const people = [
     { id: 1, name: "Wade Cooper" },
     { id: 2, name: "Arlene Mccoy" },
@@ -20,24 +20,38 @@ const MolFormEventEditII = ({ event }) => {
   ];
   const { id } = useParams();
   const navigate = useNavigate();
-
   const [selected, setSelected] = useState("");
+  const [event_id, setEventId] = useState("");
+  const [promo_id, setPromoId] = useState("");
+  const [province_id, setProvinceId] = useState("");
   const [name, setName] = useState("");
-  const [date, setDate] = useState("");
-  const [url, setUrl] = useState("");
-  const [max, setMax] = useState("");
-  const [min, setMin] = useState("");
+  const [gender, setGender] = useState("");
+  const [years, setYears] = useState("");
+  const [avaliability, setAvaliability] = useState("");
+  const [remote, setRemote] = useState("");
+  const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
+  const [linkedin, setLinkedin] = useState("");
+  const [github, setGithub] = useState("");
+
 
  
   useEffect(() => {
     const fetchEvento = async () => {
       try {
-        const { data } = await getEventoById(id);
+        const { data } = await getCodersById(id);
+        setEventId(data.event_id);
+        setPromoId(data.promo_id);
+        setProvinceId(data.province_id);
         setName(data.name);
-        setDate(data.date);
-        setUrl(data.url);
-        setMax(data.max);
-        setMin(data.min);
+        setGender(data.gender);
+        setYears(data.years);
+        setAvaliability(data.avaliability);
+        setRemote(data.remote);
+        setEmail(data.email);
+        setPhone(data.phone);
+        setLinkedin(data.linkedin);
+        setGithub(data.github);
       } catch (error) {
         console.log(error);
       }
@@ -48,19 +62,26 @@ const MolFormEventEditII = ({ event }) => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      const eventData = {
+      const coderData = {
+        event_id,
+        promo_id,
+        province_id,
         name,
-        date,
-        url,
-        max,
-        min,
+        gender,
+        years,
+        avaliability,
+        remote,
+        email,
+        phone,
+        linkedin,
+        github
       };
 
-      await updateEvento(id, eventData);
+      await updateCoders(id, coderData);
       Swal.fire({
         position: "center",
         icon: "success",
-        title: "Tu evento se ha actualizado con éxito!",
+        title: "Tu coder se ha actualizado con éxito!",
         showConfirmButton: false,
         timer: 2000,
       });
@@ -87,72 +108,12 @@ const MolFormEventEditII = ({ event }) => {
   return (
     <>
       <div className="bg-stone6 w-full max-w-screen-lg rounded-xl p-20 m-20">
-        <h2 className="text-2xl font-semibold leading-7 text-orange">Editar Evento</h2>
+        <h2 className="text-2xl font-semibold leading-7 text-orange">Editar Coder</h2>
 
         <form className="bg-stone6" onSubmit={handleSubmit}>
           <div className="mt-10 space-y-8 border-b border-orange pb-12 sm:space-y-0 sm:divide-y sm:divide-orange sm:border-t sm:pb-0">
-            <div className="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
-              <label
-                htmlFor="first-name"
-                className="block text-sm font-medium leading-6 text-white sm:pt-1.5"
-              >
-                Nombre del Evento
-              </label>
-              <div className="mt-2 sm:col-span-2 sm:mt-0">
-                <input
-                  type="text"
-                  name="name"
-                  id="name"
-                  value={name}
-                  onChange={(event) => setName(event.target.value)}
-                  autoComplete="given-name"
-                  className="block w-full rounded-md border-0 py-1.5  text-stone6 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
-                />
-              </div>
-            </div>
 
-            <div className="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
-              <label
-                htmlFor="last-name"
-                className="block text-sm font-medium leading-6 text-white sm:pt-1.5"
-              >
-                Fecha y Hora
-              </label>
-              <div className="flex mt-2 sm:col-span-2 sm:mt-0">
-                <input
-                  type="date"
-                  name="date"
-                  id="date"
-                  value={date}
-                  onChange={(event) => setDate(event.target.value)}
-                  placeholder="Fecha"
-                  autoComplete="date"
-                  className="block w-full mr-10 rounded-md border-0 px-2 py-1.5 text-stone6 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
-                />
-              </div>
-            </div>
-
-            <div className="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
-              <label
-                htmlFor="email"
-                className="block text-sm font-medium leading-6  text-white sm:pt-1.5"
-              >
-                Enlace de la reunión
-              </label>
-              <div className="mt-2 sm:col-span-2 sm:mt-0">
-                <input
-                  id="url"
-                  name="url"
-                  type="url"
-                  value={url}
-                  onChange={(event) => setUrl(event.target.value)}
-                  autoComplete="url"
-                  className="block w-full rounded-md border-0 py-1.5  text-stone6 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-md sm:text-sm sm:leading-6"
-                />
-              </div>
-            </div>
-
-            <div className="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
+          <div className="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
               <label
                 htmlFor="country"
                 className="block text-sm font-medium leading-6  text-white sm:pt-1.5"
@@ -238,52 +199,281 @@ const MolFormEventEditII = ({ event }) => {
                 </Listbox>
               </div>
             </div>
-
             <div className="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
               <label
-                htmlFor="street-address"
-                className="block text-sm font-medium leading-6  text-white sm:pt-1.5"
+                htmlFor="event_id"
+                className="block text-sm font-medium leading-6 text-white sm:pt-1.5"
               >
-                Número de entrevistas
+               Id del evento
               </label>
-              <div className="flex mt-2 sm:col-span-2 sm:mt-0">
+              <div className="mt-2 sm:col-span-2 sm:mt-0">
                 <input
                   type="number"
-                  name="max"
-                  id="max"
-                  value={max}
-                  onChange={(event) => setMax(event.target.value)}
-                  placeholder="Maximas"
-                  className="block w-full rounded-md border-0 mr-10 py-1.5 px-2 text-stone6 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xl sm:text-sm sm:leading-6"
-                />
-                <input
-                  type="number"
-                  name="min"
-                  id="min"
-                  value={min}
-                  onChange={(event) => setMin(event.target.value)}
-                  placeholder="Mínimas"
-                  className="block w-full rounded-md border-0 py-1.5 px-2 text-stone6 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xl sm:text-sm sm:leading-6"
+                  name="event_id"
+                  id="event_id"
+                  value={event_id}
+                  onChange={(event) => setEventId(event.target.value)}
+                  autoComplete="given-name"
+                  className="block w-full rounded-md border-0 py-1.5  text-stone6 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
                 />
               </div>
             </div>
+
+            <div className="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
+              <label
+                htmlFor="promo_id"
+                className="block text-sm font-medium leading-6 text-white sm:pt-1.5"
+              >
+               Id del promoción
+              </label>
+              <div className="mt-2 sm:col-span-2 sm:mt-0">
+                <input
+                  type="number"
+                  name="promo_id"
+                  id="promo_id"
+                  value={promo_id}
+                  onChange={(event) => setPromoId(event.target.value)}
+                  autoComplete="given-name"
+                  className="block w-full rounded-md border-0 py-1.5  text-stone6 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
+                />
+              </div>
+            </div>
+
+            <div className="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
+              <label
+                htmlFor="province_id"
+                className="block text-sm font-medium leading-6 text-white sm:pt-1.5"
+              >
+               Id del provincia
+              </label>
+              <div className="mt-2 sm:col-span-2 sm:mt-0">
+                <input
+                  type="number"
+                  name="province_id"
+                  id="province_id"
+                  value={province_id}
+                  onChange={(event) => setProvinceId(event.target.value)}
+                  autoComplete="given-name"
+                  className="block w-full rounded-md border-0 py-1.5  text-stone6 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
+                />
+              </div>
+            </div>
+
+            <div className="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
+              <label
+                htmlFor="name"
+                className="block text-sm font-medium leading-6 text-white sm:pt-1.5"
+              >
+                Nombre del Coder
+              </label>
+              <div className="mt-2 sm:col-span-2 sm:mt-0">
+                <input
+                  type="text"
+                  name="name"
+                  id="name"
+                  value={name}
+                  onChange={(event) => setName(event.target.value)}
+                  autoComplete="given-name"
+                  className="block w-full rounded-md border-0 py-1.5  text-stone6 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
+                />
+              </div>
+            </div>
+
+            <div className="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
+              <label
+                htmlFor="last-name"
+                className="block text-sm font-medium leading-6 text-white sm:pt-1.5"
+              >
+                Género
+              </label>
+              <div className="flex mt-2 sm:col-span-2 sm:mt-0">
+                <input
+                  type="text"
+                  name="gender"
+                  id="gender"
+                  value={gender}
+                  onChange={(event) => setGender(event.target.value)}
+                  autoComplete="gender"
+                  className="block w-full mr-10 rounded-md border-0 px-2 py-1.5 text-stone6 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
+                />
+              </div>
+            </div>
+
+            <div className="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
+              <label
+                htmlFor="years"
+                className="block text-sm font-medium leading-6  text-white sm:pt-1.5"
+              >
+                Edad
+              </label>
+              <div className="mt-2 sm:col-span-2 sm:mt-0">
+                <input
+                  id="years"
+                  name="years"
+                  type="years"
+                  value={years}
+                  onChange={(event) => setYears(event.target.value)}
+                  autoComplete="edad"
+                  className="block w-full rounded-md border-0 py-1.5  text-stone6 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-md sm:text-sm sm:leading-6"
+                />
+              </div>
+            </div>
+              
+              <div className="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
+              <label
+                htmlFor="avaliability"
+                className="block text-sm font-medium leading-6  text-white sm:pt-1.5"
+              >
+                Habilidades
+              </label>
+               <div className="flex mt-2 sm:col-span-2 sm:mt-0">
+                <input
+                  type="text"
+                  name="avaliability"
+                  id="avaliability"
+                  value={avaliability}
+                  onChange={(event) => setAvaliability(event.target.value)}
+                  
+                  className="block w-full rounded-md border-0 mr-10 py-1.5 px-2 text-stone6 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xl sm:text-sm sm:leading-6"
+                />
+              </div>
+            </div>
+
+            <div className="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
+              <label
+                htmlFor="avaliability"
+                className="block text-sm font-medium leading-6  text-white sm:pt-1.5"
+              >
+                Habilidades
+              </label>
+               <div className="flex mt-2 sm:col-span-2 sm:mt-0">
+                <input
+                  type="text"
+                  name="avaliability"
+                  id="avaliability"
+                  value={avaliability}
+                  onChange={(event) => setAvaliability(event.target.value)}
+                  className="block w-full rounded-md border-0 mr-10 py-1.5 px-2 text-stone6 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xl sm:text-sm sm:leading-6"
+                />
+              </div>
+            </div>
+            
+            <div className="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
+              <label
+                htmlFor="remote"
+                className="block text-sm font-medium leading-6  text-white sm:pt-1.5"
+              >
+                Remoto
+              </label>
+               <div className="flex mt-2 sm:col-span-2 sm:mt-0">
+                <input
+                  type="checkbox"
+                  name="remote"
+                  id="remote"
+                  value={remote}
+                  onChange={(event) => setRemote(event.target.value)}
+                  placeholder="Maximas"
+                  className="block w-full rounded-md border-0 mr-10 py-1.5 px-1.5 text-stone6 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xl sm:text-sm sm:leading-6"
+                />
+              </div>
+            </div>
+
+            <div className="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
+              <label
+                htmlFor="email"
+                className="block text-sm font-medium leading-6  text-white sm:pt-1.5"
+              >
+                Email
+              </label>
+               <div className="flex mt-2 sm:col-span-2 sm:mt-0">
+                <input
+                  type="email"
+                  name="email"
+                  id="email"
+                  value={email}
+                  onChange={(event) => setEmail(event.target.value)}
+                  className="block w-full rounded-md border-0 mr-10 py-1.5 px-2 text-stone6 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xl sm:text-sm sm:leading-6"
+                />
+              </div>
+            </div>
+
+            <div className="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
+              <label
+                htmlFor="phone"
+                className="block text-sm font-medium leading-6  text-white sm:pt-1.5"
+              >
+                Teléfono
+              </label>
+               <div className="flex mt-2 sm:col-span-2 sm:mt-0">
+                <input
+                  type="phone"
+                  name="phone"
+                  id="phone"
+                  value={phone}
+                  onChange={(event) => setPhone(event.target.value)}
+                  className="block w-full rounded-md border-0 mr-10 py-1.5 px-2 text-stone6 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xl sm:text-sm sm:leading-6"
+                />
+              </div>
+            </div>
+
+            <div className="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
+              <label
+                htmlFor="linkedin"
+                className="block text-sm font-medium leading-6  text-white sm:pt-1.5"
+              >
+                Linkedin
+              </label>
+               <div className="flex mt-2 sm:col-span-2 sm:mt-0">
+                <input
+                  type="url"
+                  name="linkedin"
+                  id="linkedin"
+                  value={linkedin}
+                  onChange={(event) => setLinkedin(event.target.value)}
+                  className="block w-full rounded-md border-0 mr-10 py-1.5 px-2 text-stone6 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xl sm:text-sm sm:leading-6"
+                />
+              </div>
+            </div>
+
+            <div className="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
+              <label
+                htmlFor="github"
+                className="block text-sm font-medium leading-6  text-white sm:pt-1.5"
+              >
+                Github
+              </label>
+               <div className="flex mt-2 sm:col-span-2 sm:mt-0">
+                <input
+                  type="url"
+                  name="github"
+                  id="github"
+                  value={github}
+                  onChange={(event) => setGithub(event.target.value)}
+                  className="block w-full rounded-md border-0 mr-10 py-1.5 px-2 text-stone6 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xl sm:text-sm sm:leading-6"
+                />
+              </div>
+            </div>
+
           </div>
+
           <button
             type="submit"
             className="text-sm my-10 px-24 py-3.5 rounded-xl bg-gradient-to-r from-orange to-orangel hover:from-verde hover:to-verdel ..."
           >
-          Editar evento
+            Editar coder
           </button>
+
           <button
             className="text-sm my-10 mx-10 px-24 py-3.5 rounded-xl bg-gradient-to-r from-orangel to-orange hover:from-verde hover:to-verdel ..."
             type="button"
           >
-            <a href="/table">Ver Evento</a>
+            <a href="/codertable">Ver Coder</a>
           </button>
+
         </form>
       </div>
     </>
   );
 }
 
-export default MolFormEventEditII;
+export default MolFormCodersEdit;

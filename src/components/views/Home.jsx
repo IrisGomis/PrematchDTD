@@ -1,9 +1,10 @@
-import React from 'react'
+import React from 'react';
+import MolFormEventCreate from '../molecule/mol-event/MolFormEventCreate';
 
 
 const Home = () => {
   return (
-    <div>Home</div>
+    <div><MolFormEventCreate/></div>
   )
 }
 

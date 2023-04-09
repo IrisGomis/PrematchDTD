@@ -1,9 +1,16 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import MolTableEventShowDelete from '../components/molecule/mol-event/MolTableEventShowDelete';
+
+import MolTableEventShowDeletecpoy from '../components/molecule/mol-event/MolTableEventShowDeletecopy';
 import MolFormEventCreate from '../components/molecule/mol-event/MolFormEventCreate';
 import MolFormEventEdit from '../components/molecule/mol-event/MolFormEventEdit';
+
+import MolFormCodersEdit from '../components/molecule/mol-coders/MolFormCodersEdit';
+import MolTableCodersShowDelete from '../components/molecule/mol-coders/MolTableCodersShowDelete';
+import MolFormCodersCreate from '../components/molecule/mol-coders/MolFormCodersCreate';
+
 import Layout from '../components/layout/Layout';
+
 import Home from '../components/views/Home';
 import Companies from '../components/views/Companies';
 import Statistics from '../components/views/Statistics';
@@ -17,15 +24,22 @@ function App() {
        <Router>
           <Layout>
             <Routes>
-            <Route path="/" element={<MolFormEventCreate />} />
-            <Route path="/home" element={<Home />} />
+
+            <Route path="/" element={<Home />} />
             <Route path="/admin" element={<Admin />} />
             <Route path="/taks" element={<Tareas />} />
             <Route path="/schools" element={<Schools />} />
             <Route path="/companies" element={<Companies />} />
             <Route path="/statistics" element={<Statistics />} />
-            <Route path="/table" element={<MolTableEventShowDelete />} />
-            <Route path="/edit/:id" element={<MolFormEventEdit />} />
+
+            <Route path="/eventcreate" element={<MolFormEventCreate />} />
+            <Route path="/eventtable" element={<MolTableEventShowDeletecpoy />} />
+            <Route path="/eventedit/:id" element={<MolFormEventEdit />} />
+
+            <Route path="/codercreate" element={<MolFormCodersCreate />} />
+            <Route path="/codertable" element={<MolTableCodersShowDelete />} />
+            <Route path="/coderedit/:id" element={<MolFormCodersEdit />} />
+
             </Routes>
           </Layout>
       </Router>
