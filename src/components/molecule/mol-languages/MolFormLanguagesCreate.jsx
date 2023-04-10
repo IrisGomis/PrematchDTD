@@ -76,7 +76,7 @@ export default function MolFormLanguagesCreate() {
             className="text-sm my-10 mx-10 px-24 py-3.5 rounded-xl bg-gradient-to-r from-orangel to-orange hover:from-verde hover:to-verdel ..."
             type="button"
           >
-            <a href="/stackstable">Ver idioma</a>
+            <a href="/languagestable">Ver idioma</a>
           </button>
         </form>
       </div>
