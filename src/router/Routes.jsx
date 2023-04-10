@@ -9,6 +9,10 @@ import MolFormCodersEdit from '../components/molecule/mol-coders/MolFormCodersEd
 import MolTableCodersShowDelete from '../components/molecule/mol-coders/MolTableCodersShowDelete';
 import MolFormCodersCreate from '../components/molecule/mol-coders/MolFormCodersCreate';
 
+import MolTableStacksShowDelete from '../components/molecule/mol-stacks/MolTableStacksShowDelete';
+import MolFormStacksCreate from '../components/molecule/mol-stacks/MolFormStacksCreate';
+import MolFormStacksEdit from '../components/molecule/mol-stacks/MolFormStacksEdit';
+
 import Layout from '../components/layout/Layout';
 
 import Home from '../components/views/Home';
@@ -39,6 +43,10 @@ function App() {
             <Route path="/codercreate" element={<MolFormCodersCreate />} />
             <Route path="/codertable" element={<MolTableCodersShowDelete />} />
             <Route path="/coderedit/:id" element={<MolFormCodersEdit />} />
+
+            <Route path="/stackscreate" element={<MolFormStacksCreate />} />
+            <Route path="/stackstable" element={<MolTableStacksShowDelete />} />
+            <Route path="/stacksedit/:id" element={<MolFormStacksEdit />} />
 
             </Routes>
           </Layout>

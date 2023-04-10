@@ -1,8 +1,15 @@
-import React from 'react'
+import React from 'react';
+import MolFormCodersCreate from '../molecule/mol-coders/MolFormCodersCreate';
+import MolFormCodersEdit from '../molecule/mol-coders/MolFormCodersEdit';
+import MolTableCodersShowDelete from '../molecule/mol-coders/MolTableCodersShowDelete';
 
 const Schools = () => {
   return (
-    <div>Escuelas</div>
+    <div>
+      <MolFormCodersCreate/>
+      <MolFormCodersEdit/>
+      <MolTableCodersShowDelete/>
+    </div>
   )
 }
 export default Schools;
