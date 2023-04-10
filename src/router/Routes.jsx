@@ -9,6 +9,11 @@ import MolTableRegionsShowDelete from '../components/molecule/mol-regions/MolTab
 import MolFormRegionsCreate from '../components/molecule/mol-regions/MolFormRegionsCreate';
 import MolFormRegionsEdit from '../components/molecule/mol-regions/MolFormRegionsEdit';
 
+import MolTableProvincesShowDelete from '../components/molecule/mol-provinces/MolTableProvincesShowDelete';
+import MolFormProvincesCreate from '../components/molecule/mol-provinces/MolFormProvincesCreate';
+import MolFormProvincesEdit from '../components/molecule/mol-provinces/MolFormProvincesEdit';
+
+
 import MolFormCodersEdit from '../components/molecule/mol-coders/MolFormCodersEdit';
 import MolTableCodersShowDelete from '../components/molecule/mol-coders/MolTableCodersShowDelete';
 import MolFormCodersCreate from '../components/molecule/mol-coders/MolFormCodersCreate';
@@ -53,6 +58,10 @@ function App() {
             <Route path="/regioncreate" element={<MolFormRegionsCreate />} />
             <Route path="/regiontable" element={<MolTableRegionsShowDelete />} />
             <Route path="/regionedit/:id" element={<MolFormRegionsEdit />} />
+
+            <Route path="/provincecreate" element={<MolFormProvincesCreate />} />
+            <Route path="/provincetable" element={<MolTableProvincesShowDelete />} />
+            <Route path="/provincedit/:id" element={<MolFormProvincesEdit />} />
 
             <Route path="/codercreate" element={<MolFormCodersCreate />} />
             <Route path="/codertable" element={<MolTableCodersShowDelete />} />
