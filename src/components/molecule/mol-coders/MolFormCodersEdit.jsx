@@ -22,23 +22,24 @@ const MolFormCodersEdit = ({ event }) => {
   const navigate = useNavigate();
 
   //const [selected, setSelected] = useState("");
-  const [event_id, setEventId] = useState("");
-  const [promo_id, setPromoId] = useState("");
-  const [province_id, setProvinceId] = useState("");
-  const [name, setName] = useState("");
-  const [gender, setGender] = useState("");
-  const [years, setYears] = useState("");
-  const [avaliability, setAvaliability] = useState("");
-  const [remote, setRemote] = useState("");
-  const [email, setEmail] = useState("");
-  const [phone, setPhone] = useState("");
-  const [linkedin, setLinkedin] = useState("");
-  const [github, setGithub] = useState("");
+ 
+  const [event_id, setEventId] = useState(undefined);
+  const [promo_id, setPromoId] = useState(undefined);
+  const [province_id, setProvinceId] = useState(undefined);
+  const [name, setName] = useState(undefined);
+  const [gender, setGender] = useState(undefined);
+  const [years, setYears] = useState(undefined);
+  const [avaliability, setAvaliability] = useState(undefined);
+  const [remote, setRemote] = useState(undefined);
+  const [email, setEmail] = useState(undefined);
+  const [phone, setPhone] = useState(undefined);
+  const [linkedin, setLinkedin] = useState(undefined);
+  const [github, setGithub] = useState(undefined);
 
 
  
   useEffect(() => {
-    const fetchEvento = async () => {
+    const fetchCoder = async () => {
       try {
         const { data } = await getCodersById(id);
         setEventId(data.event_id);
@@ -54,14 +55,26 @@ const MolFormCodersEdit = ({ event }) => {
         setLinkedin(data.linkedin);
         setGithub(data.github);
       } catch (error) {
-        console.log(error);
+        //console.log(error);
       }
     };
-    fetchEvento();
+    fetchCoder();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id]);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    event.preventDefault();
+    if ([event_id, promo_id, province_id, name, gender, years, avaliability, remote, email, phone, linkedin, github].some((value) => value === undefined)) {
+      Swal.fire({
+        position: "center",
+        icon: "error",
+        title: "Debe completar todos los campos",
+        showConfirmButton: false,
+        timer: 2000,
+      });
+      return;
+    }
     try {
       const coderData = {
         event_id,
@@ -87,7 +100,7 @@ const MolFormCodersEdit = ({ event }) => {
         timer: 2000,
       });
       setTimeout(() => {
-        navigate("/coderedit");
+        navigate("/codercreate");
       }, 2000); // Delay the navigation for 2 seconds (2000 milliseconds)
     } catch (error) {
       console.log(error);
@@ -213,7 +226,7 @@ const MolFormCodersEdit = ({ event }) => {
                   type="number"
                   name="event_id"
                   id="event_id"
-                  value={event_id}
+                  value={event_id ?? ""}
                   onChange={(event) => setEventId(event.target.value)}
                   autoComplete="given-name"
                   className="block w-full rounded-md border-0 py-1.5  text-stone6 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
@@ -233,7 +246,7 @@ const MolFormCodersEdit = ({ event }) => {
                   type="number"
                   name="promo_id"
                   id="promo_id"
-                  value={promo_id}
+                  value={promo_id ?? ""}
                   onChange={(event) => setPromoId(event.target.value)}
                   autoComplete="given-name"
                   className="block w-full rounded-md border-0 py-1.5  text-stone6 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
@@ -253,7 +266,7 @@ const MolFormCodersEdit = ({ event }) => {
                   type="number"
                   name="province_id"
                   id="province_id"
-                  value={province_id}
+                  value={province_id ?? ""}
                   onChange={(event) => setProvinceId(event.target.value)}
                   autoComplete="given-name"
                   className="block w-full rounded-md border-0 py-1.5  text-stone6 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
@@ -273,7 +286,7 @@ const MolFormCodersEdit = ({ event }) => {
                   type="text"
                   name="name"
                   id="name"
-                  value={name}
+                  value={name ?? ""}
                   onChange={(event) => setName(event.target.value)}
                   autoComplete="given-name"
                   className="block w-full rounded-md border-0 py-1.5  text-stone6 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
@@ -293,7 +306,7 @@ const MolFormCodersEdit = ({ event }) => {
                   type="text"
                   name="gender"
                   id="gender"
-                  value={gender}
+                  value={gender ?? ""}
                   onChange={(event) => setGender(event.target.value)}
                   autoComplete="gender"
                   className="block w-full mr-10 rounded-md border-0 px-2 py-1.5 text-stone6 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
@@ -313,7 +326,7 @@ const MolFormCodersEdit = ({ event }) => {
                   id="years"
                   name="years"
                   type="years"
-                  value={years}
+                  value={years ?? ""}
                   onChange={(event) => setYears(event.target.value)}
                   autoComplete="edad"
                   className="block w-full rounded-md border-0 py-1.5  text-stone6 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-md sm:text-sm sm:leading-6"
@@ -333,7 +346,7 @@ const MolFormCodersEdit = ({ event }) => {
                   type="text"
                   name="avaliability"
                   id="avaliability"
-                  value={avaliability}
+                  value={avaliability ?? ""}
                   onChange={(event) => setAvaliability(event.target.value)}
                   
                   className="block w-full rounded-md border-0 mr-10 py-1.5 px-2 text-stone6 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xl sm:text-sm sm:leading-6"
@@ -353,7 +366,7 @@ const MolFormCodersEdit = ({ event }) => {
                   type="checkbox"
                   name="remote"
                   id="remote"
-                  value={remote}
+                  value={remote ?? ""}
                   onChange={(event) => setRemote(event.target.value)}
                   placeholder="Maximas"
                   className="block w-full rounded-md border-0 mr-10 py-1.5 px-1.5 text-stone6 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xl sm:text-sm sm:leading-6"
@@ -373,7 +386,7 @@ const MolFormCodersEdit = ({ event }) => {
                   type="email"
                   name="email"
                   id="email"
-                  value={email}
+                  value={email ?? ""}
                   onChange={(event) => setEmail(event.target.value)}
                   className="block w-full rounded-md border-0 mr-10 py-1.5 px-2 text-stone6 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xl sm:text-sm sm:leading-6"
                 />
@@ -392,7 +405,7 @@ const MolFormCodersEdit = ({ event }) => {
                   type="phone"
                   name="phone"
                   id="phone"
-                  value={phone}
+                  value={phone ?? ""}
                   onChange={(event) => setPhone(event.target.value)}
                   className="block w-full rounded-md border-0 mr-10 py-1.5 px-2 text-stone6 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xl sm:text-sm sm:leading-6"
                 />
@@ -411,7 +424,7 @@ const MolFormCodersEdit = ({ event }) => {
                   type="url"
                   name="linkedin"
                   id="linkedin"
-                  value={linkedin}
+                  value={linkedin ?? ""}
                   onChange={(event) => setLinkedin(event.target.value)}
                   className="block w-full rounded-md border-0 mr-10 py-1.5 px-2 text-stone6 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xl sm:text-sm sm:leading-6"
                 />
@@ -430,7 +443,7 @@ const MolFormCodersEdit = ({ event }) => {
                   type="url"
                   name="github"
                   id="github"
-                  value={github}
+                  value={github ?? ""}
                   onChange={(event) => setGithub(event.target.value)}
                   className="block w-full rounded-md border-0 mr-10 py-1.5 px-2 text-stone6 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xl sm:text-sm sm:leading-6"
                 />

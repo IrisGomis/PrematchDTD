@@ -26,6 +26,7 @@ const MolFormEventCreate = () => {
   const [url, setUrl] = useState("");
   const [max, setMax] = useState("");
   const [min, setMin] = useState("");
+  
   const navigate = useNavigate();
 
   const handleSubmit = async (event) => {

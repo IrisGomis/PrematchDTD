@@ -1,4 +1,4 @@
-import { getCoders, deleteCoders } from "../../../service/CodersService";
+import { getRegions, deleteRegions } from "../../../service/RegionsService";
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 
@@ -8,79 +8,79 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
 }
 
-export default function MolTableCodersShowDelete() {
+export default function MolTableRegionsShowDelete() {
   
   const checkbox = useRef();
   const [checked, setChecked] = useState(false);
   const [indeterminate, setIndeterminate] = useState(false);
-  const [selectedCoders, setSelectedCoders] = useState([]);
-  const [coders, setcoders] = useState([]);
+  const [selectedRegions, setSelectedRegions] = useState([]);
+  const [Regions, setRegions] = useState([]);
 
   useEffect(() => {
-    getCoders()
+    getRegions()
       .then((response) => {
-        setcoders(response.data);
-        setSelectedCoders(response.data);
+        setRegions(response.data);
+        setSelectedRegions(response.data);
       })
       .catch((error) => console.error(error));
   }, []);
 
   useLayoutEffect(() => {
     const isIndeterminate =
-      selectedCoders.length > 0 && selectedCoders.length < coders.length;
-    setChecked(selectedCoders.length === coders.length);
+      selectedRegions.length > 0 && selectedRegions.length < Regions.length;
+    setChecked(selectedRegions.length === Regions.length);
     setIndeterminate(isIndeterminate);
     checkbox.current.indeterminate = isIndeterminate;
-  }, [selectedCoders, coders]);
+  }, [selectedRegions, Regions]);
   
   function toggleAll() {
-    if (selectedCoders.length === 0) {
+    if (selectedRegions.length === 0) {
       return;
     }
-    setSelectedCoders(checked || indeterminate ? [] : selectedCoders)
+    setSelectedRegions(checked || indeterminate ? [] : selectedRegions)
     setChecked(!checked && !indeterminate)
     setIndeterminate(false)
   }
 
   function handleDelete() {
-    if (selectedCoders.length === 0) {
-      console.warn("No coderss selected to delete");
+    if (selectedRegions.length === 0) {
+      console.warn("No Regionss selected to delete");
       return;
     }
 
-    // Create an array of promises to delete each selected coders
-    const deletePromises = selectedCoders.map((coders) =>
-    deleteCoders(coders.id)
+    // Create an array of promises to delete each selected Regions
+    const deletePromises = selectedRegions.map((Regions) =>
+      deleteRegions(Regions.id)
     );
 
-    // Delete all coderss in parallel
+    // Delete all Regionss in parallel
     Promise.all(deletePromises)
       .then((responses) => {
-        console.log("coderss deleted successfully!");
-        // Remove all deleted coderss from the coders state
-        const deletedIds = selectedCoders.map((coders) => coders.id);
-        setcoders(coders.filter((e) => !deletedIds.includes(e.id)));
-        // Clear the selectedCoders state
-        setSelectedCoders([]);
+        console.log("Regionss deleted successfully!");
+        // Remove all deleted Regionss from the Regions state
+        const deletedIds = selectedRegions.map((Regions) => Regions.id);
+        setRegions(Regions.filter((e) => !deletedIds.includes(e.id)));
+        // Clear the selectedRegions state
+        setSelectedRegions([]);
         setChecked(false);
         setIndeterminate(false);
       })
       .catch((error) => {
-        console.error(`Error deleting coderss: ${error.message}`);
+        console.error(`Error deleting Regionss: ${error.message}`);
       });
   }
   return (
     <div className="bg-stone6 w-full max-w-screen-xl rounded-xl p-20 m-20 text-white">
       <div className="sm:flex sm:items-center">
         <div className="sm:flex-auto">
-          <h1 className="text-xl font-semibold leading-7">Lista de coders</h1>
+          <h1 className="text-xl font-semibold leading-7">Lista de Regiones</h1>
         </div>
         <div className="mt-4 sm:ml-16 sm:mt-0 sm:flex-none">
         <button
             className="text-sm text-stone2 my-10 mx-10 px-6 py-1.5 rounded-xl bg-gradient-to-r from-orangel to-orange hover:from-verde hover:to-verdel ..."
             type="button"
           >
-            <a href="/codercreate">Añadir coders</a>
+            <a href="/regioncreate">Crear Región</a>
           </button>
         </div>
       </div>
@@ -88,12 +88,12 @@ export default function MolTableCodersShowDelete() {
         <div className="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
           <div className="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
             <div className="relative">
-              {selectedCoders.length > 0 && (
+              {selectedRegions.length > 0 && (
                 <div className="block left-14 top-0 h-12 items-center space-x-3 sm:left-12">
                   <button
                     type="button"
                     className="inline-flex items-center rounded px-2 py-1 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 disabled:cursor-not-allowed disabled:opacity-30 disabled:hover:bg-white"
-                     onClick={() => handleDelete(selectedCoders[0].id)}
+                     onClick={() => handleDelete(selectedRegions[0].id)}
                   >
                     Eliminar
                   </button>
@@ -112,19 +112,16 @@ export default function MolTableCodersShowDelete() {
                       />
                     </th>
                     <th scope="col" className="min-w-[12rem] py-3.5 pr-3 text-left text-sm font-semibold text-gray-900">
-                      coderso
+                    Nombre
                     </th>
                     <th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
-                     Fecha
+                     Latitud
                     </th>
                     <th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
-                    Link enlace coderso
+                    Longitud
                     </th>
                     <th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
-                      Max-Entrevistas
-                    </th>
-                    <th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
-                      Min-Entrevistas
+                      ISO
                     </th>
                     <th scope="col" className="relative py-3.5 pl-3 pr-4 sm:pr-3">
                       <span className="sr-only">Editar</span>
@@ -132,17 +129,17 @@ export default function MolTableCodersShowDelete() {
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-gray-200 ">
-                  {coders.map((e) => (
+                  {Regions.map((e) => (
                     <tr key={e.id} className="hover:bg-gray-50">
                       <td className="px-7 py-4 whitespace-nowrap">
                         <input
                           type="checkbox"
                           name={e.id}
                           className="h-4 w-4 text-indigo-600 focus:ring-indigo-500"
-                          checked={selectedCoders.some((ev) => ev.id === e.id)}
-                          onChange={(coders) => {
-                            const isChecked = coders.target.checked;
-                            setSelectedCoders((prevState) => {
+                          checked={selectedRegions.some((ev) => ev.id === e.id)}
+                          onChange={(Regions) => {
+                            const isChecked = Regions.target.checked;
+                            setSelectedRegions((prevState) => {
                               if (isChecked) {
                                 return [...prevState, e];
                               } else {
@@ -155,19 +152,18 @@ export default function MolTableCodersShowDelete() {
                       <td
                         className={classNames(
                           'whitespace-nowrap py-4 pr-3 text-sm font-medium',
-                          selectedCoders.includes(e.id) ? 'text-indigo-600' : 'text-gray-900'
+                          selectedRegions.includes(e.id) ? 'text-indigo-600' : 'text-gray-900'
                         )}
                       >
                         {e.name}
                       </td>
                       {/* <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{e.name}</td> */}
-                      <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{e.date}</td>
-                      <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{e.url}</td>
-                      <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{e.max}</td>
-                      <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{e.min}</td>
+                      <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{e.lat}</td>
+                      <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{e.long}</td>
+                      <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{e.iso}</td>
                       <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                         <Link
-                          to={`/coderedit/${e.id}`}
+                          to={`/regionedit/${e.id}`}
                           className="text-indigo-600 hover:text-indigo-900"
                         >
                           Editar

@@ -1,9 +1,9 @@
 import React, { useState, Fragment } from "react";
 import { useNavigate } from "react-router-dom";
-import { createCoders } from "../../../service/CodersService";
 import Swal from "sweetalert2";
 import { Listbox, Transition } from "@headlessui/react";
 import { CheckIcon, ChevronUpDownIcon } from "@heroicons/react/20/solid";
+import { createCoders } from "../../../service/CodersService";
 
 const MolFormCodersCreate = () => {
 
@@ -53,7 +53,8 @@ const MolFormCodersCreate = () => {
       formData.append("linkedin", linkedin);
       formData.append("github", github);
 
-      await createCoders(formData);
+      const { data } = await createCoders(formData);
+      console.log(data);
 
       Swal.fire({
         position: "center",
@@ -92,7 +93,7 @@ const MolFormCodersCreate = () => {
 
           <div className="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
               <label
-                htmlFor="country"
+                htmlFor="coder"
                 className="block text-sm font-medium leading-6  text-white sm:pt-1.5"
               >
                 Coder
@@ -186,7 +187,7 @@ const MolFormCodersCreate = () => {
               </label>
               <div className="mt-2 sm:col-span-2 sm:mt-0">
                 <input
-                  type="number"
+                  type="text"
                   name="event_id"
                   id="event_id"
                   value={event_id}
@@ -206,7 +207,7 @@ const MolFormCodersCreate = () => {
               </label>
               <div className="mt-2 sm:col-span-2 sm:mt-0">
                 <input
-                  type="number"
+                  type="text"
                   name="promo_id"
                   id="promo_id"
                   value={promo_id}
@@ -226,7 +227,7 @@ const MolFormCodersCreate = () => {
               </label>
               <div className="mt-2 sm:col-span-2 sm:mt-0">
                 <input
-                  type="number"
+                  type="text"
                   name="province_id"
                   id="province_id"
                   value={province_id}
@@ -246,7 +247,7 @@ const MolFormCodersCreate = () => {
               </label>
               <div className="flex mt-2 sm:col-span-2 sm:mt-0">
                 <input
-                  type="name"
+                  type="text"
                   name="name"
                   id="name"
                   value={name}
@@ -343,7 +344,7 @@ const MolFormCodersCreate = () => {
               </label>
               <div className="flex mt-2 sm:col-span-2 sm:mt-0">
                 <input
-                  type="email"
+                  type="text"
                   name="email"
                   id="email"
                   value={email}
@@ -362,7 +363,7 @@ const MolFormCodersCreate = () => {
               </label>
               <div className="flex mt-2 sm:col-span-2 sm:mt-0">
                 <input
-                  type="phone"
+                  type="text"
                   name="phone"
                   id="phone"
                   value={phone}
@@ -382,7 +383,7 @@ const MolFormCodersCreate = () => {
               </label>
               <div className="flex mt-2 sm:col-span-2 sm:mt-0">
                 <input
-                  type="url"
+                  type="text"
                   name="linkedin"
                   id="linkedin"
                   value={linkedin}
@@ -401,7 +402,7 @@ const MolFormCodersCreate = () => {
               </label>
               <div className="flex mt-2 sm:col-span-2 sm:mt-0">
                 <input
-                  type="url"
+                  type="text"
                   name="github"
                   id="github"
                   value={github}

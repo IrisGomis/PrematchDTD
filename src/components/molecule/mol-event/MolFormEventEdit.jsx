@@ -22,11 +22,11 @@ const MolFormEventEdit = ({ event }) => {
   const navigate = useNavigate();
 
   const [selected, setSelected] = useState("");
-  const [name, setName] = useState("");
-  const [date, setDate] = useState("");
-  const [url, setUrl] = useState("");
-  const [max, setMax] = useState("");
-  const [min, setMin] = useState("");
+  const [name, setName] = useState(undefined);
+  const [date, setDate] = useState(undefined);
+  const [url, setUrl] = useState(undefined);
+  const [max, setMax] = useState(undefined);
+  const [min, setMin] = useState(undefined);
 
  
   useEffect(() => {
@@ -47,6 +47,16 @@ const MolFormEventEdit = ({ event }) => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    if ([name, date, url, max, min].some((value) => value === undefined)) {
+      Swal.fire({
+        position: "center",
+        icon: "error",
+        title: "Debe completar todos los campos",
+        showConfirmButton: false,
+        timer: 2000,
+      });
+      return;
+    }
     try {
       const eventData = {
         name,
@@ -104,7 +114,7 @@ const MolFormEventEdit = ({ event }) => {
                   type="text"
                   name="name"
                   id="name"
-                  value={name}
+                  value={name ?? ""}
                   onChange={(event) => setName(event.target.value)}
                   autoComplete="given-name"
                   className="block w-full rounded-md border-0 py-1.5  text-stone6 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
@@ -124,7 +134,7 @@ const MolFormEventEdit = ({ event }) => {
                   type="date"
                   name="date"
                   id="date"
-                  value={date}
+                  value={date ?? ""}
                   onChange={(event) => setDate(event.target.value)}
                   placeholder="Fecha"
                   autoComplete="date"
@@ -145,7 +155,7 @@ const MolFormEventEdit = ({ event }) => {
                   id="url"
                   name="url"
                   type="url"
-                  value={url}
+                  value={url ?? ""}
                   onChange={(event) => setUrl(event.target.value)}
                   autoComplete="url"
                   className="block w-full rounded-md border-0 py-1.5  text-stone6 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-md sm:text-sm sm:leading-6"
@@ -252,7 +262,7 @@ const MolFormEventEdit = ({ event }) => {
                   type="number"
                   name="max"
                   id="max"
-                  value={max}
+                  value={max ?? ""}
                   onChange={(event) => setMax(event.target.value)}
                   placeholder="Maximas"
                   className="block w-full rounded-md border-0 mr-10 py-1.5 px-2 text-stone6 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xl sm:text-sm sm:leading-6"
@@ -261,7 +271,7 @@ const MolFormEventEdit = ({ event }) => {
                   type="number"
                   name="min"
                   id="min"
-                  value={min}
+                  value={min ?? ""}
                   onChange={(event) => setMin(event.target.value)}
                   placeholder="Mínimas"
                   className="block w-full rounded-md border-0 py-1.5 px-2 text-stone6 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xl sm:text-sm sm:leading-6"

@@ -70,7 +70,7 @@ export default function MolTableStacksShowDelete() {
       });
   }
   return (
-    <div className="bg-stone6 w-full max-w-screen-lg rounded-xl p-20 m-20 text-white">
+    <div className="bg-stone6 w-full max-w-screen-xl rounded-xl p-20 m-20 text-white">
       <div className="sm:flex sm:items-center">
         <div className="sm:flex-auto">
           <h1 className="text-xl font-semibold leading-7">Lista de Stacks</h1>
@@ -80,7 +80,7 @@ export default function MolTableStacksShowDelete() {
             className="text-sm text-stone2 my-10 mx-10 px-6 py-1.5 rounded-xl bg-gradient-to-r from-orangel to-orange hover:from-verde hover:to-verdel ..."
             type="button"
           >
-            <a href="/">Crear Stacks</a>
+            <a href="/stackscreate">Crear Stacks</a>
           </button>
         </div>
       </div>

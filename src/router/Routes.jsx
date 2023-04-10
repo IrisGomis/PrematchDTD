@@ -5,6 +5,10 @@ import MolTableEventShowDelete from '../components/molecule/mol-event/MolTableEv
 import MolFormEventCreate from '../components/molecule/mol-event/MolFormEventCreate';
 import MolFormEventEdit from '../components/molecule/mol-event/MolFormEventEdit';
 
+import MolTableRegionsShowDelete from '../components/molecule/mol-regions/MolTableRegionsShowDelete';
+import MolFormRegionsCreate from '../components/molecule/mol-regions/MolFormRegionsCreate';
+import MolFormRegionsEdit from '../components/molecule/mol-regions/MolFormRegionsEdit';
+
 import MolFormCodersEdit from '../components/molecule/mol-coders/MolFormCodersEdit';
 import MolTableCodersShowDelete from '../components/molecule/mol-coders/MolTableCodersShowDelete';
 import MolFormCodersCreate from '../components/molecule/mol-coders/MolFormCodersCreate';
@@ -46,9 +50,13 @@ function App() {
             <Route path="/eventtable" element={<MolTableEventShowDelete />} />
             <Route path="/eventedit/:id" element={<MolFormEventEdit />} />
 
+            <Route path="/regioncreate" element={<MolFormRegionsCreate />} />
+            <Route path="/regiontable" element={<MolTableRegionsShowDelete />} />
+            <Route path="/regionedit/:id" element={<MolFormRegionsEdit />} />
+
             <Route path="/codercreate" element={<MolFormCodersCreate />} />
             <Route path="/codertable" element={<MolTableCodersShowDelete />} />
-            <Route path="/coderedit/:id, :data" element={<MolFormCodersEdit />} />
+            <Route path="/coderedit/:id" element={<MolFormCodersEdit />} />
 
             <Route path="/stackscreate" element={<MolFormStacksCreate />} />
             <Route path="/stackstable" element={<MolTableStacksShowDelete />} />
