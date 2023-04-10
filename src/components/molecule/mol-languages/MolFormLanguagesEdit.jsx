@@ -1,11 +1,11 @@
 import React, { useState, useEffect, Fragment } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { getStacksById, updateStacks } from "../../../service/StacksService";
+import { getLanguagesById, updateLanguages } from "../../../service/LanguagesService";
 import Swal from "sweetalert2";
 import { Listbox, Transition } from "@headlessui/react";
 import { CheckIcon, ChevronUpDownIcon } from "@heroicons/react/20/solid";
 
-const MolFormStacksEdit = ({ event }) => {
+const MolFormLanguagesEdit = ({ event }) => {
   const people = [
     { id: 1, name: "Wade Cooper" },
     { id: 2, name: "Arlene Mccoy" },
@@ -26,7 +26,7 @@ const MolFormStacksEdit = ({ event }) => {
   useEffect(() => {
     const fetchEvento = async () => {
       try {
-        const { data } = await getStacksById(id);
+        const { data } = await getLanguagesById(id);
         setName(data.name);
       } catch (error) {
         console.log(error);
@@ -42,23 +42,23 @@ const MolFormStacksEdit = ({ event }) => {
         name
       };
 
-      await updateStacks(id, coderData);
+      await updateLanguages(id, coderData);
       Swal.fire({
         position: "center",
         icon: "success",
-        title: "Tu coder se ha actualizado con éxito!",
+        title: "Tu idioma se ha actualizado con éxito!",
         showConfirmButton: false,
         timer: 2000,
       });
       setTimeout(() => {
-        navigate("/");
+        navigate("/languagescreate");
       }, 2000); // Delay the navigation for 2 seconds (2000 milliseconds)
     } catch (error) {
       console.log(error);
       Swal.fire({
         position: "center",
         icon: "error",
-        title: "Ha habido un problema, prueba de nuevo!",
+        title: "Ha habido un problema ¡prueba de nuevo!",
         showConfirmButton: false,
         timer: 2000,
       });
@@ -73,7 +73,7 @@ const MolFormStacksEdit = ({ event }) => {
   return (
     <>
       <div className="bg-stone6 w-full max-w-screen-lg rounded-xl p-20 m-20">
-        <h2 className="text-2xl font-semibold leading-7 text-orange">Editar Coder</h2>
+        <h2 className="text-2xl font-semibold leading-7 text-orange">Editar idioma</h2>
 
         <form className="bg-stone6" onSubmit={handleSubmit}>
           <div className="mt-10 space-y-8 border-b border-orange pb-12 sm:space-y-0 sm:divide-y sm:divide-orange sm:border-t sm:pb-0">
@@ -83,7 +83,7 @@ const MolFormStacksEdit = ({ event }) => {
                 htmlFor="country"
                 className="block text-sm font-medium leading-6  text-white sm:pt-1.5"
               >
-                Stacks
+                Idiomas
               </label>
               <div className="mt-2 sm:col-span-2 sm:mt-0">
                 <Listbox value={selected} onChange={setSelected}>
@@ -172,7 +172,7 @@ const MolFormStacksEdit = ({ event }) => {
                 htmlFor="name"
                 className="block text-sm font-medium leading-6 text-white sm:pt-1.5"
               >
-                Nombre del stack
+                Nombre del idioma
               </label>
               <div className="mt-2 sm:col-span-2 sm:mt-0">
                 <input
@@ -191,14 +191,14 @@ const MolFormStacksEdit = ({ event }) => {
             type="submit"
             className="text-sm my-10 px-24 py-3.5 rounded-xl bg-gradient-to-r from-orange to-orangel hover:from-verde hover:to-verdel ..."
           >
-            Editar stack
+            Editar idioma
           </button>
 
           <button
             className="text-sm my-10 mx-10 px-24 py-3.5 rounded-xl bg-gradient-to-r from-orangel to-orange hover:from-verde hover:to-verdel ..."
             type="button"
           >
-            <a href="/codertable">Ver Stack</a>
+            <a href="/languagestable">Ver idiomas</a>
           </button>
 
         </form>
@@ -207,4 +207,4 @@ const MolFormStacksEdit = ({ event }) => {
   );
 }
 
-export default MolFormStacksEdit;
+export default MolFormLanguagesEdit;
