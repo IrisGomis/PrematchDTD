@@ -42,7 +42,7 @@ function App() {
 
             <Route path="/codercreate" element={<MolFormCodersCreate />} />
             <Route path="/codertable" element={<MolTableCodersShowDelete />} />
-            <Route path="/coderedit/:id" element={<MolFormCodersEdit />} />
+            <Route path="/coderedit/:id, :data" element={<MolFormCodersEdit />} />
 
             <Route path="/stackscreate" element={<MolFormStacksCreate />} />
             <Route path="/stackstable" element={<MolTableStacksShowDelete />} />

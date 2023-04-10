@@ -2,10 +2,25 @@ import React, { useState, Fragment } from "react";
 import { useNavigate } from "react-router-dom";
 import { createCoders } from "../../../service/CodersService";
 import Swal from "sweetalert2";
-// import { Listbox, Transition } from "@headlessui/react";
-// import { CheckIcon, ChevronUpDownIcon } from "@heroicons/react/20/solid";
+import { Listbox, Transition } from "@headlessui/react";
+import { CheckIcon, ChevronUpDownIcon } from "@heroicons/react/20/solid";
 
-const MolFormCoderCreate = () => {
+const MolFormCodersCreate = () => {
+
+   const people = [
+    { id: 1, name: "Wade Cooper" },
+    { id: 2, name: "Arlene Mccoy" },
+    { id: 3, name: "Devon Webb" },
+    { id: 4, name: "Tom Cook" },
+    { id: 5, name: "Tanya Fox" },
+    { id: 6, name: "Hellen Schmidt" },
+    { id: 7, name: "Caroline Schultz" },
+    { id: 8, name: "Mason Heaney" },
+    { id: 9, name: "Claudie Smitham" },
+    { id: 10, name: "Emil Schaefer" },
+  ];
+
+  const [selected, setSelected] = useState(people[3]);
   const [event_id, setEventId] = useState("");
   const [promo_id, setPromoId] = useState("");
   const [province_id, setProvinceId] = useState("");
@@ -63,33 +78,34 @@ const MolFormCoderCreate = () => {
     }
   };
 
-  // function classNames(...classes) {
-  //   return classes.filter(Boolean).join(" ");
-  // } 
+  function classNames(...classes) {
+    return classes.filter(Boolean).join(" ");
+  } 
 
   return (
     <>
       <div className="bg-stone6 w-full max-w-screen-lg rounded-xl p-20 m-20">
-        <h2 className="text-2xl font-semibold leading-7 text-orange">Añadir Coder</h2>
+        <h2 className="text-2xl font-semibold leading-7 text-orange">Añadir coder</h2>
 
         <form className="bg-stone6" onSubmit={handleSubmit}>
           <div className="mt-10 space-y-8 border-b border-orange pb-12 sm:space-y-0 sm:divide-y sm:divide-orange sm:border-t sm:pb-0">
-          {/* <div className="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
+
+          <div className="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
               <label
                 htmlFor="country"
                 className="block text-sm font-medium leading-6  text-white sm:pt-1.5"
               >
-               Evento
+                Coder
               </label>
               <div className="mt-2 sm:col-span-2 sm:mt-0">
-                <Listbox value={event_id} onChange={setEventId}>
+                <Listbox value={selected} onChange={setSelected}>
                   {({ open }) => (
                     <>
                       
                       <div className="relative mt-2">
                         <Listbox.Button className="relative w-full cursor-default rounded-md py-1.5 pl-3 pr-10 text-left bg-white shadow-sm ring-1 ring-inset ring-orange focus:outline-none focus:ring-2 focus:ring-orangel sm:text-sm sm:leading-6">
                           <span className="block truncate">
-                            {event_id.name}
+                            {selected.name}
                           </span>
                           <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
                             <ChevronUpDownIcon
@@ -107,9 +123,9 @@ const MolFormCoderCreate = () => {
                           leaveTo="opacity-0"
                         >
                           <Listbox.Options className="absolute bg-stone5 z-10 mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
-                            {event_id.map((e) => (
+                            {people.map((person) => (
                               <Listbox.Option
-                                key={event_id}
+                                key={person.id}
                                 className={({ active }) =>
                                   classNames(
                                     active
@@ -118,22 +134,22 @@ const MolFormCoderCreate = () => {
                                     "relative cursor-default select-none py-2 pl-3 pr-9"
                                   )
                                 }
-                                value={e}
+                                value={person}
                               >
                                 {({ selected, active }) => (
                                   <>
                                     <span
                                       className={classNames(
-                                        event_id
+                                        selected
                                           ? "font-semibold"
                                           : "font-normal",
                                         "block truncate"
                                       )}
                                     >
-                                      {event_id.name}
+                                      {person.name}
                                     </span>
 
-                                    {event_id ? (
+                                    {selected ? (
                                       <span
                                         className={classNames(
                                           active
@@ -159,13 +175,14 @@ const MolFormCoderCreate = () => {
                   )}
                 </Listbox>
               </div>
-            </div> */}
+            </div>
+            
             <div className="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
               <label
                 htmlFor="event_id"
                 className="block text-sm font-medium leading-6 text-white sm:pt-1.5"
               >
-               Id del evento
+                Evento
               </label>
               <div className="mt-2 sm:col-span-2 sm:mt-0">
                 <input
@@ -185,7 +202,7 @@ const MolFormCoderCreate = () => {
                 htmlFor="promo_id"
                 className="block text-sm font-medium leading-6 text-white sm:pt-1.5"
               >
-               Id del promoción
+                Promoción
               </label>
               <div className="mt-2 sm:col-span-2 sm:mt-0">
                 <input
@@ -205,7 +222,7 @@ const MolFormCoderCreate = () => {
                 htmlFor="province_id"
                 className="block text-sm font-medium leading-6 text-white sm:pt-1.5"
               >
-               Id del provincia
+                Provincia
               </label>
               <div className="mt-2 sm:col-span-2 sm:mt-0">
                 <input
@@ -225,36 +242,16 @@ const MolFormCoderCreate = () => {
                 htmlFor="name"
                 className="block text-sm font-medium leading-6 text-white sm:pt-1.5"
               >
-                Nombre del Coder
+                Nombre
               </label>
-              <div className="mt-2 sm:col-span-2 sm:mt-0">
+              <div className="flex mt-2 sm:col-span-2 sm:mt-0">
                 <input
-                  type="text"
+                  type="name"
                   name="name"
                   id="name"
                   value={name}
                   onChange={(event) => setName(event.target.value)}
-                  autoComplete="given-name"
-                  className="block w-full rounded-md border-0 py-1.5  text-stone6 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
-                />
-              </div>
-            </div>
-
-            <div className="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
-              <label
-                htmlFor="last-name"
-                className="block text-sm font-medium leading-6 text-white sm:pt-1.5"
-              >
-                Género
-              </label>
-              <div className="flex mt-2 sm:col-span-2 sm:mt-0">
-                <input
-                  type="text"
-                  name="gender"
-                  id="gender"
-                  value={gender}
-                  onChange={(event) => setGender(event.target.value)}
-                  autoComplete="gender"
+                  autoComplete="Name"
                   className="block w-full mr-10 rounded-md border-0 px-2 py-1.5 text-stone6 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
                 />
               </div>
@@ -262,39 +259,38 @@ const MolFormCoderCreate = () => {
 
             <div className="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
               <label
-                htmlFor="years"
+                htmlFor="gender"
                 className="block text-sm font-medium leading-6  text-white sm:pt-1.5"
               >
-                Edad
+                Gender
               </label>
               <div className="mt-2 sm:col-span-2 sm:mt-0">
                 <input
-                  id="years"
-                  name="years"
-                  type="years"
-                  value={years}
-                  onChange={(event) => setYears(event.target.value)}
-                  autoComplete="edad"
+                  id="gender"
+                  name="gender"
+                  type="text"
+                  value={gender}
+                  onChange={(event) => setGender(event.target.value)}
+                  autoComplete="url"
                   className="block w-full rounded-md border-0 py-1.5  text-stone6 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-md sm:text-sm sm:leading-6"
                 />
               </div>
             </div>
-              
-              <div className="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
+
+           <div className="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
               <label
-                htmlFor="avaliability"
+                htmlFor="years"
                 className="block text-sm font-medium leading-6  text-white sm:pt-1.5"
               >
-                Habilidades
+                Años
               </label>
-               <div className="flex mt-2 sm:col-span-2 sm:mt-0">
+              <div className="flex mt-2 sm:col-span-2 sm:mt-0">
                 <input
-                  type="text"
-                  name="avaliability"
-                  id="avaliability"
-                  value={avaliability}
-                  onChange={(event) => setAvaliability(event.target.value)}
-                  
+                  type="number"
+                  name="years"
+                  id="years"
+                  value={years}
+                  onChange={(event) => setYears(event.target.value)}
                   className="block w-full rounded-md border-0 mr-10 py-1.5 px-2 text-stone6 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xl sm:text-sm sm:leading-6"
                 />
               </div>
@@ -307,7 +303,7 @@ const MolFormCoderCreate = () => {
               >
                 Habilidades
               </label>
-               <div className="flex mt-2 sm:col-span-2 sm:mt-0">
+              <div className="flex mt-2 sm:col-span-2 sm:mt-0">
                 <input
                   type="text"
                   name="avaliability"
@@ -318,23 +314,22 @@ const MolFormCoderCreate = () => {
                 />
               </div>
             </div>
-            
+
             <div className="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
               <label
                 htmlFor="remote"
                 className="block text-sm font-medium leading-6  text-white sm:pt-1.5"
               >
-                Remoto
+                Remote
               </label>
-               <div className="flex mt-2 sm:col-span-2 sm:mt-0">
+              <div className="flex mt-2 sm:col-span-2 sm:mt-0">
                 <input
                   type="checkbox"
                   name="remote"
                   id="remote"
                   value={remote}
                   onChange={(event) => setRemote(event.target.value)}
-                  placeholder="Maximas"
-                  className="block w-full rounded-md border-0 mr-10 py-1.5 px-1.5 text-stone6 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xl sm:text-sm sm:leading-6"
+                  className="block w-full rounded-md border-0 mr-10 py-1.5 px-2 text-stone6 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xl sm:text-sm sm:leading-6"
                 />
               </div>
             </div>
@@ -346,7 +341,7 @@ const MolFormCoderCreate = () => {
               >
                 Email
               </label>
-               <div className="flex mt-2 sm:col-span-2 sm:mt-0">
+              <div className="flex mt-2 sm:col-span-2 sm:mt-0">
                 <input
                   type="email"
                   name="email"
@@ -365,7 +360,7 @@ const MolFormCoderCreate = () => {
               >
                 Teléfono
               </label>
-               <div className="flex mt-2 sm:col-span-2 sm:mt-0">
+              <div className="flex mt-2 sm:col-span-2 sm:mt-0">
                 <input
                   type="phone"
                   name="phone"
@@ -377,6 +372,7 @@ const MolFormCoderCreate = () => {
               </div>
             </div>
 
+            
             <div className="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
               <label
                 htmlFor="linkedin"
@@ -384,7 +380,7 @@ const MolFormCoderCreate = () => {
               >
                 Linkedin
               </label>
-               <div className="flex mt-2 sm:col-span-2 sm:mt-0">
+              <div className="flex mt-2 sm:col-span-2 sm:mt-0">
                 <input
                   type="url"
                   name="linkedin"
@@ -401,9 +397,9 @@ const MolFormCoderCreate = () => {
                 htmlFor="github"
                 className="block text-sm font-medium leading-6  text-white sm:pt-1.5"
               >
-                Github
+                GitHub
               </label>
-               <div className="flex mt-2 sm:col-span-2 sm:mt-0">
+              <div className="flex mt-2 sm:col-span-2 sm:mt-0">
                 <input
                   type="url"
                   name="github"
@@ -416,25 +412,22 @@ const MolFormCoderCreate = () => {
             </div>
 
           </div>
-
           <button
             type="submit"
             className="text-sm my-10 px-24 py-3.5 rounded-xl bg-gradient-to-r from-orange to-orangel hover:from-verde hover:to-verdel ..."
           >
             Añadir coder
           </button>
-
           <button
             className="text-sm my-10 mx-10 px-24 py-3.5 rounded-xl bg-gradient-to-r from-orangel to-orange hover:from-verde hover:to-verdel ..."
             type="button"
           >
-            <a href="/codertable">Ver Coder</a>
+            <a href="/codertable">Ver Coders</a>
           </button>
-
         </form>
       </div>
     </>
   );
 };
 
-export default MolFormCoderCreate;
+export default MolFormCodersCreate;

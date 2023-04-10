@@ -8,7 +8,7 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
 }
 
-export default function MolTablecodersShowDelete() {
+export default function MolTableCodersShowDelete() {
   
   const checkbox = useRef();
   const [checked, setChecked] = useState(false);

@@ -6,6 +6,7 @@ import { Listbox, Transition } from "@headlessui/react";
 import { CheckIcon, ChevronUpDownIcon } from "@heroicons/react/20/solid";
 
 const MolFormEventCreate = () => {
+  
   const people = [
     { id: 1, name: "Wade Cooper" },
     { id: 2, name: "Arlene Mccoy" },
@@ -18,6 +19,7 @@ const MolFormEventCreate = () => {
     { id: 9, name: "Claudie Smitham" },
     { id: 10, name: "Emil Schaefer" },
   ];
+
   const [selected, setSelected] = useState(people[3]);
   const [name, setName] = useState("");
   const [date, setDate] = useState("");

@@ -2,25 +2,26 @@ import React, { useState, useEffect, Fragment } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { getCodersById, updateCoders } from "../../../service/CodersService";
 import Swal from "sweetalert2";
-import { Listbox, Transition } from "@headlessui/react";
-import { CheckIcon, ChevronUpDownIcon } from "@heroicons/react/20/solid";
+// import { Listbox, Transition } from "@headlessui/react";
+// import { CheckIcon, ChevronUpDownIcon } from "@heroicons/react/20/solid";
 
 const MolFormCodersEdit = ({ event }) => {
-  const people = [
-    { id: 1, name: "Wade Cooper" },
-    { id: 2, name: "Arlene Mccoy" },
-    { id: 3, name: "Devon Webb" },
-    { id: 4, name: "Tom Cook" },
-    { id: 5, name: "Tanya Fox" },
-    { id: 6, name: "Hellen Schmidt" },
-    { id: 7, name: "Caroline Schultz" },
-    { id: 8, name: "Mason Heaney" },
-    { id: 9, name: "Claudie Smitham" },
-    { id: 10, name: "Emil Schaefer" },
-  ];
+  // const people = [
+  //   { id: 1, name: "Wade Cooper" },
+  //   { id: 2, name: "Arlene Mccoy" },
+  //   { id: 3, name: "Devon Webb" },
+  //   { id: 4, name: "Tom Cook" },
+  //   { id: 5, name: "Tanya Fox" },
+  //   { id: 6, name: "Hellen Schmidt" },
+  //   { id: 7, name: "Caroline Schultz" },
+  //   { id: 8, name: "Mason Heaney" },
+  //   { id: 9, name: "Claudie Smitham" },
+  //   { id: 10, name: "Emil Schaefer" },
+  // ];
   const { id } = useParams();
   const navigate = useNavigate();
-  const [selected, setSelected] = useState("");
+
+  //const [selected, setSelected] = useState("");
   const [event_id, setEventId] = useState("");
   const [promo_id, setPromoId] = useState("");
   const [province_id, setProvinceId] = useState("");
@@ -86,7 +87,7 @@ const MolFormCodersEdit = ({ event }) => {
         timer: 2000,
       });
       setTimeout(() => {
-        navigate("/");
+        navigate("/coderedit");
       }, 2000); // Delay the navigation for 2 seconds (2000 milliseconds)
     } catch (error) {
       console.log(error);
@@ -100,9 +101,9 @@ const MolFormCodersEdit = ({ event }) => {
     }
   };
 
-  function classNames(...classes) {
-    return classes.filter(Boolean).join(" ");
-  }
+  // function classNames(...classes) {
+  //   return classes.filter(Boolean).join(" ");
+  // }
 
  
   return (
@@ -113,7 +114,7 @@ const MolFormCodersEdit = ({ event }) => {
         <form className="bg-stone6" onSubmit={handleSubmit}>
           <div className="mt-10 space-y-8 border-b border-orange pb-12 sm:space-y-0 sm:divide-y sm:divide-orange sm:border-t sm:pb-0">
 
-          <div className="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
+          {/* <div className="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
               <label
                 htmlFor="country"
                 className="block text-sm font-medium leading-6  text-white sm:pt-1.5"
@@ -146,9 +147,9 @@ const MolFormCodersEdit = ({ event }) => {
                           leaveTo="opacity-0"
                         >
                           <Listbox.Options className="absolute bg-stone5 z-10 mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
-                            {people.map((person) => (
+                            {setEventId(event.target.value).map((e) => (
                               <Listbox.Option
-                                key={person.id}
+                                key={id}
                                 className={({ active }) =>
                                   classNames(
                                     active
@@ -157,7 +158,7 @@ const MolFormCodersEdit = ({ event }) => {
                                     "relative cursor-default select-none py-2 pl-3 pr-9"
                                   )
                                 }
-                                value={person}
+                                value={event_id}
                               >
                                 {({ selected, active }) => (
                                   <>
@@ -169,7 +170,7 @@ const MolFormCodersEdit = ({ event }) => {
                                         "block truncate"
                                       )}
                                     >
-                                      {person.name}
+                                      {setEventId(event.target.value)}
                                     </span>
 
                                     {selected ? (
@@ -198,7 +199,8 @@ const MolFormCodersEdit = ({ event }) => {
                   )}
                 </Listbox>
               </div>
-            </div>
+            </div> */}
+            
             <div className="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
               <label
                 htmlFor="event_id"
@@ -281,7 +283,7 @@ const MolFormCodersEdit = ({ event }) => {
 
             <div className="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
               <label
-                htmlFor="last-name"
+                htmlFor="gender"
                 className="block text-sm font-medium leading-6 text-white sm:pt-1.5"
               >
                 Género
@@ -334,25 +336,6 @@ const MolFormCodersEdit = ({ event }) => {
                   value={avaliability}
                   onChange={(event) => setAvaliability(event.target.value)}
                   
-                  className="block w-full rounded-md border-0 mr-10 py-1.5 px-2 text-stone6 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xl sm:text-sm sm:leading-6"
-                />
-              </div>
-            </div>
-
-            <div className="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
-              <label
-                htmlFor="avaliability"
-                className="block text-sm font-medium leading-6  text-white sm:pt-1.5"
-              >
-                Habilidades
-              </label>
-               <div className="flex mt-2 sm:col-span-2 sm:mt-0">
-                <input
-                  type="text"
-                  name="avaliability"
-                  id="avaliability"
-                  value={avaliability}
-                  onChange={(event) => setAvaliability(event.target.value)}
                   className="block w-full rounded-md border-0 mr-10 py-1.5 px-2 text-stone6 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xl sm:text-sm sm:leading-6"
                 />
               </div>
