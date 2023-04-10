@@ -13,6 +13,10 @@ import MolTableStacksShowDelete from '../components/molecule/mol-stacks/MolTable
 import MolFormStacksCreate from '../components/molecule/mol-stacks/MolFormStacksCreate';
 import MolFormStacksEdit from '../components/molecule/mol-stacks/MolFormStacksEdit';
 
+import MolFormLanguagesCreate from '../components/molecule/mol-languages/MolFormLanguagesCreate';
+import MolTableLanguagesShowDelete from '../components/molecule/mol-languages/MolTableLanguagesShowDelete';
+import MolFormLanguagesEdit from '../components/molecule/mol-languages/MolFormLanguagesEdit';
+
 import Layout from '../components/layout/Layout';
 
 import Home from '../components/views/Home';
@@ -21,6 +25,8 @@ import Statistics from '../components/views/Statistics';
 import Admin from '../components/views/Admin';
 import Tareas from '../components/views/Taks';
 import Schools from '../components/views/Schools';
+;
+
 function App() {
   return (
     <div className="App">
@@ -47,6 +53,10 @@ function App() {
             <Route path="/stackscreate" element={<MolFormStacksCreate />} />
             <Route path="/stackstable" element={<MolTableStacksShowDelete />} />
             <Route path="/stacksedit/:id" element={<MolFormStacksEdit />} />
+
+            <Route path="/languagescreate" element={<MolFormLanguagesCreate />} />
+            <Route path="/languagestable" element={<MolTableLanguagesShowDelete />} />
+            <Route path="/languagesedit/:id" element={<MolFormLanguagesEdit />} />
 
             </Routes>
           </Layout>
