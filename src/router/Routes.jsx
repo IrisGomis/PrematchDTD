@@ -1,13 +1,17 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
-import MolTableEventShowDeletecpoy from '../components/molecule/mol-event/MolTableEventShowDeletecopy';
+import MolTableEventShowDelete from '../components/molecule/mol-event/MolTableEventShowDelete';
 import MolFormEventCreate from '../components/molecule/mol-event/MolFormEventCreate';
 import MolFormEventEdit from '../components/molecule/mol-event/MolFormEventEdit';
 
 import MolFormCodersEdit from '../components/molecule/mol-coders/MolFormCodersEdit';
 import MolTableCodersShowDelete from '../components/molecule/mol-coders/MolTableCodersShowDelete';
 import MolFormCodersCreate from '../components/molecule/mol-coders/MolFormCodersCreate';
+
+import MolTableStacksShowDelete from '../components/molecule/mol-stacks/MolTableStacksShowDelete';
+import MolFormStacksCreate from '../components/molecule/mol-stacks/MolFormStacksCreate';
+import MolFormStacksEdit from '../components/molecule/mol-stacks/MolFormStacksEdit';
 
 import Layout from '../components/layout/Layout';
 
@@ -33,12 +37,16 @@ function App() {
             <Route path="/statistics" element={<Statistics />} />
 
             <Route path="/eventcreate" element={<MolFormEventCreate />} />
-            <Route path="/eventtable" element={<MolTableEventShowDeletecpoy />} />
+            <Route path="/eventtable" element={<MolTableEventShowDelete />} />
             <Route path="/eventedit/:id" element={<MolFormEventEdit />} />
 
             <Route path="/codercreate" element={<MolFormCodersCreate />} />
             <Route path="/codertable" element={<MolTableCodersShowDelete />} />
             <Route path="/coderedit/:id" element={<MolFormCodersEdit />} />
+
+            <Route path="/stackscreate" element={<MolFormStacksCreate />} />
+            <Route path="/stackstable" element={<MolTableStacksShowDelete />} />
+            <Route path="/stacksedit/:id" element={<MolFormStacksEdit />} />
 
             </Routes>
           </Layout>
