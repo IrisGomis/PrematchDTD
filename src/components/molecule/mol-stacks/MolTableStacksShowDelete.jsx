@@ -70,7 +70,7 @@ export default function MolTableStacksShowDelete() {
       });
   }
   return (
-    <div className="bg-stone5 text-white px-4 sm:px-6 lg:px-8">
+    <div className="bg-stone6 w-full max-w-screen-lg rounded-xl p-20 m-20 text-white">
       <div className="sm:flex sm:items-center">
         <div className="sm:flex-auto">
           <h1 className="text-xl font-semibold leading-7">Lista de Stacks</h1>
