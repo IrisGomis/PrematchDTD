@@ -1,8 +1,8 @@
-import axios from "axios";
+import { getEvento, deleteEvento } from "../../../service/EventService";
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 
-const API_BASE_URL = "http://127.0.0.1:8000/api";
+
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
@@ -17,8 +17,7 @@ export default function MolTableEventShowDelete() {
   const [event, setEvent] = useState([]);
 
   useEffect(() => {
-    axios
-      .get(`${API_BASE_URL}/events`)
+    getEvento()
       .then((response) => {
         setEvent(response.data);
         setSelectedEvent(response.data);
@@ -49,10 +48,9 @@ export default function MolTableEventShowDelete() {
       return;
     }
 
-  
     // Create an array of promises to delete each selected event
     const deletePromises = selectedEvent.map((event) =>
-      axios.delete(`${API_BASE_URL}/events/${event.id}`)
+      deleteEvento(event.id)
     );
 
     // Delete all events in parallel
@@ -71,7 +69,6 @@ export default function MolTableEventShowDelete() {
         console.error(`Error deleting events: ${error.message}`);
       });
   }
-
   return (
     <div className="bg-stone5 text-white px-4 sm:px-6 lg:px-8">
       <div className="sm:flex sm:items-center">
