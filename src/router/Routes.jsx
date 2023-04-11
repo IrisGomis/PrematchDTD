@@ -30,6 +30,10 @@ import MolFormSchoolsCreate from '../components/molecule/mol-school/MolFormSchoo
 import MolTableSchoolsShowDelete from '../components/molecule/mol-school/MolTableSchoolsShowDelete';
 import MolFormSchoolsEdit from '../components/molecule/mol-school/MolFormSchoolsEdit';
 
+import MolFormCompaniesCreate from '../components/molecule/mol-companies/MolFormCompaniesCreate';
+import MolTableCompaniesShowDelete from '../components/molecule/mol-companies/MolTableCompaniesShowDelete';
+import MolFormCompaniesEdit from '../components/molecule/mol-companies/MolFormCompaniesEdit';
+
 import Layout from '../components/layout/Layout';
 
 import Home from '../components/views/Home';
@@ -38,7 +42,7 @@ import Statistics from '../components/views/Statistics';
 import Admin from '../components/views/Admin';
 import Tareas from '../components/views/Taks';
 import Schools from '../components/views/Schools';
-;
+
 
 function App() {
   return (
@@ -82,6 +86,10 @@ function App() {
             <Route path="/schoolscreate" element={<MolFormSchoolsCreate />} />
             <Route path="/schoolstable" element={<MolTableSchoolsShowDelete />} />
             <Route path="/schoolsedit/:id" element={<MolFormSchoolsEdit />} />
+
+            <Route path="/companiescreate" element={<MolFormCompaniesCreate />} />
+            <Route path="/companiestable" element={<MolTableCompaniesShowDelete />} />
+            <Route path="/companiesedit/:id" element={<MolFormCompaniesEdit />} />
 
             </Routes>
           </Layout>

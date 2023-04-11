@@ -51,7 +51,7 @@ const MolFormCompaniesCreate = () => {
         timer: 2000,
       });
       setTimeout(() => {
-        navigate("/");
+        navigate("/companiestable");
       }, 2000); // Delay the navigation for 2 seconds (2000 milliseconds)
     } catch (error) {
       console.log(error);
@@ -75,9 +75,10 @@ const MolFormCompaniesCreate = () => {
 
         <form className="bg-stone6" onSubmit={handleSubmit}>
           <div className="mt-10 space-y-8 border-b border-orange pb-12 sm:space-y-0 sm:divide-y sm:divide-orange sm:border-t sm:pb-0">
+            
             <div className="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
               <label
-                htmlFor="first-name"
+                htmlFor="company-name"
                 className="block text-sm font-medium leading-6 text-white sm:pt-1.5"
               >
                 Nombre de la empresa
@@ -97,7 +98,7 @@ const MolFormCompaniesCreate = () => {
 
             <div className="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
               <label
-                htmlFor="first-name"
+                htmlFor="company-location"
                 className="block text-sm font-medium leading-6 text-white sm:pt-1.5"
               >
                 Ubicación de la empresa
@@ -117,7 +118,7 @@ const MolFormCompaniesCreate = () => {
 
             <div className="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
               <label
-                htmlFor="first-name"
+                htmlFor="company-email"
                 className="block text-sm font-medium leading-6 text-white sm:pt-1.5"
               >
                 Email de la empresa
@@ -137,7 +138,7 @@ const MolFormCompaniesCreate = () => {
 
             <div className="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
               <label
-                htmlFor="first-name"
+                htmlFor="comany-phone"
                 className="block text-sm font-medium leading-6 text-white sm:pt-1.5"
               >
                 Teléfono de la empresa
@@ -157,7 +158,7 @@ const MolFormCompaniesCreate = () => {
 
             <div className="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
               <label
-                htmlFor="first-name"
+                htmlFor="company-priority"
                 className="block text-sm font-medium leading-6 text-white sm:pt-1.5"
               >
                 Prioridad de la empresa
@@ -273,7 +274,7 @@ const MolFormCompaniesCreate = () => {
             className="text-sm my-10 mx-10 px-24 py-3.5 rounded-xl bg-gradient-to-r from-orangel to-orange hover:from-verde hover:to-verdel ..."
             type="button"
           >
-            <a href="/eventtable">Ver empresas</a>
+            <a href="/companiestable">Ver empresas</a>
           </button>
         </form>
       </div>
