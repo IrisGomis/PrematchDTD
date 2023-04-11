@@ -1,14 +1,13 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { createProvinces } from "../../../service/ProvincesService";
+import { createSchools } from "../../../service/SchoolsService";
 import Swal from "sweetalert2";
 
-const MolFormProvincesCreate = () => {
-  const [region_id, setRegion_id] = useState("");
+const MolFormSchoolsCreate = () => {
+  const [province_id, setProvince_id] = useState("");
   const [name, setName] = useState("");
   const [lat, setLat] = useState("");
   const [long, setLong] = useState("");
-  const [iso, setIso] = useState("");
 
   const navigate = useNavigate();
 
@@ -16,30 +15,29 @@ const MolFormProvincesCreate = () => {
     event.preventDefault();
     try {
       const formData = new FormData();
-      formData.append("region_id", region_id);
+      formData.append("province_id", province_id);
       formData.append("name", name);
       formData.append("lat", lat);
       formData.append("long", long);
-      formData.append("iso", iso);
 
-      const { data } = await createProvinces(formData);
+      const { data } = await createSchools(formData);
       console.log(data);
       Swal.fire({
         position: "center",
         icon: "success",
-        title: "Tu región se ha añadido con éxito!",
+        title: "¡Tu escuela se ha añadido con éxito!",
         showConfirmButton: false,
         timer: 2000,
       });
       setTimeout(() => {
-        navigate("/provincecreate");
+        navigate("/schoolscreate");
       }, 2000); // Delay the navigation for 2 seconds (2000 milliseconds)
     } catch (error) {
       console.log(error);
       Swal.fire({
         position: "center",
         icon: "error",
-        title: "Ha habido un problema, prueba de nuevo!",
+        title: "Ha habido un problema, ¡prueba de nuevo!",
         showConfirmButton: false,
         timer: 2000,
       });
@@ -50,7 +48,7 @@ const MolFormProvincesCreate = () => {
   return (
     <>
       <div className="bg-stone6 w-full max-w-screen-lg rounded-xl p-20 m-20">
-        <h2 className="text-2xl font-semibold leading-7 text-orange">Añadir provincia</h2>
+        <h2 className="text-2xl font-semibold leading-7 text-orange">Añadir escuela</h2>
 
         <form className="bg-stone6" onSubmit={handleSubmit}>
           <div className="mt-10 space-y-8 border-b border-orange pb-12 sm:space-y-0 sm:divide-y sm:divide-orange sm:border-t sm:pb-0">
@@ -60,15 +58,15 @@ const MolFormProvincesCreate = () => {
                 htmlFor="name"
                 className="block text-sm font-medium leading-6 text-white sm:pt-1.5"
               >
-                Región id
+                Provincia
               </label>
               <div className="mt-2 sm:col-span-2 sm:mt-0">
                 <input
                   type="number"
-                  name="region_id"
-                  id="region_id"
-                  value={region_id}
-                  onChange={(event) => setRegion_id(event.target.value)}
+                  name="province_id"
+                  id="province_id"
+                  value={province_id}
+                  onChange={(event) => setProvince_id(event.target.value)}
                   autoComplete="given-name"
                   className="block w-full rounded-md border-0 py-1.5  text-stone6 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
                 />
@@ -80,7 +78,7 @@ const MolFormProvincesCreate = () => {
                 htmlFor="name"
                 className="block text-sm font-medium leading-6 text-white sm:pt-1.5"
               >
-                Provincia
+                  Escuela
               </label>
               <div className="mt-2 sm:col-span-2 sm:mt-0">
                 <input
@@ -133,38 +131,20 @@ const MolFormProvincesCreate = () => {
                 />
               </div>
             </div>
-
-            <div className="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
-              <label
-                htmlFor="iso"
-                className="block text-sm font-medium leading-6  text-white sm:pt-1.5"
-              >
-                ISO
-              </label>
-              <div className="mt-2 sm:col-span-2 sm:mt-0">
-                <input
-                  id="iso"
-                  name="iso"
-                  type="text"
-                  value={iso}
-                  onChange={(event) => setIso(event.target.value)}
-                  className="block w-full rounded-md border-0 py-1.5  text-stone6 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-md sm:text-sm sm:leading-6"
-                />
-              </div>
-            </div>
+           
 
           </div>
           <button
             type="submit"
             className="text-sm my-10 px-24 py-3.5 rounded-xl bg-gradient-to-r from-orange to-orangel hover:from-verde hover:to-verdel ..."
           >
-            Añadir provincia
+            Añadir escuela
           </button>
           <button
             className="text-sm my-10 mx-10 px-24 py-3.5 rounded-xl bg-gradient-to-r from-orangel to-orange hover:from-verde hover:to-verdel ..."
             type="button"
           >
-            <a href="/provincetable">Ver provincia</a>
+            <a href="/schoolstable">Ver escuela</a>
           </button>
         </form>
       </div>
@@ -172,4 +152,4 @@ const MolFormProvincesCreate = () => {
   );
 };
 
-export default MolFormProvincesCreate;
+export default MolFormSchoolsCreate;
