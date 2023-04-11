@@ -263,7 +263,7 @@ const MolFormCodersCreate = () => {
                 htmlFor="gender"
                 className="block text-sm font-medium leading-6  text-white sm:pt-1.5"
               >
-                Gender
+                Género
               </label>
               <div className="mt-2 sm:col-span-2 sm:mt-0">
                 <input
@@ -344,7 +344,7 @@ const MolFormCodersCreate = () => {
               </label>
               <div className="flex mt-2 sm:col-span-2 sm:mt-0">
                 <input
-                  type="text"
+                  type="email"
                   name="email"
                   id="email"
                   value={email}
@@ -363,7 +363,7 @@ const MolFormCodersCreate = () => {
               </label>
               <div className="flex mt-2 sm:col-span-2 sm:mt-0">
                 <input
-                  type="text"
+                  type="tel"
                   name="phone"
                   id="phone"
                   value={phone}
