@@ -1,8 +1,11 @@
 import React from 'react'
+import MolFormProvinces from '../molecule/experimentos/MolFormProvinces';
 
 const Statistics = () => {
   return (
-    <div>Estadísticas</div>
+    <div>
+      <MolFormProvinces/>
+    </div>
   )
 }
 

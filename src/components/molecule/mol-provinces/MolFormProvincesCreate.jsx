@@ -59,19 +59,19 @@ const MolFormProvincesCreate = () => {
 
           <div className="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
 
-                  <label htmlFor="event_id" className="block text-sm font-medium leading-6 text-white sm:pt-1.5">
-                    Evento
+                  <label htmlFor="region_id" className="block text-sm font-medium leading-6 text-white sm:pt-1.5">
+                    Región
                   </label>
                   <div className="mt-2 sm:col-span-2 sm:mt-0">
                     <select
-                      name="event_id"
-                      id="event_id"
+                      name="region_id"
+                      id="region_id"
                       value={region_id}
-                      onChange={(event) => setEventId(event.target.value)}
+                      onChange={(event) => setRegion_id(event.target.value)}
                       autoComplete="given-name"
                       className="block w-full rounded-md border-0 py-1.5  text-stone6 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
                     >
-                      {regionList.map((event) => (
+                      {setRegion_id.map((event) => (
                         <option key={event.region_id} value={event.region_id}>
                           {event.region_id}
                         </option>
