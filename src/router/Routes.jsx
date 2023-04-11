@@ -26,6 +26,10 @@ import MolFormLanguagesCreate from '../components/molecule/mol-languages/MolForm
 import MolTableLanguagesShowDelete from '../components/molecule/mol-languages/MolTableLanguagesShowDelete';
 import MolFormLanguagesEdit from '../components/molecule/mol-languages/MolFormLanguagesEdit';
 
+import MolFormSchoolsCreate from '../components/molecule/mol-school/MolFormSchoolsCreate';
+import MolTableSchoolsShowDelete from '../components/molecule/mol-school/MolTableSchoolsShowDelete';
+import MolFormSchoolsEdit from '../components/molecule/mol-school/MolFormSchoolsEdit';
+
 import Layout from '../components/layout/Layout';
 
 import Home from '../components/views/Home';
@@ -74,6 +78,10 @@ function App() {
             <Route path="/languagescreate" element={<MolFormLanguagesCreate />} />
             <Route path="/languagestable" element={<MolTableLanguagesShowDelete />} />
             <Route path="/languagesedit/:id" element={<MolFormLanguagesEdit />} />
+
+            <Route path="/schoolscreate" element={<MolFormSchoolsCreate />} />
+            <Route path="/schoolstable" element={<MolTableSchoolsShowDelete />} />
+            <Route path="/schoolsedit/:id" element={<MolFormSchoolsEdit />} />
 
             </Routes>
           </Layout>
