@@ -20,6 +20,7 @@ const MolFormCodersCreate = () => {
     { id: 10, name: "Emil Schaefer" },
   ];
 
+
   const [selected, setSelected] = useState(people[3]);
   const [event_id, setEventId] = useState("");
   const [promo_id, setPromoId] = useState("");
@@ -79,6 +80,7 @@ const MolFormCodersCreate = () => {
     }
   };
 
+  
   function classNames(...classes) {
     return classes.filter(Boolean).join(" ");
   } 
@@ -179,15 +181,26 @@ const MolFormCodersCreate = () => {
             </div>
             
             <div className="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
-              <label
+            <div>
+              <label htmlFor="event_id"
+              className="block text-sm font-medium leading-6 text-white sm:pt-1.5">Evento</label>
+              <select id="event_id" name="event_id"  value={event_id}  onChange={(event) => setEventId(event.target.value)}>
+                <option value="">Selecciona un evento</option>
+                {setEventId(event.target.value).map(event => (
+                  <option key={event_id} value={event_id}>
+                    {event.nombre}
+                  </option>
+                ))}
+              </select>
+             </div>
+              {/* <label
                 htmlFor="event_id"
                 className="block text-sm font-medium leading-6 text-white sm:pt-1.5"
               >
                 Evento
               </label>
               <div className="mt-2 sm:col-span-2 sm:mt-0">
-                <input
-                  type="text"
+                <select
                   name="event_id"
                   id="event_id"
                   value={event_id}
@@ -195,7 +208,7 @@ const MolFormCodersCreate = () => {
                   autoComplete="given-name"
                   className="block w-full rounded-md border-0 py-1.5  text-stone6 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
                 />
-              </div>
+              </div> */}
             </div>
 
             <div className="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
