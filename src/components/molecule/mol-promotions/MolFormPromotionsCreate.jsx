@@ -58,7 +58,7 @@ const MolFormPromotionsCreate = () => {
                 htmlFor="name"
                 className="block text-sm font-medium leading-6 text-white sm:pt-1.5"
               >
-                Promoción
+                Promoción <span className="text-orange">*</span>
               </label>
               <div className="mt-2 sm:col-span-2 sm:mt-0">
                 <input
@@ -78,7 +78,7 @@ const MolFormPromotionsCreate = () => {
                 htmlFor="name"
                 className="block text-sm font-medium leading-6 text-white sm:pt-1.5"
               >
-                  Escuela
+                  Escuela <span className="text-orange">*</span>
               </label>
               <div className="mt-2 sm:col-span-2 sm:mt-0">
                 <input
@@ -98,7 +98,7 @@ const MolFormPromotionsCreate = () => {
                 htmlFor="lat"
                 className="block text-sm font-medium leading-6 text-white sm:pt-1.5"
               >
-                Nickname
+                Nickname <span className="text-orange">*</span>
               </label>
 
               <div className="mt-2 sm:col-span-2 sm:mt-0">
@@ -119,7 +119,7 @@ const MolFormPromotionsCreate = () => {
                 htmlFor="long"
                 className="block text-sm font-medium leading-6  text-white sm:pt-1.5"
               >
-                Nº coders
+                Nº coders <span className="text-orange">*</span>
               </label>
               <div className="mt-2 sm:col-span-2 sm:mt-0">
                 <input

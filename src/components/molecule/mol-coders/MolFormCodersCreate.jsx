@@ -96,7 +96,7 @@ const MolFormCodersCreate = () => {
                 htmlFor="coder"
                 className="block text-sm font-medium leading-6  text-white sm:pt-1.5"
               >
-                Coder
+                Coder <span className="text-orange">*</span>
               </label>
               <div className="mt-2 sm:col-span-2 sm:mt-0">
                 <Listbox value={selected} onChange={setSelected}>
@@ -183,7 +183,7 @@ const MolFormCodersCreate = () => {
                 htmlFor="event_id"
                 className="block text-sm font-medium leading-6 text-white sm:pt-1.5"
               >
-                Evento
+                Evento <span className="text-orange">*</span>
               </label>
               <div className="mt-2 sm:col-span-2 sm:mt-0">
                 <input
@@ -203,7 +203,7 @@ const MolFormCodersCreate = () => {
                 htmlFor="promo_id"
                 className="block text-sm font-medium leading-6 text-white sm:pt-1.5"
               >
-                Promoción
+                Promoción <span className="text-orange">*</span>
               </label>
               <div className="mt-2 sm:col-span-2 sm:mt-0">
                 <input
@@ -223,7 +223,7 @@ const MolFormCodersCreate = () => {
                 htmlFor="province_id"
                 className="block text-sm font-medium leading-6 text-white sm:pt-1.5"
               >
-                Provincia
+                Provincia <span className="text-orange">*</span>
               </label>
               <div className="mt-2 sm:col-span-2 sm:mt-0">
                 <input
@@ -243,7 +243,7 @@ const MolFormCodersCreate = () => {
                 htmlFor="name"
                 className="block text-sm font-medium leading-6 text-white sm:pt-1.5"
               >
-                Nombre
+                Nombre <span className="text-orange">*</span>
               </label>
               <div className="flex mt-2 sm:col-span-2 sm:mt-0">
                 <input
@@ -263,7 +263,7 @@ const MolFormCodersCreate = () => {
                 htmlFor="gender"
                 className="block text-sm font-medium leading-6  text-white sm:pt-1.5"
               >
-                Género
+                Género <span className="text-orange">*</span>
               </label>
               <div className="mt-2 sm:col-span-2 sm:mt-0">
                 <input
@@ -283,7 +283,7 @@ const MolFormCodersCreate = () => {
                 htmlFor="years"
                 className="block text-sm font-medium leading-6  text-white sm:pt-1.5"
               >
-                Años
+                Años <span className="text-orange">*</span>
               </label>
               <div className="flex mt-2 sm:col-span-2 sm:mt-0">
                 <input
@@ -302,7 +302,7 @@ const MolFormCodersCreate = () => {
                 htmlFor="avaliability"
                 className="block text-sm font-medium leading-6  text-white sm:pt-1.5"
               >
-                Habilidades
+                Habilidades <span className="text-orange">*</span>
               </label>
               <div className="flex mt-2 sm:col-span-2 sm:mt-0">
                 <input
@@ -321,7 +321,7 @@ const MolFormCodersCreate = () => {
                 htmlFor="remote"
                 className="block text-sm font-medium leading-6  text-white sm:pt-1.5"
               >
-                Remote
+                Remote <span className="text-orange">*</span>
               </label>
               <div className="flex mt-2 sm:col-span-2 sm:mt-0">
                 <input
@@ -340,7 +340,7 @@ const MolFormCodersCreate = () => {
                 htmlFor="email"
                 className="block text-sm font-medium leading-6  text-white sm:pt-1.5"
               >
-                Email
+                Email <span className="text-orange">*</span>
               </label>
               <div className="flex mt-2 sm:col-span-2 sm:mt-0">
                 <input
@@ -359,7 +359,7 @@ const MolFormCodersCreate = () => {
                 htmlFor="phone"
                 className="block text-sm font-medium leading-6  text-white sm:pt-1.5"
               >
-                Teléfono
+                Teléfono <span className="text-orange">*</span>
               </label>
               <div className="flex mt-2 sm:col-span-2 sm:mt-0">
                 <input
@@ -379,7 +379,7 @@ const MolFormCodersCreate = () => {
                 htmlFor="linkedin"
                 className="block text-sm font-medium leading-6  text-white sm:pt-1.5"
               >
-                Linkedin
+                Linkedin <span className="text-orange">*</span>
               </label>
               <div className="flex mt-2 sm:col-span-2 sm:mt-0">
                 <input
@@ -398,7 +398,7 @@ const MolFormCodersCreate = () => {
                 htmlFor="github"
                 className="block text-sm font-medium leading-6  text-white sm:pt-1.5"
               >
-                GitHub
+                GitHub <span className="text-orange">*</span>
               </label>
               <div className="flex mt-2 sm:col-span-2 sm:mt-0">
                 <input

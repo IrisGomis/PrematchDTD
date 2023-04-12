@@ -60,7 +60,7 @@ const MolFormProvincesCreate = () => {
                 htmlFor="name"
                 className="block text-sm font-medium leading-6 text-white sm:pt-1.5"
               >
-                Región id
+                Región id <span className="text-orange">*</span>
               </label>
               <div className="mt-2 sm:col-span-2 sm:mt-0">
                 <input
@@ -80,7 +80,7 @@ const MolFormProvincesCreate = () => {
                 htmlFor="name"
                 className="block text-sm font-medium leading-6 text-white sm:pt-1.5"
               >
-                Provincia
+                Provincia <span className="text-orange">*</span>
               </label>
               <div className="mt-2 sm:col-span-2 sm:mt-0">
                 <input
@@ -100,7 +100,7 @@ const MolFormProvincesCreate = () => {
                 htmlFor="lat"
                 className="block text-sm font-medium leading-6 text-white sm:pt-1.5"
               >
-                Latitud
+                Latitud <span className="text-orange">*</span>
               </label>
 
               <div className="flex mt-2 sm:col-span-2 sm:mt-0">
@@ -120,7 +120,7 @@ const MolFormProvincesCreate = () => {
                 htmlFor="long"
                 className="block text-sm font-medium leading-6  text-white sm:pt-1.5"
               >
-                Longitud
+                Longitud <span className="text-orange">*</span>
               </label>
               <div className="mt-2 sm:col-span-2 sm:mt-0">
                 <input
@@ -139,7 +139,7 @@ const MolFormProvincesCreate = () => {
                 htmlFor="iso"
                 className="block text-sm font-medium leading-6  text-white sm:pt-1.5"
               >
-                ISO
+                ISO <span className="text-orange">*</span>
               </label>
               <div className="mt-2 sm:col-span-2 sm:mt-0">
                 <input

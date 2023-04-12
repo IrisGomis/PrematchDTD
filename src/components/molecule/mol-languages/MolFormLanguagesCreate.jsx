@@ -50,7 +50,7 @@ export default function MolFormLanguagesCreate() {
                 htmlFor="first-name"
                 className="block text-sm font-medium leading-6 text-white sm:pt-1.5"
               >
-                Idioma
+                Idioma <span className="text-orange">*</span>
               </label>
               <div className="mt-2 sm:col-span-2 sm:mt-0">
                 <input
