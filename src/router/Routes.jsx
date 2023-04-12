@@ -13,7 +13,6 @@ import MolTableProvincesShowDelete from '../components/molecule/mol-provinces/Mo
 import MolFormProvincesCreate from '../components/molecule/mol-provinces/MolFormProvincesCreate';
 import MolFormProvincesEdit from '../components/molecule/mol-provinces/MolFormProvincesEdit';
 
-
 import MolFormCodersEdit from '../components/molecule/mol-coders/MolFormCodersEdit';
 import MolTableCodersShowDelete from '../components/molecule/mol-coders/MolTableCodersShowDelete';
 import MolFormCodersCreate from '../components/molecule/mol-coders/MolFormCodersCreate';
@@ -29,6 +28,10 @@ import MolFormLanguagesEdit from '../components/molecule/mol-languages/MolFormLa
 import MolFormSchoolsCreate from '../components/molecule/mol-school/MolFormSchoolsCreate';
 import MolTableSchoolsShowDelete from '../components/molecule/mol-school/MolTableSchoolsShowDelete';
 import MolFormSchoolsEdit from '../components/molecule/mol-school/MolFormSchoolsEdit';
+
+import MolFormPromotionsCreate from '../components/molecule/mol-promotions/MolFormPromotionsCreate';
+import MolTablePromotionsShowDelete from '../components/molecule/mol-promotions/MolTablePromotionsShowDelete';
+import MolFormPromotionsEdit from '../components/molecule/mol-promotions/MolFormPromotionsEdit';
 
 import Layout from '../components/layout/Layout';
 
@@ -82,6 +85,10 @@ function App() {
             <Route path="/schoolscreate" element={<MolFormSchoolsCreate />} />
             <Route path="/schoolstable" element={<MolTableSchoolsShowDelete />} />
             <Route path="/schoolsedit/:id" element={<MolFormSchoolsEdit />} />
+
+            <Route path="/promotionscreate" element={<MolFormPromotionsCreate />} />
+            <Route path="/promotionstable" element={<MolTablePromotionsShowDelete />} />
+            <Route path="/promotionsedit/:id" element={<MolFormPromotionsEdit />} />
 
             </Routes>
           </Layout>
