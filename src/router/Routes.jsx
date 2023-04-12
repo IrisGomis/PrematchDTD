@@ -33,6 +33,10 @@ import MolFormPromotionsCreate from '../components/molecule/mol-promotions/MolFo
 import MolTablePromotionsShowDelete from '../components/molecule/mol-promotions/MolTablePromotionsShowDelete';
 import MolFormPromotionsEdit from '../components/molecule/mol-promotions/MolFormPromotionsEdit';
 
+import MolFormRecruitersCreate from '../components/molecule/mol-recruiter/MolFormRecruitersCreate';
+import MolTableRecruitersShowDelete from '../components/molecule/mol-recruiter/MolTableRecruitersShowDelete';
+import MolFormRecruitersEdit from '../components/molecule/mol-recruiter/MolFormRecruitersEdit';
+
 import Layout from '../components/layout/Layout';
 
 import Home from '../components/views/Home';
@@ -89,6 +93,10 @@ function App() {
             <Route path="/promotionscreate" element={<MolFormPromotionsCreate />} />
             <Route path="/promotionstable" element={<MolTablePromotionsShowDelete />} />
             <Route path="/promotionsedit/:id" element={<MolFormPromotionsEdit />} />
+
+            <Route path="/recruiterscreate" element={<MolFormRecruitersCreate />} />
+            <Route path="/recruiterstable" element={<MolTableRecruitersShowDelete />} />
+            <Route path="/recruitersedit/:id" element={<MolFormRecruitersEdit />} />
 
             </Routes>
           </Layout>
