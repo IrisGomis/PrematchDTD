@@ -1,10 +1,14 @@
-import React from 'react'
-import MolFormProvinces from '../molecule/experimentos/MolFormProvinces';
+import React from 'react';
+import MolFormProvincesCreatePrueba from '../molecule/experimentos/MolFormProvincesCreatePrueba';
+//import RegionesMapeo from '../molecule/experimentos/RegionesMapeo';
+
+
 
 const Statistics = () => {
   return (
     <div>
-      <MolFormProvinces/>
+     {/* <RegionesMapeo/> */}
+     <MolFormProvincesCreatePrueba/>
     </div>
   )
 }

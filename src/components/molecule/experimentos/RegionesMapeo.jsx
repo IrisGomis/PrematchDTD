@@ -1,4 +1,4 @@
-import { getCoders, deleteCoders } from "../../../service/CodersService";
+import { getRegions } from "../../../service/RegionsService";
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 
@@ -13,62 +13,62 @@ export default function MolTableCodersShowDelete() {
   const checkbox = useRef();
   const [checked, setChecked] = useState(false);
   const [indeterminate, setIndeterminate] = useState(false);
-  const [selectedCoders, setSelectedCoders] = useState([]);
-  const [coders, setcoders] = useState([]);
+  const [selectedRegions, setSelectedRegions] = useState([]);
+  const [regions, setRegions] = useState([]);
 
   useEffect(() => {
-    getCoders()
+    getRegions()
       .then((response) => {
-        setcoders(response.data);
-        setSelectedCoders(response.data);
+        setRegions(response.data);
+        setSelectedRegions(response.data);
       })
       .catch((error) => console.error(error));
   }, []);
 
   useLayoutEffect(() => {
     const isIndeterminate =
-      selectedCoders.length > 0 && selectedCoders.length < coders.length;
-    setChecked(selectedCoders.length === coders.length);
+    selectedRegions.length > 0 && selectedRegions.length < regions.length;
+    setChecked(selectedRegions.length === regions.length);
     setIndeterminate(isIndeterminate);
     checkbox.current.indeterminate = isIndeterminate;
-  }, [selectedCoders, coders]);
+  }, [selectedRegions, regions]);
   
   function toggleAll() {
-    if (selectedCoders.length === 0) {
+    if (selectedRegions.length === 0) {
       return;
     }
-    setSelectedCoders(checked || indeterminate ? [] : selectedCoders)
+    setSelectedRegions(checked || indeterminate ? [] : selectedRegions)
     setChecked(!checked && !indeterminate)
     setIndeterminate(false)
   }
 
-  function handleDelete() {
-    if (selectedCoders.length === 0) {
-      console.warn("No coders selected to delete");
-      return;
-    }
+//   function handleDelete() {
+//     if (selectedRegions.length === 0) {
+//       console.warn("No coders selected to delete");
+//       return;
+//     }
 
-    // Create an array of promises to delete each selected coders
-    const deletePromises = selectedCoders.map((coders) =>
-    deleteCoders(coders.id)
-    );
+//     // Create an array of promises to delete each selected coders
+//     const deletePromises = selectedRegions.map((coders) =>
+//     deleteCoders(regions.id)
+//     );
 
-    // Delete all coderss in parallel
-    Promise.all(deletePromises)
-      .then((responses) => {
-        console.log("coders deleted successfully!");
-        // Remove all deleted coderss from the coders state
-        const deletedIds = selectedCoders.map((coders) => coders.id);
-        setcoders(coders.filter((e) => !deletedIds.includes(e.id)));
-        // Clear the selectedCoders state
-        setSelectedCoders([]);
-        setChecked(false);
-        setIndeterminate(false);
-      })
-      .catch((error) => {
-        console.error(`Error deleting coderss: ${error.message}`);
-      });
-  }
+//     // Delete all coderss in parallel
+//     Promise.all(deletePromises)
+//       .then((responses) => {
+//         console.log("coders deleted successfully!");
+//         // Remove all deleted coderss from the coders state
+//         const deletedIds = selectedRegions.map((coders) => coders.id);
+//         setcoders(coders.filter((e) => !deletedIds.includes(e.id)));
+//         // Clear the selectedRegions state
+//         setselectedRegions([]);
+//         setChecked(false);
+//         setIndeterminate(false);
+//       })
+//       .catch((error) => {
+//         console.error(`Error deleting coderss: ${error.message}`);
+//       });
+//   }
   return (
     <div className="bg-stone6 w-full max-w-screen-xl rounded-xl p-20 m-20 text-white">
       <div className="sm:flex sm:items-center">
@@ -80,7 +80,7 @@ export default function MolTableCodersShowDelete() {
             className="text-sm text-stone2 my-10 mx-10 px-6 py-1.5 rounded-xl bg-gradient-to-r from-orangel to-orange hover:from-verde hover:to-verdel ..."
             type="button"
           >
-            <a href="/codercreate">Añadir coders</a>
+            <a href="/codercreate">Añadir provincias</a>
           </button>
         </div>
       </div>
@@ -88,17 +88,17 @@ export default function MolTableCodersShowDelete() {
         <div className="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
           <div className="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
             <div className="relative">
-              {selectedCoders.length > 0 && (
+              {/* {selectedRegions.length > 0 && (
                 <div className="block left-14 top-0 h-12 items-center space-x-3 sm:left-12">
                   <button
                     type="button"
                     className="inline-flex items-center rounded px-2 py-1 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 disabled:cursor-not-allowed disabled:opacity-30 disabled:hover:bg-white"
-                     onClick={() => handleDelete(selectedCoders[0].id)}
+                     onClick={() => handleDelete(selectedRegions[0].id)}
                   >
                     Eliminar
                   </button>
                 </div>
-              )}
+              )} */}
               <table className="min-w-full table-fixed divide-y divide-gray-300">
                 <thead>
                   <tr>
@@ -112,13 +112,13 @@ export default function MolTableCodersShowDelete() {
                       />
                     </th>
                     <th scope="col" className="min-w-[12rem] py-3.5 pr-3 text-left text-sm font-semibold text-gray-900">
-                      coderso
+                      coders
                     </th>
                     <th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
                      Fecha
                     </th>
                     <th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
-                    Link enlace coderso
+                    Link enlace coders
                     </th>
                     <th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
                       Max-Entrevistas
@@ -132,17 +132,17 @@ export default function MolTableCodersShowDelete() {
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-gray-200 ">
-                  {coders.map((e) => (
+                  {regions.map((e) => (
                     <tr key={e.id} className="hover:bg-gray-50">
                       <td className="px-7 py-4 whitespace-nowrap">
                         <input
                           type="checkbox"
                           name={e.id}
                           className="h-4 w-4 text-indigo-600 focus:ring-indigo-500"
-                          checked={selectedCoders.some((ev) => ev.id === e.id)}
-                          onChange={(coders) => {
-                            const isChecked = coders.target.checked;
-                            setSelectedCoders((prevState) => {
+                          checked={selectedRegions.some((ev) => ev.id === e.id)}
+                          onChange={(regions) => {
+                            const isChecked = regions.target.checked;
+                            setSelectedRegions((prevState) => {
                               if (isChecked) {
                                 return [...prevState, e];
                               } else {
@@ -155,7 +155,7 @@ export default function MolTableCodersShowDelete() {
                       <td
                         className={classNames(
                           'whitespace-nowrap py-4 pr-3 text-sm font-medium',
-                          selectedCoders.includes(e.id) ? 'text-indigo-600' : 'text-gray-900'
+                          selectedRegions.includes(e.id) ? 'text-indigo-600' : 'text-gray-900'
                         )}
                       >
                         {e.name}
