@@ -59,7 +59,7 @@ const MolFormCodersCreate = () => {
       Swal.fire({
         position: "center",
         icon: "success",
-        title: "Tu evento se ha creado con éxito!",
+        title: "¡Tu coder se ha creado con éxito!",
         showConfirmButton: false,
         timer: 2000,
       });
@@ -72,7 +72,7 @@ const MolFormCodersCreate = () => {
       Swal.fire({
         position: "center",
         icon: "error",
-        title: "Ha habido un problema, prueba de nuevo!",
+        title: "Ha habido un problema, ¡prueba de nuevo!",
         showConfirmButton: false,
         timer: 2000,
       });

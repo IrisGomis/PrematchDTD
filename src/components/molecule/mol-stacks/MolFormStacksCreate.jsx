@@ -18,7 +18,7 @@ export default function MolFormStacksCreate() {
       Swal.fire({
         position: "center",
         icon: "success",
-        title: "Tu evento se ha creado con éxito!",
+        title: "¡Tu stack se ha creado con éxito!",
         showConfirmButton: false,
         timer: 2000,
       });

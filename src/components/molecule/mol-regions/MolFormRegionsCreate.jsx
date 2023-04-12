@@ -29,7 +29,7 @@ const MolFormRegionsCreate = () => {
       Swal.fire({
         position: "center",
         icon: "success",
-        title: "Tu región se ha añadido con éxito!",
+        title: "¡Tu región se ha añadido con éxito!",
         showConfirmButton: false,
         timer: 2000,
       });
@@ -41,7 +41,7 @@ const MolFormRegionsCreate = () => {
       Swal.fire({
         position: "center",
         icon: "error",
-        title: "Ha habido un problema, prueba de nuevo!",
+        title: "Ha habido un problema, ¡prueba de nuevo!",
         showConfirmButton: false,
         timer: 2000,
       });

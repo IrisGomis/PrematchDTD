@@ -19,7 +19,7 @@ export default function MolFormLanguagesCreate() {
       Swal.fire({
         position: "center",
         icon: "success",
-        title: "Tu evento se ha creado con éxito!",
+        title: "¡Tu idioma se ha creado con éxito!",
         showConfirmButton: false,
         timer: 2000,
       });

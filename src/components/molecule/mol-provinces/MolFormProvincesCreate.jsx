@@ -27,7 +27,7 @@ const MolFormProvincesCreate = () => {
       Swal.fire({
         position: "center",
         icon: "success",
-        title: "Tu región se ha añadido con éxito!",
+        title: "¡Tu provincia se ha añadido con éxito!",
         showConfirmButton: false,
         timer: 2000,
       });
@@ -39,7 +39,7 @@ const MolFormProvincesCreate = () => {
       Swal.fire({
         position: "center",
         icon: "error",
-        title: "Ha habido un problema, prueba de nuevo!",
+        title: "Ha habido un problema, ¡prueba de nuevo!",
         showConfirmButton: false,
         timer: 2000,
       });
