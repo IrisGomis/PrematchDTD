@@ -1,4 +1,4 @@
-import React, { useState, Fragment } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { createCompanies } from "../../../service/CompaniesService";
 import Swal from "sweetalert2";
@@ -22,7 +22,7 @@ const MolFormCompaniesCreate = () => {
 
   // const [selected, setSelected] = useState(people[3]);
   const [name, setName] = useState("");
-  const [location, setLocation] = useState("");
+  const [ubication, setUbication] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [priority, setPriority] = useState("");
@@ -35,10 +35,11 @@ const MolFormCompaniesCreate = () => {
 
       const formData = new FormData();
       formData.append('name', name);
-      formData.append('location', location);
+      formData.append('ubication', ubication);
       formData.append('email', email);
       formData.append('phone', phone);
       formData.append('priority', priority);
+      formData.append('province_id', 1);
       
 
       const { data } = await createCompanies(formData);
@@ -46,7 +47,7 @@ const MolFormCompaniesCreate = () => {
       Swal.fire({
         position: "center",
         icon: "success",
-        title: "Tu empresa se ha añadido con éxito!",
+        title: "¡Tu empresa se ha añadido con éxito!",
         showConfirmButton: false,
         timer: 2000,
       });
@@ -58,7 +59,7 @@ const MolFormCompaniesCreate = () => {
       Swal.fire({
         position: "center",
         icon: "error",
-        title: "Ha habido un problema, prueba de nuevo!",
+        title: "¡Ha habido un problema, prueba de nuevo!",
         showConfirmButton: false,
         timer: 2000,
       });
@@ -81,7 +82,7 @@ const MolFormCompaniesCreate = () => {
                 htmlFor="company-name"
                 className="block text-sm font-medium leading-6 text-white sm:pt-1.5"
               >
-                Nombre de la empresa
+                Nombre de la empresa <span className="text-orange">*</span>
               </label>
               <div className="mt-2 sm:col-span-2 sm:mt-0">
                 <input
@@ -90,6 +91,7 @@ const MolFormCompaniesCreate = () => {
                   id="name"
                   value={name}
                   onChange={(event) => setName(event.target.value)}
+                  placeholder="Inserte nombre de la empresa."
                   autoComplete="given-name"
                   className="block w-full rounded-md border-0 py-1.5  text-stone6 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
                 />
@@ -101,16 +103,17 @@ const MolFormCompaniesCreate = () => {
                 htmlFor="company-location"
                 className="block text-sm font-medium leading-6 text-white sm:pt-1.5"
               >
-                Ubicación de la empresa
+                Dirección de la empresa <span className="text-orange">*</span>
               </label>
               <div className="mt-2 sm:col-span-2 sm:mt-0">
                 <input
                   type="text"
-                  name="location"
-                  id="location"
-                  value={location}
-                  onChange={(event) => setLocation(event.target.value)}
-                  autoComplete="given-location"
+                  name="ubication"
+                  id="ubication"
+                  value={ubication}
+                  onChange={(event) => setUbication(event.target.value)}
+                  placeholder="Inserte ubicación de la empresa."
+                  autoComplete="given-ubication"
                   className="block w-full rounded-md border-0 py-1.5  text-stone6 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
                 />
               </div>
@@ -121,15 +124,16 @@ const MolFormCompaniesCreate = () => {
                 htmlFor="company-email"
                 className="block text-sm font-medium leading-6 text-white sm:pt-1.5"
               >
-                Email de la empresa
+                Email de la empresa <span className="text-orange">*</span>
               </label>
               <div className="mt-2 sm:col-span-2 sm:mt-0">
                 <input
-                  type="email"
+                  type="text"
                   name="email"
                   id="email"
                   value={email}
                   onChange={(event) => setEmail(event.target.value)}
+                  placeholder="Inserte email de la empresa."
                   autoComplete="given-email"
                   className="block w-full rounded-md border-0 py-1.5  text-stone6 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
                 />
@@ -141,15 +145,16 @@ const MolFormCompaniesCreate = () => {
                 htmlFor="comany-phone"
                 className="block text-sm font-medium leading-6 text-white sm:pt-1.5"
               >
-                Teléfono de la empresa
+                Teléfono de la empresa <span className="text-orange">*</span>
               </label>
               <div className="mt-2 sm:col-span-2 sm:mt-0">
                 <input
-                  type="tel"
+                  type="text"
                   name="phone"
                   id="phone"
                   value={phone}
                   onChange={(event) => setPhone(event.target.value)}
+                  placeholder="Inserte télefono de la empresa."
                   autoComplete="given-phone"
                   className="block w-full rounded-md border-0 py-1.5  text-stone6 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
                 />
@@ -161,7 +166,7 @@ const MolFormCompaniesCreate = () => {
                 htmlFor="company-priority"
                 className="block text-sm font-medium leading-6 text-white sm:pt-1.5"
               >
-                Prioridad de la empresa
+                Prioridad de la empresa <span className="text-orange">*</span>
               </label>
               <div className="mt-2 sm:col-span-2 sm:mt-0">
                 <input
@@ -170,6 +175,7 @@ const MolFormCompaniesCreate = () => {
                   id="priority"
                   value={priority}
                   onChange={(event) => setPriority(event.target.value)}
+                  placeholder="Inserte prioridad de la empresa."
                   autoComplete="given-priority"
                   className="block w-full rounded-md border-0 py-1.5  text-stone6 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
                 />
@@ -268,7 +274,7 @@ const MolFormCompaniesCreate = () => {
             type="submit"
             className="text-sm my-10 px-24 py-3.5 rounded-xl bg-gradient-to-r from-orange to-orangel hover:from-verde hover:to-verdel ..."
           >
-            Crear Companies
+            Crear empresa
           </button>
           <button
             className="text-sm my-10 mx-10 px-24 py-3.5 rounded-xl bg-gradient-to-r from-orangel to-orange hover:from-verde hover:to-verdel ..."

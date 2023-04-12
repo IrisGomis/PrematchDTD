@@ -21,12 +21,14 @@ const MolFormCompaniesEdit = ({ event }) => {
   const { id } = useParams();
   const navigate = useNavigate();
 
-  const [selected, setSelected] = useState("");
+  // const [selected, setSelected] = useState("");
   const [name, setName] = useState(undefined);
-  const [location, setLocation] = useState(undefined);
+  const [ubication, setUbication] = useState(undefined);
   const [email, setEmail] = useState(undefined);
   const [phone, setPhone] = useState(undefined);
   const [priority, setPriority] = useState(undefined);
+  const [providence_id, setProvidence] = useState(undefined);
+  
 
  
   useEffect(() => {
@@ -34,10 +36,11 @@ const MolFormCompaniesEdit = ({ event }) => {
       try {
         const { data } = await getCompaniesById(id);
         setName(data.name);
-        setLocation(data.location);
+        setUbication(data.ubication);
         setEmail(data.email);
         setPhone(data.phone);
         setPriority(data.priority);
+        setProvidence(2);
       } catch (error) {
         console.log(error);
       }
@@ -47,7 +50,7 @@ const MolFormCompaniesEdit = ({ event }) => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    if ([name, location, email, phone, priority].some((value) => value === undefined)) {
+    if ([name, ubication, email, phone, priority].some((value) => value === undefined)) {
       Swal.fire({
         position: "center",
         icon: "error",
@@ -60,7 +63,7 @@ const MolFormCompaniesEdit = ({ event }) => {
     try {
       const eventData = {
         name,
-        location,
+        ubication,
         email,
         phone,
         priority,
@@ -89,15 +92,15 @@ const MolFormCompaniesEdit = ({ event }) => {
     }
   };
 
-  function classNames(...classes) {
-    return classes.filter(Boolean).join(" ");
-  }
+  // function classNames(...classes) {
+  //   return classes.filter(Boolean).join(" ");
+  // }
 
  
   return (
     <>
       <div className="bg-stone6 w-full max-w-screen-lg rounded-xl p-20 m-20">
-        <h2 className="text-2xl font-semibold leading-7 text-orange">Editar Companies</h2>
+        <h2 className="text-2xl font-semibold leading-7 text-orange">Editar empresas</h2>
 
         <form className="bg-stone6" onSubmit={handleSubmit}>
           <div className="mt-10 space-y-8 border-b border-orange pb-12 sm:space-y-0 sm:divide-y sm:divide-orange sm:border-t sm:pb-0">
@@ -107,7 +110,7 @@ const MolFormCompaniesEdit = ({ event }) => {
                 htmlFor="company-name"
                 className="block text-sm font-medium leading-6 text-white sm:pt-1.5"
               >
-                Nombre de la empresa
+                Nombre de la empresa <span className="text-orange">*</span>
               </label>
               <div className="mt-2 sm:col-span-2 sm:mt-0">
                 <input
@@ -116,6 +119,7 @@ const MolFormCompaniesEdit = ({ event }) => {
                   id="name"
                   value={name ?? ""}
                   onChange={(event) => setName(event.target.value)}
+                  placeholder="Inserte nombre de la empresa."
                   autoComplete="given-name"
                   className="block w-full rounded-md border-0 py-1.5  text-stone6 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
                 />
@@ -127,17 +131,17 @@ const MolFormCompaniesEdit = ({ event }) => {
                 htmlFor="company-location"
                 className="block text-sm font-medium leading-6 text-white sm:pt-1.5"
               >
-                Ubicación de la empresa
+                Dirección de la empresa <span className="text-orange">*</span>
               </label>
               <div className="flex mt-2 sm:col-span-2 sm:mt-0">
                 <input
                   type="text"
-                  name="location"
-                  id="location"
-                  value={location ?? ""}
-                  onChange={(event) => setLocation(event.target.value)}
-                  placeholder="Campo obligatorio"
-                  autoComplete="location"
+                  name="ubication"
+                  id="ubication"
+                  value={ubication ?? ""}
+                  onChange={(event) => setUbication(event.target.value)}
+                  placeholder="Inserte ubicación de la empresa."
+                  autoComplete="ubication"
                   className="block w-full mr-10 rounded-md border-0 px-2 py-1.5 text-stone6 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
                 />
               </div>
@@ -148,7 +152,7 @@ const MolFormCompaniesEdit = ({ event }) => {
                 htmlFor="company-email"
                 className="block text-sm font-medium leading-6  text-white sm:pt-1.5"
               >
-                Email de la empresa
+                Email de la empresa <span className="text-orange">*</span>
               </label>
               <div className="mt-2 sm:col-span-2 sm:mt-0">
                 <input
@@ -157,6 +161,7 @@ const MolFormCompaniesEdit = ({ event }) => {
                   type="email"
                   value={email ?? ""}
                   onChange={(event) => setEmail(event.target.value)}
+                  placeholder="Inserte email de la empresa."
                   autoComplete="email"
                   className="block w-full rounded-md border-0 py-1.5  text-stone6 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-md sm:text-sm sm:leading-6"
                 />
@@ -168,7 +173,7 @@ const MolFormCompaniesEdit = ({ event }) => {
                 htmlFor="company-phone"
                 className="block text-sm font-medium leading-6  text-white sm:pt-1.5"
               >
-                Télefono de la empresa
+                Télefono de la empresa <span className="text-orange">*</span>
               </label>
               <div className="mt-2 sm:col-span-2 sm:mt-0">
                 <input
@@ -177,6 +182,7 @@ const MolFormCompaniesEdit = ({ event }) => {
                   type="tel"
                   value={phone ?? ""}
                   onChange={(event) => setPhone(event.target.value)}
+                  placeholder="Inserte télefono de la empresa."
                   autoComplete="phone"
                   className="block w-full rounded-md border-0 py-1.5  text-stone6 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-md sm:text-sm sm:leading-6"
                 />
@@ -188,15 +194,16 @@ const MolFormCompaniesEdit = ({ event }) => {
                 htmlFor="company-priority"
                 className="block text-sm font-medium leading-6  text-white sm:pt-1.5"
               >
-                Prioridad de la empresa
+                Prioridad de la empresa <span className="text-orange">*</span>
               </label>
               <div className="mt-2 sm:col-span-2 sm:mt-0">
                 <input
                   id="priority"
                   name="priority"
-                  type="text"
+                  type="number"
                   value={priority ?? ""}
                   onChange={(event) => setPriority(event.target.value)}
+                  placeholder="Inserte prioridad de la empresa."
                   autoComplete="priority"
                   className="block w-full rounded-md border-0 py-1.5  text-stone6 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-md sm:text-sm sm:leading-6"
                 />
