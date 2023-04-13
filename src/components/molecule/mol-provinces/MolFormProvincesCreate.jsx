@@ -1,16 +1,20 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useState, useEffect } from "react";
 import { createProvinces } from "../../../service/ProvincesService";
+import { getRegions } from "../../../service/RegionsService";
 import Swal from "sweetalert2";
+import { useNavigate } from "react-router-dom";
+
 
 const MolFormProvincesCreate = () => {
+  
+  const navigate = useNavigate();
+  const [regions, setRegions] = useState([]);
+  // const [selectedRegion, setSelectedRegion] = useState("");
   const [region_id, setRegion_id] = useState("");
   const [name, setName] = useState("");
   const [lat, setLat] = useState("");
   const [long, setLong] = useState("");
   const [iso, setIso] = useState("");
-
-  const navigate = useNavigate();
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -45,7 +49,14 @@ const MolFormProvincesCreate = () => {
       });
     }
   };
-
+  
+  useEffect(() => {
+    getRegions()
+      .then((response) => {
+        setRegions(response.data);
+      })
+      .catch((error) => console.error(error));
+  }, []);
  
   return (
     <>
@@ -54,50 +65,27 @@ const MolFormProvincesCreate = () => {
 
         <form className="bg-stone6" onSubmit={handleSubmit}>
           <div className="mt-10 space-y-8 border-b border-orange pb-12 sm:space-y-0 sm:divide-y sm:divide-orange sm:border-t sm:pb-0">
-            
-          <div className="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
 
           <div className="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
-
-                  {/* <label htmlFor="region_id" className="block text-sm font-medium leading-6 text-white sm:pt-1.5">
-                    Región
-                  </label>
-                  <div className="mt-2 sm:col-span-2 sm:mt-0">
-                    <select
-                      name="region_id"
-                      id="region_id"
-                      value={region_id}
-                      onChange={(event) => setRegion_id(event.target.value)}
-                      autoComplete="given-name"
-                      className="block w-full rounded-md border-0 py-1.5  text-stone6 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
-                    >
-                      {setRegion_id.map((event) => (
-                        <option key={event.region_id} value={event.region_id}>
-                          {event.region_id}
-                        </option>
-                      ))}
-                    </select>
-                  </div> */}
-
-                  <label
-                    htmlFor="name"
-                    className="block text-sm font-medium leading-6 text-white sm:pt-1.5"
-                  >
-                    Región id
-                  </label>
-                  <div className="mt-2 sm:col-span-2 sm:mt-0">
-                    <input
-                      type="number"
-                      name="region_id"
-                      id="region_id"
-                      value={region_id}
-                      onChange={(event) => setRegion_id(event.target.value)}
-                      autoComplete="given-name"
-                      className="block w-full rounded-md border-0 py-1.5  text-stone6 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
-                    />
-                  </div>
-
-            </div>
+  <label htmlFor="regions" className="block text-sm font-medium leading-6 text-white sm:pt-1.5">
+    Región
+  </label>
+  <div className="mt-2 sm:col-span-2 sm:mt-0">
+    <select
+      name="region_id"
+      id="region_id"
+      value={region_id} // Cambiar 'regions' por el estado que representa la opción seleccionada
+      onChange={(event) => setRegion_id(event.target.value)} // Cambiar 'setRegions' por el método que actualiza el estado de la opción seleccionada
+      className="block w-full rounded-md border-0 py-1.5  text-stone6 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
+    >
+      {regions.map((e) => (
+        <option key={e.id} value={e.id}>
+          {e.name}
+        </option>
+      ))}
+    </select> 
+  </div>
+</div>
             
             <div className="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
               <label
@@ -129,7 +117,7 @@ const MolFormProvincesCreate = () => {
 
               <div className="flex mt-2 sm:col-span-2 sm:mt-0">
                 <input
-                  type="number"
+                  type="text"
                   name="lat"
                   id="lat"
                   value={lat}
@@ -142,15 +130,15 @@ const MolFormProvincesCreate = () => {
             <div className="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
               <label
                 htmlFor="long"
-                className="block text-sm font-medium leading-6  text-white sm:pt-1.5"
+                className="block text-sm font-medium leading-6 text-white sm:pt-1.5"
               >
                 Longitud
               </label>
-              <div className="mt-2 sm:col-span-2 sm:mt-0">
+              <div className="flex mt-2 sm:col-span-2 sm:mt-0">
                 <input
                   id="long"
                   name="long"
-                  type="number"
+                  type="text"
                   value={long}
                   onChange={(event) => setLong(event.target.value)}
                   className="block w-full rounded-md border-0 py-1.5  text-stone6 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-md sm:text-sm sm:leading-6"
@@ -165,7 +153,7 @@ const MolFormProvincesCreate = () => {
               >
                 ISO
               </label>
-              <div className="mt-2 sm:col-span-2 sm:mt-0">
+              <div className="flex mt-2 sm:col-span-2 sm:mt-0">
                 <input
                   id="iso"
                   name="iso"
@@ -176,8 +164,6 @@ const MolFormProvincesCreate = () => {
                 />
               </div>
             </div>
-
-          </div>
 
           </div>
           <button
