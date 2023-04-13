@@ -28,7 +28,7 @@ export default function MolFormRecruitersCreate() {
       Swal.fire({
         position: "center",
         icon: "success",
-        title: "Tu evento se ha creado con éxito!",
+        title: "¡Tu recruiter se ha creado con éxito!",
         showConfirmButton: false,
         timer: 2000,
       });
@@ -40,7 +40,7 @@ export default function MolFormRecruitersCreate() {
       Swal.fire({
         position: "center",
         icon: "error",
-        title: "Ha habido un problema, prueba de nuevo!",
+        title: "Ha habido un problema, ¡prueba de nuevo!",
         showConfirmButton: false,
         timer: 2000,
       });
@@ -63,7 +63,7 @@ export default function MolFormRecruitersCreate() {
                   htmlFor="name"
                   className="block mb-2 text-base font-title font-semibold text-gray-900 dark:text-slate-900"
                 >
-                  Nombre
+                  Nombre <span className="text-orange">*</span>
                 </label>
                 <input
                   type="text"
@@ -112,7 +112,7 @@ export default function MolFormRecruitersCreate() {
                   htmlFor="default-input"
                   className="block mb-2 text-base font-semibold text-gray-900 dark:text-slate-900"
                 >
-                  Teléfono
+                  Teléfono <span className="text-orange">*</span>
                 </label>
                 <input
                   type="phone"

@@ -1,18 +1,22 @@
-import { getCompanies, deleteCompanies } from "../../../service/CompaniesService";
+import {
+  getCompanies,
+  deleteCompanies,
+} from "../../../service/CompaniesService";
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
+import { getProvinces } from "../../../service/ProvincesService";
 
 function classNames(...classes) {
-  return classes.filter(Boolean).join(' ')
+  return classes.filter(Boolean).join(" ");
 }
 
 export default function MolTableCompaniesShowDelete() {
-  
   const checkbox = useRef();
   const [checked, setChecked] = useState(false);
   const [indeterminate, setIndeterminate] = useState(false);
   const [selectedCompanies, setSelectedCompanies] = useState([]);
   const [companies, setCompanies] = useState([]);
+  const [provinces, setProvinces] = useState([]);
 
   useEffect(() => {
     getCompanies()
@@ -23,21 +27,30 @@ export default function MolTableCompaniesShowDelete() {
       .catch((error) => console.error(error));
   }, []);
 
+  useEffect(() => {
+    getProvinces()
+      .then((response) => {
+        setProvinces(response.data);
+      })
+      .catch((error) => console.error(error));
+  }, []);
+
   useLayoutEffect(() => {
     const isIndeterminate =
-      selectedCompanies.length > 0 && selectedCompanies.length < companies.length;
+      selectedCompanies.length > 0 &&
+      selectedCompanies.length < companies.length;
     setChecked(selectedCompanies.length === companies.length);
     setIndeterminate(isIndeterminate);
     checkbox.current.indeterminate = isIndeterminate;
   }, [selectedCompanies, companies]);
-  
+
   function toggleAll() {
     if (selectedCompanies.length === 0) {
       return;
     }
-    setSelectedCompanies(checked || indeterminate ? [] : selectedCompanies)
-    setChecked(!checked && !indeterminate)
-    setIndeterminate(false)
+    setSelectedCompanies(checked || indeterminate ? [] : selectedCompanies);
+    setChecked(!checked && !indeterminate);
+    setIndeterminate(false);
   }
 
   function handleDelete() {
@@ -68,13 +81,13 @@ export default function MolTableCompaniesShowDelete() {
       });
   }
   return (
-    <div className="bg-stone6 w-full max-w-screen-xl rounded-xl p-20 m-20 text-white">
+    <div className="bg-stone6 w-screen max-w-screen-xl rounded-xl p-20 m-20 text-white">
       <div className="sm:flex sm:items-center">
         <div className="sm:flex-auto">
           <h1 className="text-xl font-semibold leading-7">Lista de empresas</h1>
         </div>
         <div className="mt-4 sm:ml-16 sm:mt-0 sm:flex-none">
-        <button
+          <button
             className="text-sm text-stone2 my-10 mx-10 px-6 py-1.5 rounded-xl bg-gradient-to-r from-orangel to-orange hover:from-verde hover:to-verdel ..."
             type="button"
           >
@@ -91,7 +104,7 @@ export default function MolTableCompaniesShowDelete() {
                   <button
                     type="button"
                     className="inline-flex items-center rounded px-2 py-1 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 disabled:cursor-not-allowed disabled:opacity-30 disabled:hover:bg-white"
-                     onClick={() => handleDelete(selectedCompanies[0].id)}
+                    onClick={() => handleDelete(selectedCompanies[0].id)}
                   >
                     Eliminar
                   </button>
@@ -109,27 +122,115 @@ export default function MolTableCompaniesShowDelete() {
                         onChange={toggleAll}
                       />
                     </th>
-                    <th scope="col" className="min-w-[12rem] py-3.5 pr-3 text-left text-sm font-semibold text-gray-900">
+                    <th
+                      scope="col"
+                      className="min-w-[12rem] py-3.5 pr-3 text-left text-sm font-semibold text-gray-900"
+                    >
                       Empresas
                     </th>
-                    <th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
-                     Ubicación
+                    <th
+                      scope="col"
+                      className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
+                    >
+                      Ubicación
                     </th>
-                    <th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
-                    Email
+                    <th
+                      scope="col"
+                      className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
+                    >
+                      Provncia
                     </th>
-                    <th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
+                    <th
+                      scope="col"
+                      className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
+                    >
+                      Email
+                    </th>
+                    <th
+                      scope="col"
+                      className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
+                    >
                       Télefono
                     </th>
-                    <th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
+                    <th
+                      scope="col"
+                      className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
+                    >
                       Prioridad
                     </th>
-                    <th scope="col" className="relative py-3.5 pl-3 pr-4 sm:pr-3">
+                    <th
+                      scope="col"
+                      className="relative py-3.5 pl-3 pr-4 sm:pr-3"
+                    >
                       <span className="sr-only">Editar</span>
                     </th>
                   </tr>
                 </thead>
+
                 <tbody className="divide-y divide-gray-200 ">
+                  {companies.map((e) => (
+                    <tr key={e.id} className="hover:bg-gray-50">
+                      <td className="px-7 py-4 whitespace-nowrap">
+                        <input
+                          type="checkbox"
+                          name={e.id}
+                          className="h-4 w-4 text-indigo-600 focus:ring-indigo-500"
+                          checked={selectedCompanies.some(
+                            (ev) => ev.id === e.id
+                          )}
+                          onChange={(event) => {
+                            const isChecked = event.target.checked;
+                            setSelectedCompanies((prevState) => {
+                              if (isChecked) {
+                                return [...prevState, e];
+                              } else {
+                                return prevState.filter((ev) => ev.id !== e.id);
+                              }
+                            });
+                          }}
+                        />
+                      </td>
+                      <td
+                        className={classNames(
+                          "whitespace-nowrap py-4 pr-3 text-sm font-medium",
+                          selectedCompanies.includes(e.id)
+                            ? "text-indigo-600"
+                            : "text-gray-900"
+                        )}
+                      >
+                        {e.name}
+                      </td>
+                      {/* <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{e.name}</td> */}
+                      <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                        {e.ubication}
+                      </td>
+                      <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                        {e.provinces
+                          .map((province) => provinces.name)
+                          .join(", ")}
+                      </td>
+                      <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                        {e.email}
+                      </td>
+                      <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                        {e.phone}
+                      </td>
+                      <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                        {e.priority}
+                      </td>
+                      <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                        <Link
+                          to={`/companiesedit/${e.id}`}
+                          className="text-indigo-600 hover:text-indigo-900"
+                        >
+                          Editar
+                        </Link>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+
+                {/* <tbody className="divide-y divide-gray-200 ">
                   {companies.map((e) => (
                     <tr key={e.id} className="hover:bg-gray-50">
                       <td className="px-7 py-4 whitespace-nowrap">
@@ -158,8 +259,9 @@ export default function MolTableCompaniesShowDelete() {
                       >
                         {e.name}
                       </td>
-                      {/* <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{e.name}</td> */}
+                      <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{e.name}</td>
                       <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{e.ubication}</td>
+                      <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{e.provinces}</td>
                       <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{e.email}</td>
                       <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{e.phone}</td>
                       <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{e.priority}</td>
@@ -173,12 +275,13 @@ export default function MolTableCompaniesShowDelete() {
                       </td>
                     </tr>
                   ))}
-                </tbody>
+
+                </tbody> */}
               </table>
             </div>
           </div>
         </div>
       </div>
     </div>
-  )
+  );
 }
