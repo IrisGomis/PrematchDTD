@@ -20,7 +20,9 @@ const MolFormCodersCreate = () => {
     { id: 10, name: "Emil Schaefer" },
   ];
 
+
   const [selected, setSelected] = useState(people[3]);
+
   const [event_id, setEventId] = useState("");
   const [promo_id, setPromoId] = useState("");
   const [province_id, setProvinceId] = useState("");
@@ -33,9 +35,9 @@ const MolFormCodersCreate = () => {
   const [phone, setPhone] = useState("");
   const [linkedin, setLinkedin] = useState("");
   const [github, setGithub] = useState("");
-
+  const eventList = setEventId;
   const navigate = useNavigate();
-
+console.log(event_id);
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
@@ -79,6 +81,7 @@ const MolFormCodersCreate = () => {
     }
   };
 
+  
   function classNames(...classes) {
     return classes.filter(Boolean).join(" ");
   } 
@@ -187,7 +190,6 @@ const MolFormCodersCreate = () => {
               </label>
               <div className="mt-2 sm:col-span-2 sm:mt-0">
                 <input
-                  type="text"
                   name="event_id"
                   id="event_id"
                   value={event_id}
