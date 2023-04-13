@@ -44,7 +44,7 @@ export default function MolTableCodersShowDelete() {
 
   function handleDelete() {
     if (selectedCoders.length === 0) {
-      console.warn("No coderss selected to delete");
+      console.warn("No coders selected to delete");
       return;
     }
 
@@ -56,7 +56,7 @@ export default function MolTableCodersShowDelete() {
     // Delete all coderss in parallel
     Promise.all(deletePromises)
       .then((responses) => {
-        console.log("coderss deleted successfully!");
+        console.log("coders deleted successfully!");
         // Remove all deleted coderss from the coders state
         const deletedIds = selectedCoders.map((coders) => coders.id);
         setcoders(coders.filter((e) => !deletedIds.includes(e.id)));
