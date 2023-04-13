@@ -9,7 +9,7 @@ const MolFormProvincesCreate = () => {
   
   const navigate = useNavigate();
   const [regions, setRegions] = useState([]);
-  const [selectedRegion, setSelectedRegion] = useState("");
+  // const [selectedRegion, setSelectedRegion] = useState("");
   const [region_id, setRegion_id] = useState("");
   const [name, setName] = useState("");
   const [lat, setLat] = useState("");
@@ -72,11 +72,10 @@ const MolFormProvincesCreate = () => {
   </label>
   <div className="mt-2 sm:col-span-2 sm:mt-0">
     <select
-      name="regions"
-      id="regions"
-      value={selectedRegion} // Cambiar 'regions' por el estado que representa la opción seleccionada
-      onChange={(event) => setSelectedRegion(event.target.value)} // Cambiar 'setRegions' por el método que actualiza el estado de la opción seleccionada
-      autoComplete="given-name"
+      name="region_id"
+      id="region_id"
+      value={region_id} // Cambiar 'regions' por el estado que representa la opción seleccionada
+      onChange={(event) => setRegion_id(event.target.value)} // Cambiar 'setRegions' por el método que actualiza el estado de la opción seleccionada
       className="block w-full rounded-md border-0 py-1.5  text-stone6 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
     >
       {regions.map((e) => (

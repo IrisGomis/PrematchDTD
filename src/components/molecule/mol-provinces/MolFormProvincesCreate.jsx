@@ -59,7 +59,7 @@ const MolFormProvincesCreate = () => {
 
           <div className="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
 
-                  <label htmlFor="region_id" className="block text-sm font-medium leading-6 text-white sm:pt-1.5">
+                  {/* <label htmlFor="region_id" className="block text-sm font-medium leading-6 text-white sm:pt-1.5">
                     Región
                   </label>
                   <div className="mt-2 sm:col-span-2 sm:mt-0">
@@ -77,7 +77,7 @@ const MolFormProvincesCreate = () => {
                         </option>
                       ))}
                     </select>
-                  </div>
+                  </div> */}
 
                   <label
                     htmlFor="name"
