@@ -134,7 +134,7 @@ Añadir provincia
                 htmlFor="name"
                 className="block text-sm font-medium leading-6 text-white sm:pt-1.5"
               >
-                Región
+                Provincia 
               </label>
               <div className="mt-2 sm:col-span-2 sm:mt-0">
                 <input
