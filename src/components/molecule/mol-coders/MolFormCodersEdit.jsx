@@ -244,7 +244,7 @@ const MolFormCodersEdit = ({ prop }) => {
                 htmlFor="avaliability"
                 className="block text-sm font-medium leading-6  text-white sm:pt-1.5"
               >
-                Habilidades
+                Disponibilidad
               </label>
                <div className="flex mt-2 sm:col-span-2 sm:mt-0">
                 <input

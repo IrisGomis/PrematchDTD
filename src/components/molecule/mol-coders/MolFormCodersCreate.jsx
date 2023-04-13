@@ -104,7 +104,7 @@ const MolFormCodersCreate = () => {
                   value={event_id} // Cambiar 'regions' por el estado que representa la opción seleccionada
                   onChange={(event) => setEventId(event.target.value)} // Cambiar 'setRegions' por el método que actualiza el estado de la opción seleccionada
                   className="block w-full rounded-md border-0 py-1.5  text-stone6 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
-                  required
+                  
                 >
 
 
@@ -131,7 +131,7 @@ const MolFormCodersCreate = () => {
                   value={promo_id} // Cambiar 'regions' por el estado que representa la opción seleccionada
                   onChange={(event) => setPromoId(event.target.value)} // Cambiar 'setRegions' por el método que actualiza el estado de la opción seleccionada
                   className="block w-full rounded-md border-0 py-1.5  text-stone6 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
-                  required
+                  
                 >
                   {promotions.map((e) => (
                     <option key={e.id} value={e.id}>
