@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 
 
 const MolFormProvincesCreate = () => {
-  
+
   const navigate = useNavigate();
   const [regions, setRegions] = useState([]);
   // const [selectedRegion, setSelectedRegion] = useState("");
@@ -49,7 +49,7 @@ const MolFormProvincesCreate = () => {
       });
     }
   };
-  
+
   useEffect(() => {
     getRegions()
       .then((response) => {
@@ -57,7 +57,7 @@ const MolFormProvincesCreate = () => {
       })
       .catch((error) => console.error(error));
   }, []);
- 
+
   return (
     <>
       <div className="bg-stone6 w-full max-w-screen-lg rounded-xl p-20 m-20">
@@ -66,27 +66,27 @@ const MolFormProvincesCreate = () => {
         <form className="bg-stone6" onSubmit={handleSubmit}>
           <div className="mt-10 space-y-8 border-b border-orange pb-12 sm:space-y-0 sm:divide-y sm:divide-orange sm:border-t sm:pb-0">
 
-          <div className="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
-  <label htmlFor="regions" className="block text-sm font-medium leading-6 text-white sm:pt-1.5">
-    Región
-  </label>
-  <div className="mt-2 sm:col-span-2 sm:mt-0">
-    <select
-      name="region_id"
-      id="region_id"
-      value={region_id} // Cambiar 'regions' por el estado que representa la opción seleccionada
-      onChange={(event) => setRegion_id(event.target.value)} // Cambiar 'setRegions' por el método que actualiza el estado de la opción seleccionada
-      className="block w-full rounded-md border-0 py-1.5  text-stone6 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
-    >
-      {regions.map((e) => (
-        <option key={e.id} value={e.id}>
-          {e.name}
-        </option>
-      ))}
-    </select> 
-  </div>
-</div>
-            
+            <div className="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
+              <label htmlFor="regions" className="block text-sm font-medium leading-6 text-white sm:pt-1.5">
+                Región
+              </label>
+              <div className="mt-2 sm:col-span-2 sm:mt-0">
+                <select
+                  name="region_id"
+                  id="region_id"
+                  value={region_id} // Cambiar 'regions' por el estado que representa la opción seleccionada
+                  onChange={(event) => setRegion_id(event.target.value)} // Cambiar 'setRegions' por el método que actualiza el estado de la opción seleccionada
+                  className="block w-full rounded-md border-0 py-1.5  text-stone6 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
+                >
+                  {regions.map((e) => (
+                    <option key={e.id} value={e.id}>
+                      {e.name}
+                    </option>
+                  ))}
+                </select>
+              </div>
+            </div>
+
             <div className="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
               <label
                 htmlFor="name"
