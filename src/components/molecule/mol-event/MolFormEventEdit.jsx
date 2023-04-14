@@ -33,11 +33,12 @@ const MolFormEventEdit = ({ event }) => {
     const fetchEvento = async () => {
       try {
         const { data } = await getEventoById(id);
-        setName(data.name);
-        setDate(data.date);
-        setUrl(data.url);
-        setMax(data.max);
-        setMin(data.min);
+        setName(data.event.name);
+        setDate(data.event.date);
+        setUrl(data.event.url);
+        setMax(data.event.max);
+        setMin(data.event.min);
+        console.log(data);
       } catch (error) {
         console.log(error);
       }

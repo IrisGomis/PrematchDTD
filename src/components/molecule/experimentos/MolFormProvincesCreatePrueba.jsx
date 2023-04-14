@@ -4,9 +4,7 @@ import { getRegions } from "../../../service/RegionsService";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
 
-
 const MolFormProvincesCreate = () => {
-
   const navigate = useNavigate();
   const [regions, setRegions] = useState([]);
   // const [selectedRegion, setSelectedRegion] = useState("");
@@ -61,13 +59,17 @@ const MolFormProvincesCreate = () => {
   return (
     <>
       <div className="bg-stone6 w-full max-w-screen-lg rounded-xl p-20 m-20">
-        <h2 className="text-2xl font-semibold leading-7 text-orange">Añadir provincia</h2>
+        <h2 className="text-2xl font-semibold leading-7 text-orange">
+          Añadir provincia
+        </h2>
 
         <form className="bg-stone6" onSubmit={handleSubmit}>
           <div className="mt-10 space-y-8 border-b border-orange pb-12 sm:space-y-0 sm:divide-y sm:divide-orange sm:border-t sm:pb-0">
-
             <div className="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
-              <label htmlFor="regions" className="block text-sm font-medium leading-6 text-white sm:pt-1.5">
+              <label
+                htmlFor="regions"
+                className="block text-sm font-medium leading-6 text-white sm:pt-1.5"
+              >
                 Región
               </label>
               <div className="mt-2 sm:col-span-2 sm:mt-0">
@@ -164,7 +166,6 @@ const MolFormProvincesCreate = () => {
                 />
               </div>
             </div>
-
           </div>
           <button
             type="submit"
