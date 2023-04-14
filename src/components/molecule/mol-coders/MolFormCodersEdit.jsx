@@ -30,17 +30,18 @@ const MolFormCodersEdit = ({ prop }) => {
     const fetchCoder = async () => {
       try {
         const { data } = await getCodersById(id);
-        setEventId(data.event_id);
-        setPromoId(data.promo_id);
-        setName(data.name);
-        setGender(data.gender);
-        setYears(data.years);
-        setAvaliability(data.avaliability);
-        setRemote(data.remote);
-        setEmail(data.email);
-        setPhone(data.phone);
+        setEventId(data.coder.event_id);
+        setPromoId(data.coder.event.promo_id);
+        setName(data.coder.event.name);
+        setGender(data.coder.gender);
+        setYears(data.coder.years);
+        setAvaliability(data.coder.avaliability);
+        setRemote(data.coder.remote);
+        setEmail(data.coder.email);
+        setPhone(data.coder.phone);
         setLinkedin(data.linkedin);
-        setGithub(data.github);
+        setGithub(data.coder.github);
+        console.log(data);
       } catch (error) {
         //console.log(error);
       }

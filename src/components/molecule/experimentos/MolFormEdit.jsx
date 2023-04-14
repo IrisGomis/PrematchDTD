@@ -23,11 +23,11 @@ const MolFormEdit = ({ event }) => {
     const fetchProvincia = async () => {
       try {
         const { data } = await getProvincesById(id);
-        setRegion_id(data.region_id);
-        setName(data.name);
-        setLat(data.lat);
-        setLong(data.long);
-        setIso(data.iso);
+        setRegion_id(data.province.region_id);
+        setName(data.province.name);
+        setLat(data.province.lat);
+        setLong(data.province.long);
+        setIso(data.province.iso);
         console.log("data", data);
       } catch (error) {
         console.log(error);
@@ -133,7 +133,7 @@ const MolFormEdit = ({ event }) => {
                   type="text"
                   name="name"
                   id="name"
-                  value={name?.toString() || ""}
+                  value={name}
                   onChange={(event) => setName(event.target.value)}
                   autoComplete="given-name"
                   className="block w-full rounded-md border-0 py-1.5  text-stone6 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
@@ -153,7 +153,7 @@ const MolFormEdit = ({ event }) => {
                   type="numbre"
                   name="lat"
                   id="lat"
-                  value={lat?.toString() || ""}
+                  value={lat}
                   onChange={(event) => setLat(event.target.value)}
                   className="block w-full mr-10 rounded-md border-0 px-2 py-1.5 text-stone6 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
                 />
@@ -172,7 +172,7 @@ const MolFormEdit = ({ event }) => {
                   id="long"
                   name="long"
                   type="numbre"
-                  value={long?.toString() || ""}
+                  value={long}
                   onChange={(event) => setLong(event.target.value)}
                   className="block w-full rounded-md border-0 py-1.5  text-stone6 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-md sm:text-sm sm:leading-6"
                 />
@@ -191,7 +191,7 @@ const MolFormEdit = ({ event }) => {
                   type="text"
                   name="iso"
                   id="iso"
-                  value={iso?.toString() || ""}
+                  value={iso}
                   onChange={(event) => setIso(event.target.value)}
                   className="block w-full rounded-md border-0 mr-10 py-1.5 px-2 text-stone6 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xl sm:text-sm sm:leading-6"
                 />
