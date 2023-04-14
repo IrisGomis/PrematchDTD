@@ -52,8 +52,7 @@ const MolFormCodersEdit = ({ enent }) => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    event.preventDefault();
-    if ([event_id, promo_id, name, gender, years, avaliability, remote, email, phone, linkedin, github].some((value) => value === undefined)) {
+    if ([event_id, promo_id, name, gender, years, avaliability, remote, email, phone, linkedin, github].some((value) => value === "")) {
       Swal.fire({
         position: "center",
         icon: "error",
