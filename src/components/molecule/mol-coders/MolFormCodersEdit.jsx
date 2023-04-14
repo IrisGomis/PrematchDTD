@@ -25,23 +25,23 @@ const MolFormCodersEdit = ({ enent }) => {
   const [github, setGithub] = useState("");
 
 
- 
   useEffect(() => {
     const fetchCoder = async () => {
       try {
         const { data } = await getCodersById(id);
         setEventId(data.coder.event_id);
         setPromoId(data.coder.event.promo_id);
-        setName(data.coder.event.name);
+        setName(data[id -1].coder.event.name);
         setGender(data.coder.gender);
         setYears(data.coder.years);
         setAvaliability(data.coder.avaliability);
         setRemote(data.coder.remote);
         setEmail(data.coder.email);
         setPhone(data.coder.phone);
-        setLinkedin(data.linkedin);
+        setLinkedin(data.coder.linkedin);
         setGithub(data.coder.github);
-        console.log(data); 
+        console.log(data[17]); 
+        
       } catch (error) {
         //console.log(error);
       }
