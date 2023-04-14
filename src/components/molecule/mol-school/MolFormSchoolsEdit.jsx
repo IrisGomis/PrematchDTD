@@ -9,10 +9,10 @@ const MolFormSchoolsEdit = ({ event }) => {
   const { id } = useParams();
   const navigate = useNavigate();
 
-  const [province_id, setProvince_id] = useState(undefined);
-  const [name, setName] = useState(undefined);
-  const [lat, setLat] = useState(undefined);
-  const [long, setLong] = useState(undefined);
+  const [province_id, setProvince_id] = useState("");
+  const [name, setName] = useState("");
+  const [lat, setLat] = useState("");
+  const [long, setLong] = useState("");
 
  
   useEffect(() => {
@@ -20,9 +20,9 @@ const MolFormSchoolsEdit = ({ event }) => {
       try {
         const { data } = await getSchoolsById(id);
         setProvince_id(data.province_id);
-        setName(data.name);
-        setLat(data.lat);
-        setLong(data.long);
+        setName(data.school.name);
+        setLat(data.school.lat);
+        setLong(data.school.long);
   
       } catch (error) {
         console.log(error);

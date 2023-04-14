@@ -5,24 +5,24 @@ import Swal from "sweetalert2";
 import { getPromotions } from "../../../service/PromotionsServices";
 import { getEvento } from "../../../service/EventService";
 
-const MolFormCodersEdit = ({ prop }) => {
+const MolFormCodersEdit = ({ enent }) => {
  
 
   const { id } = useParams();
   const navigate = useNavigate();
   const [event, setEvent] = useState([]);
   const [promotions, setPromotions] = useState([]);
-  const [event_id, setEventId] = useState(undefined);
-  const [promo_id, setPromoId] = useState(undefined);
-  const [name, setName] = useState(undefined);
-  const [gender, setGender] = useState(undefined);
-  const [years, setYears] = useState(undefined);
-  const [avaliability, setAvaliability] = useState(undefined);
-  const [remote, setRemote] = useState(undefined);
-  const [email, setEmail] = useState(undefined);
-  const [phone, setPhone] = useState(undefined);
-  const [linkedin, setLinkedin] = useState(undefined);
-  const [github, setGithub] = useState(undefined);
+  const [event_id, setEventId] = useState("");
+  const [promo_id, setPromoId] = useState("");
+  const [name, setName] = useState("");
+  const [gender, setGender] = useState("");
+  const [years, setYears] = useState("");
+  const [avaliability, setAvaliability] = useState("");
+  const [remote, setRemote] = useState("");
+  const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
+  const [linkedin, setLinkedin] = useState("");
+  const [github, setGithub] = useState("");
 
 
  
@@ -41,7 +41,7 @@ const MolFormCodersEdit = ({ prop }) => {
         setPhone(data.coder.phone);
         setLinkedin(data.linkedin);
         setGithub(data.coder.github);
-        console.log(data);
+        console.log(data); 
       } catch (error) {
         //console.log(error);
       }
@@ -140,14 +140,14 @@ const MolFormCodersEdit = ({ prop }) => {
                   type="number"
                   name="event_id"
                   id="event_id"
-                  value={event_id ?? ""}
+                  value={event_id}
                   onChange={(event) => setEventId(event.target.value)}
                   autoComplete="given-name"
                   className="block w-full rounded-md border-0 py-1.5  text-stone6 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
                 >
-                  {event.map((e) => (
-                    <option key={e.id} value={e.id}>
-                      {e.name}
+                  {event.map((event) => (
+                    <option key={event.id} value={event.id}>
+                      {event.name}
                     </option>
                   ))}
                 </select>
@@ -166,7 +166,7 @@ const MolFormCodersEdit = ({ prop }) => {
                   type="number"
                   name="promo_id"
                   id="promo_id"
-                  value={promo_id ?? ""}
+                  value={promo_id}
                   onChange={(event) => setPromoId(event.target.value)}
                   autoComplete="given-name"
                   className="block w-full rounded-md border-0 py-1.5  text-stone6 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
@@ -192,7 +192,7 @@ const MolFormCodersEdit = ({ prop }) => {
                   type="text"
                   name="name"
                   id="name"
-                  value={name ?? ""}
+                  value={name}
                   onChange={(event) => setName(event.target.value)}
                   autoComplete="given-name"
                   className="block w-full rounded-md border-0 py-1.5  text-stone6 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
@@ -212,7 +212,7 @@ const MolFormCodersEdit = ({ prop }) => {
                   type="text"
                   name="gender"
                   id="gender"
-                  value={gender ?? ""}
+                  value={gender}
                   onChange={(event) => setGender(event.target.value)}
                   autoComplete="gender"
                   className="block w-full mr-10 rounded-md border-0 px-2 py-1.5 text-stone6 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
@@ -232,7 +232,7 @@ const MolFormCodersEdit = ({ prop }) => {
                   id="years"
                   name="years"
                   type="years"
-                  value={years ?? ""}
+                  value={years}
                   onChange={(event) => setYears(event.target.value)}
                   autoComplete="edad"
                   className="block w-full rounded-md border-0 py-1.5  text-stone6 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-md sm:text-sm sm:leading-6"
@@ -252,7 +252,7 @@ const MolFormCodersEdit = ({ prop }) => {
                   type="text"
                   name="avaliability"
                   id="avaliability"
-                  value={avaliability ?? ""}
+                  value={avaliability}
                   onChange={(event) => setAvaliability(event.target.value)}
                   
                   className="block w-full rounded-md border-0 mr-10 py-1.5 px-2 text-stone6 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xl sm:text-sm sm:leading-6"
@@ -269,12 +269,11 @@ const MolFormCodersEdit = ({ prop }) => {
               </label>
                <div className="flex mt-2 sm:col-span-2 sm:mt-0">
                 <input
-                  type="checkbox"
+                  type="text"
                   name="remote"
                   id="remote"
-                  value={remote ?? ""}
+                  value={remote}
                   onChange={(event) => setRemote(event.target.value)}
-                  placeholder="Maximas"
                   className="block w-full rounded-md border-0 mr-10 py-1.5 px-1.5 text-stone6 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xl sm:text-sm sm:leading-6"
                 />
               </div>
@@ -292,7 +291,7 @@ const MolFormCodersEdit = ({ prop }) => {
                   type="email"
                   name="email"
                   id="email"
-                  value={email ?? ""}
+                  value={email}
                   onChange={(event) => setEmail(event.target.value)}
                   className="block w-full rounded-md border-0 mr-10 py-1.5 px-2 text-stone6 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xl sm:text-sm sm:leading-6"
                 />
@@ -311,7 +310,7 @@ const MolFormCodersEdit = ({ prop }) => {
                   type="phone"
                   name="phone"
                   id="phone"
-                  value={phone ?? ""}
+                  value={phone}
                   onChange={(event) => setPhone(event.target.value)}
                   className="block w-full rounded-md border-0 mr-10 py-1.5 px-2 text-stone6 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xl sm:text-sm sm:leading-6"
                 />
@@ -330,7 +329,7 @@ const MolFormCodersEdit = ({ prop }) => {
                   type="url"
                   name="linkedin"
                   id="linkedin"
-                  value={linkedin ?? ""}
+                  value={linkedin}
                   onChange={(event) => setLinkedin(event.target.value)}
                   className="block w-full rounded-md border-0 mr-10 py-1.5 px-2 text-stone6 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xl sm:text-sm sm:leading-6"
                 />
@@ -349,7 +348,7 @@ const MolFormCodersEdit = ({ prop }) => {
                   type="url"
                   name="github"
                   id="github"
-                  value={github ?? ""}
+                  value={github}
                   onChange={(event) => setGithub(event.target.value)}
                   className="block w-full rounded-md border-0 mr-10 py-1.5 px-2 text-stone6 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xl sm:text-sm sm:leading-6"
                 />
