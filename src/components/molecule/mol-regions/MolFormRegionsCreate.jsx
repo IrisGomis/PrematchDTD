@@ -29,7 +29,7 @@ const MolFormRegionsCreate = () => {
       Swal.fire({
         position: "center",
         icon: "success",
-        title: "¡Tu región se ha añadido con éxito!",
+        title: "¡Tu CCAA se ha añadido con éxito!",
         showConfirmButton: false,
         timer: 2000,
       });
@@ -51,7 +51,7 @@ const MolFormRegionsCreate = () => {
   return (
     <>
       <div className="bg-stone6 w-full max-w-screen-lg rounded-xl p-20 m-20">
-        <h2 className="text-2xl font-semibold leading-7 text-orange">Añadir región</h2>
+        <h2 className="text-2xl font-semibold leading-7 text-orange">Añadir CCAA</h2>
 
         <form className="bg-stone6" onSubmit={handleSubmit}>
           <div className="mt-10 space-y-8 border-b border-orange pb-12 sm:space-y-0 sm:divide-y sm:divide-orange sm:border-t sm:pb-0">
@@ -60,7 +60,7 @@ const MolFormRegionsCreate = () => {
                 htmlFor="name"
                 className="block text-sm font-medium leading-6 text-white sm:pt-1.5"
               >
-                Región <span className="text-orange">*</span>
+                CCAA <span className="text-orange">*</span>
               </label>
               <div className="mt-2 sm:col-span-2 sm:mt-0">
                 <input
@@ -80,7 +80,7 @@ const MolFormRegionsCreate = () => {
                 htmlFor="lat"
                 className="block text-sm font-medium leading-6 text-white sm:pt-1.5"
               >
-                Latitud <span className="text-orange">*</span>
+                Latitud
               </label>
 
               <div className="flex mt-2 sm:col-span-2 sm:mt-0">
@@ -100,7 +100,7 @@ const MolFormRegionsCreate = () => {
                 htmlFor="long"
                 className="block text-sm font-medium leading-6  text-white sm:pt-1.5"
               >
-                Longitud <span className="text-orange">*</span>
+                Longitud
               </label>
               <div className="mt-2 sm:col-span-2 sm:mt-0">
                 <input
@@ -138,13 +138,13 @@ const MolFormRegionsCreate = () => {
             type="submit"
             className="text-sm my-10 px-24 py-3.5 rounded-xl bg-gradient-to-r from-orange to-orangel hover:from-verde hover:to-verdel ..."
           >
-            Añadir región
+            Añadir CCAA
           </button>
           <button
             className="text-sm my-10 mx-10 px-24 py-3.5 rounded-xl bg-gradient-to-r from-orangel to-orange hover:from-verde hover:to-verdel ..."
             type="button"
           >
-            <a href="/regiontable">Ver Región</a>
+            <a href="/regiontable">Ver CCAA</a>
           </button>
         </form>
       </div>

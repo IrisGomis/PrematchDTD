@@ -110,13 +110,13 @@ export default function MolTablePromotionsShowDelete() {
                       />
                     </th>
                     <th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
-                    Promoción
+                    Ubicación escuela
                     </th>
                     <th scope="col" className="min-w-[12rem] py-3.5 pr-3 text-left text-sm font-semibold text-gray-900">
-                    Escuela
+                    Promoción
                     </th>
                     <th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
-                     Nickname
+                     Abreviatura
                     </th>
                     <th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
                     Nº de coders

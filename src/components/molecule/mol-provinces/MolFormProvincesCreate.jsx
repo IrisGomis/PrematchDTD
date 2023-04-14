@@ -60,7 +60,7 @@ const MolFormProvincesCreate = () => {
     <>
       <div className="bg-stone6 w-full max-w-screen-lg rounded-xl p-20 m-20">
         <h2 className="text-2xl font-semibold leading-7 text-orange">
-          Añadir provincia
+          Añadir provincia 
         </h2>
 
         <form className="bg-stone6" onSubmit={handleSubmit}>
@@ -70,7 +70,7 @@ const MolFormProvincesCreate = () => {
                 htmlFor="regions"
                 className="block text-sm font-medium leading-6 text-white sm:pt-1.5"
               >
-                Región
+                CCAA <span className="text-orange">*</span>
               </label>
               <div className="mt-2 sm:col-span-2 sm:mt-0">
                 <select
@@ -114,7 +114,7 @@ const MolFormProvincesCreate = () => {
                 htmlFor="lat"
                 className="block text-sm font-medium leading-6 text-white sm:pt-1.5"
               >
-                Latitud <span className="text-orange">*</span>
+                Latitud
               </label>
 
               <div className="flex mt-2 sm:col-span-2 sm:mt-0">
@@ -134,7 +134,7 @@ const MolFormProvincesCreate = () => {
                 htmlFor="long"
                 className="block text-sm font-medium leading-6 text-white sm:pt-1.5"
               >
-                Longitud <span className="text-orange">*</span>
+                Longitud
               </label>
               <div className="flex mt-2 sm:col-span-2 sm:mt-0">
                 <input
@@ -143,7 +143,7 @@ const MolFormProvincesCreate = () => {
                   type="text"
                   value={long}
                   onChange={(event) => setLong(event.target.value)}
-                  className="block w-full rounded-md border-0 py-1.5  text-stone6 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-md sm:text-sm sm:leading-6"
+                  className="block w-full rounded-md border-0 py-1.5 text-stone6 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-md sm:text-sm sm:leading-6"
                 />
               </div>
             </div>
