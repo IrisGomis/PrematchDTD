@@ -27,7 +27,7 @@ const MolFormCompaniesCreate = () => {
   const [ubication, setUbication] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
-  const [priority, setPriority] = useState("");
+  const [priority, setPriority] = useState([]);
   const [province_id, setProvince_id] = useState("");
   const [provinces,setProvinces] = useState ([]);
   
@@ -136,8 +136,8 @@ const MolFormCompaniesCreate = () => {
                 <select
                   name="province_id"
                   id="province_id"
-                  value={province_id} // Cambiar 'regions' por el estado que representa la opción seleccionada
-                  onChange={(event) => setProvince_id(event.target.value)} // Cambiar 'setRegions' por el método que actualiza el estado de la opción seleccionada
+                  value={province_id}
+                  onChange={(event) => setProvince_id(event.target.value)}
                   className="block w-full rounded-md border-0 py-1.5  text-stone6 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
                 >
                   {provinces.map((e) => (
@@ -191,28 +191,27 @@ const MolFormCompaniesCreate = () => {
               </div>
             </div>
 
-            {/* <div className="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
-              <label htmlFor="company-priority" className="block text-sm font-medium leading-6 text-white sm:pt-1.5">
-                Prioridad de la empresa
+            <div className="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
+              <label htmlFor="priority" className="block text-sm font-medium leading-6 text-white sm:pt-1.5">
+                Prioridad de la empresa <span className="text-orange">*</span>
               </label>
               <div className="mt-2 sm:col-span-2 sm:mt-0">
                 <select
                   name="priority"
                   id="priority"
-                  value={priority} // Cambiar 'regions' por el estado que representa la opción seleccionada
-                  onChange={(event) => setPriority(event.target.value)} // Cambiar 'setRegions' por el método que actualiza el estado de la opción seleccionada
+                  value={priority}
+                  onChange={(event) => setPriority(event.target.value)}
                   className="block w-full rounded-md border-0 py-1.5  text-stone6 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
                 >
-                  {priority.map((e) => (
+                  {provinces.map((e) => (
                     <option key={e.id} value={e.id}>
                       {e.name}
                     </option>
                   ))}
                 </select>
               </div>
-            </div> */}
-
-            <div className="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
+            </div>
+            {/* <div className="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
               <label
                 htmlFor="company-priority"
                 className="block text-sm font-medium leading-6 text-white sm:pt-1.5"
@@ -231,7 +230,7 @@ const MolFormCompaniesCreate = () => {
                   className="block w-full rounded-md border-0 py-1.5  text-stone6 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
                 />
               </div>
-            </div>
+            </div> */}
 
           </div>
           <button
