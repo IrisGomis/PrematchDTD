@@ -1,35 +1,19 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { createCompanies } from "../../../service/CompaniesService";
+import { createCompanies, getCompanies } from "../../../service/CompaniesService";
 import { getProvinces } from "../../../service/ProvincesService";
-
 import Swal from "sweetalert2";
-// import { Listbox, Transition } from "@headlessui/react";
-// import { CheckIcon, ChevronUpDownIcon } from "@heroicons/react/20/solid";
 
 const MolFormCompaniesCreate = () => {
-  
-  // const people = [
-  //   { id: 1, name: "Wade Cooper" },
-  //   { id: 2, name: "Arlene Mccoy" },
-  //   { id: 3, name: "Devon Webb" },
-  //   { id: 4, name: "Tom Cook" },
-  //   { id: 5, name: "Tanya Fox" },
-  //   { id: 6, name: "Hellen Schmidt" },
-  //   { id: 7, name: "Caroline Schultz" },
-  //   { id: 8, name: "Mason Heaney" },
-  //   { id: 9, name: "Claudie Smitham" },
-  //   { id: 10, name: "Emil Schaefer" },
-  // ];
 
-  // const [selected, setSelected] = useState(people[3]);
   const [name, setName] = useState("");
   const [ubication, setUbication] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [priority, setPriority] = useState([]);
   const [province_id, setProvince_id] = useState("");
-  const [provinces,setProvinces] = useState ([]);
+  const [provinces, setProvinces] = useState([]);
+  const [company, setCompanies] = useState([]);
   
   const navigate = useNavigate();
 
@@ -57,7 +41,7 @@ const MolFormCompaniesCreate = () => {
       });
       setTimeout(() => {
         navigate("/companiestable");
-      }, 2000); // Delay the navigation for 2 seconds (2000 milliseconds)
+      }, 2000);
     } catch (error) {
       console.log(error);
       Swal.fire({
@@ -74,6 +58,14 @@ const MolFormCompaniesCreate = () => {
     getProvinces()
       .then((response) => {
         setProvinces(response.data);
+      })
+      .catch((error) => console.error(error));
+  }, []);
+
+  useEffect(() => {
+    getCompanies()
+      .then((response) => {
+        setCompanies(response.data);
       })
       .catch((error) => console.error(error));
   }, []);
@@ -203,35 +195,14 @@ const MolFormCompaniesCreate = () => {
                   onChange={(event) => setPriority(event.target.value)}
                   className="block w-full rounded-md border-0 py-1.5  text-stone6 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
                 >
-                  {provinces.map((e) => (
+                  {company.map((e) => (
                     <option key={e.id} value={e.id}>
-                      {e.name}
+                      {[e.priority]}
                     </option>
                   ))}
                 </select>
               </div>
-            </div>
-            {/* <div className="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
-              <label
-                htmlFor="company-priority"
-                className="block text-sm font-medium leading-6 text-white sm:pt-1.5"
-              >
-                Prioridad de la empresa <span className="text-orange">*</span>
-              </label>
-              <div className="mt-2 sm:col-span-2 sm:mt-0">
-                <input
-                  type="text"
-                  name="priority"
-                  id="priority"
-                  value={priority}
-                  onChange={(event) => setPriority(event.target.value)}
-                  placeholder="Inserte prioridad de la empresa."
-                  autoComplete="given-priority"
-                  className="block w-full rounded-md border-0 py-1.5  text-stone6 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
-                />
-              </div>
-            </div> */}
-
+            </div>            
           </div>
           <button
             type="submit"

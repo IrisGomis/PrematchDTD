@@ -186,28 +186,7 @@ export default function MolTableCompaniesShowDelete() {
                                 : prev.filter((c) => c !== e)
                             );
                           }}
-                        />
-                  {/* {companies.map((e) => (
-                    <tr key={e.id} className="hover:bg-gray-50">
-                      <td className="px-7 py-4 whitespace-nowrap">
-                        <input
-                          type="checkbox"
-                          name={e.id}
-                          className="h-4 w-4 text-indigo-600 focus:ring-indigo-500"
-                          checked={selectedCompanies.some(
-                            (ev) => ev.id === e.id
-                          )}
-                          onChange={(event) => {
-                            const isChecked = event.target.checked;
-                            setSelectedCompanies((prevState) => {
-                              if (isChecked) {
-                                return [...prevState, e];
-                              } else {
-                                return prevState.filter((ev) => ev.id !== e.id);
-                              }
-                            });
-                          }}
-                        /> */}
+                        />              
                       </td>
                       <td
                         className={classNames(
