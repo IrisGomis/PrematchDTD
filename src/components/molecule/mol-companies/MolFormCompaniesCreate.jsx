@@ -43,7 +43,7 @@ const MolFormCompaniesCreate = () => {
       formData.append('email', email);
       formData.append('phone', phone);
       formData.append('priority', priority);
-      formData.append('province_id', 1);
+      formData.append('province_id', province_id);
       
 
       const { data } = await createCompanies(formData);

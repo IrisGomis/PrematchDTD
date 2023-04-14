@@ -59,7 +59,7 @@ export default function MolTableCompaniesShowDelete() {
       return;
     }
 
-    // Create an array of promises to delete each selected company
+    // Create an array of promises to delete each selected e
     const deletePromises = selectedCompanies.map((event) =>
       deleteCompanies(event.id)
     );
@@ -68,7 +68,7 @@ export default function MolTableCompaniesShowDelete() {
     Promise.all(deletePromises)
       .then((responses) => {
         console.log("Companies deleted successfully!");
-        // Remove all deleted companies from the company state
+        // Remove all deleted companies from the e state
         const deletedIds = selectedCompanies.map((event) => event.id);
         setCompanies(companies.filter((e) => !deletedIds.includes(e.id)));
         // Clear the selectedCompanies state
@@ -168,7 +168,26 @@ export default function MolTableCompaniesShowDelete() {
                 </thead>
 
                 <tbody className="divide-y divide-gray-200 ">
-                  {companies.map((e) => (
+                {companies.map((e) => {
+            // Buscar la provincia que corresponde a la empresa actual
+                  const province = provinces.find((p) => p.id === e.province_id);
+                  return (
+                    <tr key={e.id}>
+                      <td className="px-7 py-4 whitespace-nowrap">
+                        <input
+                          type="checkbox"
+                          className="rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"
+                          checked={selectedCompanies.includes(e)}
+                          onChange={(e) => {
+                            const isChecked = e.target.checked;
+                            setSelectedCompanies((prev) =>
+                              isChecked
+                                ? [...prev, e]
+                                : prev.filter((c) => c !== e)
+                            );
+                          }}
+                        />
+                  {/* {companies.map((e) => (
                     <tr key={e.id} className="hover:bg-gray-50">
                       <td className="px-7 py-4 whitespace-nowrap">
                         <input
@@ -188,7 +207,7 @@ export default function MolTableCompaniesShowDelete() {
                               }
                             });
                           }}
-                        />
+                        /> */}
                       </td>
                       <td
                         className={classNames(
@@ -205,9 +224,7 @@ export default function MolTableCompaniesShowDelete() {
                         {e.ubication}
                       </td>
                       <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                        {e.provinces
-                          .map((province) => provinces.name)
-                          .join(", ")}
+                        {province ? province.name : "-"}
                       </td>
                       <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
                         {e.email}
@@ -227,7 +244,8 @@ export default function MolTableCompaniesShowDelete() {
                         </Link>
                       </td>
                     </tr>
-                  ))}
+                    );
+                    })}
                 </tbody>
 
                 {/* <tbody className="divide-y divide-gray-200 ">

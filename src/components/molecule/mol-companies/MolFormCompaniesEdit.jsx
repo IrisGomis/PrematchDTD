@@ -27,7 +27,7 @@ const MolFormCompaniesEdit = ({ event }) => {
   const [email, setEmail] = useState(undefined);
   const [phone, setPhone] = useState(undefined);
   const [priority, setPriority] = useState(undefined);
-  const [providence_id, setProvidence] = useState(undefined);
+  const [province_id, setProvince_id] = useState(undefined);
   
 
  
@@ -35,12 +35,13 @@ const MolFormCompaniesEdit = ({ event }) => {
     const fetchCompanies = async () => {
       try {
         const { data } = await getCompaniesById(id);
-        setName(data.name);
-        setUbication(data.ubication);
-        setEmail(data.email);
-        setPhone(data.phone);
-        setPriority(data.priority);
-        setProvidence(2);
+        setName(data.company.name);
+        setUbication(data.company.ubication);
+        setEmail(data.company.email);
+        setPhone(data.company.phone);
+        setPriority(data.company.priority);
+        setProvince_id(data.company.province_id);
+        console.log(data);
       } catch (error) {
         console.log(error);
       }
@@ -50,7 +51,7 @@ const MolFormCompaniesEdit = ({ event }) => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    if ([name, ubication, email, phone, priority].some((value) => value === undefined)) {
+    if ([name, ubication, email, phone, priority, province_id].some((value) => value === undefined)) {
       Swal.fire({
         position: "center",
         icon: "error",
@@ -67,6 +68,7 @@ const MolFormCompaniesEdit = ({ event }) => {
         email,
         phone,
         priority,
+        province_id,
       };
 
       await updateCompanies(id, eventData);
@@ -142,6 +144,27 @@ const MolFormCompaniesEdit = ({ event }) => {
                   onChange={(event) => setUbication(event.target.value)}
                   placeholder="Inserte ubicación de la empresa."
                   autoComplete="ubication"
+                  className="block w-full mr-10 rounded-md border-0 px-2 py-1.5 text-stone6 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
+                />
+              </div>
+            </div>
+
+            <div className="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
+              <label
+                htmlFor="company-province"
+                className="block text-sm font-medium leading-6 text-white sm:pt-1.5"
+              >
+                Provincia de la empresa <span className="text-orange">*</span>
+              </label>
+              <div className="flex mt-2 sm:col-span-2 sm:mt-0">
+                <input
+                  type="text"
+                  name="province_idn"
+                  id="province_id"
+                  value={province_id ?? ""}
+                  onChange={(event) => setProvince_id(event.target.value)}
+                  placeholder="Inserte ubicación de la empresa."
+                  autoComplete="province_id"
                   className="block w-full mr-10 rounded-md border-0 px-2 py-1.5 text-stone6 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
                 />
               </div>
