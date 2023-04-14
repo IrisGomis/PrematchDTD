@@ -25,6 +25,7 @@ export default function MolTableCodersShowDelete() {
       .then((response) => {
         setcoders(response.data);
         setSelectedCoders(response.data);
+        console.log(response);
       })
       .catch((error) => console.error(error));
   }, []);
@@ -131,12 +132,12 @@ export default function MolTableCodersShowDelete() {
                         onChange={toggleAll}
                       />
                     </th>
-                    <th scope="col" className="min-w-[12rem] py-3.5 pr-3 text-left text-sm font-semibold text-gray-900">
+                    {/* <th scope="col" className="min-w-[12rem] py-3.5 pr-3 text-left text-sm font-semibold text-gray-900">
                       Evento
                     </th>
                     <th scope="col" className="min-w-[12rem] py-3.5 pr-3 text-left text-sm font-semibold text-gray-900">
                       Promoción
-                    </th>
+                    </th> */}
                     <th scope="col" className="min-w-[12rem] py-3.5 pr-3 text-left text-sm font-semibold text-gray-900">
                       coders
                     </th>
