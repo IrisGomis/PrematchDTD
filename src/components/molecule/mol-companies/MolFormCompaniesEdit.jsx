@@ -1,33 +1,21 @@
-import React, { useState, useEffect, Fragment } from "react";
+import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { getCompaniesById, updateCompanies } from "../../../service/CompaniesService";
 import Swal from "sweetalert2";
-// import { Listbox, Transition } from "@headlessui/react";
-// import { CheckIcon, ChevronUpDownIcon } from "@heroicons/react/20/solid";
+import { getProvinces } from "../../../service/ProvincesService";
+
 
 const MolFormCompaniesEdit = ({ event }) => {
-//   const people = [
-//     { id: 1, name: "Wade Cooper" },
-//     { id: 2, name: "Arlene Mccoy" },
-//     { id: 3, name: "Devon Webb" },
-//     { id: 4, name: "Tom Cook" },
-//     { id: 5, name: "Tanya Fox" },
-//     { id: 6, name: "Hellen Schmidt" },
-//     { id: 7, name: "Caroline Schultz" },
-//     { id: 8, name: "Mason Heaney" },
-//     { id: 9, name: "Claudie Smitham" },
-//     { id: 10, name: "Emil Schaefer" },
-//   ];
   const { id } = useParams();
   const navigate = useNavigate();
 
-  // const [selected, setSelected] = useState("");
-  const [name, setName] = useState(undefined);
-  const [ubication, setUbication] = useState(undefined);
-  const [email, setEmail] = useState(undefined);
-  const [phone, setPhone] = useState(undefined);
-  const [priority, setPriority] = useState(undefined);
-  const [province_id, setProvince_id] = useState(undefined);
+  const [name, setName] = useState("");
+  const [ubication, setUbication] = useState("");
+  const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
+  const [priority, setPriority] = useState("");
+  const [province_id, setProvince_id] = useState("");
+  const [provinces, setProvinces] = useState([]);
   
 
  
@@ -80,7 +68,7 @@ const MolFormCompaniesEdit = ({ event }) => {
         timer: 2000,
       });
       setTimeout(() => {
-        navigate("/");
+        navigate("/companiestable");
       }, 2000); // Delay the navigation for 2 seconds (2000 milliseconds)
     } catch (error) {
       console.log(error);
@@ -94,9 +82,13 @@ const MolFormCompaniesEdit = ({ event }) => {
     }
   };
 
-  // function classNames(...classes) {
-  //   return classes.filter(Boolean).join(" ");
-  // }
+  useEffect(() => {
+    getProvinces()
+      .then((response) => {
+        setProvinces(response.data);
+      })
+      .catch((error) => console.error(error));
+  }, []);
 
  
   return (
@@ -151,6 +143,27 @@ const MolFormCompaniesEdit = ({ event }) => {
 
             <div className="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
               <label
+                htmlFor="name"
+                className="block text-sm font-medium leading-6 text-white sm:pt-1.5"
+              >
+                Provincia <span className="text-orange">*</span>
+              </label>
+              <select
+                  name="province_id"
+                  id="province_id"
+                  value={province_id} // Cambiar 'regions' por el estado que representa la opción seleccionada
+                  onChange={(event) => setProvince_id(event.target.value)} // Cambiar 'setRegions' por el método que actualiza el estado de la opción seleccionada
+                  className="block w-full rounded-md border-0 py-1.5  text-stone6 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
+                >
+                  {provinces.map((e) => (
+                    <option key={e.id} value={e.id}>
+                      {e.name}
+                    </option>
+                  ))}
+                </select>
+            </div>
+            {/* <div className="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
+              <label
                 htmlFor="company-province"
                 className="block text-sm font-medium leading-6 text-white sm:pt-1.5"
               >
@@ -168,7 +181,7 @@ const MolFormCompaniesEdit = ({ event }) => {
                   className="block w-full mr-10 rounded-md border-0 px-2 py-1.5 text-stone6 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
                 />
               </div>
-            </div>
+            </div> */}
 
             <div className="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
               <label
