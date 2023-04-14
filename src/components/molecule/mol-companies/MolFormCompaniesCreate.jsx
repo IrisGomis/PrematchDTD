@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { createCompanies, getCompanies } from "../../../service/CompaniesService";
+import { createCompanies } from "../../../service/CompaniesService";
 import { getProvinces } from "../../../service/ProvincesService";
 import Swal from "sweetalert2";
 
@@ -13,7 +13,7 @@ const MolFormCompaniesCreate = () => {
   const [priority, setPriority] = useState([]);
   const [province_id, setProvince_id] = useState("");
   const [provinces, setProvinces] = useState([]);
-  const [company, setCompanies] = useState([]);
+  // const [company, setCompanies] = useState([]);
   
   const navigate = useNavigate();
 
@@ -62,13 +62,13 @@ const MolFormCompaniesCreate = () => {
       .catch((error) => console.error(error));
   }, []);
 
-  useEffect(() => {
-    getCompanies()
-      .then((response) => {
-        setCompanies(response.data);
-      })
-      .catch((error) => console.error(error));
-  }, []);
+  // useEffect(() => {
+  //   getCompanies()
+  //     .then((response) => {
+  //       setCompanies(response.data);
+  //     })
+  //     .catch((error) => console.error(error));
+  // }, []);
 
   return (
     <>
@@ -194,12 +194,17 @@ const MolFormCompaniesCreate = () => {
                   value={priority}
                   onChange={(event) => setPriority(event.target.value)}
                   className="block w-full rounded-md border-0 py-1.5  text-stone6 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
-                >
-                  {company.map((e) => (
-                    <option key={e.id} value={e.id}>
-                      {[e.priority]}
+                >                 
+                    <option key={1} value={1}>
+                      Alta
                     </option>
-                  ))}
+                    <option key={2} value={2}>
+                      Media
+                    </option>
+                    <option key={3} value={3}>
+                      Baja
+                    </option>
+                  
                 </select>
               </div>
             </div>            
