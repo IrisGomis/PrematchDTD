@@ -1,4 +1,6 @@
 import { getCoders, deleteCoders } from "../../../service/CodersService";
+//import { getPromotions } from "../../../service/PromotionsServices";
+//import { getEvento } from "../../../service/EventService";
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 
@@ -15,6 +17,8 @@ export default function MolTableCodersShowDelete() {
   const [indeterminate, setIndeterminate] = useState(false);
   const [selectedCoders, setSelectedCoders] = useState([]);
   const [coders, setcoders] = useState([]);
+  // const [event, setEvent] = useState([]);
+  // const [promotions, setPromotions] = useState([]);
 
   useEffect(() => {
     getCoders()
@@ -24,6 +28,22 @@ export default function MolTableCodersShowDelete() {
       })
       .catch((error) => console.error(error));
   }, []);
+
+  // useEffect(() => {
+  //   getEvento()
+  //     .then((response) => {
+  //       setEvent(response.data);
+  //     })
+  //     .catch((error) => console.error(error));
+  // }, []);
+
+  // useEffect(() => {
+  //   getPromotions()
+  //     .then((response) => {
+  //       setPromotions(response.data);
+  //     })
+  //     .catch((error) => console.error(error));
+  // }, []);
 
   useLayoutEffect(() => {
     const isIndeterminate =
@@ -112,13 +132,19 @@ export default function MolTableCodersShowDelete() {
                       />
                     </th>
                     <th scope="col" className="min-w-[12rem] py-3.5 pr-3 text-left text-sm font-semibold text-gray-900">
-                      coderso
+                      Evento
+                    </th>
+                    <th scope="col" className="min-w-[12rem] py-3.5 pr-3 text-left text-sm font-semibold text-gray-900">
+                      Promoción
+                    </th>
+                    <th scope="col" className="min-w-[12rem] py-3.5 pr-3 text-left text-sm font-semibold text-gray-900">
+                      coders
                     </th>
                     <th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
                      Fecha
                     </th>
                     <th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
-                    Link enlace coderso
+                    Link enlace coders
                     </th>
                     <th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
                       Max-Entrevistas

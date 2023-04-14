@@ -1,32 +1,34 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
+import { getRegions } from "../../../service/RegionsService";
 import { getProvincesById, updateProvinces } from "../../../service/ProvincesService";
 import Swal from "sweetalert2";
 
 
-const MolFormProvincesEdit = ({ event }) => {
+const MolFormEdit = ({ event }) => {
   
   
   const { id } = useParams();
   const navigate = useNavigate();
-
-  const [region_id, setRegion_id] = useState(undefined);
-  const [name, setName] = useState(undefined);
-  const [lat, setLat] = useState(undefined);
-  const [long, setLong] = useState(undefined);
-  const [iso, setIso] = useState(undefined);
+  const [regions, setRegions] = useState([]);
+  const [region_id, setRegion_id] = useState("");
+  const [name, setName] = useState("");
+  const [lat, setLat] = useState("");
+  const [long, setLong] = useState("");
+  const [iso, setIso] = useState("");
+  
 
  
   useEffect(() => {
     const fetchProvincia = async () => {
       try {
         const { data } = await getProvincesById(id);
-        setRegion_id(data.region_id);
-        setName(data.name);
-        setLat(data.lat);
-        setLong(data.long);
-        setIso(data.iso);
-  
+        setRegion_id(data.province.region_id);
+        setName(data.province.name);
+        setLat(data.province.lat);
+        setLong(data.province.long);
+        setIso(data.province.iso);
+        console.log("data", data);
       } catch (error) {
         console.log(error);
       }
@@ -35,18 +37,11 @@ const MolFormProvincesEdit = ({ event }) => {
     fetchProvincia();
   }, [id]);
 
-  // const handleChange = (event) => {
-  //   setRegion_id(event.target.value);
-  //   setName(event.target.value);
-  //   setLat(event.target.value);
-  //   setLong(event.target.value);
-  //   setIso(event.target.value);
-
-  // };
+ 
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    if ([region_id, name, lat, long, iso].some((value) => value === undefined)) {
+    if ([region_id, name, lat, long, iso].some((value) => value === "")) {
       Swal.fire({
         position: "center",
         icon: "error",
@@ -87,7 +82,14 @@ const MolFormProvincesEdit = ({ event }) => {
       });
     }
   };
-
+  
+  useEffect(() => {
+    getRegions()
+      .then((response) => {
+        setRegions(response.data);
+      })
+      .catch((error) => console.error(error));
+  }, []);
  
   return (
     <>
@@ -104,17 +106,19 @@ const MolFormProvincesEdit = ({ event }) => {
               >
                 Región
               </label>
-              <div className="mt-2 sm:col-span-2 sm:mt-0">
-                <input
-                  type="number"
+              <select
                   name="region_id"
                   id="region_id"
-                  value={region_id ?? ""}
-                  onChange={handleChange}
-                  autoComplete="given-name"
+                  value={region_id} // Cambiar 'regions' por el estado que representa la opción seleccionada
+                  onChange={(event) => setRegion_id(event.target.value)} // Cambiar 'setRegions' por el método que actualiza el estado de la opción seleccionada
                   className="block w-full rounded-md border-0 py-1.5  text-stone6 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
-                />
-              </div>
+                >
+                  {regions.map((e) => (
+                    <option key={e.id} value={e.id}>
+                      {e.name}
+                    </option>
+                  ))}
+                </select>
             </div>
 
             <div className="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
@@ -129,8 +133,8 @@ const MolFormProvincesEdit = ({ event }) => {
                   type="text"
                   name="name"
                   id="name"
-                  value={name ?? ""}
-                  handleChange={(event) => setName(event.target.value)}
+                  value={name}
+                  onChange={(event) => setName(event.target.value)}
                   autoComplete="given-name"
                   className="block w-full rounded-md border-0 py-1.5  text-stone6 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
                 />
@@ -149,8 +153,8 @@ const MolFormProvincesEdit = ({ event }) => {
                   type="numbre"
                   name="lat"
                   id="lat"
-                  value={lat ?? ""}
-                  handleChange={(event) => setLat(event.target.value)}
+                  value={lat}
+                  onChange={(event) => setLat(event.target.value)}
                   className="block w-full mr-10 rounded-md border-0 px-2 py-1.5 text-stone6 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
                 />
               </div>
@@ -168,7 +172,7 @@ const MolFormProvincesEdit = ({ event }) => {
                   id="long"
                   name="long"
                   type="numbre"
-                  value={long ?? ""}
+                  value={long}
                   onChange={(event) => setLong(event.target.value)}
                   className="block w-full rounded-md border-0 py-1.5  text-stone6 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-md sm:text-sm sm:leading-6"
                 />
@@ -187,7 +191,7 @@ const MolFormProvincesEdit = ({ event }) => {
                   type="text"
                   name="iso"
                   id="iso"
-                  value={iso ?? ""}
+                  value={iso}
                   onChange={(event) => setIso(event.target.value)}
                   className="block w-full rounded-md border-0 mr-10 py-1.5 px-2 text-stone6 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xl sm:text-sm sm:leading-6"
                 />
@@ -215,4 +219,4 @@ const MolFormProvincesEdit = ({ event }) => {
   );
 }
 
-export default MolFormProvincesEdit;
+export default MolFormEdit;

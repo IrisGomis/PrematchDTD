@@ -12,7 +12,8 @@ import MolFormRegionsEdit from '../components/molecule/mol-regions/MolFormRegion
 import MolTableProvincesShowDelete from '../components/molecule/mol-provinces/MolTableProvincesShowDelete';
 import MolFormProvincesCreate from '../components/molecule/mol-provinces/MolFormProvincesCreate';
 import MolFormProvincesEdit from '../components/molecule/mol-provinces/MolFormProvincesEdit';
-//import MolFormProvincesCreatePrueba from '../components/molecule/experimentos/MolFormProvincesCreatePrueba';
+import MolFormProvincesCreatePrueba from '../components/molecule/experimentos/MolFormProvincesCreatePrueba';
+import MolFormEdit from '../components/molecule/experimentos/MolFormEdit';
 
 import MolFormCodersEdit from '../components/molecule/mol-coders/MolFormCodersEdit';
 import MolTableCodersShowDelete from '../components/molecule/mol-coders/MolTableCodersShowDelete';
@@ -66,7 +67,8 @@ function App() {
             <Route path="/regioncreate" element={<MolFormRegionsCreate />} />
             <Route path="/regiontable" element={<MolTableRegionsShowDelete />} />
             <Route path="/regionedit/:id" element={<MolFormRegionsEdit />} />
-            {/* <Route path="/regionedit/:id" element={<MolFormProvincesCreatePrueba />} /> */}
+            <Route path="/regionedit/:id" element={<MolFormProvincesCreatePrueba />} />
+            <Route path="/provincesedit/:id" element={<MolFormEdit />} />
 
             <Route path="/provincecreate" element={<MolFormProvincesCreate />} />
             <Route path="/provincetable" element={<MolTableProvincesShowDelete />} />
