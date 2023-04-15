@@ -64,7 +64,7 @@ const MolFormEdit = ({ event }) => {
       Swal.fire({
         position: "center",
         icon: "success",
-        title: "Tu región se ha actualizado con éxito!",
+        title: "¡Tu provincia se ha actualizado con éxito!",
         showConfirmButton: false,
         timer: 2000,
       });
@@ -76,7 +76,7 @@ const MolFormEdit = ({ event }) => {
       Swal.fire({
         position: "center",
         icon: "error",
-        title: "Ha habido un problema, prueba de nuevo!",
+        title: "Ha habido un problema, ¡prueba de nuevo!",
         showConfirmButton: false,
         timer: 2000,
       });

@@ -34,7 +34,7 @@ const MolFormLanguagesEdit = ({ event }) => {
       Swal.fire({
         position: "center",
         icon: "success",
-        title: "Tu idioma se ha actualizado con éxito!",
+        title: "¡Tu idioma se ha actualizado con éxito!",
         showConfirmButton: false,
         timer: 2000,
       });

@@ -29,7 +29,7 @@ const MolFormRegionsCreate = () => {
       Swal.fire({
         position: "center",
         icon: "success",
-        title: "Tu región se ha añadido con éxito!",
+        title: "¡Tu región se ha añadido con éxito!",
         showConfirmButton: false,
         timer: 2000,
       });
@@ -41,7 +41,7 @@ const MolFormRegionsCreate = () => {
       Swal.fire({
         position: "center",
         icon: "error",
-        title: "Ha habido un problema, prueba de nuevo!",
+        title: "Ha habido un problema, ¡prueba de nuevo!",
         showConfirmButton: false,
         timer: 2000,
       });
@@ -60,7 +60,7 @@ const MolFormRegionsCreate = () => {
                 htmlFor="name"
                 className="block text-sm font-medium leading-6 text-white sm:pt-1.5"
               >
-                Región
+                Región <span className="text-orange">*</span>
               </label>
               <div className="mt-2 sm:col-span-2 sm:mt-0">
                 <input
@@ -80,7 +80,7 @@ const MolFormRegionsCreate = () => {
                 htmlFor="lat"
                 className="block text-sm font-medium leading-6 text-white sm:pt-1.5"
               >
-                Latitud
+                Latitud <span className="text-orange">*</span>
               </label>
 
               <div className="flex mt-2 sm:col-span-2 sm:mt-0">
@@ -100,7 +100,7 @@ const MolFormRegionsCreate = () => {
                 htmlFor="long"
                 className="block text-sm font-medium leading-6  text-white sm:pt-1.5"
               >
-                Longitud
+                Longitud <span className="text-orange">*</span>
               </label>
               <div className="mt-2 sm:col-span-2 sm:mt-0">
                 <input
@@ -119,7 +119,7 @@ const MolFormRegionsCreate = () => {
                 htmlFor="iso"
                 className="block text-sm font-medium leading-6  text-white sm:pt-1.5"
               >
-                ISO
+                ISO <span className="text-orange">*</span>
               </label>
               <div className="mt-2 sm:col-span-2 sm:mt-0">
                 <input

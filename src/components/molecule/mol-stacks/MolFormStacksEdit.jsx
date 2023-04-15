@@ -31,7 +31,7 @@ const MolFormStacksEdit = ({ event }) => {
       Swal.fire({
         position: "center",
         icon: "success",
-        title: "Tu coder se ha actualizado con éxito!",
+        title: "¡Tu stack se ha actualizado con éxito!",
         showConfirmButton: false,
         timer: 2000,
       });
@@ -43,7 +43,7 @@ const MolFormStacksEdit = ({ event }) => {
       Swal.fire({
         position: "center",
         icon: "error",
-        title: "Ha habido un problema, prueba de nuevo!",
+        title: "Ha habido un problema, ¡prueba de nuevo!",
         showConfirmButton: false,
         timer: 2000,
       });

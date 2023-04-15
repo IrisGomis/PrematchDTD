@@ -46,7 +46,7 @@ const MolFormEventCreate = () => {
       Swal.fire({
         position: "center",
         icon: "success",
-        title: "Tu evento se ha creado con éxito!",
+        title: "¡Tu evento se ha creado con éxito!",
         showConfirmButton: false,
         timer: 2000,
       });
@@ -58,7 +58,7 @@ const MolFormEventCreate = () => {
       Swal.fire({
         position: "center",
         icon: "error",
-        title: "Ha habido un problema, prueba de nuevo!",
+        title: "Ha habido un problema, ¡prueba de nuevo!",
         showConfirmButton: false,
         timer: 2000,
       });
@@ -80,7 +80,7 @@ const MolFormEventCreate = () => {
                 htmlFor="first-name"
                 className="block text-sm font-medium leading-6 text-white sm:pt-1.5"
               >
-                Nombre del Evento
+                Nombre del Evento <span className="text-orange">*</span>
               </label>
               <div className="mt-2 sm:col-span-2 sm:mt-0">
                 <input
@@ -100,7 +100,7 @@ const MolFormEventCreate = () => {
                 htmlFor="last-name"
                 className="block text-sm font-medium leading-6 text-white sm:pt-1.5"
               >
-                Fecha y Hora
+                Fecha y Hora <span className="text-orange">*</span>
               </label>
               <div className="flex mt-2 sm:col-span-2 sm:mt-0">
                 <input
@@ -121,7 +121,7 @@ const MolFormEventCreate = () => {
                 htmlFor="email"
                 className="block text-sm font-medium leading-6  text-white sm:pt-1.5"
               >
-                Enlace de la reunión
+                Enlace de la reunión <span className="text-orange">*</span>
               </label>
               <div className="mt-2 sm:col-span-2 sm:mt-0">
                 <input
@@ -141,7 +141,7 @@ const MolFormEventCreate = () => {
                 htmlFor="country"
                 className="block text-sm font-medium leading-6  text-white sm:pt-1.5"
               >
-                Asistentes
+                Asistentes <span className="text-orange">*</span>
               </label>
               <div className="mt-2 sm:col-span-2 sm:mt-0">
                 <Listbox value={selected} onChange={setSelected}>
@@ -228,7 +228,7 @@ const MolFormEventCreate = () => {
                 htmlFor="street-address"
                 className="block text-sm font-medium leading-6  text-white sm:pt-1.5"
               >
-                Número de entrevistas
+                Número de entrevistas <span className="text-orange">*</span>
               </label>
               <div className="flex mt-2 sm:col-span-2 sm:mt-0">
                 <input

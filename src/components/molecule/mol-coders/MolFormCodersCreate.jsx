@@ -44,7 +44,7 @@ const MolFormCodersCreate = () => {
       Swal.fire({
         position: "center",
         icon: "success",
-        title: "Tu evento se ha creado con éxito!",
+        title: "¡Tu coder se ha creado con éxito!",
         showConfirmButton: false,
         timer: 2000,
       });
@@ -57,7 +57,7 @@ const MolFormCodersCreate = () => {
       Swal.fire({
         position: "center",
         icon: "error",
-        title: "Ha habido un problema, prueba de nuevo!",
+        title: "Ha habido un problema, ¡prueba de nuevo!",
         showConfirmButton: false,
         timer: 2000,
       });
@@ -142,12 +142,12 @@ const MolFormCodersCreate = () => {
               </div>
             </div>         
 
-            <div className="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
+             <div className="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
               <label
                 htmlFor="name"
                 className="block text-sm font-medium leading-6 text-white sm:pt-1.5"
               >
-                Nombre
+                Nombre <span className="text-orange">*</span>
               </label>
               <div className="flex mt-2 sm:col-span-2 sm:mt-0">
                 <input
@@ -167,7 +167,7 @@ const MolFormCodersCreate = () => {
                 htmlFor="gender"
                 className="block text-sm font-medium leading-6  text-white sm:pt-1.5"
               >
-                Gender
+                Género <span className="text-orange">*</span>
               </label>
               <div className="mt-2 sm:col-span-2 sm:mt-0">
                 <input
@@ -187,7 +187,7 @@ const MolFormCodersCreate = () => {
                 htmlFor="years"
                 className="block text-sm font-medium leading-6  text-white sm:pt-1.5"
               >
-                Años
+                Años <span className="text-orange">*</span>
               </label>
               <div className="flex mt-2 sm:col-span-2 sm:mt-0">
                 <input
@@ -239,16 +239,16 @@ const MolFormCodersCreate = () => {
               </div>
             </div>
 
-            <div className="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
-              <label
+             <div className="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
+               <label
                 htmlFor="email"
                 className="block text-sm font-medium leading-6  text-white sm:pt-1.5"
               >
-                Email
+                Email <span className="text-orange">*</span>
               </label>
               <div className="flex mt-2 sm:col-span-2 sm:mt-0">
                 <input
-                  type="text"
+                  type="email"
                   name="email"
                   id="email"
                   value={email}
@@ -263,11 +263,11 @@ const MolFormCodersCreate = () => {
                 htmlFor="phone"
                 className="block text-sm font-medium leading-6  text-white sm:pt-1.5"
               >
-                Teléfono
+                Teléfono <span className="text-orange">*</span>
               </label>
               <div className="flex mt-2 sm:col-span-2 sm:mt-0">
                 <input
-                  type="text"
+                  type="tel"
                   name="phone"
                   id="phone"
                   value={phone}
@@ -283,7 +283,7 @@ const MolFormCodersCreate = () => {
                 htmlFor="linkedin"
                 className="block text-sm font-medium leading-6  text-white sm:pt-1.5"
               >
-                Linkedin
+                Linkedin <span className="text-orange">*</span>
               </label>
               <div className="flex mt-2 sm:col-span-2 sm:mt-0">
                 <input
@@ -302,7 +302,7 @@ const MolFormCodersCreate = () => {
                 htmlFor="github"
                 className="block text-sm font-medium leading-6  text-white sm:pt-1.5"
               >
-                GitHub
+                GitHub <span className="text-orange">*</span>
               </label>
               <div className="flex mt-2 sm:col-span-2 sm:mt-0">
                 <input
