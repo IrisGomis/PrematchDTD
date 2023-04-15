@@ -14,7 +14,7 @@ import {
 const Drawer = () => {
   const navigation = [
     { name: 'Evento', href: '/', icon: CalendarIcon, current: false },
-    { name: 'Tareas', href: 'taks', icon: DocumentIcon, current: false },
+    { name: 'Match', href: 'match', icon: DocumentIcon, current: false },
     { name: 'Admin', href: 'admin', icon: FolderIcon, current: false },
     { name: 'Empresas', href: 'companies', icon: IdentificationIcon, current: false },
     { name: 'Escuelas', href: 'schools', icon: HomeIcon, current: false },
