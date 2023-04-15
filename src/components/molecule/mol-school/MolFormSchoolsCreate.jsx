@@ -1,9 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { getProvinces } from "../../../service/ProvincesService";
 import { createSchools } from "../../../service/SchoolsService";
 import Swal from "sweetalert2";
 
 const MolFormSchoolsCreate = () => {
+  const [provinces, setProvinces] = useState([]);
   const [province_id, setProvince_id] = useState("");
   const [name, setName] = useState("");
   const [lat, setLat] = useState("");
@@ -43,7 +45,14 @@ const MolFormSchoolsCreate = () => {
       });
     }
   };
-
+  
+  useEffect(() => {
+    getProvinces()
+      .then((response) => {
+        setProvinces(response.data);
+      })
+      .catch((error) => console.error(error));
+  }, []);
  
   return (
     <>
@@ -52,7 +61,7 @@ const MolFormSchoolsCreate = () => {
 
         <form className="bg-stone6" onSubmit={handleSubmit}>
           <div className="mt-10 space-y-8 border-b border-orange pb-12 sm:space-y-0 sm:divide-y sm:divide-orange sm:border-t sm:pb-0">
-            
+
           <div className="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
               <label
                 htmlFor="name"
@@ -60,19 +69,20 @@ const MolFormSchoolsCreate = () => {
               >
                 Provincia
               </label>
-              <div className="mt-2 sm:col-span-2 sm:mt-0">
-                <input
-                  type="number"
+              <select
                   name="province_id"
                   id="province_id"
-                  value={province_id}
-                  onChange={(event) => setProvince_id(event.target.value)}
-                  autoComplete="given-name"
+                  value={province_id} // Cambiar 'regions' por el estado que representa la opción seleccionada
+                  onChange={(event) => setProvince_id(event.target.value)} // Cambiar 'setRegions' por el método que actualiza el estado de la opción seleccionada
                   className="block w-full rounded-md border-0 py-1.5  text-stone6 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
-                />
-              </div>
+                >
+                  {provinces.map((e) => (
+                    <option key={e.id} value={e.id}>
+                      {e.name}
+                    </option>
+                  ))}
+                </select>
             </div>
-            
             <div className="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
               <label
                 htmlFor="name"

@@ -8,23 +8,21 @@ const MolFormRegionsEdit = ({ event }) => {
  
   const { id } = useParams();
   const navigate = useNavigate();
-
-  
-  const [name, setName] = useState(undefined);
-  const [lat, setLat] = useState(undefined);
-  const [long, setLong] = useState(undefined);
-  const [iso, setIso] = useState(undefined);
+  const [name, setName] = useState("");
+  const [lat, setLat] = useState("");
+  const [long, setLong] = useState("");
+  const [iso, setIso] = useState("");
 
  
   useEffect(() => {
     const fetchRegion = async () => {
       try {
         const { data } = await getRegionsById(id);
-        setName(data.name);
-        setLat(data.lat);
-        setLong(data.long);
-        setIso(data.iso);
-  
+        setName(data.region.name);
+        setLat(data.region.lat);
+        setLong(data.region.long);
+        setIso(data.region.iso);
+        console.log(data);
       } catch (error) {
         console.log(error);
       }
@@ -96,7 +94,7 @@ const MolFormRegionsEdit = ({ event }) => {
                   type="text"
                   name="name"
                   id="name"
-                  value={name ?? ""}
+                  value={name}
                   onChange={(event) => setName(event.target.value)}
                   autoComplete="given-name"
                   className="block w-full rounded-md border-0 py-1.5  text-stone6 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
@@ -116,7 +114,7 @@ const MolFormRegionsEdit = ({ event }) => {
                   type="numbre"
                   name="lat"
                   id="lat"
-                  value={lat ?? ""}
+                  value={lat}
                   onChange={(event) => setLat(event.target.value)}
                   className="block w-full mr-10 rounded-md border-0 px-2 py-1.5 text-stone6 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
                 />
@@ -135,7 +133,7 @@ const MolFormRegionsEdit = ({ event }) => {
                   id="long"
                   name="long"
                   type="numbre"
-                  value={long ?? ""}
+                  value={long}
                   onChange={(event) => setLong(event.target.value)}
                   className="block w-full rounded-md border-0 py-1.5  text-stone6 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-md sm:text-sm sm:leading-6"
                 />
@@ -154,7 +152,7 @@ const MolFormRegionsEdit = ({ event }) => {
                   type="text"
                   name="iso"
                   id="iso"
-                  value={iso ?? ""}
+                  value={iso}
                   onChange={(event) => setIso(event.target.value)}
                   className="block w-full rounded-md border-0 mr-10 py-1.5 px-2 text-stone6 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xl sm:text-sm sm:leading-6"
                 />
