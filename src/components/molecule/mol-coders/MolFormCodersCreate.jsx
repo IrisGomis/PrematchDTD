@@ -95,7 +95,7 @@ const MolFormCodersCreate = () => {
                 htmlFor="event"
                 className="block text-sm font-medium leading-6 text-white sm:pt-1.5"
               >
-                Evento <span className="text-orange">*</span>
+                Evento
               </label>
               <div className="mt-2 sm:col-span-2 sm:mt-0">
                 <select
@@ -122,7 +122,7 @@ const MolFormCodersCreate = () => {
                 htmlFor="regions"
                 className="block text-sm font-medium leading-6 text-white sm:pt-1.5"
               >
-                Promoción <span className="text-orange">*</span>
+                Promoción
               </label>
               <div className="mt-2 sm:col-span-2 sm:mt-0">
                 <select
@@ -142,7 +142,7 @@ const MolFormCodersCreate = () => {
               </div>
             </div>         
 
-            <div className="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
+             <div className="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
               <label
                 htmlFor="name"
                 className="block text-sm font-medium leading-6 text-white sm:pt-1.5"
@@ -225,7 +225,7 @@ const MolFormCodersCreate = () => {
                 htmlFor="remote"
                 className="block text-sm font-medium leading-6  text-white sm:pt-1.5"
               >
-                Remote <span className="text-orange">*</span>
+                Remote
               </label>
               <div className="flex mt-2 sm:col-span-2 sm:mt-0">
                 <input
@@ -239,8 +239,8 @@ const MolFormCodersCreate = () => {
               </div>
             </div>
 
-            <div className="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
-              <label
+             <div className="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
+               <label
                 htmlFor="email"
                 className="block text-sm font-medium leading-6  text-white sm:pt-1.5"
               >

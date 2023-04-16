@@ -15,9 +15,9 @@ import MolFormProvincesEdit from '../components/molecule/mol-provinces/MolFormPr
 import MolFormProvincesCreatePrueba from '../components/molecule/experimentos/MolFormProvincesCreatePrueba';
 import MolFormEdit from '../components/molecule/experimentos/MolFormEdit';
 
-import MolFormCodersEdit from '../components/molecule/mol-coders/MolFormCodersEdit';
-import MolTableCodersShowDelete from '../components/molecule/mol-coders/MolTableCodersShowDelete';
-import MolFormCodersCreate from '../components/molecule/mol-coders/MolFormCodersCreate';
+// import MolFormCodersEdit from '../components/molecule/mol-coders/MolFormCodersEdit';
+// import MolTableCodersShowDelete from '../components/molecule/mol-coders/MolTableCodersShowDelete';
+// import MolFormCodersCreate from '../components/molecule/mol-coders/MolFormCodersCreate';
 
 import MolTableStacksShowDelete from '../components/molecule/mol-stacks/MolTableStacksShowDelete';
 import MolFormStacksCreate from '../components/molecule/mol-stacks/MolFormStacksCreate';
@@ -30,6 +30,10 @@ import MolFormLanguagesEdit from '../components/molecule/mol-languages/MolFormLa
 import MolFormSchoolsCreate from '../components/molecule/mol-school/MolFormSchoolsCreate';
 import MolTableSchoolsShowDelete from '../components/molecule/mol-school/MolTableSchoolsShowDelete';
 import MolFormSchoolsEdit from '../components/molecule/mol-school/MolFormSchoolsEdit';
+
+import MolFormCompaniesCreate from '../components/molecule/mol-companies/MolFormCompaniesCreate';
+import MolTableCompaniesShowDelete from '../components/molecule/mol-companies/MolTableCompaniesShowDelete';
+import MolFormCompaniesEdit from '../components/molecule/mol-companies/MolFormCompaniesEdit';
 
 import MolFormPromotionsCreate from '../components/molecule/mol-promotions/MolFormPromotionsCreate';
 import MolTablePromotionsShowDelete from '../components/molecule/mol-promotions/MolTablePromotionsShowDelete';
@@ -47,7 +51,7 @@ import Statistics from '../components/views/Statistics';
 import Admin from '../components/views/Admin';
 import Tareas from '../components/views/Taks';
 import Schools from '../components/views/Schools';
-;
+
 
 function App() {
   return (
@@ -78,9 +82,9 @@ function App() {
             <Route path="/provincetable" element={<MolTableProvincesShowDelete />} />
             <Route path="/provincedit/:id" element={<MolFormProvincesEdit />} />
 
-            <Route path="/codercreate" element={<MolFormCodersCreate />} />
+            {/* <Route path="/codercreate" element={<MolFormCodersCreate />} />
             <Route path="/codertable" element={<MolTableCodersShowDelete />} />
-            <Route path="/coderedit/:id" element={<MolFormCodersEdit />} />
+            <Route path="/coderedit/:id" element={<MolFormCodersEdit />} /> */}
 
             <Route path="/stackscreate" element={<MolFormStacksCreate />} />
             <Route path="/stackstable" element={<MolTableStacksShowDelete />} />
@@ -93,6 +97,10 @@ function App() {
             <Route path="/schoolscreate" element={<MolFormSchoolsCreate />} />
             <Route path="/schoolstable" element={<MolTableSchoolsShowDelete />} />
             <Route path="/schoolsedit/:id" element={<MolFormSchoolsEdit />} />
+
+            <Route path="/companiescreate" element={<MolFormCompaniesCreate />} />
+            <Route path="/companiestable" element={<MolTableCompaniesShowDelete />} />
+            <Route path="/companiesedit/:id" element={<MolFormCompaniesEdit />} />
 
             <Route path="/promotionscreate" element={<MolFormPromotionsCreate />} />
             <Route path="/promotionstable" element={<MolTablePromotionsShowDelete />} />
