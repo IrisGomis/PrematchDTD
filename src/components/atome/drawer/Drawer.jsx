@@ -5,16 +5,19 @@ import { Link } from 'react-router-dom';
 import {
   CalendarIcon,
   ChartBarIcon,
+  CalendarDaysIcon,
   DocumentIcon,
   IdentificationIcon,
   FolderIcon,
   HomeIcon,
 } from '@heroicons/react/24/outline'
 
+
 const Drawer = () => {
   const navigation = [
     { name: 'Evento', href: '/', icon: CalendarIcon, current: false },
     { name: 'Match', href: 'match', icon: DocumentIcon, current: false },
+    { name: 'Agenda', href: 'datematches', icon: CalendarDaysIcon, current: false },
     { name: 'Admin', href: 'admin', icon: FolderIcon, current: false },
     { name: 'Empresas', href: 'companies', icon: IdentificationIcon, current: false },
     { name: 'Escuelas', href: 'schools', icon: HomeIcon, current: false },

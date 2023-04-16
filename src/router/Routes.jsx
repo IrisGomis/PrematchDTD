@@ -42,10 +42,12 @@ import MolFormPromotionsEdit from '../components/molecule/mol-promotions/MolForm
 import Layout from '../components/layout/Layout';
 
 import Home from '../components/views/Home';
+import Match from '../components/views/Match';
+import DateMatch from '../components/views/DateMatches';
 import Companies from '../components/views/Companies';
 import Statistics from '../components/views/Statistics';
 import Admin from '../components/views/Admin';
-import Match from '../components/views/Match';
+
 import Schools from '../components/views/Schools';
 
 
@@ -58,6 +60,7 @@ function App() {
             <Routes>
 
             <Route path="/" element={<Home />} />
+            <Route path="/datematches" element={<DateMatch />} />
             <Route path="/admin" element={<Admin />} />
             <Route path="/match" element={<Match />} />
             <Route path="/schools" element={<Schools />} />

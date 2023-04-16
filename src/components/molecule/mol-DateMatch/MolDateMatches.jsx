@@ -1,22 +1,149 @@
-
-
-
-
 import { getEvento, deleteEvento } from "../../../service/EventService";
-import { useEffect, useLayoutEffect, useRef, useState } from "react";
+import { useEffect, useLayoutEffect, useRef, useState, Fragment } from "react";
 import { Link } from "react-router-dom";
+import { Listbox, Transition } from '@headlessui/react'
+import { CheckIcon, ChevronUpDownIcon } from '@heroicons/react/20/solid'
 
 
+const people = [
+      {
+        id: 1,
+        name: 'Leslie Abbott',
+        stack: 'Java',
+        lenguages: 'Nivel medio',
+        time: '10:10'
+      },
+      {
+        id: 2,
+        name: 'Hector Adams',
+        stack: 'Java - PHP',
+        lenguages: 'Nivel Alto',
+        time: '10:20'
+      },
+      {
+        id: 3,
+        name: 'Blake Alexander',
+        stack: 'Java - PHP',
+        lenguages: 'Nivel Alto',
+        time: '10:30'
+      },
+      {
+        id: 4,
+        name: 'Fabricio Andrews',
+        stack: 'Java - PHP',
+        lenguages: 'Nivel Alto',
+        time: '10:40'
+      },
+      {
+        id: 5,
+        name: 'Angela Beaver',
+        stack: 'Java - PHP',
+        lenguages: 'Nivel Alto',
+        time: '10:50'
+      },
+      {
+        id: 6,
+        name: 'Yvette Blanchard',
+        stack: 'Java - PHP',
+        lenguages: 'Nivel Alto',
+        time: '11:00'
+      },
+      {
+        id: 7,
+        name: 'Lawrence Brooks',
+        stack: 'Java - PHP',
+        lenguages: 'Nivel Alto',
+        time: '11:10'
+      },
+      {
+        id: 8,
+        name: 'Jeffrey Clark',
+        stack: 'Java - PHP',
+        lenguages: 'Nivel Alto',
+        time: '11:20'
+      },
+      {
+        id: 9,
+        name: 'Kathryn Cooper',
+        stack: 'Java - PHP',
+        lenguages: 'Nivel Alto',
+        time: '11:30'
+      },
+      {
+        id: 10,
+        name: 'Alicia Edwards',
+        stack: 'Java - PHP',
+        lenguages: 'Nivel Alto',
+        time: '11:40'
+      },
+      {
+        id: 11,
+        name: 'Benjamin Emerson',
+        stack: 'Java - PHP',
+        lenguages: 'Nivel Alto',
+        time: '11:50'
+      },
+      {
+        id: 12,
+        name: 'Jillian Erics',
+        stack: 'Java - PHP',
+        lenguages: 'Nivel Alto',
+        time: '12:00'
+      },
+      {
+        id: 13,
+        name: 'Chelsea Evans',
+        stack: 'Java - PHP',
+        lenguages: 'Nivel Alto',
+        time: '12:10'
+      },
+      {
+        id: 14,
+        name: 'Michael Gillard',
+        stack: 'Java - PHP',
+        lenguages: 'Nivel Alto',
+        time: '12:20'
+      },
+      {
+        id: 15,
+        name: 'Dries Giuessepe',
+        stack: 'Java - PHP',
+        lenguages: 'Nivel Alto',
+        time: '12:30'
+      },
+      {
+        id: 16,
+        name: 'Jenny Harrison',
+        stack: 'Java - PHP',
+        lenguages: 'Nivel Alto',
+        time: '12:40'
+      },
+      {
+        id: 17,
+        name: 'Lindsay Hatley',
+        stack: 'Java - PHP',
+        lenguages: 'Nivel Alto',
+        time: '12:50'
+      },
+      {
+        id: 18,
+        name: 'Anna Hill',
+        stack: 'Java - PHP',
+        lenguages: 'Nivel Alto',
+        time: '13:00'
+      }
+    ]
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
 }
 
-export default function MolTableEventShowDelete() {
+export default function MolDateMatches() {
   
   const checkbox = useRef();
   const [checked, setChecked] = useState(false);
   const [indeterminate, setIndeterminate] = useState(false);
+  const [selected, setSelected] = useState(people[3])
   const [selectedEvent, setSelectedEvent] = useState([]);
   const [event, setEvent] = useState([]);
 
@@ -75,10 +202,10 @@ export default function MolTableEventShowDelete() {
   }
   return (
     <>
-    <div className="bg-stone6 w-full max-w-screen-xl rounded-xl p-20 m-20 text-white">
+    <div className="bg-stone6 w-full  rounded-xl p-20 m-20 text-white">
       <div className="sm:flex sm:items-center">
         <div className="sm:flex-auto">
-          <h1 className="text-xl text-orange font-semibold leading-7">Lista de eventos</h1>
+          <h1 className="text-xl text-orange font-semibold leading-7">Agenda Evento</h1>
         </div>
         <div className="mt-4 sm:ml-16 sm:mt-0 sm:flex-none">
         <button
@@ -117,19 +244,22 @@ export default function MolTableEventShowDelete() {
                       />
                     </th>
                     <th scope="col" className="min-w-[12rem] py-3.5 pr-3 text-left text-sm font-semibold text-gray-900">
-                      Evento
+                      Empresa
                     </th>
                     <th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
-                     Fecha
+                     Nombre
                     </th>
                     <th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
-                    Link enlace evento
+                     Email
                     </th>
                     <th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
-                      Max-Entrevistas
+                      Cargo
                     </th>
                     <th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
-                      Min-Entrevistas
+                     LinkedIn
+                    </th>
+                    <th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
+                     Entrevistas
                     </th>
                     <th scope="col" className="relative py-3.5 pl-3 pr-4 sm:pr-3">
                       <span className="sr-only">Editar</span>
@@ -170,6 +300,65 @@ export default function MolTableEventShowDelete() {
                       <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{e.url}</td>
                       <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{e.max}</td>
                       <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{e.min}</td>
+                      <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500 w-64">
+                      <Listbox value={selected} onChange={setSelected}>
+      {({ open }) => (
+        <>
+          <div className="relative mt-2">
+            <Listbox.Button className="relative w-full cursor-default rounded-md bg-stone6 py-1.5 pl-3 pr-10 text-left text-white shadow-sm ring-1 ring-inset ring-stone6 focus:outline-none focus:ring-2 focus:ring-orange sm:text-sm sm:leading-6">
+              <span className="block truncate">{selected.name}</span>
+              <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
+                <ChevronUpDownIcon className="h-5 w-5 text-gray-400" aria-hidden="true" />
+              </span>
+            </Listbox.Button>
+
+            <Transition
+              show={open}
+              as={Fragment}
+              leave="transition ease-in duration-100"
+              leaveFrom="opacity-100"
+              leaveTo="opacity-0"
+            >
+              <Listbox.Options className="absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
+                {people.map((person) => (
+                  <Listbox.Option
+                    key={person.id}
+                    className={({ active }) =>
+                      classNames(
+                        active ? 'bg-orange text-stone3' : 'text-stone6',
+                        'relative cursor-default select-none py-2 pl-3 pr-9'
+                      )
+                    }
+                    value={person}
+                  >
+                    {({ selected, active }) => (
+                      <>
+                        <span className={classNames(selected ? 'font-semibold' : 'font-normal', 'block truncate')}>
+                          {person.name},
+                          {person.time}
+                        </span>
+
+                        {selected ? (
+                          <span
+                            className={classNames(
+                              active ? 'text-stone6' : 'text-orange',
+                              'absolute inset-y-0 right-0 flex items-center pr-4'
+                            )}
+                          >
+                            <CheckIcon className="h-5 w-5" aria-hidden="true" />
+                          </span>
+                        ) : null}
+                      </>
+                    )}
+                  </Listbox.Option>
+                ))}
+              </Listbox.Options>
+            </Transition>
+          </div>
+        </>
+      )}
+    </Listbox>
+                      </td>
                       <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                         <Link
                           to={`/eventedit/${e.id}`}
@@ -190,25 +379,3 @@ export default function MolTableEventShowDelete() {
     </>
   )
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

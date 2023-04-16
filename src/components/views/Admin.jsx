@@ -6,7 +6,7 @@ import MolTableRegionsShowDelete from '../molecule/mol-regions/MolFormRegionsCre
 const Admin = () => {
   return (
    <div>
-    <MolTableRegionsShowDelete />
+    <MolTableRegionsShowDelete/>
    </div>
   )
 }
