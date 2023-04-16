@@ -113,7 +113,7 @@ const MolFormRecruitersEdit = ({ prop }) => {
   return (
     <>
       <div className="bg-stone6 w-full max-w-screen-lg rounded-xl p-20 m-20">
-        <h2 className="text-2xl font-semibold leading-7 text-orange">Editar Coder</h2>
+        <h2 className="text-2xl font-semibold leading-7 text-orange">Editar Recruiter</h2>
 
         <form className="bg-stone6" onSubmit={handleSubmit}>
           <div className="mt-10 space-y-8 border-b border-orange pb-12 sm:space-y-0 sm:divide-y sm:divide-orange sm:border-t sm:pb-0">
@@ -125,7 +125,7 @@ const MolFormRecruitersEdit = ({ prop }) => {
                 htmlFor="event_id"
                 className="block text-sm font-medium leading-6 text-white sm:pt-1.5"
               >
-               Evento
+               Evento <span className="text-orange">*</span>
               </label>
               <div className="mt-2 sm:col-span-2 sm:mt-0">
               <select
@@ -151,7 +151,7 @@ const MolFormRecruitersEdit = ({ prop }) => {
                 htmlFor="companies_id"
                 className="block text-sm font-medium leading-6 text-white sm:pt-1.5"
               >
-               Id de la compañía
+               Empresa <span className="text-orange">*</span>
               </label>
               <div className="mt-2 sm:col-span-2 sm:mt-0">
               <select
@@ -177,7 +177,7 @@ const MolFormRecruitersEdit = ({ prop }) => {
                 htmlFor="name"
                 className="block text-sm font-medium leading-6  text-white sm:pt-1.5"
               >
-               Nombre
+               Nombre <span className="text-orange">*</span>
               </label>
               <div className="mt-2 sm:col-span-2 sm:mt-0">
                 <input
@@ -197,7 +197,7 @@ const MolFormRecruitersEdit = ({ prop }) => {
                 htmlFor="charge"
                 className="block text-sm font-medium leading-6  text-white sm:pt-1.5"
               >
-                Cargo
+                Cargo <span className="text-orange">*</span>
               </label>
                <div className="flex mt-2 sm:col-span-2 sm:mt-0">
                 <input
@@ -217,16 +217,16 @@ const MolFormRecruitersEdit = ({ prop }) => {
                 htmlFor="linkedin"
                 className="block text-sm font-medium leading-6  text-white sm:pt-1.5"
               >
-                Linkedin
+                Linkedin 
               </label>
                <div className="flex mt-2 sm:col-span-2 sm:mt-0">
                 <input
-                  type="checkbox"
+                  type="text"
                   name="linkedin"
                   id="linkedin"
                   value={linkedin ?? ""}
                   onChange={(event) => setLinkedin(event.target.value)}
-                  placeholder="Maximas"
+                  // placeholder="Maximas"
                   className="block w-full rounded-md border-0 mr-10 py-1.5 px-1.5 text-stone6 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xl sm:text-sm sm:leading-6"
                 />
               </div>
@@ -237,7 +237,7 @@ const MolFormRecruitersEdit = ({ prop }) => {
                 htmlFor="email"
                 className="block text-sm font-medium leading-6  text-white sm:pt-1.5"
               >
-                Email
+                Email <span className="text-orange">*</span>
               </label>
                <div className="flex mt-2 sm:col-span-2 sm:mt-0">
                 <input
@@ -256,7 +256,7 @@ const MolFormRecruitersEdit = ({ prop }) => {
                 htmlFor="phone"
                 className="block text-sm font-medium leading-6  text-white sm:pt-1.5"
               >
-                Teléfono
+                Teléfono <span className="text-orange">*</span>
               </label>
                <div className="flex mt-2 sm:col-span-2 sm:mt-0">
                 <input
@@ -275,11 +275,11 @@ const MolFormRecruitersEdit = ({ prop }) => {
                 htmlFor="remote"
                 className="block text-sm font-medium leading-6  text-white sm:pt-1.5"
               >
-                En remoto
+                En remoto <span className="text-orange">*</span>
               </label>
                <div className="flex mt-2 sm:col-span-2 sm:mt-0">
                 <input
-                  type="url"
+                  type="checkbox"
                   name="remote"
                   id="remoten"
                   value={remote ?? ""}
@@ -294,11 +294,11 @@ const MolFormRecruitersEdit = ({ prop }) => {
                 htmlFor="interviews_quantity"
                 className="block text-sm font-medium leading-6  text-white sm:pt-1.5"
               >
-                Nº entrevistas
+                Nº entrevistas <span className="text-orange">*</span>
               </label>
                <div className="flex mt-2 sm:col-span-2 sm:mt-0">
                 <input
-                  type="url"
+                  type="number"
                   name="interviews_quantity"
                   id="interviews_quantity"
                   value={interviews_quantity ?? ""}

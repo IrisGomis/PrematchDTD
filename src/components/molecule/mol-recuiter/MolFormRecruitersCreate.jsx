@@ -182,7 +182,7 @@ const MolFormRecruitersCreate = () => {
                 htmlFor="linkedin"
                 className="block text-sm font-medium leading-6  text-white sm:pt-1.5"
               >
-                Linkedin <span className="text-orange">*</span>
+                Linkedin
               </label>
               <div className="flex mt-2 sm:col-span-2 sm:mt-0">
                 <input

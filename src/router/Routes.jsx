@@ -100,7 +100,7 @@ function App() {
 
             <Route path="/recruiterscreate" element={<MolFormRecruitersCreate />} />
             <Route path="/recruiterstable" element={<MolTableRecruitersShowDelete />} />
-            <Route path="/precruitersedit/:id" element={<MolFormRecruitersEdit />} />
+            <Route path="/recruitersedit/:id" element={<MolFormRecruitersEdit />} />
 
             </Routes>
           </Layout>
