@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { getRegionsById, updateRegions } from "../../../service/RegionsService";
 import Swal from "sweetalert2";
+import MolMenuAdmin from "./MolMenuAdmin";
 
 
 const MolFormRegionsEdit = ({ event }) => {
@@ -76,6 +77,7 @@ const MolFormRegionsEdit = ({ event }) => {
  
   return (
     <>
+    <MolMenuAdmin/>
       <div className="bg-stone6 w-full max-w-screen-lg rounded-xl p-20 m-20">
         <h2 className="text-2xl font-semibold leading-7 text-orange">Editar región</h2>
 

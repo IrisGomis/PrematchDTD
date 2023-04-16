@@ -17,7 +17,7 @@ const MolStatisticsSimpleBarCharts = () => {
         <BarChart 
             data={data}
             width={500}
-            height={300}
+            height={150}
             margin={{
                 top:5,
                 right:30,

@@ -1,7 +1,7 @@
 import { getRegions, deleteRegions } from "../../../service/RegionsService";
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
-
+import MolMenuAdmin from "./MolMenuAdmin";
 
 
 function classNames(...classes) {
@@ -70,6 +70,8 @@ export default function MolTableRegionsShowDelete() {
       });
   }
   return (
+    <>
+    <MolMenuAdmin/>
     <div className="bg-stone6 w-full max-w-screen-xl rounded-xl p-20 m-20 text-white">
       <div className="sm:flex sm:items-center">
         <div className="sm:flex-auto">
@@ -178,5 +180,6 @@ export default function MolTableRegionsShowDelete() {
         </div>
       </div>
     </div>
+    </>
   )
 }

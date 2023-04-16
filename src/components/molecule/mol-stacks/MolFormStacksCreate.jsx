@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { createStacks } from "../../../service/StacksService";
 import Swal from "sweetalert2";
+import MolMenuAdmin from "../mol-regions/MolMenuAdmin";
 
 export default function MolFormStacksCreate() {
   const [name, setName] = useState("");
@@ -39,6 +40,7 @@ export default function MolFormStacksCreate() {
 
   return (
     <>
+    <MolMenuAdmin/>
       <div className="bg-stone6 w-full max-w-screen-lg rounded-xl p-20 m-20">
         <h2 className="text-2xl font-semibold leading-7 text-orange">Añadir Stack</h2>
 

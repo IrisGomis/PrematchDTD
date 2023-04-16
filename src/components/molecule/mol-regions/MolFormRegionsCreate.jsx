@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { createRegions } from "../../../service/RegionsService";
 import Swal from "sweetalert2";
+import MolMenuAdmin from "./MolMenuAdmin";
 
 
 const MolFormRegionsCreate = () => {
@@ -50,6 +51,7 @@ const MolFormRegionsCreate = () => {
  
   return (
     <>
+    <MolMenuAdmin/>
       <div className="bg-stone6 w-full max-w-screen-lg rounded-xl p-20 m-20">
         <h2 className="text-2xl font-semibold leading-7 text-orange">Añadir región</h2>
 

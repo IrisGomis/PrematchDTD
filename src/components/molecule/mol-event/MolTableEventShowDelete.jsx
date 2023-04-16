@@ -1,6 +1,7 @@
 import { getEvento, deleteEvento } from "../../../service/EventService";
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
+import MenuEvent from "./MenuEvent";
 
 
 
@@ -70,10 +71,12 @@ export default function MolTableEventShowDelete() {
       });
   }
   return (
+    <>
+    <MenuEvent/>
     <div className="bg-stone6 w-full max-w-screen-xl rounded-xl p-20 m-20 text-white">
       <div className="sm:flex sm:items-center">
         <div className="sm:flex-auto">
-          <h1 className="text-xl font-semibold leading-7">Lista de eventos</h1>
+          <h1 className="text-xl text-orange font-semibold leading-7">Lista de eventos</h1>
         </div>
         <div className="mt-4 sm:ml-16 sm:mt-0 sm:flex-none">
         <button
@@ -182,5 +185,6 @@ export default function MolTableEventShowDelete() {
         </div>
       </div>
     </div>
+    </>
   )
 }

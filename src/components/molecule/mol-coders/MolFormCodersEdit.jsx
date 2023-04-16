@@ -4,6 +4,8 @@ import { getCodersById, updateCoders } from "../../../service/CodersService";
 import Swal from "sweetalert2";
 import { getPromotions } from "../../../service/PromotionsServices";
 import { getEvento } from "../../../service/EventService";
+import MenuSchool from "../mol-school/MenuSchools";
+
 
 const MolFormCodersEdit = ({ enent }) => {
  
@@ -119,6 +121,7 @@ const MolFormCodersEdit = ({ enent }) => {
  
   return (
     <>
+    <MenuSchool/>
       <div className="bg-stone6 w-full max-w-screen-lg rounded-xl p-20 m-20">
         <h2 className="text-2xl font-semibold leading-7 text-orange">Editar Coder</h2>
 

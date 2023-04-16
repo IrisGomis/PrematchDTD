@@ -1,11 +1,11 @@
 import React from 'react';
-import MolFormCompaniesCreate from '../molecule/mol-companies/MolFormCompaniesCreate';
+import MolTableCompaniesShowDelete from '../molecule/mol-companies/MolTableCompaniesShowDelete';
 
 
 const Companies = () => {
   return (
     <div>
-      <MolFormCompaniesCreate />
+      <MolTableCompaniesShowDelete />
     </div>
   )
 }

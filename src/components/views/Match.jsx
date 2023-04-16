@@ -1,5 +1,5 @@
 import React from "react";
-import MolTableMatchShow from "../molecule/mol-match/MolTableMatchShow";
+import MolTableMatchShow from "../molecule/mol-matches/MolTableMatchShow";
 
 
 

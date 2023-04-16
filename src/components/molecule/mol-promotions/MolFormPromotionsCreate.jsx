@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { createPromotions } from "../../../service/PromotionsServices";
 import Swal from "sweetalert2";
+import MenuSchool from "../mol-school/MenuSchools";
 
 const MolFormPromotionsCreate = () => {
   const [school_id, setSchool_id] = useState("");
@@ -47,6 +48,7 @@ const MolFormPromotionsCreate = () => {
  
   return (
     <>
+    <MenuSchool/>
       <div className="bg-stone6 w-full max-w-screen-lg rounded-xl p-20 m-20">
         <h2 className="text-2xl font-semibold leading-7 text-orange">Añadir promoción</h2>
 

@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { getProvinces } from "../../../service/ProvincesService";
 import { createSchools } from "../../../service/SchoolsService";
 import Swal from "sweetalert2";
+import MenuSchool from './MenuSchools';
 
 const MolFormSchoolsCreate = () => {
   const [provinces, setProvinces] = useState([]);
@@ -56,6 +57,7 @@ const MolFormSchoolsCreate = () => {
  
   return (
     <>
+    <MenuSchool/>
       <div className="bg-stone6 w-full max-w-screen-lg rounded-xl p-20 m-20">
         <h2 className="text-2xl font-semibold leading-7 text-orange">Añadir escuela</h2>
 
