@@ -4,11 +4,27 @@ import axios from 'axios';
 const baseUrl = process.env.REACT_APP_BACKEND_URL;
 
 
+// export const getMatch = () => {
+//   return axios.get(baseUrl + "/match")
+// }
+export const getMatch = () => {
+  return axios.get(baseUrl + "/match").then((response) => {
+    return { data: response.data.matches };
+  });
+};
 
-export const createMatches = (data) => {
-    return axios.post(baseUrl + "/matches/recruiters", data)
-  }
+// export const getMatchById = (id) => {
+//   return axios.get(baseUrl + "/match/" + id)
+// }
 
-  export const createEvento = (data) => {
-    return axios.post(baseUrl + "/matches/recruiters/detach", data)
-  }
+export const createMatch = (data) => {
+  return axios.post(baseUrl + "/match", data)
+}
+
+// export const updateMatch = (id, data) => {
+//   return axios.put(baseUrl + "/match/" + id, data)
+// }
+
+// export const deleteMatch = (id) => {
+//   return axios.delete(baseUrl + "/match/" + id)
+// }

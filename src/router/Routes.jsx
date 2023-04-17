@@ -15,9 +15,9 @@ import MolFormProvincesEdit from '../components/molecule/mol-provinces/MolFormPr
 import MolFormProvincesCreatePrueba from '../components/molecule/experimentos/MolFormProvincesCreatePrueba';
 import MolFormEdit from '../components/molecule/experimentos/MolFormEdit';
 
-// import MolFormCodersEdit from '../components/molecule/mol-coders/MolFormCodersEdit';
-// import MolTableCodersShowDelete from '../components/molecule/mol-coders/MolTableCodersShowDelete';
-// import MolFormCodersCreate from '../components/molecule/mol-coders/MolFormCodersCreate';
+import MolFormCodersEdit from '../components/molecule/mol-coders/MolFormCodersEdit';
+import MolTableCodersShowDelete from '../components/molecule/mol-coders/MolTableCodersShowDelete';
+import MolFormCodersCreate from '../components/molecule/mol-coders/MolFormCodersCreate';
 
 import MolTableStacksShowDelete from '../components/molecule/mol-stacks/MolTableStacksShowDelete';
 import MolFormStacksCreate from '../components/molecule/mol-stacks/MolFormStacksCreate';
@@ -46,10 +46,12 @@ import MolFormRecruitersEdit from '../components/molecule/mol-recuiter/MolFormRe
 import Layout from '../components/layout/Layout';
 
 import Home from '../components/views/Home';
+import Match from '../components/views/Match';
+import DateMatch from '../components/views/DateMatches';
 import Companies from '../components/views/Companies';
 import Statistics from '../components/views/Statistics';
 import Admin from '../components/views/Admin';
-import Tareas from '../components/views/Taks';
+
 import Schools from '../components/views/Schools';
 
 
@@ -62,8 +64,9 @@ function App() {
             <Routes>
 
             <Route path="/" element={<Home />} />
+            <Route path="/datematches" element={<DateMatch />} />
             <Route path="/admin" element={<Admin />} />
-            <Route path="/taks" element={<Tareas />} />
+            <Route path="/match" element={<Match />} />
             <Route path="/schools" element={<Schools />} />
             <Route path="/companies" element={<Companies />} />
             <Route path="/statistics" element={<Statistics />} />
@@ -82,9 +85,9 @@ function App() {
             <Route path="/provincetable" element={<MolTableProvincesShowDelete />} />
             <Route path="/provincedit/:id" element={<MolFormProvincesEdit />} />
 
-            {/* <Route path="/codercreate" element={<MolFormCodersCreate />} />
+            <Route path="/codercreate" element={<MolFormCodersCreate />} />
             <Route path="/codertable" element={<MolTableCodersShowDelete />} />
-            <Route path="/coderedit/:id" element={<MolFormCodersEdit />} /> */}
+            <Route path="/coderedit/:id" element={<MolFormCodersEdit />} />
 
             <Route path="/stackscreate" element={<MolFormStacksCreate />} />
             <Route path="/stackstable" element={<MolTableStacksShowDelete />} />

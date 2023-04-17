@@ -3,7 +3,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import { getCompaniesById, updateCompanies } from "../../../service/CompaniesService";
 import Swal from "sweetalert2";
 import { getProvinces } from "../../../service/ProvincesService";
-
+import MenuCompanies from "./MenuCompanies";
 
 const MolFormCompaniesEdit = ({ event }) => {
   const { id } = useParams();
@@ -93,6 +93,7 @@ const MolFormCompaniesEdit = ({ event }) => {
  
   return (
     <>
+    <MenuCompanies/>
       <div className="bg-stone6 w-full max-w-screen-lg rounded-xl p-20 m-20">
         <h2 className="text-2xl font-semibold leading-7 text-orange">Editar empresas</h2>
 

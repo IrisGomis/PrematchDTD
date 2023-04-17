@@ -3,6 +3,7 @@ import { getCoders, deleteCoders } from "../../../service/CodersService";
 //import { getEvento } from "../../../service/EventService";
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
+import MenuSchool from "../mol-school/MenuSchools";
 
 
 
@@ -25,6 +26,7 @@ export default function MolTableCodersShowDelete() {
       .then((response) => {
         setcoders(response.data);
         setSelectedCoders(response.data);
+        console.log(response);
       })
       .catch((error) => console.error(error));
   }, []);
@@ -90,6 +92,8 @@ export default function MolTableCodersShowDelete() {
       });
   }
   return (
+    <>
+    <MenuSchool/>
     <div className="bg-stone6 w-full max-w-screen-xl rounded-xl p-20 m-20 text-white">
       <div className="sm:flex sm:items-center">
         <div className="sm:flex-auto">
@@ -131,12 +135,12 @@ export default function MolTableCodersShowDelete() {
                         onChange={toggleAll}
                       />
                     </th>
-                    <th scope="col" className="min-w-[12rem] py-3.5 pr-3 text-left text-sm font-semibold text-gray-900">
+                    {/* <th scope="col" className="min-w-[12rem] py-3.5 pr-3 text-left text-sm font-semibold text-gray-900">
                       Evento
                     </th>
                     <th scope="col" className="min-w-[12rem] py-3.5 pr-3 text-left text-sm font-semibold text-gray-900">
                       Promoción
-                    </th>
+                    </th> */}
                     <th scope="col" className="min-w-[12rem] py-3.5 pr-3 text-left text-sm font-semibold text-gray-900">
                       coders
                     </th>
@@ -208,5 +212,6 @@ export default function MolTableCodersShowDelete() {
         </div>
       </div>
     </div>
+    </>
   )
 }

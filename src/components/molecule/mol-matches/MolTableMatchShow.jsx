@@ -1,93 +1,90 @@
-
-
-
-
-import { getEvento, deleteEvento } from "../../../service/EventService";
+import { getMatch, createMatch } from "../../../service/MatchesService";
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
-import MenuEvent from "./MenuEvent";
-
-
 
 function classNames(...classes) {
-  return classes.filter(Boolean).join(' ')
+  return classes.filter(Boolean).join(" ");
 }
 
-export default function MolTableEventShowDelete() {
-  
+export default function MolTableMatchShow() {
   const checkbox = useRef();
   const [checked, setChecked] = useState(false);
   const [indeterminate, setIndeterminate] = useState(false);
-  const [selectedEvent, setSelectedEvent] = useState([]);
-  const [event, setEvent] = useState([]);
+  const [selectedMatch, setSelectedMatch] = useState([]);
+  const [match, setMatch] = useState([]);
 
   useEffect(() => {
-    getEvento()
+    getMatch()
       .then((response) => {
-        setEvent(response.data);
-        setSelectedEvent(response.data);
+        const matches = response.data.map((match) => ({
+          nameMatch: match.nameMatch,
+          nameCompany: match.nameCompany,
+          nameRecruiter: match.nameRecruiter,
+          nameCoder: match.nameCoder,
+          afinity: match.afinity,
+        }));
+        setMatch(matches);
       })
       .catch((error) => console.error(error));
   }, []);
 
+
+
+
   useLayoutEffect(() => {
     const isIndeterminate =
-      selectedEvent.length > 0 && selectedEvent.length < event.length;
-    setChecked(selectedEvent.length === event.length);
+      selectedMatch.length > 0 && selectedMatch.length < match.length;
+    setChecked(selectedMatch.length === match.length);
     setIndeterminate(isIndeterminate);
     checkbox.current.indeterminate = isIndeterminate;
-  }, [selectedEvent, event]);
-  
+  }, [selectedMatch, match]);
+
   function toggleAll() {
-    if (selectedEvent.length === 0) {
+    if (selectedMatch.length === 0) {
       return;
     }
-    setSelectedEvent(checked || indeterminate ? [] : selectedEvent)
-    setChecked(!checked && !indeterminate)
-    setIndeterminate(false)
+    setSelectedMatch(checked || indeterminate ? [] : selectedMatch);
+    setChecked(!checked && !indeterminate);
+    setIndeterminate(false);
   }
 
   function handleDelete() {
-    if (selectedEvent.length === 0) {
-      console.warn("No events selected to delete");
+    if (selectedMatch.length === 0) {
+      console.warn("No Matchs selected to delete");
       return;
     }
 
-    // Create an array of promises to delete each selected event
-    const deletePromises = selectedEvent.map((event) =>
-      deleteEvento(event.id)
-    );
+    // Create an array of promises to delete each selected Match
+    const deletePromises = selectedMatch.map((Match) => createMatch(match.id));
 
-    // Delete all events in parallel
+    // Delete all Matchs in parallel
     Promise.all(deletePromises)
       .then((responses) => {
-        console.log("Events deleted successfully!");
-        // Remove all deleted events from the event state
-        const deletedIds = selectedEvent.map((event) => event.id);
-        setEvent(event.filter((e) => !deletedIds.includes(e.id)));
-        // Clear the selectedEvent state
-        setSelectedEvent([]);
+        console.log("Matchs deleted successfully!");
+        // Remove all deleted Matchs from the Match state
+        const deletedIds = selectedMatch.map((Match) => match.id);
+        setMatch(match.filter((e) => !deletedIds.includes(e.id)));
+        // Clear the selectedMatch state
+        setSelectedMatch([]);
         setChecked(false);
         setIndeterminate(false);
       })
       .catch((error) => {
-        console.error(`Error deleting events: ${error.message}`);
+        console.error(`Error deleting Matchs: ${error.message}`);
       });
   }
   return (
-    <>
-    <MenuEvent/>
     <div className="bg-stone6 w-full max-w-screen-xl rounded-xl p-20 m-20 text-white">
       <div className="sm:flex sm:items-center">
         <div className="sm:flex-auto">
-          <h1 className="text-xl text-orange font-semibold leading-7">Lista de eventos</h1>
+          <h1 className="text-xl font-semibold leading-7">Lista de Match</h1>
         </div>
         <div className="mt-4 sm:ml-16 sm:mt-0 sm:flex-none">
-        <button
+          <button
             className="text-sm text-stone2 my-10 mx-10 px-6 py-1.5 rounded-xl bg-gradient-to-r from-orangel to-orange hover:from-verde hover:to-verdel ..."
             type="button"
           >
-            <a href="/">Crear Evento</a>
+            <a href="/">Crear Match</a>
           </button>
         </div>
       </div>
@@ -95,18 +92,18 @@ export default function MolTableEventShowDelete() {
         <div className="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
           <div className="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
             <div className="relative">
-              {selectedEvent.length > 0 && (
+              {selectedMatch.length > 0 && (
                 <div className="block left-14 top-0 h-12 items-center space-x-3 sm:left-12">
                   <button
                     type="button"
                     className="inline-flex items-center rounded px-2 py-1 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 disabled:cursor-not-allowed disabled:opacity-30 disabled:hover:bg-white"
-                     onClick={() => handleDelete(selectedEvent[0].id)}
+                    onClick={() => handleDelete(selectedMatch[0].id)}
                   >
                     Eliminar
                   </button>
                 </div>
               )}
-              <table className="min-w-full table-fixed divide-y divide-gray-300">
+              <table className="h-48 min-h-full scroll-py-96 table-fixed divide-y divide-gray-300">
                 <thead>
                   <tr>
                     <th scope="col" className="relative px-7 sm:w-12 sm:px-6">
@@ -118,38 +115,56 @@ export default function MolTableEventShowDelete() {
                         onChange={toggleAll}
                       />
                     </th>
-                    <th scope="col" className="min-w-[12rem] py-3.5 pr-3 text-left text-sm font-semibold text-gray-900">
+                    <th
+                      scope="col"
+                      className="min-w-[12rem] py-3.5 pr-3 text-left text-sm font-semibold text-gray-900"
+                    >
                       Evento
                     </th>
-                    <th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
-                     Fecha
+                    <th
+                      scope="col"
+                      className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
+                    >
+                      Compañia
                     </th>
-                    <th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
-                    Link enlace evento
+                    <th
+                      scope="col"
+                      className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
+                    >
+                      Recruiter
                     </th>
-                    <th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
-                      Max-Entrevistas
+                    <th
+                      scope="col"
+                      className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
+                    >
+                      Coder
                     </th>
-                    <th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
-                      Min-Entrevistas
+                    <th
+                      scope="col"
+                      className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
+                    >
+                      Afinidad
                     </th>
-                    <th scope="col" className="relative py-3.5 pl-3 pr-4 sm:pr-3">
+                    <th
+                      scope="col"
+                      className="relative py-3.5 pl-3 pr-4 sm:pr-3"
+                    >
                       <span className="sr-only">Editar</span>
                     </th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-gray-200 ">
-                  {event.map((e) => (
+                  {match.map((e) => (
                     <tr key={e.id} className="hover:bg-gray-50">
                       <td className="px-7 py-4 whitespace-nowrap">
                         <input
                           type="checkbox"
                           name={e.id}
                           className="h-4 w-4 text-indigo-600 focus:ring-indigo-500"
-                          checked={selectedEvent.some((ev) => ev.id === e.id)}
-                          onChange={(event) => {
-                            const isChecked = event.target.checked;
-                            setSelectedEvent((prevState) => {
+                          checked={selectedMatch.some((ev) => ev.id === e.id)}
+                          onChange={(Match) => {
+                            const isChecked = Match.target.checked;
+                            setSelectedMatch((prevState) => {
                               if (isChecked) {
                                 return [...prevState, e];
                               } else {
@@ -161,20 +176,30 @@ export default function MolTableEventShowDelete() {
                       </td>
                       <td
                         className={classNames(
-                          'whitespace-nowrap py-4 pr-3 text-sm font-medium',
-                          selectedEvent.includes(e.id) ? 'text-indigo-600' : 'text-gray-900'
+                          "whitespace-nowrap py-4 pr-3 text-sm font-medium",
+                          selectedMatch.includes(e.id)
+                            ? "text-indigo-600"
+                            : "text-gray-900"
                         )}
                       >
-                        {e.name}
+                        {e.nameEvent}
                       </td>
                       {/* <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{e.name}</td> */}
-                      <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{e.date}</td>
-                      <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{e.url}</td>
-                      <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{e.max}</td>
-                      <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{e.min}</td>
+                      <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                        {e.nameCompany}
+                      </td>
+                      <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                        {e.nameRecruiter}
+                      </td>
+                      <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                        {e.nameCoder}
+                      </td>
+                      <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                        {e.afinity}
+                      </td>
                       <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                         <Link
-                          to={`/eventedit/${e.id}`}
+                          to={`/Matchedit/${e.id}`}
                           className="text-indigo-600 hover:text-indigo-900"
                         >
                           Editar
@@ -189,28 +214,5 @@ export default function MolTableEventShowDelete() {
         </div>
       </div>
     </div>
-    </>
-  )
+  );
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
