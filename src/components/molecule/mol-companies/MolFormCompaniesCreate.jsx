@@ -14,7 +14,7 @@ const MolFormCompaniesCreate = () => {
   const [priority, setPriority] = useState([]);
   const [province_id, setProvince_id] = useState("");
   const [provinces, setProvinces] = useState([]);
-  // const [company, setCompanies] = useState([]);
+
   
   const navigate = useNavigate();
 
