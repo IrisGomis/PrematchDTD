@@ -198,7 +198,6 @@ export default function MolTableCompaniesShowDelete() {
                       >
                         {e.name}
                       </td>
-                      {/* <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{e.name}</td> */}
                       <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
                         {e.ubication}
                       </td>
@@ -226,54 +225,6 @@ export default function MolTableCompaniesShowDelete() {
                     );
                     })}
                 </tbody>
-
-                {/* <tbody className="divide-y divide-gray-200 ">
-                  {companies.map((e) => (
-                    <tr key={e.id} className="hover:bg-gray-50">
-                      <td className="px-7 py-4 whitespace-nowrap">
-                        <input
-                          type="checkbox"
-                          name={e.id}
-                          className="h-4 w-4 text-indigo-600 focus:ring-indigo-500"
-                          checked={selectedCompanies.some((ev) => ev.id === e.id)}
-                          onChange={(event) => {
-                            const isChecked = event.target.checked;
-                            setSelectedCompanies((prevState) => {
-                              if (isChecked) {
-                                return [...prevState, e];
-                              } else {
-                                return prevState.filter((ev) => ev.id !== e.id);
-                              }
-                            });
-                          }}
-                        />
-                      </td>
-                      <td
-                        className={classNames(
-                          'whitespace-nowrap py-4 pr-3 text-sm font-medium',
-                          selectedCompanies.includes(e.id) ? 'text-indigo-600' : 'text-gray-900'
-                        )}
-                      >
-                        {e.name}
-                      </td>
-                      <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{e.name}</td>
-                      <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{e.ubication}</td>
-                      <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{e.provinces}</td>
-                      <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{e.email}</td>
-                      <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{e.phone}</td>
-                      <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{e.priority}</td>
-                      <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                        <Link
-                          to={`/companiesedit/${e.id}`}
-                          className="text-indigo-600 hover:text-indigo-900"
-                        >
-                          Editar
-                        </Link>
-                      </td>
-                    </tr>
-                  ))}
-
-                </tbody> */}
               </table>
             </div>
           </div>
