@@ -296,7 +296,7 @@ export default function MolDateMatches() {
                         {e.name}
                       </td>
                       {/* <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{e.name}</td> */}
-                      <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{e.date}</td>
+                      <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{e.name}</td>
                       <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{e.url}</td>
                       <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{e.max}</td>
                       <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{e.min}</td>
