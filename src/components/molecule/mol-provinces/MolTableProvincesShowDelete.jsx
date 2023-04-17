@@ -82,7 +82,7 @@ export default function MolTableProvincesShowDelete() {
             className="text-sm text-stone2 my-10 mx-10 px-6 py-1.5 rounded-xl bg-gradient-to-r from-orangel to-orange hover:from-verde hover:to-verdel ..."
             type="button"
           >
-            <a href="/provincecreat">Añadir provincia</a>
+            <a href="/provincecreate">Añadir provincia</a>
           </button>
         </div>
       </div>

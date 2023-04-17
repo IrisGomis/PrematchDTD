@@ -3,6 +3,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import { getRegions } from "../../../service/RegionsService";
 import { getProvincesById, updateProvinces } from "../../../service/ProvincesService";
 import Swal from "sweetalert2";
+import MolMenuAdmin from '../mol-regions/MolMenuAdmin';
 
 
 const MolFormEdit = ({ event }) => {
@@ -93,6 +94,7 @@ const MolFormEdit = ({ event }) => {
  
   return (
     <>
+    <MolMenuAdmin />
       <div className="bg-stone6 w-full max-w-screen-lg rounded-xl p-20 m-20">
         <h2 className="text-2xl font-semibold leading-7 text-orange">Editar provincia</h2>
 
