@@ -79,7 +79,7 @@ const MolFormRegionsEdit = ({ event }) => {
     <>
     <MolMenuAdmin/>
       <div className="bg-stone6 w-full max-w-screen-lg rounded-xl p-20 m-20">
-        <h2 className="text-2xl font-semibold leading-7 text-orange">Editar región</h2>
+        <h2 className="text-2xl font-semibold leading-7 text-orange">Editar CC AA</h2>
 
         <form className="bg-stone6" onSubmit={handleSubmit}>
           <div className="mt-10 space-y-8 border-b border-orange pb-12 sm:space-y-0 sm:divide-y sm:divide-orange sm:border-t sm:pb-0">
@@ -89,7 +89,7 @@ const MolFormRegionsEdit = ({ event }) => {
                 htmlFor="name"
                 className="block text-sm font-medium leading-6 text-white sm:pt-1.5"
               >
-                Región
+                CC AA
               </label>
               <div className="mt-2 sm:col-span-2 sm:mt-0">
                 <input
@@ -167,13 +167,13 @@ const MolFormRegionsEdit = ({ event }) => {
             type="submit"
             className="text-sm my-10 px-24 py-3.5 rounded-xl bg-gradient-to-r from-orange to-orangel hover:from-verde hover:to-verdel ..."
           >
-          Editar región
+          Editar CC AA
           </button>
           <button
             className="text-sm my-10 mx-10 px-24 py-3.5 rounded-xl bg-gradient-to-r from-orangel to-orange hover:from-verde hover:to-verdel ..."
             type="button"
           >
-            <a href="/regiontable">Ver Región</a>
+            <a href="/regiontable">Ver CC AA</a>
           </button>
         </form>
         

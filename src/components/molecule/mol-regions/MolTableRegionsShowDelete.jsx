@@ -75,14 +75,14 @@ export default function MolTableRegionsShowDelete() {
     <div className="bg-stone6 w-full max-w-screen-xl rounded-xl p-20 m-20 text-white">
       <div className="sm:flex sm:items-center">
         <div className="sm:flex-auto">
-          <h1 className="text-xl font-semibold leading-7">Lista de Regiones</h1>
+          <h1 className="text-xl font-semibold leading-7">Lista de CC AA</h1>
         </div>
         <div className="mt-4 sm:ml-16 sm:mt-0 sm:flex-none">
         <button
             className="text-sm text-stone2 my-10 mx-10 px-6 py-1.5 rounded-xl bg-gradient-to-r from-orangel to-orange hover:from-verde hover:to-verdel ..."
             type="button"
           >
-            <a href="/regioncreate">Crear Región</a>
+            <a href="/regioncreate">Crear CC AA</a>
           </button>
         </div>
       </div>
