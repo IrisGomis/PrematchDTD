@@ -1,52 +1,85 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
+import { getRecruitersById, updateRecruiters } from "../../../service/RecruitersService";
 import Swal from "sweetalert2";
-import { createRecruiters } from "../../../service/RecruitersService";
 import { getCompanies } from "../../../service/CompaniesService";
 import { getEvento } from "../../../service/EventService";
 
-const MolFormRecruitersCreate = () => {
-  const [event, setEvent] = useState([]);
-  const [Companies, setCompanies] = useState([]);
-  const [event_id, setEventId] = useState("");
-  const [company_id, setCompanyId] = useState("");
-  const [name, setName] = useState("");
-  const [charge, setCharge] = useState("");
-  const [interviews_quantity, setInterviews_quantity] = useState("");
-  const [remote, setRemote] = useState("");
-  const [email, setEmail] = useState("");
-  const [phone, setPhone] = useState("");
-  const [linkedin, setLinkedin] = useState("");
+const MolFormRecruitersEdit = ({ prop }) => {
  
+
+  const { id } = useParams();
   const navigate = useNavigate();
-//console.log(companie_id);
+  const [event, setEvent] = useState([]);
+  const [companies, setCompanies] = useState([]);
+  const [event_id, setEventId] = useState(undefined);
+  const [companies_id, setCompaniesId] = useState(undefined);
+  const [name, setName] = useState(undefined);
+  const [charge, setCharge] = useState(undefined);
+  const [interviews_quantity, setInterviews_quantity] = useState("");
+  const [remote, setRemote] = useState(undefined);
+  const [email, setEmail] = useState(undefined);
+  const [phone, setPhone] = useState(undefined);
+  const [linkedin, setLinkedin] = useState(undefined);
+
+  useEffect(() => {
+    const fetchCoder = async () => {
+      try {
+        const { data } = await getRecruitersById(id);
+        setEventId(data.coder.event_id);
+        setCompaniesId(data.coder.event.companies_id);
+        setName(data.coder.event.name);
+        setRemote(data.coder.remote);
+        setEmail(data.coder.email);
+        setPhone(data.coder.phone);
+        setLinkedin(data.linkedin);
+        setInterviews_quantity(data.interviews_quantity);
+        setCharge(data.charge);
+        console.log(data);
+      } catch (error) {
+        //console.log(error);
+      }
+    };
+    fetchCoder();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [id]);
+
   const handleSubmit = async (event) => {
     event.preventDefault();
-    try {
-      const formData = new FormData();
-      formData.append("event_id", event_id);
-      formData.append("company_id", company_id);
-      formData.append("name", name);
-      formData.append("charge", charge);
-      formData.append("interviews_quantity", interviews_quantity);
-      formData.append("remote", remote);
-      formData.append("email", email);
-      formData.append("phone", phone);
-      formData.append("linkedin", linkedin);
-
-      const { data } = await createRecruiters(formData);
-      console.log(data);
-
+    event.preventDefault();
+    if ([event_id, companies_id, name, interviews_quantity, charge, remote, email, phone, linkedin].some((value) => value === undefined)) {
       Swal.fire({
         position: "center",
-        icon: "success",
-        title: "¡Tu recruiter se ha creado con éxito!",
+        icon: "error",
+        title: "Debe completar todos los campos",
         showConfirmButton: false,
         timer: 2000,
       });
+      return;
+    }
+    try {
+      const coderData = {
+        event_id,
+        companies_id,
+        name,
+        remote,
+        email,
+        phone,
+        linkedin,
+        interviews_quantity,
+        charge
+      };
 
+      await updateRecruiters(id, coderData);
+      Swal.fire({
+        position: "center",
+        icon: "success",
+        title: "¡Tu coder se ha actualizado con éxito!",
+        showConfirmButton: false,
+        timer: 2000,
+      });
       setTimeout(() => {
-        navigate("/");
+        navigate("/codercreate");
       }, 2000); // Delay the navigation for 2 seconds (2000 milliseconds)
     } catch (error) {
       console.log(error);
@@ -77,33 +110,33 @@ const MolFormRecruitersCreate = () => {
   }, []);
 
  
-
   return (
     <>
       <div className="bg-stone6 w-full max-w-screen-lg rounded-xl p-20 m-20">
-        <h2 className="text-2xl font-semibold leading-7 text-orange">Añadir recruiter</h2>
+        <h2 className="text-2xl font-semibold leading-7 text-orange">Editar Recruiter</h2>
 
         <form className="bg-stone6" onSubmit={handleSubmit}>
           <div className="mt-10 space-y-8 border-b border-orange pb-12 sm:space-y-0 sm:divide-y sm:divide-orange sm:border-t sm:pb-0">
 
-          <div className="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
+          
+            
+            <div className="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
               <label
-                htmlFor="event"
+                htmlFor="event_id"
                 className="block text-sm font-medium leading-6 text-white sm:pt-1.5"
               >
-                Evento <span className="text-orange">*</span>
+               Evento <span className="text-orange">*</span>
               </label>
               <div className="mt-2 sm:col-span-2 sm:mt-0">
-                <select
+              <select
+                  type="number"
                   name="event_id"
                   id="event_id"
-                  value={event_id} // Cambiar 'regions' por el estado que representa la opción seleccionada
-                  onChange={(event) => setEventId(event.target.value)} // Cambiar 'setRegions' por el método que actualiza el estado de la opción seleccionada
+                  value={event_id ?? ""}
+                  onChange={(event) => setEventId(event.target.value)}
+                  autoComplete="given-name"
                   className="block w-full rounded-md border-0 py-1.5  text-stone6 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
-                  
                 >
-
-
                   {event.map((e) => (
                     <option key={e.id} value={e.id}>
                       {e.name}
@@ -115,83 +148,86 @@ const MolFormRecruitersCreate = () => {
 
             <div className="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
               <label
-                htmlFor="regions"
+                htmlFor="companies_id"
                 className="block text-sm font-medium leading-6 text-white sm:pt-1.5"
               >
-                Empresa <span className="text-orange">*</span>
+               Empresa <span className="text-orange">*</span>
               </label>
               <div className="mt-2 sm:col-span-2 sm:mt-0">
-                <select
-                  name="company_id"
-                  id="company_id"
-                  value={company_id} // Cambiar 'regions' por el estado que representa la opción seleccionada
-                  onChange={(event) => setCompanyId(event.target.value)} // Cambiar 'setRegions' por el método que actualiza el estado de la opción seleccionada
+              <select
+                  type="number"
+                  name="companies_id"
+                  id="companies_id"
+                  value={companies_id ?? ""}
+                  onChange={(event) => setCompaniesId(event.target.value)}
+                  autoComplete="given-name"
                   className="block w-full rounded-md border-0 py-1.5  text-stone6 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
-                  
                 >
-                  {Companies.map((e) => (
+                  {companies.map((e) => (
                     <option key={e.id} value={e.id}>
                       {e.name}
                     </option>
                   ))}
                 </select>
               </div>
-            </div>         
+            </div>
 
             <div className="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
               <label
                 htmlFor="name"
-                className="block text-sm font-medium leading-6 text-white sm:pt-1.5"
+                className="block text-sm font-medium leading-6  text-white sm:pt-1.5"
               >
-                Nombre <span className="text-orange">*</span>
+               Nombre <span className="text-orange">*</span>
               </label>
-              <div className="flex mt-2 sm:col-span-2 sm:mt-0">
+              <div className="mt-2 sm:col-span-2 sm:mt-0">
                 <input
-                  type="text"
-                  name="name"
                   id="name"
-                  value={name}
+                  name="name"
+                  type="name"
+                  value={name ?? ""}
                   onChange={(event) => setName(event.target.value)}
-                  autoComplete="Name"
-                  className="block w-full mr-10 rounded-md border-0 px-2 py-1.5 text-stone6 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
+                  autoComplete="nombre"
+                  className="block w-full rounded-md border-0 py-1.5  text-stone6 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-md sm:text-sm sm:leading-6"
                 />
               </div>
             </div>
-
-            <div className="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
+              
+              <div className="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
               <label
                 htmlFor="charge"
                 className="block text-sm font-medium leading-6  text-white sm:pt-1.5"
               >
                 Cargo <span className="text-orange">*</span>
               </label>
-              <div className="flex mt-2 sm:col-span-2 sm:mt-0">
+               <div className="flex mt-2 sm:col-span-2 sm:mt-0">
                 <input
                   type="text"
                   name="charge"
                   id="charge"
-                  value={charge}
+                  value={charge ?? ""}
                   onChange={(event) => setCharge(event.target.value)}
+                  
                   className="block w-full rounded-md border-0 mr-10 py-1.5 px-2 text-stone6 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xl sm:text-sm sm:leading-6"
                 />
               </div>
             </div>
-
+            
             <div className="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
               <label
                 htmlFor="linkedin"
                 className="block text-sm font-medium leading-6  text-white sm:pt-1.5"
               >
-                Linkedin
+                Linkedin 
               </label>
-              <div className="flex mt-2 sm:col-span-2 sm:mt-0">
+               <div className="flex mt-2 sm:col-span-2 sm:mt-0">
                 <input
                   type="text"
                   name="linkedin"
                   id="linkedin"
-                  value={linkedin}
+                  value={linkedin ?? ""}
                   onChange={(event) => setLinkedin(event.target.value)}
-                  className="block w-full rounded-md border-0 mr-10 py-1.5 px-2 text-stone6 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xl sm:text-sm sm:leading-6"
+                  // placeholder="Maximas"
+                  className="block w-full rounded-md border-0 mr-10 py-1.5 px-1.5 text-stone6 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xl sm:text-sm sm:leading-6"
                 />
               </div>
             </div>
@@ -203,12 +239,12 @@ const MolFormRecruitersCreate = () => {
               >
                 Email <span className="text-orange">*</span>
               </label>
-              <div className="flex mt-2 sm:col-span-2 sm:mt-0">
+               <div className="flex mt-2 sm:col-span-2 sm:mt-0">
                 <input
                   type="email"
                   name="email"
                   id="email"
-                  value={email}
+                  value={email ?? ""}
                   onChange={(event) => setEmail(event.target.value)}
                   className="block w-full rounded-md border-0 mr-10 py-1.5 px-2 text-stone6 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xl sm:text-sm sm:leading-6"
                 />
@@ -222,12 +258,12 @@ const MolFormRecruitersCreate = () => {
               >
                 Teléfono <span className="text-orange">*</span>
               </label>
-              <div className="flex mt-2 sm:col-span-2 sm:mt-0">
+               <div className="flex mt-2 sm:col-span-2 sm:mt-0">
                 <input
-                  type="tel"
+                  type="phone"
                   name="phone"
                   id="phone"
-                  value={phone}
+                  value={phone ?? ""}
                   onChange={(event) => setPhone(event.target.value)}
                   className="block w-full rounded-md border-0 mr-10 py-1.5 px-2 text-stone6 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xl sm:text-sm sm:leading-6"
                 />
@@ -235,24 +271,24 @@ const MolFormRecruitersCreate = () => {
             </div>
 
             <div className="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
-            <label
+              <label
                 htmlFor="remote"
                 className="block text-sm font-medium leading-6  text-white sm:pt-1.5"
               >
-                Remoto <span className="text-orange">*</span>
+                En remoto <span className="text-orange">*</span>
               </label>
-              <div className="flex mt-2 sm:col-span-2 sm:mt-0">
+               <div className="flex mt-2 sm:col-span-2 sm:mt-0">
                 <input
-                  type="text"
+                  type="checkbox"
                   name="remote"
-                  id="remote"
-                  value={remote}
+                  id="remoten"
+                  value={remote ?? ""}
                   onChange={(event) => setRemote(event.target.value)}
                   className="block w-full rounded-md border-0 mr-10 py-1.5 px-2 text-stone6 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xl sm:text-sm sm:leading-6"
                 />
               </div>
             </div>
- 
+
             <div className="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
               <label
                 htmlFor="interviews_quantity"
@@ -260,12 +296,12 @@ const MolFormRecruitersCreate = () => {
               >
                 Nº entrevistas <span className="text-orange">*</span>
               </label>
-              <div className="flex mt-2 sm:col-span-2 sm:mt-0">
+               <div className="flex mt-2 sm:col-span-2 sm:mt-0">
                 <input
-                  type="text"
+                  type="number"
                   name="interviews_quantity"
                   id="interviews_quantity"
-                  value={interviews_quantity}
+                  value={interviews_quantity ?? ""}
                   onChange={(event) => setInterviews_quantity(event.target.value)}
                   className="block w-full rounded-md border-0 mr-10 py-1.5 px-2 text-stone6 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xl sm:text-sm sm:leading-6"
                 />
@@ -273,22 +309,25 @@ const MolFormRecruitersCreate = () => {
             </div>
 
           </div>
+
           <button
             type="submit"
             className="text-sm my-10 px-24 py-3.5 rounded-xl bg-gradient-to-r from-orange to-orangel hover:from-verde hover:to-verdel ..."
           >
-            Añadir recruiter
+            Editar recruiter
           </button>
+
           <button
             className="text-sm my-10 mx-10 px-24 py-3.5 rounded-xl bg-gradient-to-r from-orangel to-orange hover:from-verde hover:to-verdel ..."
             type="button"
           >
             <a href="/recruiterstable">Ver recruiters</a>
           </button>
+
         </form>
       </div>
     </>
   );
-};
+}
 
-export default MolFormRecruitersCreate;
+export default MolFormRecruitersEdit;

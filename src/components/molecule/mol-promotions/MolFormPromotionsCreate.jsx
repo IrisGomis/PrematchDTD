@@ -1,10 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { createPromotions } from "../../../service/PromotionsServices";
+import { getSchools } from "../../../service/SchoolsService";
 import Swal from "sweetalert2";
 import MenuSchool from "../mol-school/MenuSchools";
 
 const MolFormPromotionsCreate = () => {
+  const [schools, setSchools] = useState([]);
   const [school_id, setSchool_id] = useState("");
   const [name, setName] = useState("");
   const [nick, setNick] = useState("");
@@ -45,7 +47,14 @@ const MolFormPromotionsCreate = () => {
     }
   };
 
- 
+  useEffect(() => {
+    getSchools()
+      .then((response) => {
+        setSchools(response.data);
+      })
+      .catch((error) => console.error(error));
+  }, []);
+
   return (
     <>
     <MenuSchool/>
@@ -60,18 +69,22 @@ const MolFormPromotionsCreate = () => {
                 htmlFor="name"
                 className="block text-sm font-medium leading-6 text-white sm:pt-1.5"
               >
-                Promoción <span className="text-orange">*</span>
+                Ubicación escuela <span className="text-orange">*</span>
               </label>
               <div className="mt-2 sm:col-span-2 sm:mt-0">
-                <input
-                  type="number"
+                <select
                   name="school_id"
                   id="school_id"
-                  value={school_id}
-                  onChange={(event) => setSchool_id(event.target.value)}
-                  autoComplete="given-name"
+                  value={school_id} // Cambiar 'regions' por el estado que representa la opción seleccionada
+                  onChange={(event) => setSchool_id(event.target.value)} // Cambiar 'setRegions' por el método que actualiza el estado de la opción seleccionada
                   className="block w-full rounded-md border-0 py-1.5  text-stone6 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
-                />
+                >
+                  {schools.map((e) => (
+                    <option key={e.id} value={e.id}>
+                      {e.name}
+                    </option>
+                  ))}
+                </select>
               </div>
             </div>
             
@@ -80,7 +93,7 @@ const MolFormPromotionsCreate = () => {
                 htmlFor="name"
                 className="block text-sm font-medium leading-6 text-white sm:pt-1.5"
               >
-                  Escuela <span className="text-orange">*</span>
+                  Promoción <span className="text-orange">*</span>
               </label>
               <div className="mt-2 sm:col-span-2 sm:mt-0">
                 <input
@@ -100,7 +113,7 @@ const MolFormPromotionsCreate = () => {
                 htmlFor="lat"
                 className="block text-sm font-medium leading-6 text-white sm:pt-1.5"
               >
-                Nickname <span className="text-orange">*</span>
+                Abreviatura <span className="text-orange">*</span>
               </label>
 
               <div className="mt-2 sm:col-span-2 sm:mt-0">
