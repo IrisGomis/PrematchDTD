@@ -5,6 +5,7 @@
 import { getEvento, deleteEvento } from "../../../service/EventService";
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
+import MenuEvent from "./MenuEvent";
 
 
 
@@ -75,6 +76,7 @@ export default function MolTableEventShowDelete() {
   }
   return (
     <>
+    <MenuEvent/>
     <div className="bg-stone6 w-full max-w-screen-xl rounded-xl p-20 m-20 text-white">
       <div className="sm:flex sm:items-center">
         <div className="sm:flex-auto">
