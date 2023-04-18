@@ -279,7 +279,7 @@ const MolFormRecruitersCreate = () => {
             type="submit"
             className="text-sm my-10 px-24 py-3.5 rounded-xl bg-gradient-to-r from-orange to-orangel hover:from-verde hover:to-verdel ..."
           >
-            Añadir recruiter
+            <a href="/recruiterstable">Añadir recruiter</a>
           </button>
           <button
             className="text-sm my-10 mx-10 px-24 py-3.5 rounded-xl bg-gradient-to-r from-orangel to-orange hover:from-verde hover:to-verdel ..."

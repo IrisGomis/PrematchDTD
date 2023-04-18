@@ -7,46 +7,43 @@ import { getEvento } from "../../../service/EventService";
 import MenuCompanies from "../mol-companies/MenuCompanies";
 
 const MolFormRecruitersEdit = ({ prop }) => {
- 
-
   const { id } = useParams();
   const navigate = useNavigate();
+
   const [event, setEvent] = useState([]);
   const [companies, setCompanies] = useState([]);
-  const [event_id, setEventId] = useState(undefined);
-  const [companies_id, setCompaniesId] = useState(undefined);
-  const [name, setName] = useState(undefined);
-  const [charge, setCharge] = useState(undefined);
+  const [event_id, setEventId] = useState("");
+  const [companies_id, setCompaniesId] = useState("");
+  const [name, setName] = useState("");
+  const [charge, setCharge] = useState("");
   const [interviews_quantity, setInterviews_quantity] = useState("");
-  const [remote, setRemote] = useState(undefined);
-  const [email, setEmail] = useState(undefined);
-  const [phone, setPhone] = useState(undefined);
-  const [linkedin, setLinkedin] = useState(undefined);
+  const [remote, setRemote] = useState("");
+  const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
+  const [linkedin, setLinkedin] = useState("");
 
   useEffect(() => {
-    const fetchCoder = async () => {
+    const fetchRecruiters = async () => {
       try {
         const { data } = await getRecruitersById(id);
-        setEventId(data.coder.event_id);
-        setCompaniesId(data.coder.event.companies_id);
-        setName(data.coder.event.name);
-        setRemote(data.coder.remote);
-        setEmail(data.coder.email);
-        setPhone(data.coder.phone);
-        setLinkedin(data.linkedin);
-        setInterviews_quantity(data.interviews_quantity);
-        setCharge(data.charge);
+        setEventId(data.recruiter.event_id);
+        setCompaniesId(data.recruiter.companies_id);
+        setName(data.recruiter.name);
+        setRemote(data.recruiter.remote);
+        setEmail(data.recruiter.email);
+        setPhone(data.recruiter.phone);
+        setLinkedin(data.recruiter.linkedin);
+        setInterviews_quantity(data.recruiter.interviews_quantity);
+        setCharge(data.recruiter.charge);
         console.log(data);
       } catch (error) {
-        //console.log(error);
+        console.log(error);
       }
     };
-    fetchCoder();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    fetchRecruiters();
   }, [id]);
 
   const handleSubmit = async (event) => {
-    event.preventDefault();
     event.preventDefault();
     if ([event_id, companies_id, name, interviews_quantity, charge, remote, email, phone, linkedin].some((value) => value === undefined)) {
       Swal.fire({
@@ -59,7 +56,7 @@ const MolFormRecruitersEdit = ({ prop }) => {
       return;
     }
     try {
-      const coderData = {
+      const recruiterData = {
         event_id,
         companies_id,
         name,
@@ -71,23 +68,23 @@ const MolFormRecruitersEdit = ({ prop }) => {
         charge
       };
 
-      await updateRecruiters(id, coderData);
+      await updateRecruiters(id, recruiterData);
       Swal.fire({
         position: "center",
         icon: "success",
-        title: "¡Tu coder se ha actualizado con éxito!",
+        title: "¡Tu recruiter se ha actualizado con éxito!",
         showConfirmButton: false,
         timer: 2000,
       });
       setTimeout(() => {
-        navigate("/codercreate");
+        navigate("/recruiterstable");
       }, 2000); // Delay the navigation for 2 seconds (2000 milliseconds)
     } catch (error) {
       console.log(error);
       Swal.fire({
         position: "center",
         icon: "error",
-        title: "Ha habido un problema, ¡prueba de nuevo!",
+        title: "Ha habido un problema ¡prueba de nuevo!",
         showConfirmButton: false,
         timer: 2000,
       });
@@ -119,36 +116,63 @@ const MolFormRecruitersEdit = ({ prop }) => {
 
         <form className="bg-stone6" onSubmit={handleSubmit}>
           <div className="mt-10 space-y-8 border-b border-orange pb-12 sm:space-y-0 sm:divide-y sm:divide-orange sm:border-t sm:pb-0">
-
-          
             
             <div className="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
               <label
                 htmlFor="event_id"
                 className="block text-sm font-medium leading-6 text-white sm:pt-1.5"
               >
-               Evento <span className="text-orange">*</span>
+                Evento <span className="text-orange">*</span>
               </label>
               <div className="mt-2 sm:col-span-2 sm:mt-0">
               <select
-                  type="number"
+                  type="text"
                   name="event_id"
                   id="event_id"
-                  value={event_id ?? ""}
+                  value={event_id}
                   onChange={(event) => setEventId(event.target.value)}
                   autoComplete="given-name"
                   className="block w-full rounded-md border-0 py-1.5  text-stone6 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
                 >
-                  {event.map((e) => (
+
+                    {event && event.map((e) => (
+                      <option key={e.id} value={e.id}>
+                        {e.name}
+                      </option>
+                    ))}
+                  {/* {event.map((e) => (
                     <option key={e.id} value={e.id}>
                       {e.name}
                     </option>
-                  ))}
+                  ))} */}
                 </select>
               </div>
             </div>
 
             <div className="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
+              <label
+                htmlFor="province_id"
+                className="block text-sm font-medium leading-6 text-white sm:pt-1.5"
+              >
+                Nombre de la empresa <span className="text-orange">*</span>
+              </label>
+              <select
+                  type="text"
+                  name="companies_id"
+                  id="companies_id"
+                  value={companies_id} // Cambiar 'regions' por el estado que representa la opción seleccionada
+                  onChange={(event) => setCompaniesId(event.target.value)} // Cambiar 'setRegions' por el método que actualiza el estado de la opción seleccionada
+                  className="block w-full rounded-md border-0 py-1.5  text-stone6 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
+                >
+                  {companies.map((e) => (
+                    <option key={e.id} value={e.id}>
+                      {e.name}
+                    </option>
+                  ))}
+                </select>
+            </div>
+
+            {/* <div className="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
               <label
                 htmlFor="companies_id"
                 className="block text-sm font-medium leading-6 text-white sm:pt-1.5"
@@ -160,11 +184,17 @@ const MolFormRecruitersEdit = ({ prop }) => {
                   type="number"
                   name="companies_id"
                   id="companies_id"
-                  value={companies_id ?? ""}
+                  value={companies_id}
                   onChange={(event) => setCompaniesId(event.target.value)}
                   autoComplete="given-name"
                   className="block w-full rounded-md border-0 py-1.5  text-stone6 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
                 >
+
+                  {companies && companies.map((e) => (
+                    <option key={e.id} value={e.id}>
+                      {e.name}
+                    </option>
+                  ))}
                   {companies.map((e) => (
                     <option key={e.id} value={e.id}>
                       {e.name}
@@ -172,7 +202,7 @@ const MolFormRecruitersEdit = ({ prop }) => {
                   ))}
                 </select>
               </div>
-            </div>
+            </div> */}
 
             <div className="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
               <label
@@ -185,7 +215,7 @@ const MolFormRecruitersEdit = ({ prop }) => {
                 <input
                   id="name"
                   name="name"
-                  type="name"
+                  type="text"
                   value={name ?? ""}
                   onChange={(event) => setName(event.target.value)}
                   autoComplete="nombre"
@@ -206,7 +236,7 @@ const MolFormRecruitersEdit = ({ prop }) => {
                   type="text"
                   name="charge"
                   id="charge"
-                  value={charge ?? ""}
+                  value={charge}
                   onChange={(event) => setCharge(event.target.value)}
                   
                   className="block w-full rounded-md border-0 mr-10 py-1.5 px-2 text-stone6 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xl sm:text-sm sm:leading-6"
@@ -226,9 +256,8 @@ const MolFormRecruitersEdit = ({ prop }) => {
                   type="text"
                   name="linkedin"
                   id="linkedin"
-                  value={linkedin ?? ""}
+                  value={linkedin}
                   onChange={(event) => setLinkedin(event.target.value)}
-                  // placeholder="Maximas"
                   className="block w-full rounded-md border-0 mr-10 py-1.5 px-1.5 text-stone6 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xl sm:text-sm sm:leading-6"
                 />
               </div>
@@ -246,7 +275,7 @@ const MolFormRecruitersEdit = ({ prop }) => {
                   type="email"
                   name="email"
                   id="email"
-                  value={email ?? ""}
+                  value={email}
                   onChange={(event) => setEmail(event.target.value)}
                   className="block w-full rounded-md border-0 mr-10 py-1.5 px-2 text-stone6 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xl sm:text-sm sm:leading-6"
                 />
@@ -262,10 +291,10 @@ const MolFormRecruitersEdit = ({ prop }) => {
               </label>
                <div className="flex mt-2 sm:col-span-2 sm:mt-0">
                 <input
-                  type="phone"
+                  type="tel"
                   name="phone"
                   id="phone"
-                  value={phone ?? ""}
+                  value={phone}
                   onChange={(event) => setPhone(event.target.value)}
                   className="block w-full rounded-md border-0 mr-10 py-1.5 px-2 text-stone6 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xl sm:text-sm sm:leading-6"
                 />
@@ -281,10 +310,10 @@ const MolFormRecruitersEdit = ({ prop }) => {
               </label>
                <div className="flex mt-2 sm:col-span-2 sm:mt-0">
                 <input
-                  type="checkbox"
+                  type="text"
                   name="remote"
                   id="remoten"
-                  value={remote ?? ""}
+                  value={remote}
                   onChange={(event) => setRemote(event.target.value)}
                   className="block w-full rounded-md border-0 mr-10 py-1.5 px-2 text-stone6 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xl sm:text-sm sm:leading-6"
                 />
@@ -303,7 +332,7 @@ const MolFormRecruitersEdit = ({ prop }) => {
                   type="number"
                   name="interviews_quantity"
                   id="interviews_quantity"
-                  value={interviews_quantity ?? ""}
+                  value={interviews_quantity}
                   onChange={(event) => setInterviews_quantity(event.target.value)}
                   className="block w-full rounded-md border-0 mr-10 py-1.5 px-2 text-stone6 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xl sm:text-sm sm:leading-6"
                 />
