@@ -4,6 +4,7 @@ import Swal from "sweetalert2";
 import { createCoders } from "../../../service/CodersService";
 import { getPromotions } from "../../../service/PromotionsServices";
 import { getEvento } from "../../../service/EventService";
+import MenuSchool from "../mol-school/MenuSchools";
 
 const MolFormCodersCreate = () => {
   const [event, setEvent] = useState([]);
@@ -84,6 +85,7 @@ const MolFormCodersCreate = () => {
 
   return (
     <>
+    <MenuSchool/>
       <div className="bg-stone6 w-full max-w-screen-lg rounded-xl p-20 m-20">
         <h2 className="text-2xl font-semibold leading-7 text-orange">Añadir coder</h2>
 

@@ -4,6 +4,8 @@ import { createEvento } from "../../../service/EventService";
 import Swal from "sweetalert2";
 import { Listbox, Transition } from "@headlessui/react";
 import { CheckIcon, ChevronUpDownIcon } from "@heroicons/react/20/solid";
+import MenuEvent from "./MenuEvent";
+
 
 const MolFormEventCreate = () => {
   
@@ -70,6 +72,7 @@ const MolFormEventCreate = () => {
 
   return (
     <>
+    <MenuEvent/>
       <div className="bg-stone6 w-full max-w-screen-lg rounded-xl p-20 m-20">
         <h2 className="text-2xl font-semibold leading-7 text-orange">Crear Evento</h2>
 

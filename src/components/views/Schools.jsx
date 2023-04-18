@@ -1,15 +1,9 @@
 import React from 'react';
-import MolFormCodersCreate from '../molecule/mol-coders/MolFormCodersCreate'
-import MolFormSchoolsCreate from '../molecule/mol-school/MolFormSchoolsCreate';
-import MolFormPromotionsCreate from '../molecule/mol-promotions/MolFormPromotionsCreate';
-
+import MolTableSchoolsShowDelete from '../molecule/mol-school/MolTableSchoolsShowDelete';
 const Schools = () => {
   return (
     <div>
-      <MolFormCodersCreate/>
-      <MolFormSchoolsCreate/>
-      <MolFormPromotionsCreate/>
-      
+      <MolTableSchoolsShowDelete/>
     </div>
   )
 }

@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { createSchools } from "../../../service/SchoolsService";
 import { getProvinces } from "../../../service/ProvincesService";
+import { createSchools } from "../../../service/SchoolsService";
 import Swal from "sweetalert2";
+import MenuSchool from './MenuSchools';
 
 const MolFormSchoolsCreate = () => {
   const [provinces, setProvinces] = useState([]);
@@ -45,7 +46,7 @@ const MolFormSchoolsCreate = () => {
       });
     }
   };
-
+  
   useEffect(() => {
     getProvinces()
       .then((response) => {
@@ -53,15 +54,16 @@ const MolFormSchoolsCreate = () => {
       })
       .catch((error) => console.error(error));
   }, []);
-
+ 
   return (
     <>
+    <MenuSchool/>
       <div className="bg-stone6 w-full max-w-screen-lg rounded-xl p-20 m-20">
         <h2 className="text-2xl font-semibold leading-7 text-orange">Añadir escuela</h2>
 
         <form className="bg-stone6" onSubmit={handleSubmit}>
           <div className="mt-10 space-y-8 border-b border-orange pb-12 sm:space-y-0 sm:divide-y sm:divide-orange sm:border-t sm:pb-0">
-            
+
           <div className="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
               <label
                 htmlFor="name"
@@ -69,8 +71,7 @@ const MolFormSchoolsCreate = () => {
               >
                 Provincia <span className="text-orange">*</span>
               </label>
-              <div className="mt-2 sm:col-span-2 sm:mt-0">
-                <select
+              <select
                   name="province_id"
                   id="province_id"
                   value={province_id} // Cambiar 'regions' por el estado que representa la opción seleccionada
@@ -83,9 +84,7 @@ const MolFormSchoolsCreate = () => {
                     </option>
                   ))}
                 </select>
-              </div>
             </div>
-            
             <div className="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
               <label
                 htmlFor="name"

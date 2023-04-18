@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { getPromotionsById, updatePromotions } from "../../../service/PromotionsServices";
 import Swal from "sweetalert2";
+import MenuSchool from "../mol-school/MenuSchools";
 
 
 const MolFormPromotionsEdit = ({ event }) => {
@@ -77,6 +78,7 @@ const MolFormPromotionsEdit = ({ event }) => {
  
   return (
     <>
+    <MenuSchool/>
       <div className="bg-stone6 w-full max-w-screen-lg rounded-xl p-20 m-20">
         <h2 className="text-2xl font-semibold leading-7 text-orange">Editar promoción</h2>
 
