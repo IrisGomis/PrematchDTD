@@ -28,21 +28,30 @@ const MolExcelSheetJs = () => {
       const rows = XLSX.utils.sheet_to_json(worksheet, { header: 1 });
       // assuming first row is header
       const header = rows[0];
+      // const rowsData = rows.slice(1).map((row) => {
+      //   return header.reduce((acc, curr, index) => {
+      //     acc[curr] = row[index];
+      //     return acc;
+      //   }, {});
+      // });
       const rowsData = rows.slice(1).map((row) => {
         return header.reduce((acc, curr, index) => {
-          acc[curr] = row[index];
+          acc[curr] = row[index].toUpperCase();
           return acc;
         }, {});
       });
       // Assuming column names in excel are: name, lat, long, iso
       rowsData.forEach(async (rowData) => {
         const formData = new FormData();
-        formData.append("name", rowData.name);
+        formData.append("name", rowData.name.trim());
         formData.append("ubication", rowData.ubication);
         formData.append("email", rowData.email);
         formData.append("phone", rowData.phone);
         formData.append("priority", rowData.priority);
-        formData.append("province_id", rowData.province_id);
+        const province = provinces.find(p => p.id === rowData.province_id);
+        if (province) {
+          formData.append("province_name", province.name);
+        }
         try {
           const { data } = await createCompanies(formData);
           console.log(data);
