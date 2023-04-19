@@ -26,7 +26,7 @@ function exportToExcel(selectedCompanies, provinces) {
     
   }
   const sheet = XLSX.utils.aoa_to_sheet(selectedCompaniesForExport, {
-    header: ["ID", "Nombre", "Provincia", "Email", "Teléfono", "Prioridad"],
+    header: ["ID", "Nombre", "ubicación",  "Provincia", "Email", "Teléfono", "Prioridad"],
   });
 
   const book = {
