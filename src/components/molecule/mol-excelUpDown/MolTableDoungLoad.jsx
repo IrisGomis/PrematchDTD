@@ -15,15 +15,14 @@ function classNames(...classes) {
 function exportToExcel(selectedCompanies, provinces) {
   let selectedCompaniesForExport = [];
   if (Array.isArray(selectedCompanies)) {
-    selectedCompaniesForExport = selectedCompanies.map(({ id, name, province: provinceParam, email, phone, priority, id_provincia }) => {
-      const province = provinces ? provinces.find(p => p.id === id_provincia) : null;
-      
-      const provinceName = province ? province.name : '';
-      console.log(province.name); // change to provinceName
-      return [id, name, provinceName, email, phone, priority]
-      
-    });
-    
+    selectedCompaniesForExport = selectedCompanies.map(
+      ({ id, name, email, phone, priority, id_provincia }) => {
+        const province = provinces ? provinces.find(p => p.id === id_provincia) : null;
+        const provinceName = province ? province.name : '';
+        console.log(provinceName); // fixed the console.log statement
+        return [id, name, provinceName, email, phone, priority]
+      }
+    );
     
   }
   const sheet = XLSX.utils.aoa_to_sheet(selectedCompaniesForExport, {
@@ -49,8 +48,6 @@ function exportToExcel(selectedCompanies, provinces) {
   a.click();
   window.URL.revokeObjectURL(url);
 }
-
-
 
 export default function MolTableDoungLoad() {
   const checkbox = useRef();
@@ -101,12 +98,12 @@ export default function MolTableDoungLoad() {
       return;
     }
 
-    // Create an array of promises to delete each selected e
-    const deletePromises = selectedCompanies.map((event) =>
-      deleteCompanies(event.id)
+    // Create an array of promises to delete each selected company
+    const deletePromises = selectedCompanies.map((company) =>
+      deleteCompanies(company.id)
     );
 
-    // Delete all companiess in parallel
+    // Delete all companies in parallel
     Promise.all(deletePromises)
       .then((responses) => {
         console.log("Companies deleted successfully!");

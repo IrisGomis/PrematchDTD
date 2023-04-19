@@ -7,7 +7,6 @@ import { Link } from "react-router-dom";
 import { getProvinces } from "../../../service/ProvincesService";
 import MenuCompanies from "./MenuCompanies";
 
-
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
@@ -39,8 +38,7 @@ export default function MolTableCompaniesShowDelete() {
 
   useLayoutEffect(() => {
     const isIndeterminate =
-      selectedCompanies.length > 0 &&
-      selectedCompanies.length < companies.length;
+      selectedCompanies.length > 0 && selectedCompanies.length < companies.length;
     setChecked(selectedCompanies.length === companies.length);
     setIndeterminate(isIndeterminate);
     checkbox.current.indeterminate = isIndeterminate;

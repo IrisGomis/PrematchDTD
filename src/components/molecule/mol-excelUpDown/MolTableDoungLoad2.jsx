@@ -8,7 +8,7 @@ import * as XLSX from "xlsx";
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
-
+function exportToExcel(selectedCompanies, provinces, setSelectedCompanies) {
 selectedCompaniesForExport = selectedCompanies
   .filter((company) => company.province_id !== null)
   .map(({ id, name, province_id, email, phone, priority }) => {
