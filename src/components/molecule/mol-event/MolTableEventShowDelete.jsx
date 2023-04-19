@@ -1,13 +1,7 @@
-
-
-
-
 import { getEvento, deleteEvento } from "../../../service/EventService";
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import MenuEvent from "./MenuEvent";
-
-
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
