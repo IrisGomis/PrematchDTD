@@ -1,7 +1,4 @@
-import {
-  getCompanies,
-  deleteCompanies,
-} from "../../../service/CompaniesService";
+import { getCompanies, deleteCompanies } from "../../../service/CompaniesService";
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { getProvinces } from "../../../service/ProvincesService";
@@ -12,38 +9,13 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
-function exportToExcel(selectedCompanies, provinces, setSelectedCompanies) {
-  let selectedCompaniesForExport = [];
-
-  if (Array.isArray(selectedCompanies)) {
-    // selectedCompaniesForExport = selectedCompanies.map(({ id, name, province, email, phone, priority, id_provincia }) => {
-    //   const province = provinces ? provinces.find(p => p.id === id_provincia) : null;
-    //   const provinceName = province?.name ?? '';
-    //   return [id, name, provinceName, email, phone, priority]
-    // });
-
-   // selectedCompaniesForExport = companies.map((e) => {({ id, name, province, email, phone, priority, id_provincia }) => {
-    //   const province = provinces ? provinces.find(p => p.id === id_provincia) : null;
-    //   const provinceName = province?.name ?? '';
-    //   return [id, name, provinceName, email, phone, priority]
-    // });
-
-
-
-
-    const companies = companies.map((e) => {
-      // Buscar la provincia que corresponde a la empresa actual
-          //const  province = provinces.find((p) => p.id === e.province_id);
-      
-          const  province = selectedCompanies.includes(e) => {
-                      const isChecked = e.target.checked;
-                      setSelectedCompanies((prev) =>
-                        isChecked
-                          ? [...prev, e]
-                          : prev.filter((c) => c !== e)
-                      );
-                      selectedCompanies.includes(e.id)
-                    }}   {e.name});
+selectedCompaniesForExport = selectedCompanies
+  .filter((company) => company.province_id !== null)
+  .map(({ id, name, province_id, email, phone, priority }) => {
+    const province = provinces ? provinces.find((p) => p.id === province_id) : null;
+    const provinceName = province?.name ?? '';
+    return [id, name, provinceName, email, phone, priority];
+  });
 
   const sheet = XLSX.utils.aoa_to_sheet(selectedCompaniesForExport, {
     header: ["ID", "Nombre", "Provincia", "Email", "Teléfono", "Prioridad"],
@@ -68,6 +40,7 @@ function exportToExcel(selectedCompanies, provinces, setSelectedCompanies) {
   a.click();
   window.URL.revokeObjectURL(url);
 }
+
 
 
 export default function MolTableDoungLoad2() {
