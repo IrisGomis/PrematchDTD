@@ -145,15 +145,6 @@ export default function MolDateMatches() {
   const [selectedSchedule, setSelectedSchedule] = useState([]);
   const [schedule, setSchedule] = useState([]);
 
-  // useEffect(() => {
-  //   getSchedule()
-  //     .then((response) => {
-  //       setSchedule(response.schedulerRecruiters.data);
-  //       setSelectedSchedule(response.schedulerRecruiters.data);
-  //     })
-  //     .catch((error) => console.error(error));
-  // }, []);
-
   useEffect(() => {
     getSchedule()
       .then((response) => {
