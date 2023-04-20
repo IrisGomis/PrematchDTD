@@ -1,7 +1,7 @@
-import { data } from "autoprefixer";
-import { getMatch, createMatch, getSearchMatch } from "../../../service/MatchesService";
+import { getMatch, getSearchMatch } from "../../../service/MatchesService";
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
+
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
@@ -14,6 +14,9 @@ export default function MolTableMatchShow() {
   const [selectedMatch, setSelectedMatch] = useState([]);
   const [match, setMatch] = useState([]);
   const [searchMatch, setSearchMatch] = useState('');
+//console.log(searchMatch);
+
+
 
   useEffect(() => {
     getMatch()
@@ -33,11 +36,17 @@ export default function MolTableMatchShow() {
   useEffect(() => {
     getSearchMatch()
       .then((response) => {
-        setSearchMatch(response.data);
-        console.log(data)
+        const filteredData = response.data.filter(
+          data =>
+            data.num_match.includes(1) ||
+            data.search_text.includes(searchMatch)
+        );
+        setSearchMatch(filteredData[0]?.search_text || "");
+;
+        console.log(filteredData)
       })
       .catch((error) => console.error(error));
-  }, []);
+  }, [searchMatch]);
 
 
   useLayoutEffect(() => {
@@ -64,7 +73,8 @@ export default function MolTableMatchShow() {
     }
 
     // Create an array of promises to delete each selected Match
-    const deletePromises = selectedMatch.map((Match) => createMatch(match.id));
+    const deletePromises = selectedMatch.map((Match) => getMatch(match.id));
+
 
     // Delete all Matchs in parallel
     Promise.all(deletePromises)
@@ -86,7 +96,7 @@ export default function MolTableMatchShow() {
     <>
     <div className="my-2 text-right">
           <input type="text"
-          onChange={e => setSearchMatch(e.value.target)}
+          onChange={e => setSearchMatch(e.target.value)}
           className="text-stone6 p-2 border border-stone6 rounded outline-orange" 
           placeholder="buscar"/>
     </div>
