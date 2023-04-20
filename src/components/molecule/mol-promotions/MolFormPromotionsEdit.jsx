@@ -20,19 +20,19 @@ const MolFormPromotionsEdit = ({ event }) => {
   const [quantity, setQuantity] = useState("");
 
   useEffect(() => {
-    const fetchPromotions = async () => {
+    const fetchPromotion = async () => {
       try {
         const { data } = await getPromotionsById(id);
-        setName(data.promotion.name);
-        setSchool_id(data.promotion.school_id);
-        setNick(data.promotion.nick);
-        setQuantity(data.promotion.quantity);
+        setName(data.promo.name);
+        setSchool_id(data.promo.school_id);
+        setNick(data.promo.nick);
+        setQuantity(data.promo.quantity);
         console.log(data);
       } catch (error) {
         console.log(error);
       }
     };
-    fetchPromotions();
+    fetchPromotion();
   }, [id]);
 
   const handleSubmit = async (event) => {

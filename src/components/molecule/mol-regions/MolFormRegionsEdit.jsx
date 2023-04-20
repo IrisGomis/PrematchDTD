@@ -5,10 +5,10 @@ import Swal from "sweetalert2";
 import MolMenuAdmin from "./MolMenuAdmin";
 
 
-const MolFormRegionsEdit = ({ event }) => {
- 
+const MolFormRegionsEdit = ({ event }) => { 
   const { id } = useParams();
   const navigate = useNavigate();
+
   const [name, setName] = useState("");
   const [lat, setLat] = useState("");
   const [long, setLong] = useState("");
@@ -89,7 +89,7 @@ const MolFormRegionsEdit = ({ event }) => {
                 htmlFor="name"
                 className="block text-sm font-medium leading-6 text-white sm:pt-1.5"
               >
-                CC AA
+                CCAA
               </label>
               <div className="mt-2 sm:col-span-2 sm:mt-0">
                 <input

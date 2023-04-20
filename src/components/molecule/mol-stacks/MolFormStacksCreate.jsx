@@ -60,6 +60,7 @@ export default function MolFormStacksCreate() {
                   id="name"
                   value={name}
                   onChange={(event) => setName(event.target.value)}
+                  placeholder="Inserte nombre del stack."
                   autoComplete="given-name"
                   className="block w-full rounded-md border-0 py-1.5  text-stone6 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
                 />

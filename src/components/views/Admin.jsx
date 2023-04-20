@@ -1,5 +1,5 @@
 import React from 'react';
-import MolTableRegionsShowDelete from '../molecule/mol-regions/MolFormRegionsCreate';
+import MolTableRegionsShowDelete from '../molecule/mol-regions/MolTableRegionsShowDelete';
 
 
 

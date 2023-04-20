@@ -41,9 +41,14 @@ const MolFormCompaniesEdit = ({ event }) => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     if (
-      [name, ubication, email, phone, priority, province_id].some(
-        (value) => value === undefined
-      )
+      [
+        name, 
+        ubication, 
+        email, 
+        phone, 
+        priority, 
+        province_id
+      ].some((value) => value === "")
     ) {
       Swal.fire({
         position: "center",
@@ -105,6 +110,7 @@ const MolFormCompaniesEdit = ({ event }) => {
 
         <form className="bg-stone6" onSubmit={handleSubmit}>
           <div className="mt-10 space-y-8 border-b border-orange pb-12 sm:space-y-0 sm:divide-y sm:divide-orange sm:border-t sm:pb-0">
+            
             <div className="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
               <label
                 htmlFor="company-name"
