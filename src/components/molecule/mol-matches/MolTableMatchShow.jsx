@@ -12,11 +12,13 @@ export default function MolTableMatchShow() {
   const [indeterminate, setIndeterminate] = useState(false);
   const [selectedMatch, setSelectedMatch] = useState([]);
   const [match, setMatch] = useState([]);
+  const [searchTerm, setSearchTerm] = useState('');
 
   useEffect(() => {
     getMatch()
       .then((response) => {
         const matches = response.data.map((match) => ({
+          id: match.id,
           nameMatch: match.nameMatch,
           nameCompany: match.nameCompany,
           nameRecruiter: match.nameRecruiter,
@@ -27,9 +29,6 @@ export default function MolTableMatchShow() {
       })
       .catch((error) => console.error(error));
   }, []);
-
-
-
 
   useLayoutEffect(() => {
     const isIndeterminate =
@@ -50,31 +49,52 @@ export default function MolTableMatchShow() {
 
   function handleDelete() {
     if (selectedMatch.length === 0) {
-      console.warn("No Matchs selected to delete");
+      console.warn("No Matches selected to delete");
       return;
     }
-
     // Create an array of promises to delete each selected Match
-    const deletePromises = selectedMatch.map((Match) => createMatch(match.id));
+    const deletePromises = selectedMatch.map((Match) => createMatch(Match.id));
 
     // Delete all Matchs in parallel
     Promise.all(deletePromises)
-      .then((responses) => {
-        console.log("Matchs deleted successfully!");
-        // Remove all deleted Matchs from the Match state
-        const deletedIds = selectedMatch.map((Match) => match.id);
-        setMatch(match.filter((e) => !deletedIds.includes(e.id)));
-        // Clear the selectedMatch state
-        setSelectedMatch([]);
-        setChecked(false);
-        setIndeterminate(false);
-      })
-      .catch((error) => {
-        console.error(`Error deleting Matchs: ${error.message}`);
-      });
+    .then((responses) => {
+      console.log("Matches deleted successfully!");
+      // Remove all deleted Matches from the Match state
+      const deletedIds = selectedMatch.map((Match) => Match.id);
+      setMatch(match.filter((e) => !deletedIds.includes(e.id)));
+      // Clear the selectedMatch state
+      setSelectedMatch([]);
+      setChecked(false);
+      setIndeterminate(false);
+    })
+    .catch((error) => {
+      console.error(`Error deleting Matches: ${error.message}`);
+    });
+}
+
+  const handleSearchChange = (event) => {
+    setSearchTerm(event.target.value);
   }
+
+  const filteredMatch = match.filter((match) => {
+    return match.nameMatch.toLowerCase().includes(searchTerm.toLowerCase()) || 
+    match.nameCompany.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    match.nameRecruiter.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    match.nameCoder.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    match.afinity.toLowerCase().includes(searchTerm.toLowerCase());
+  });
+
   return (
     <div className="bg-stone6 w-full max-w-screen-xl rounded-xl p-20 m-20 text-white">
+       <div className="col-md-4">
+          <input
+            type="text"
+            className="form-control search"
+            placeholder="Buscar producto..."
+            value={filteredMatch}
+            onChange={handleSearchChange}
+          />
+        </div>
       <div className="sm:flex sm:items-center">
         <div className="sm:flex-auto">
           <h1 className="text-xl font-semibold leading-7">Lista de Match</h1>
