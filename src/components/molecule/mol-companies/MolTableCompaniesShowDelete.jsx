@@ -6,6 +6,7 @@ import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { getProvinces } from "../../../service/ProvincesService";
 import MenuCompanies from "./MenuCompanies";
+import Pagination from "react-paginate";
 
 
 function classNames(...classes) {
@@ -19,6 +20,21 @@ export default function MolTableCompaniesShowDelete() {
   const [selectedCompanies, setSelectedCompanies] = useState([]);
   const [companies, setCompanies] = useState([]);
   const [provinces, setProvinces] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [rowsPerPage, setRowsPerPage] = useState(10);
+
+  const handlePageChange = (newPage) => {
+    setCurrentPage(newPage);
+  };
+
+  const handleRowsPerPageChange = (event) => {
+    setRowsPerPage(event.target.value);
+    setCurrentPage(1);
+  };
+
+  const totalPages = Math.ceil(rowsPerPage);
+  const startingIndex = (currentPage - 1) * rowsPerPage;
+  const currentData = (startingIndex, startingIndex + rowsPerPage)
 
   useEffect(() => {
     getCompanies()
@@ -224,8 +240,14 @@ export default function MolTableCompaniesShowDelete() {
                         >
                           Editar
                         </Link>
+                        <Pagination
+          className="pagination"
+          pageCount={Math.ceil(currentData.length / totalPages)}
+          onPageChange={handlePageChange}
+        />
                       </td>
                     </tr>
+                    
                     );
                     })}
                 </tbody>

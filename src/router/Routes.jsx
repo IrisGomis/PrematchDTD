@@ -53,12 +53,12 @@ import Statistics from '../components/views/Statistics';
 import Admin from '../components/views/Admin';
 
 import Schools from '../components/views/Schools';
-import { SearchProvider } from '../context/SearchContext';
+//import { SearchProvider } from '../context/SearchContext';
 
 
 function App() {
   return (
-    <SearchProvider>
+    //<SearchProvider>
     <div className="App">
       <div className="App-header">
        <Router>
@@ -120,7 +120,7 @@ function App() {
       </Router>
       </div>
     </div>
-    </SearchProvider>
+    //</SearchProvider>
   );
 }
 
