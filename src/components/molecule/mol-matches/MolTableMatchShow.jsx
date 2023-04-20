@@ -1,4 +1,5 @@
-import { getMatch, createMatch } from "../../../service/MatchesService";
+import { data } from "autoprefixer";
+import { getMatch, createMatch, getSearchMatch } from "../../../service/MatchesService";
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 
@@ -12,6 +13,7 @@ export default function MolTableMatchShow() {
   const [indeterminate, setIndeterminate] = useState(false);
   const [selectedMatch, setSelectedMatch] = useState([]);
   const [match, setMatch] = useState([]);
+  const [searchMatch, setSearchMatch] = useState('');
 
   useEffect(() => {
     getMatch()
@@ -28,7 +30,14 @@ export default function MolTableMatchShow() {
       .catch((error) => console.error(error));
   }, []);
 
-
+  useEffect(() => {
+    getSearchMatch()
+      .then((response) => {
+        setSearchMatch(response.data);
+        console.log(data)
+      })
+      .catch((error) => console.error(error));
+  }, []);
 
 
   useLayoutEffect(() => {
@@ -74,6 +83,13 @@ export default function MolTableMatchShow() {
       });
   }
   return (
+    <>
+    <div className="my-2 text-right">
+          <input type="text"
+          onChange={e => setSearchMatch(e.value.target)}
+          className="text-stone6 p-2 border border-stone6 rounded outline-orange" 
+          placeholder="buscar"/>
+    </div>
     <div className="bg-stone6 w-full max-w-screen-xl rounded-xl p-20 m-20 text-white">
       <div className="sm:flex sm:items-center">
         <div className="sm:flex-auto">
@@ -214,5 +230,6 @@ export default function MolTableMatchShow() {
         </div>
       </div>
     </div>
+    </>
   );
 }
