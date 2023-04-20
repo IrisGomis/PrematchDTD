@@ -1,7 +1,7 @@
 import { getLanguages, deleteLanguages } from "../../../service/LanguagesService";
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
-
+import MolMenuAdmin from "../mol-regions/MolMenuAdmin";
 
 
 function classNames(...classes) {
@@ -70,6 +70,8 @@ export default function MolTableLanguagesShowDelete() {
       });
   }
   return (
+    <>
+    <MolMenuAdmin/>
     <div className="bg-stone6 w-full max-w-screen-xl rounded-xl p-20 m-20 text-white">
       <div className="sm:flex sm:items-center">
         <div className="sm:flex-auto">
@@ -80,7 +82,7 @@ export default function MolTableLanguagesShowDelete() {
             className="text-sm text-stone2 my-10 mx-10 px-6 py-1.5 rounded-xl bg-gradient-to-r from-orangel to-orange hover:from-verde hover:to-verdel ..."
             type="button"
           >
-            <a href="/">Crear idioma</a>
+            <a href="/languagescreate">Crear idioma</a>
           </button>
         </div>
       </div>
@@ -170,5 +172,6 @@ export default function MolTableLanguagesShowDelete() {
         </div>
       </div>
     </div>
+    </>
   )
 }

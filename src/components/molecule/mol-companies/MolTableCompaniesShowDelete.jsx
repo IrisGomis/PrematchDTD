@@ -5,6 +5,8 @@ import {
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { getProvinces } from "../../../service/ProvincesService";
+import MenuCompanies from "./MenuCompanies";
+
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
@@ -81,6 +83,8 @@ export default function MolTableCompaniesShowDelete() {
       });
   }
   return (
+    <>
+    <MenuCompanies/>
     <div className="bg-stone6 w-screen max-w-screen-xl rounded-xl p-20 m-20 text-white">
       <div className="sm:flex sm:items-center">
         <div className="sm:flex-auto">
@@ -280,5 +284,6 @@ export default function MolTableCompaniesShowDelete() {
         </div>
       </div>
     </div>
+    </>
   );
 }

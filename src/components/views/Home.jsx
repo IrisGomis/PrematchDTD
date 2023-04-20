@@ -1,10 +1,12 @@
 import React from 'react';
-import MolFormEventCreate from '../molecule/mol-event/MolFormEventCreate';
+import MolTableEventShowDelete from '../molecule/mol-event/MolTableEventShowDelete';
 
 
 const Home = () => {
   return (
-    <div><MolFormEventCreate/></div>
+    <>
+     <MolTableEventShowDelete/>
+    </>
   )
 }
 

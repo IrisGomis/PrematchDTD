@@ -1,7 +1,7 @@
 import { getSchools, deleteSchools } from "../../../service/SchoolsService";
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
-
+import MenuSchool from './MenuSchools';
 
 
 function classNames(...classes) {
@@ -70,6 +70,8 @@ export default function MolTableSchoolsShowDelete() {
       });
   }
   return (
+    <>
+    <MenuSchool/>
     <div className="bg-stone6 w-full max-w-screen-xl rounded-xl p-20 m-20 text-white">
       <div className="sm:flex sm:items-center">
         <div className="sm:flex-auto">
@@ -175,5 +177,6 @@ export default function MolTableSchoolsShowDelete() {
         </div>
       </div>
     </div>
+    </>
   )
 }

@@ -1,7 +1,9 @@
-import React, { useState, useEffect, Fragment } from "react";
+import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { getLanguagesById, updateLanguages } from "../../../service/LanguagesService";
 import Swal from "sweetalert2";
+import MolMenuAdmin from "../mol-regions/MolMenuAdmin";
+
 
 const MolFormLanguagesEdit = ({ event }) => {
  
@@ -14,7 +16,8 @@ const MolFormLanguagesEdit = ({ event }) => {
     const fetchEvento = async () => {
       try {
         const { data } = await getLanguagesById(id);
-        setName(data.name);
+        setName(data.service.name);
+        console.log(data);
       } catch (error) {
         console.log(error);
       }
@@ -38,7 +41,7 @@ const MolFormLanguagesEdit = ({ event }) => {
         timer: 2000,
       });
       setTimeout(() => {
-        navigate("/languagescreate");
+        navigate("/languagestable");
       }, 2000); // Delay the navigation for 2 seconds (2000 milliseconds)
     } catch (error) {
       console.log(error);
@@ -56,6 +59,7 @@ const MolFormLanguagesEdit = ({ event }) => {
  
   return (
     <>
+    <MolMenuAdmin/>
       <div className="bg-stone6 w-full max-w-screen-lg rounded-xl p-20 m-20">
         <h2 className="text-2xl font-semibold leading-7 text-orange">Editar idioma</h2>
 
