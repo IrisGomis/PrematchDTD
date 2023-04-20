@@ -1,5 +1,5 @@
 import Drawer from "../atome/drawer/Drawer";
-import AtomSearch from "../atome/header/AtomSearch";
+//import AtomSearch from "../atome/header/AtomSearch";
 import AtomHour from "../atome/header/AtomHour";
 import AtomLogin from "../atome/header/AtomLogin";
 
@@ -12,7 +12,7 @@ function Layout({ children }) {
         </div>
         <div>
           <div className="w-full h-20 flex justify-between">
-            <AtomSearch />
+            {/* <AtomSearch /> */}
             <AtomHour />
             <AtomLogin />
           </div>

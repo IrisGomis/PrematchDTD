@@ -1,100 +1,84 @@
-import { getMatch, createMatch } from "../../../service/MatchesService";
-import { useEffect, useLayoutEffect, useRef, useState } from "react";
-import { Link } from "react-router-dom";
+//import { getMatch, createMatch } from "../../../service/MatchesService";
+//import { useEffect, useLayoutEffect, useRef, useState } from "react";
+//import { Link } from "react-router-dom";
+import MolSearchBar from "./MolSearchBar";
 
-function classNames(...classes) {
-  return classes.filter(Boolean).join(" ");
-}
+
+// function classNames(...classes) {
+//   return classes.filter(Boolean).join(" ");
+// }
 
 export default function MolTableMatchShow() {
-  const checkbox = useRef();
-  const [checked, setChecked] = useState(false);
-  const [indeterminate, setIndeterminate] = useState(false);
-  const [selectedMatch, setSelectedMatch] = useState([]);
-  const [match, setMatch] = useState([]);
-  const [searchTerm, setSearchTerm] = useState('');
+  // const checkbox = useRef();
+  // const [checked, setChecked] = useState(false);
+  // const [indeterminate, setIndeterminate] = useState(false);
+  // const [selectedMatch, setSelectedMatch] = useState([]);
+  // const [match, setMatch] = useState([]);
 
-  useEffect(() => {
-    getMatch()
-      .then((response) => {
-        const matches = response.data.map((match) => ({
-          id: match.id,
-          nameMatch: match.nameMatch,
-          nameCompany: match.nameCompany,
-          nameRecruiter: match.nameRecruiter,
-          nameCoder: match.nameCoder,
-          afinity: match.afinity,
-        }));
-        setMatch(matches);
-      })
-      .catch((error) => console.error(error));
-  }, []);
+  // useEffect(() => {
+  //   getMatch()
+  //     .then((response) => {
+  //       const matches = response.data.map((match) => ({
+  //         nameMatch: match.nameMatch,
+  //         nameCompany: match.nameCompany,
+  //         nameRecruiter: match.nameRecruiter,
+  //         nameCoder: match.nameCoder,
+  //         afinity: match.afinity,
+  //       }));
+  //       setMatch(matches);
+  //     })
+  //     .catch((error) => console.error(error));
+  // }, []);
 
-  useLayoutEffect(() => {
-    const isIndeterminate =
-      selectedMatch.length > 0 && selectedMatch.length < match.length;
-    setChecked(selectedMatch.length === match.length);
-    setIndeterminate(isIndeterminate);
-    checkbox.current.indeterminate = isIndeterminate;
-  }, [selectedMatch, match]);
 
-  function toggleAll() {
-    if (selectedMatch.length === 0) {
-      return;
-    }
-    setSelectedMatch(checked || indeterminate ? [] : selectedMatch);
-    setChecked(!checked && !indeterminate);
-    setIndeterminate(false);
-  }
 
-  function handleDelete() {
-    if (selectedMatch.length === 0) {
-      console.warn("No Matches selected to delete");
-      return;
-    }
-    // Create an array of promises to delete each selected Match
-    const deletePromises = selectedMatch.map((Match) => createMatch(Match.id));
 
-    // Delete all Matchs in parallel
-    Promise.all(deletePromises)
-    .then((responses) => {
-      console.log("Matches deleted successfully!");
-      // Remove all deleted Matches from the Match state
-      const deletedIds = selectedMatch.map((Match) => Match.id);
-      setMatch(match.filter((e) => !deletedIds.includes(e.id)));
-      // Clear the selectedMatch state
-      setSelectedMatch([]);
-      setChecked(false);
-      setIndeterminate(false);
-    })
-    .catch((error) => {
-      console.error(`Error deleting Matches: ${error.message}`);
-    });
-}
+  // useLayoutEffect(() => {
+  //   const isIndeterminate =
+  //     selectedMatch.length > 0 && selectedMatch.length < match.length;
+  //   setChecked(selectedMatch.length === match.length);
+  //   setIndeterminate(isIndeterminate);
+  //   checkbox.current.indeterminate = isIndeterminate;
+  // }, [selectedMatch, match]);
 
-  const handleSearchChange = (event) => {
-    setSearchTerm(event.target.value);
-  }
+  // function toggleAll() {
+  //   if (selectedMatch.length === 0) {
+  //     return;
+  //   }
+  //   setSelectedMatch(checked || indeterminate ? [] : selectedMatch);
+  //   setChecked(!checked && !indeterminate);
+  //   setIndeterminate(false);
+  // }
 
-  const filteredMatch = match.filter((match) => {
-    return match.nameMatch.toLowerCase().includes(searchTerm.toLowerCase()) || 
-    match.nameCompany.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    match.nameRecruiter.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    match.nameCoder.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    match.afinity.toLowerCase().includes(searchTerm.toLowerCase());
-  });
+  // function handleDelete() {
+  //   if (selectedMatch.length === 0) {
+  //     console.warn("No Matchs selected to delete");
+  //     return;
+  //   }
 
+  //   // Create an array of promises to delete each selected Match
+  //   const deletePromises = selectedMatch.map((Match) => createMatch(match.id));
+
+  //   // Delete all Matchs in parallel
+  //   Promise.all(deletePromises)
+  //     .then((responses) => {
+  //       console.log("Matchs deleted successfully!");
+  //       // Remove all deleted Matchs from the Match state
+  //       const deletedIds = selectedMatch.map((Match) => match.id);
+  //       setMatch(match.filter((e) => !deletedIds.includes(e.id)));
+  //       // Clear the selectedMatch state
+  //       setSelectedMatch([]);
+  //       setChecked(false);
+  //       setIndeterminate(false);
+  //     })
+  //     .catch((error) => {
+  //       console.error(`Error deleting Matchs: ${error.message}`);
+  //     });
+  // }
   return (
-    <div className="bg-stone6 w-full max-w-screen-xl rounded-xl p-20 m-20 text-white">
-       <div className="col-md-4">
-          <input
-            type="text"
-            className="form-control search"
-            placeholder="Buscar producto..."
-            value={filteredMatch}
-            onChange={handleSearchChange}
-          />
-        </div>
+    <>
+    <MolSearchBar/>
+    {/* <div className="bg-stone6 w-full max-w-screen-xl rounded-xl p-20 m-20 text-white">
       <div className="sm:flex sm:items-center">
         <div className="sm:flex-auto">
           <h1 className="text-xl font-semibold leading-7">Lista de Match</h1>
@@ -202,10 +186,10 @@ export default function MolTableMatchShow() {
                             : "text-gray-900"
                         )}
                       >
-                       DTD {e.nameEvent}
+                        {e.nameEvent}
                       </td>
                       {/* <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{e.name}</td> */}
-                      <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                      {/* <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
                         {e.nameCompany}
                       </td>
                       <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
@@ -233,6 +217,7 @@ export default function MolTableMatchShow() {
           </div>
         </div>
       </div>
-    </div>
+    </div> */}
+    </>
   );
 }
