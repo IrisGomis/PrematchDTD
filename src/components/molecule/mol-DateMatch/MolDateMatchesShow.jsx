@@ -1,4 +1,4 @@
-import { getMatch, createMatch } from "../../../service/MatchesService";
+import { getSchedule, createSchedule } from "../../../service/ScheduleService";
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 
@@ -10,13 +10,13 @@ export default function MolTableMatchShow() {
   const checkbox = useRef();
   const [checked, setChecked] = useState(false);
   const [indeterminate, setIndeterminate] = useState(false);
-  const [selectedMatch, setSelectedMatch] = useState([]);
-  const [match, setMatch] = useState([]);
+  const [selectedSchedule, setSelectedSchedule] = useState([]);
+  const [schedule, setSchedule] = useState([]);
 
   useEffect(() => {
     getMatch()
       .then((response) => {
-        const matches = response.data.map((match) => ({
+        const schedule = response.data.map((match) => ({
           nameEvent: match.nameEvent,
           nameCompany: match.nameCompany,
           nameRecruiter: match.nameRecruiter,
