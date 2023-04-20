@@ -12,7 +12,10 @@ export const getMatch = () => {
     return { data: response.data.matches };
   });
 };
-
+// export const getMatch = (): Promise<{ data: any }> => {
+//   return axios.get(baseUrl + "/match")
+//     .then((response) => ({ data: response.data.matches }));
+// };
 // export const getMatchById = (id) => {
 //   return axios.get(baseUrl + "/match/" + id)
 // }
