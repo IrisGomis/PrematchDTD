@@ -1,13 +1,7 @@
-
-
-
-
 import { getEvento, deleteEvento } from "../../../service/EventService";
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import MenuEvent from "./MenuEvent";
-
-
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
@@ -87,7 +81,7 @@ export default function MolTableEventShowDelete() {
             className="text-sm text-stone2 my-10 mx-10 px-6 py-1.5 rounded-xl bg-gradient-to-r from-orangel to-orange hover:from-verde hover:to-verdel ..."
             type="button"
           >
-            <a href="/">Crear Evento</a>
+            <a href="/eventcreate">Crear Evento</a>
           </button>
         </div>
       </div>

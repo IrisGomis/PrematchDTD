@@ -1,4 +1,5 @@
 import { getProvinces, deleteProvinces } from "../../../service/ProvincesService";
+import { getRegions } from "../../../service/RegionsService";
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import MolMenuAdmin from '../mol-regions/MolMenuAdmin';
@@ -14,7 +15,8 @@ export default function MolTableProvincesShowDelete() {
   const [checked, setChecked] = useState(false);
   const [indeterminate, setIndeterminate] = useState(false);
   const [selectedProvinces, setSelectedProvinces] = useState([]);
-  const [Provinces, setProvinces] = useState([]);
+  const [provinces, setProvinces] = useState([]);
+  const [regions, setRegions] = useState([]);
 
   useEffect(() => {
     getProvinces()
@@ -24,14 +26,22 @@ export default function MolTableProvincesShowDelete() {
       })
       .catch((error) => console.error(error));
   }, []);
+  
+  useEffect(() => {
+    getRegions()
+      .then((response) => {
+        setRegions(response.data);
+      })
+      .catch((error) => console.error(error));
+  }, []);
 
   useLayoutEffect(() => {
     const isIndeterminate =
-      selectedProvinces.length > 0 && selectedProvinces.length < Provinces.length;
-    setChecked(selectedProvinces.length === Provinces.length);
+      selectedProvinces.length > 0 && selectedProvinces.length < provinces.length;
+    setChecked(selectedProvinces.length === provinces.length);
     setIndeterminate(isIndeterminate);
     checkbox.current.indeterminate = isIndeterminate;
-  }, [selectedProvinces, Provinces]);
+  }, [selectedProvinces, provinces]);
   
   function toggleAll() {
     if (selectedProvinces.length === 0) {
@@ -59,7 +69,7 @@ export default function MolTableProvincesShowDelete() {
         console.log("Provinces deleted successfully!");
         // Remove all deleted Provincess from the Provinces state
         const deletedIds = selectedProvinces.map((Provinces) => Provinces.id);
-        setProvinces(Provinces.filter((e) => !deletedIds.includes(e.id)));
+        setProvinces(provinces.filter((e) => !deletedIds.includes(e.id)));
         // Clear the selectedProvinces state
         setSelectedProvinces([]);
         setChecked(false);
@@ -114,13 +124,16 @@ export default function MolTableProvincesShowDelete() {
                       />
                     </th>
                     <th scope="col" className="min-w-[12rem] py-3.5 pr-3 text-left text-sm font-semibold text-gray-900">
-                    Nombre
+                      Provincia/Ciudad
+                    </th>
+                    <th scope="col" className="min-w-[12rem] py-3.5 pr-3 text-left text-sm font-semibold text-gray-900">
+                      Región
                     </th>
                     <th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
                      Latitud
                     </th>
                     <th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
-                    Longitud
+                      Longitud
                     </th>
                     <th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
                       ISO
@@ -131,23 +144,22 @@ export default function MolTableProvincesShowDelete() {
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-gray-200 ">
-                  {Provinces.map((e) => (
-                    <tr key={e.id} className="hover:bg-gray-50">
+                {provinces.map((e) => {
+                  const region = regions.find((p) => p.id === e.region_id);
+                  return (
+                    <tr key={e.id}>
                       <td className="px-7 py-4 whitespace-nowrap">
                         <input
                           type="checkbox"
-                          name={e.id}
-                          className="h-4 w-4 text-indigo-600 focus:ring-indigo-500"
-                          checked={selectedProvinces.some((ev) => ev.id === e.id)}
-                          onChange={(Provinces) => {
-                            const isChecked = Provinces.target.checked;
-                            setSelectedProvinces((prevState) => {
-                              if (isChecked) {
-                                return [...prevState, e];
-                              } else {
-                                return prevState.filter((ev) => ev.id !== e.id);
-                              }
-                            });
+                          className="rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"
+                          checked={selectedProvinces.includes(e)}
+                          onChange={(e) => {
+                            const isChecked = e.target.checked;
+                            setSelectedProvinces((prev) =>
+                              isChecked
+                                ? [...prev, e]
+                                : prev.filter((c) => c !== e)
+                            );
                           }}
                         />
                       </td>
@@ -159,11 +171,14 @@ export default function MolTableProvincesShowDelete() {
                       >
                         {e.name}
                       </td>
-                      {/* <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{e.name}</td> */}
-                      <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{e.region_id}</td>
-                      <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{e.lat}</td>
-                      <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{e.long}</td>
-                      <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{e.iso}</td>
+                      <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                        {region ? region.name : "-"}</td>
+                      <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                        {e.lat}</td>
+                      <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                        {e.long}</td>
+                      <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                        {e.iso}</td>
                       <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                         <Link
                           to={`/provincesedit/${e.id}`}
@@ -173,7 +188,8 @@ export default function MolTableProvincesShowDelete() {
                         </Link>
                       </td>
                     </tr>
-                  ))}
+                  );
+                  })}
                 </tbody>
               </table>
             </div>

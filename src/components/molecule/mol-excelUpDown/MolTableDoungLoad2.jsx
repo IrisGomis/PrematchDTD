@@ -1,17 +1,49 @@
-import {
-  getCompanies,
-  deleteCompanies,
-} from "../../../service/CompaniesService";
+import { getCompanies, deleteCompanies } from "../../../service/CompaniesService";
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { getProvinces } from "../../../service/ProvincesService";
-import MenuCompanies from "./MenuCompanies";
+import MenuCompanies from "../mol-companies/MenuCompanies";
+import * as XLSX from "xlsx";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
+function exportToExcel(selectedCompanies, provinces, setSelectedCompanies) {
+selectedCompaniesForExport = selectedCompanies
+  .filter((company) => company.province_id !== null)
+  .map(({ id, name, province_id, email, phone, priority }) => {
+    const province = provinces ? provinces.find((p) => p.id === province_id) : null;
+    const provinceName = province?.name ?? '';
+    return [id, name, provinceName, email, phone, priority];
+  });
 
-export default function MolTableCompaniesShowDelete() {
+  const sheet = XLSX.utils.aoa_to_sheet(selectedCompaniesForExport, {
+    header: ["ID", "Nombre", "Provincia", "Email", "Teléfono", "Prioridad"],
+  });
+
+  const book = {
+    Sheets: { data: sheet },
+    SheetNames: ["data"],
+  };
+  const bookType = "xlsx";
+
+  const excelBuffer = XLSX.write(book, {
+    bookType: bookType,
+    type: "array",
+  });
+
+  const blob = new Blob([excelBuffer], { type: "application/octet-stream" });
+  const url = window.URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = "empresas.xlsx";
+  a.click();
+  window.URL.revokeObjectURL(url);
+}
+
+
+
+export default function MolTableDoungLoad2() {
   const checkbox = useRef();
   const [checked, setChecked] = useState(false);
   const [indeterminate, setIndeterminate] = useState(false);
@@ -38,7 +70,8 @@ export default function MolTableCompaniesShowDelete() {
 
   useLayoutEffect(() => {
     const isIndeterminate =
-      selectedCompanies.length > 0 && selectedCompanies.length < companies.length;
+      selectedCompanies.length > 0 &&
+      selectedCompanies.length < companies.length;
     setChecked(selectedCompanies.length === companies.length);
     setIndeterminate(isIndeterminate);
     checkbox.current.indeterminate = isIndeterminate;
@@ -228,6 +261,12 @@ export default function MolTableCompaniesShowDelete() {
                     })}
                 </tbody>
               </table>
+              <button
+                  className="inline-flex items-center rounded px-2 py-1 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 disabled:cursor-not-allowed disabled:opacity-30 disabled:hover:bg-white"
+                  onClick={() => exportToExcel(selectedCompanies)}
+                >
+                  Descargar Excel
+                </button>
             </div>
           </div>
         </div>

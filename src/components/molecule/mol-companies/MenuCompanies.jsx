@@ -1,5 +1,5 @@
 const tabs = [
-    { name: 'Compañias', href: '/companiestable', current: true },
+    { name: 'Empresas', href: '/companiestable', current: true },
     { name: 'Recruiters', href: '/recruiterstable', current: false },
   ]
   

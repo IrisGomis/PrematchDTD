@@ -8,7 +8,6 @@ import MolMenuAdmin from '../mol-regions/MolMenuAdmin';
 const MolFormProvincesCreate = () => {
   const navigate = useNavigate();
   const [regions, setRegions] = useState([]);
-  // const [selectedRegion, setSelectedRegion] = useState("");
   const [region_id, setRegion_id] = useState("");
   const [name, setName] = useState("");
   const [lat, setLat] = useState("");
@@ -80,6 +79,7 @@ const MolFormProvincesCreate = () => {
                   id="region_id"
                   value={region_id} // Cambiar 'regions' por el estado que representa la opción seleccionada
                   onChange={(event) => setRegion_id(event.target.value)} // Cambiar 'setRegions' por el método que actualiza el estado de la opción seleccionada
+                  placeholder="Inserte nombre de la CCAA."
                   className="block w-full rounded-md border-0 py-1.5  text-stone6 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
                 >
                   {regions.map((e) => (
@@ -96,7 +96,7 @@ const MolFormProvincesCreate = () => {
                 htmlFor="name"
                 className="block text-sm font-medium leading-6 text-white sm:pt-1.5"
               >
-                Provincia <span className="text-orange">*</span>
+                Provincia/Ciudad <span className="text-orange">*</span>
               </label>
               <div className="mt-2 sm:col-span-2 sm:mt-0">
                 <input
@@ -105,6 +105,7 @@ const MolFormProvincesCreate = () => {
                   id="name"
                   value={name}
                   onChange={(event) => setName(event.target.value)}
+                  placeholder="Inserte nombre de la provincia/ciudad."
                   autoComplete="given-name"
                   className="block w-full rounded-md border-0 py-1.5  text-stone6 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
                 />
@@ -126,6 +127,7 @@ const MolFormProvincesCreate = () => {
                   id="lat"
                   value={lat}
                   onChange={(event) => setLat(event.target.value)}
+                  placeholder="Inserte latitud."
                   className="block w-full mr-10 rounded-md border-0 px-2 py-1.5 text-stone6 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
                 />
               </div>
@@ -145,6 +147,7 @@ const MolFormProvincesCreate = () => {
                   type="text"
                   value={long}
                   onChange={(event) => setLong(event.target.value)}
+                  placeholder="Inserte longitud."
                   className="block w-full rounded-md border-0 py-1.5 text-stone6 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-md sm:text-sm sm:leading-6"
                 />
               </div>
@@ -164,6 +167,7 @@ const MolFormProvincesCreate = () => {
                   type="text"
                   value={iso}
                   onChange={(event) => setIso(event.target.value)}
+                  placeholder="Inserte ISO."
                   className="block w-full rounded-md border-0 py-1.5  text-stone6 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-md sm:text-sm sm:leading-6"
                 />
               </div>

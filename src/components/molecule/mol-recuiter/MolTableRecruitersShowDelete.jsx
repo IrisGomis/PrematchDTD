@@ -1,6 +1,6 @@
 import { getRecruiters, deleteRecruiters } from "../../../service/RecruitersService";
-//import { getPromotions } from "../../../service/PromotionsServices";
-//import { getEvento } from "../../../service/EventService";
+import { getEvento } from "../../../service/EventService";
+import { getCompanies} from "../../../service/CompaniesService";
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import MenuCompanies from "../mol-companies/MenuCompanies";
@@ -17,9 +17,9 @@ export default function MolTableRecruitersShowDelete() {
   const [checked, setChecked] = useState(false);
   const [indeterminate, setIndeterminate] = useState(false);
   const [selectedRecruiters, setSelectedRecruiters] = useState([]);
-  const [Recruiters, setRecruiters] = useState([]);
-  // const [event, setEvent] = useState([]);
-  // const [promotions, setPromotions] = useState([]);
+  const [recruiters, setRecruiters] = useState([]);
+  const [events, setEvent] = useState([]);
+  const [companies, setCompanies] = useState([]);
 
   useEffect(() => {
     getRecruiters()
@@ -30,29 +30,29 @@ export default function MolTableRecruitersShowDelete() {
       .catch((error) => console.error(error));
   }, []);
 
-  // useEffect(() => {
-  //   getEvento()
-  //     .then((response) => {
-  //       setEvent(response.data);
-  //     })
-  //     .catch((error) => console.error(error));
-  // }, []);
+  useEffect(() => {
+    getEvento()
+      .then((response) => {
+        setEvent(response.data);
+      })
+      .catch((error) => console.error(error));
+  }, []);
 
-  // useEffect(() => {
-  //   getPromotions()
-  //     .then((response) => {
-  //       setPromotions(response.data);
-  //     })
-  //     .catch((error) => console.error(error));
-  // }, []);
+  useEffect(() => {
+    getCompanies()
+      .then((response) => {
+        setCompanies(response.data);
+      })
+      .catch((error) => console.error(error));
+  }, []);
 
   useLayoutEffect(() => {
     const isIndeterminate =
-      selectedRecruiters.length > 0 && selectedRecruiters.length < Recruiters.length;
-    setChecked(selectedRecruiters.length === Recruiters.length);
+      selectedRecruiters.length > 0 && selectedRecruiters.length < recruiters.length;
+    setChecked(selectedRecruiters.length === recruiters.length);
     setIndeterminate(isIndeterminate);
     checkbox.current.indeterminate = isIndeterminate;
-  }, [selectedRecruiters, Recruiters]);
+  }, [selectedRecruiters, recruiters]);
   
   function toggleAll() {
     if (selectedRecruiters.length === 0) {
@@ -70,8 +70,8 @@ export default function MolTableRecruitersShowDelete() {
     }
 
     // Create an array of promises to delete each selected Recruiters
-    const deletePromises = selectedRecruiters.map((Recruiters) =>
-    deleteRecruiters(Recruiters.id)
+    const deletePromises = selectedRecruiters.map((recruiters) =>
+    deleteRecruiters(recruiters.id)
     );
 
     // Delete all Recruiterss in parallel
@@ -79,15 +79,15 @@ export default function MolTableRecruitersShowDelete() {
       .then((responses) => {
         console.log("Recruiters deleted successfully!");
         // Remove all deleted Recruiterss from the Recruiters state
-        const deletedIds = selectedRecruiters.map((Recruiters) => Recruiters.id);
-        setRecruiters(Recruiters.filter((e) => !deletedIds.includes(e.id)));
+        const deletedIds = selectedRecruiters.map((recruiters) => recruiters.id);
+        setRecruiters(recruiters.filter((e) => !deletedIds.includes(e.id)));
         // Clear the selectedRecruiters state
         setSelectedRecruiters([]);
         setChecked(false);
         setIndeterminate(false);
       })
       .catch((error) => {
-        console.error(`Error deleting Recruiterss: ${error.message}`);
+        console.error(`Error deleting Recruiters: ${error.message}`);
       });
   }
   return (
@@ -116,7 +116,7 @@ export default function MolTableRecruitersShowDelete() {
                   <button
                     type="button"
                     className="inline-flex items-center rounded px-2 py-1 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 disabled:cursor-not-allowed disabled:opacity-30 disabled:hover:bg-white"
-                     onClick={() => handleDelete(selectedRecruiters[0].id)}
+                     onClick={handleDelete}
                   >
                     Eliminar
                   </button>
@@ -167,24 +167,25 @@ export default function MolTableRecruitersShowDelete() {
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-gray-200 ">
-                  {Recruiters.map((e) => (
-                    <tr key={e.id} className="hover:bg-gray-50">
-                      <td className="px-7 py-4 whitespace-nowrap">
-                        <input
-                          type="checkbox"
-                          name={e.id}
-                          className="h-4 w-4 text-indigo-600 focus:ring-indigo-500"
-                          checked={selectedRecruiters.some((ev) => ev.id === e.id)}
-                          onChange={(Recruiters) => {
-                            const isChecked = Recruiters.target.checked;
-                            setSelectedRecruiters((prevState) => {
-                              if (isChecked) {
-                                return [...prevState, e];
-                              } else {
-                                return prevState.filter((ev) => ev.id !== e.id);
-                              }
-                            });
-                          }}
+                  {recruiters.map((e) => {
+                    const event = events.find((p) => p.id === e.event_id);
+                    const company = companies.find((c) => c.id === e.company_id);
+                    return (
+                      <tr key={e.id}>
+                        <td className="px-7 py-4 whitespace-nowrap">
+                          <input
+                            type="checkbox"
+                            className="rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"
+                            checked={selectedRecruiters.includes(e)}
+                            onChange={(e) => {
+                              const isChecked = e.target.checked;
+                              setSelectedRecruiters((prev) =>
+                                isChecked
+                                  ? [...prev, e]
+                                  : prev.filter((c) => c !== e)
+                              );
+                            }}
+                            
                         />
                       </td>
                       <td
@@ -193,13 +194,25 @@ export default function MolTableRecruitersShowDelete() {
                           selectedRecruiters.includes(e.id) ? 'text-indigo-600' : 'text-gray-900'
                         )}
                       >
-                        {e.name}
+                        {event ? event.name : "-" }
                       </td>
                       {/* <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{e.name}</td> */}
-                      <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{e.date}</td>
-                      <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{e.url}</td>
-                      <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{e.max}</td>
-                      <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{e.min}</td>
+                      <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                      {company ? company.name : '-'}</td>
+                      <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                        {e.name}</td>
+                      <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                        {e.charge}</td>
+                      <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                        {e.linkedin}</td>
+                      <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                        {e.email}</td>
+                      <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                        {e.phone}</td>
+                      <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                        {e.remote}</td>
+                      <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                        {e.interviews_quantity}</td>
                       <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                         <Link
                           to={`/recruitersedit/${e.id}`}
@@ -209,7 +222,8 @@ export default function MolTableRecruitersShowDelete() {
                         </Link>
                       </td>
                     </tr>
-                  ))}
+                    );
+                  })}
                 </tbody>
               </table>
             </div>

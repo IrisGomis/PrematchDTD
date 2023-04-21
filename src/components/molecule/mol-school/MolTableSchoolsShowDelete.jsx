@@ -2,7 +2,7 @@ import { getSchools, deleteSchools } from "../../../service/SchoolsService";
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import MenuSchool from './MenuSchools';
-
+import { getProvinces } from "../../../service/ProvincesService";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
@@ -15,12 +15,21 @@ export default function MolTableSchoolsShowDelete() {
   const [indeterminate, setIndeterminate] = useState(false);
   const [selectedSchools, setSelectedSchools] = useState([]);
   const [Schools, setSchools] = useState([]);
+  const [provinces, setProvinces] = useState([]);
 
   useEffect(() => {
     getSchools()
       .then((response) => {
         setSchools(response.data);
         setSelectedSchools(response.data);
+      })
+      .catch((error) => console.error(error));
+  }, []);
+
+  useEffect(() => {
+    getProvinces()
+      .then((response) => {
+        setProvinces(response.data);
       })
       .catch((error) => console.error(error));
   }, []);
@@ -114,7 +123,10 @@ export default function MolTableSchoolsShowDelete() {
                       />
                     </th>
                     <th scope="col" className="min-w-[12rem] py-3.5 pr-3 text-left text-sm font-semibold text-gray-900">
-                    Nombre
+                    Escuela
+                    </th>
+                    <th scope="col" className="min-w-[12rem] py-3.5 pr-3 text-left text-sm font-semibold text-gray-900">
+                    Ubicación
                     </th>
                     <th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
                      Latitud
@@ -128,25 +140,24 @@ export default function MolTableSchoolsShowDelete() {
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-gray-200 ">
-                  {Schools.map((e) => (
-                    <tr key={e.id} className="hover:bg-gray-50">
-                      <td className="px-7 py-4 whitespace-nowrap">
-                        <input
-                          type="checkbox"
-                          name={e.id}
-                          className="h-4 w-4 text-indigo-600 focus:ring-indigo-500"
-                          checked={selectedSchools.some((ev) => ev.id === e.id)}
-                          onChange={(Schools) => {
-                            const isChecked = Schools.target.checked;
-                            setSelectedSchools((prevState) => {
-                              if (isChecked) {
-                                return [...prevState, e];
-                              } else {
-                                return prevState.filter((ev) => ev.id !== e.id);
-                              }
-                            });
-                          }}
-                        />
+                  {Schools.map((e) => {
+                    const province = provinces.find((p) => p.id === e.province_id);
+                    return (
+                      <tr key={e.id}>
+                        <td className="px-7 py-4 whitespace-nowrap">
+                          <input
+                            type="checkbox"
+                            className="rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"
+                            checked={selectedSchools.includes(e)}
+                            onChange={(e) => {
+                              const isChecked = e.target.checked;
+                              setSelectedSchools((prev) =>
+                                isChecked
+                                  ? [...prev, e]
+                                  : prev.filter((c) => c !== e)
+                              );
+                            }}
+                          />    
                       </td>
                       <td
                         className={classNames(
@@ -156,10 +167,12 @@ export default function MolTableSchoolsShowDelete() {
                       >
                         {e.name}
                       </td>
-                      {/* <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{e.name}</td> */}
-                      <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{e.region_id}</td>
-                      <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{e.lat}</td>
-                      <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{e.long}</td>
+                      <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                        {province ? province.name : "-"}</td>
+                      <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                        {e.lat}</td>
+                      <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                        {e.long}</td>
                       <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                         <Link
                           to={`/schoolsedit/${e.id}`}
@@ -169,7 +182,8 @@ export default function MolTableSchoolsShowDelete() {
                         </Link>
                       </td>
                     </tr>
-                  ))}
+                    );
+                  })}
                 </tbody>
               </table>
             </div>
