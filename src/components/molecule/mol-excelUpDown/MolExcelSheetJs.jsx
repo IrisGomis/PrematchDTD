@@ -43,7 +43,7 @@ const MolExcelSheetJs = () => {
         formData.append('email', rowData.email ? rowData.email.toString() : '');
         formData.append("phone", rowData.phone);
         formData.append("priority", rowData.priority);
-        formData.append("province_id", parseInt(rowData.province_id));
+        formData.append("province_id", Number.isInteger(rowData.province_id));
         try {
           const { data } = await createCompanies(formData);
           console.log(data);
