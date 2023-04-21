@@ -13,7 +13,7 @@ const MolExcelSheetJs = () => {
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [priority, setPriority] = useState("");
-  const [province_id, setProvince_id] = useState("");
+  const [province_id, setProvince_id] = useState(0);
   const [provinces, setProvinces] = useState([]);
 
   const navigate = useNavigate();
@@ -36,13 +36,14 @@ const MolExcelSheetJs = () => {
       });
       // Assuming column names in excel are: name, lat, long, iso
       rowsData.forEach(async (rowData) => {
+        
         const formData = new FormData();
         formData.append("name", rowData.name);
         formData.append("ubication", rowData.ubication);
-        formData.append("email", rowData.email);
+        formData.append('email', rowData.email ? rowData.email.toString() : '');
         formData.append("phone", rowData.phone);
         formData.append("priority", rowData.priority);
-        formData.append("province_id", rowData.province_id);
+        formData.append("province_id", parseInt(rowData.province_id));
         try {
           const { data } = await createCompanies(formData);
           console.log(data);
@@ -71,11 +72,11 @@ const MolExcelSheetJs = () => {
       const formData = new FormData();
       formData.append('name', name);
       formData.append('ubication', ubication);
-      formData.append('email', email);
+      formData.append('email', email.toString());
       formData.append('phone', phone);
       formData.append('priority', priority);
-      formData.append('province_id', province_id);
-      
+      formData.append('province_id', parseInt(province_id));
+       
 
       const { data } = await createCompanies(formData);
       console.log(data);
