@@ -1,6 +1,6 @@
 import { getCoders, deleteCoders } from "../../../service/CodersService";
-//import { getPromotions } from "../../../service/PromotionsServices";
-//import { getEvento } from "../../../service/EventService";
+import { getPromotions } from "../../../service/PromotionsServices";
+import { getEvento } from "../../../service/EventService";
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import MenuSchool from "../mol-school/MenuSchools";
@@ -18,8 +18,8 @@ export default function MolTableCodersShowDelete() {
   const [indeterminate, setIndeterminate] = useState(false);
   const [selectedCoders, setSelectedCoders] = useState([]);
   const [coders, setcoders] = useState([]);
-  // const [event, setEvent] = useState([]);
-  // const [promotions, setPromotions] = useState([]);
+  const [event, setEvent] = useState([]);
+  const [promotions, setPromotions] = useState([]);
 
   useEffect(() => {
     getCoders()
@@ -31,21 +31,21 @@ export default function MolTableCodersShowDelete() {
       .catch((error) => console.error(error));
   }, []);
 
-  // useEffect(() => {
-  //   getEvento()
-  //     .then((response) => {
-  //       setEvent(response.data);
-  //     })
-  //     .catch((error) => console.error(error));
-  // }, []);
+  useEffect(() => {
+    getEvento()
+      .then((response) => {
+        setEvent(response.data);
+      })
+      .catch((error) => console.error(error));
+  }, []);
 
-  // useEffect(() => {
-  //   getPromotions()
-  //     .then((response) => {
-  //       setPromotions(response.data);
-  //     })
-  //     .catch((error) => console.error(error));
-  // }, []);
+  useEffect(() => {
+    getPromotions()
+      .then((response) => {
+        setPromotions(response.data);
+      })
+      .catch((error) => console.error(error));
+  }, []);
 
   useLayoutEffect(() => {
     const isIndeterminate =
@@ -135,50 +135,64 @@ export default function MolTableCodersShowDelete() {
                         onChange={toggleAll}
                       />
                     </th>
-                    {/* <th scope="col" className="min-w-[12rem] py-3.5 pr-3 text-left text-sm font-semibold text-gray-900">
-                      Evento
+                    <th scope="col" className="min-w-[12rem] py-3.5 pr-3 text-left text-sm font-semibold text-gray-900">
+                      Nombre del coder
                     </th>
                     <th scope="col" className="min-w-[12rem] py-3.5 pr-3 text-left text-sm font-semibold text-gray-900">
                       Promoción
-                    </th> */}
+                    </th>
                     <th scope="col" className="min-w-[12rem] py-3.5 pr-3 text-left text-sm font-semibold text-gray-900">
-                      coders
+                      Evento
                     </th>
                     <th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
-                     Fecha
+                    Género
                     </th>
                     <th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
-                    Link enlace coders
+                      Edad
                     </th>
                     <th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
-                      Max-Entrevistas
+                      Email
                     </th>
                     <th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
-                      Min-Entrevistas
+                      Teléfono
                     </th>
+                    <th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
+                      Linkedin
+                    </th>
+                    <th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
+                      GitHub
+                    </th>
+                    <th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
+                      Remoto
+                    </th>
+                    <th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
+                      Disponibilidad
+                    </th>
+
                     <th scope="col" className="relative py-3.5 pl-3 pr-4 sm:pr-3">
                       <span className="sr-only">Editar</span>
                     </th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-gray-200 ">
-                  {coders.map((e) => (
-                    <tr key={e.id} className="hover:bg-gray-50">
+                {coders.map((e) => {
+            // Buscar la provincia que corresponde a la empresa actual
+                  const promotion = promotions.find((p) => p.id === e.promo_id);
+                  const events = event.find((p) => p.id === e.event_id);
+                  return (
+                    <tr key={e.id}>
                       <td className="px-7 py-4 whitespace-nowrap">
                         <input
                           type="checkbox"
-                          name={e.id}
-                          className="h-4 w-4 text-indigo-600 focus:ring-indigo-500"
-                          checked={selectedCoders.some((ev) => ev.id === e.id)}
-                          onChange={(coders) => {
-                            const isChecked = coders.target.checked;
-                            setSelectedCoders((prevState) => {
-                              if (isChecked) {
-                                return [...prevState, e];
-                              } else {
-                                return prevState.filter((ev) => ev.id !== e.id);
-                              }
-                            });
+                          className="rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"
+                          checked={selectedCoders.includes(e)}
+                          onChange={(e) => {
+                            const isChecked = e.target.checked;
+                            setSelectedCoders((prev) =>
+                              isChecked
+                                ? [...prev, e]
+                                : prev.filter((c) => c !== e)
+                            );
                           }}
                         />
                       </td>
@@ -190,11 +204,27 @@ export default function MolTableCodersShowDelete() {
                       >
                         {e.name}
                       </td>
-                      {/* <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{e.name}</td> */}
-                      <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{e.date}</td>
-                      <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{e.url}</td>
-                      <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{e.max}</td>
-                      <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{e.min}</td>
+                      <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                        {promotion ? promotion.name : "-"}</td>
+                      <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                        {events ? events.name : "-"}</td>
+                      <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                        {e.gender}</td>
+                      <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                        {e.years}</td>
+                      <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                        {e.email}</td>
+                      <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                        {e.phone}</td>
+                      <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                        {e.linkedin}</td>
+                      <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                        {e.github}</td>
+                      <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                        {e.remote}</td>
+                      <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                        {e.avaliability}</td>
+
                       <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                         <Link
                           to={`/coderedit/${e.id}`}
@@ -204,7 +234,8 @@ export default function MolTableCodersShowDelete() {
                         </Link>
                       </td>
                     </tr>
-                  ))}
+                  );
+                  })}
                 </tbody>
               </table>
             </div>

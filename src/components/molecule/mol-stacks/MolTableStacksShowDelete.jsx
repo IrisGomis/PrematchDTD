@@ -15,7 +15,7 @@ export default function MolTableStacksShowDelete() {
   const [checked, setChecked] = useState(false);
   const [indeterminate, setIndeterminate] = useState(false);
   const [selectedStacks, setSelectedStacks] = useState([]);
-  const [Stacks, setStacks] = useState([]);
+  const [stacks, setStacks] = useState([]);
 
   useEffect(() => {
     getStacks()
@@ -28,11 +28,11 @@ export default function MolTableStacksShowDelete() {
 
   useLayoutEffect(() => {
     const isIndeterminate =
-      selectedStacks.length > 0 && selectedStacks.length < Stacks.length;
-    setChecked(selectedStacks.length === Stacks.length);
+      selectedStacks.length > 0 && selectedStacks.length < stacks.length;
+    setChecked(selectedStacks.length === stacks.length);
     setIndeterminate(isIndeterminate);
     checkbox.current.indeterminate = isIndeterminate;
-  }, [selectedStacks, Stacks]);
+  }, [selectedStacks, stacks]);
   
   function toggleAll() {
     if (selectedStacks.length === 0) {
@@ -59,8 +59,8 @@ export default function MolTableStacksShowDelete() {
       .then((responses) => {
         console.log("Stackss deleted successfully!");
         // Remove all deleted Stackss from the Stacks state
-        const deletedIds = selectedStacks.map((Stacks) => Stacks.id);
-        setStacks(Stacks.filter((e) => !deletedIds.includes(e.id)));
+        const deletedIds = selectedStacks.map((stacks) => stacks.id);
+        setStacks(stacks.filter((e) => !deletedIds.includes(e.id)));
         // Clear the selectedStacks state
         setSelectedStacks([]);
         setChecked(false);
@@ -123,7 +123,7 @@ export default function MolTableStacksShowDelete() {
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-gray-200 ">
-                  {Stacks.map((e) => (
+                  {stacks.map((e) => (
                     <tr key={e.id} className="hover:bg-gray-50">
                       <td className="px-7 py-4 whitespace-nowrap">
                         <input
@@ -151,14 +151,13 @@ export default function MolTableStacksShowDelete() {
                       >
                         {e.name}
                       </td>
-                      {/* <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{e.name}</td> */}
                       <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{e.date}</td>
                       <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{e.url}</td>
                       <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{e.max}</td>
                       <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{e.min}</td>
                       <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                         <Link
-                          to={`/Stacksedit/${e.id}`}
+                          to={`/stacksedit/${e.id}`}
                           className="text-indigo-600 hover:text-indigo-900"
                         >
                           Editar

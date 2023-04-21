@@ -6,12 +6,10 @@ import { getPromotions } from "../../../service/PromotionsServices";
 import { getEvento } from "../../../service/EventService";
 import MenuSchool from "../mol-school/MenuSchools";
 
-
-const MolFormCodersEdit = ({ enent }) => {
- 
-
+const MolFormCodersEdit = ({ eent }) => {
   const { id } = useParams();
   const navigate = useNavigate();
+
   const [event, setEvent] = useState([]);
   const [promotions, setPromotions] = useState([]);
   const [event_id, setEventId] = useState("");
@@ -26,14 +24,13 @@ const MolFormCodersEdit = ({ enent }) => {
   const [linkedin, setLinkedin] = useState("");
   const [github, setGithub] = useState("");
 
-
   useEffect(() => {
     const fetchCoder = async () => {
       try {
         const { data } = await getCodersById(id);
         setEventId(data.coder.event_id);
-        setPromoId(data.coder.event.promo_id);
-        setName(data[id -1].coder.event.name);
+        setPromoId(data.coder.promo_id);
+        setName(data.coder.name);
         setGender(data.coder.gender);
         setYears(data.coder.years);
         setAvaliability(data.coder.avaliability);
@@ -42,19 +39,31 @@ const MolFormCodersEdit = ({ enent }) => {
         setPhone(data.coder.phone);
         setLinkedin(data.coder.linkedin);
         setGithub(data.coder.github);
-        console.log(data[17]); 
-        
+        console.log(data);
       } catch (error) {
-        //console.log(error);
+        console.log(error);
       }
     };
     fetchCoder();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id]);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    if ([event_id, promo_id, name, gender, years, avaliability, remote, email, phone, linkedin, github].some((value) => value === "")) {
+    if (
+      [
+        event_id,
+        promo_id,
+        name,
+        gender,
+        years,
+        avaliability,
+        remote,
+        email,
+        phone,
+        linkedin,
+        github,
+      ].some((value) => value === "")
+    ) {
       Swal.fire({
         position: "center",
         icon: "error",
@@ -76,7 +85,7 @@ const MolFormCodersEdit = ({ enent }) => {
         email,
         phone,
         linkedin,
-        github
+        github,
       };
 
       await updateCoders(id, coderData);
@@ -118,41 +127,34 @@ const MolFormCodersEdit = ({ enent }) => {
       .catch((error) => console.error(error));
   }, []);
 
- 
   return (
     <>
-    <MenuSchool/>
+      <MenuSchool />
       <div className="bg-stone6 w-full max-w-screen-lg rounded-xl p-20 m-20">
-        <h2 className="text-2xl font-semibold leading-7 text-orange">Editar Coder</h2>
+        <h2 className="text-2xl font-semibold leading-7 text-orange">
+          Editar Coder
+        </h2>
 
         <form className="bg-stone6" onSubmit={handleSubmit}>
           <div className="mt-10 space-y-8 border-b border-orange pb-12 sm:space-y-0 sm:divide-y sm:divide-orange sm:border-t sm:pb-0">
-
-          
             
             <div className="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
               <label
-                htmlFor="event_id"
+                htmlFor="name"
                 className="block text-sm font-medium leading-6 text-white sm:pt-1.5"
               >
-               Evento
+                Nombre del coder
               </label>
               <div className="mt-2 sm:col-span-2 sm:mt-0">
-              <select
-                  type="number"
-                  name="event_id"
-                  id="event_id"
-                  value={event_id}
-                  onChange={(event) => setEventId(event.target.value)}
+                <input
+                  type="text"
+                  name="name"
+                  id="name"
+                  value={name}
+                  onChange={(event) => setName(event.target.value)}
                   autoComplete="given-name"
                   className="block w-full rounded-md border-0 py-1.5  text-stone6 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
-                >
-                  {event.map((event) => (
-                    <option key={event.id} value={event.id}>
-                      {event.name}
-                    </option>
-                  ))}
-                </select>
+                />
               </div>
             </div>
 
@@ -161,10 +163,10 @@ const MolFormCodersEdit = ({ enent }) => {
                 htmlFor="promo_id"
                 className="block text-sm font-medium leading-6 text-white sm:pt-1.5"
               >
-               Id del promoción
+                Promoción
               </label>
               <div className="mt-2 sm:col-span-2 sm:mt-0">
-              <select
+                <select
                   type="number"
                   name="promo_id"
                   id="promo_id"
@@ -184,21 +186,27 @@ const MolFormCodersEdit = ({ enent }) => {
 
             <div className="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
               <label
-                htmlFor="name"
+                htmlFor="event_id"
                 className="block text-sm font-medium leading-6 text-white sm:pt-1.5"
               >
-                Nombre del Coder
+                Evento
               </label>
               <div className="mt-2 sm:col-span-2 sm:mt-0">
-                <input
-                  type="text"
-                  name="name"
-                  id="name"
-                  value={name}
-                  onChange={(event) => setName(event.target.value)}
+                <select
+                  type="number"
+                  name="event_id"
+                  id="event_id"
+                  value={event_id}
+                  onChange={(event) => setEventId(event.target.value)}
                   autoComplete="given-name"
                   className="block w-full rounded-md border-0 py-1.5  text-stone6 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
-                />
+                >
+                  {event.map((event) => (
+                    <option key={event.id} value={event.id}>
+                      {event.name}
+                    </option>
+                  ))}
+                </select>
               </div>
             </div>
 
@@ -241,45 +249,6 @@ const MolFormCodersEdit = ({ enent }) => {
                 />
               </div>
             </div>
-              
-              <div className="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
-              <label
-                htmlFor="avaliability"
-                className="block text-sm font-medium leading-6  text-white sm:pt-1.5"
-              >
-                Disponibilidad
-              </label>
-               <div className="flex mt-2 sm:col-span-2 sm:mt-0">
-                <input
-                  type="text"
-                  name="avaliability"
-                  id="avaliability"
-                  value={avaliability}
-                  onChange={(event) => setAvaliability(event.target.value)}
-                  
-                  className="block w-full rounded-md border-0 mr-10 py-1.5 px-2 text-stone6 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xl sm:text-sm sm:leading-6"
-                />
-              </div>
-            </div>
-            
-            <div className="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
-              <label
-                htmlFor="remote"
-                className="block text-sm font-medium leading-6  text-white sm:pt-1.5"
-              >
-                Remoto
-              </label>
-               <div className="flex mt-2 sm:col-span-2 sm:mt-0">
-                <input
-                  type="text"
-                  name="remote"
-                  id="remote"
-                  value={remote}
-                  onChange={(event) => setRemote(event.target.value)}
-                  className="block w-full rounded-md border-0 mr-10 py-1.5 px-1.5 text-stone6 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xl sm:text-sm sm:leading-6"
-                />
-              </div>
-            </div>
 
             <div className="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
               <label
@@ -288,7 +257,7 @@ const MolFormCodersEdit = ({ enent }) => {
               >
                 Email
               </label>
-               <div className="flex mt-2 sm:col-span-2 sm:mt-0">
+              <div className="flex mt-2 sm:col-span-2 sm:mt-0">
                 <input
                   type="email"
                   name="email"
@@ -307,7 +276,7 @@ const MolFormCodersEdit = ({ enent }) => {
               >
                 Teléfono
               </label>
-               <div className="flex mt-2 sm:col-span-2 sm:mt-0">
+              <div className="flex mt-2 sm:col-span-2 sm:mt-0">
                 <input
                   type="phone"
                   name="phone"
@@ -326,7 +295,7 @@ const MolFormCodersEdit = ({ enent }) => {
               >
                 Linkedin
               </label>
-               <div className="flex mt-2 sm:col-span-2 sm:mt-0">
+              <div className="flex mt-2 sm:col-span-2 sm:mt-0">
                 <input
                   type="url"
                   name="linkedin"
@@ -345,7 +314,7 @@ const MolFormCodersEdit = ({ enent }) => {
               >
                 Github
               </label>
-               <div className="flex mt-2 sm:col-span-2 sm:mt-0">
+              <div className="flex mt-2 sm:col-span-2 sm:mt-0">
                 <input
                   type="url"
                   name="github"
@@ -357,6 +326,43 @@ const MolFormCodersEdit = ({ enent }) => {
               </div>
             </div>
 
+            <div className="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
+              <label
+                htmlFor="remote"
+                className="block text-sm font-medium leading-6  text-white sm:pt-1.5"
+              >
+                Remoto
+              </label>
+              <div className="flex mt-2 sm:col-span-2 sm:mt-0">
+                <input
+                  type="text"
+                  name="remote"
+                  id="remote"
+                  value={remote}
+                  onChange={(event) => setRemote(event.target.value)}
+                  className="block w-full rounded-md border-0 mr-10 py-1.5 px-1.5 text-stone6 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xl sm:text-sm sm:leading-6"
+                />
+              </div>
+            </div>
+
+            <div className="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
+              <label
+                htmlFor="avaliability"
+                className="block text-sm font-medium leading-6  text-white sm:pt-1.5"
+              >
+                Disponibilidad
+              </label>
+              <div className="flex mt-2 sm:col-span-2 sm:mt-0">
+                <input
+                  type="text"
+                  name="avaliability"
+                  id="avaliability"
+                  value={avaliability}
+                  onChange={(event) => setAvaliability(event.target.value)}
+                  className="block w-full rounded-md border-0 mr-10 py-1.5 px-2 text-stone6 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xl sm:text-sm sm:leading-6"
+                />
+              </div>
+            </div>
           </div>
 
           <button
@@ -372,11 +378,10 @@ const MolFormCodersEdit = ({ enent }) => {
           >
             <a href="/codertable">Ver Coder</a>
           </button>
-
         </form>
       </div>
     </>
   );
-}
+};
 
 export default MolFormCodersEdit;

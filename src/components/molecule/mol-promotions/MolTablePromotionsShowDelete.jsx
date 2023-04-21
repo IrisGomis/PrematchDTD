@@ -1,6 +1,7 @@
 import { getPromotions, deletePromotions } from "../../../service/PromotionsServices";
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
+import { getSchools} from "../../../service/SchoolsService";
 import MenuSchool from "../mol-school/MenuSchools";
 
 function classNames(...classes) {
@@ -14,12 +15,21 @@ export default function MolTablePromotionsShowDelete() {
   const [indeterminate, setIndeterminate] = useState(false);
   const [selectedPromotions, setSelectedPromotions] = useState([]);
   const [Promotions, setPromotions] = useState([]);
+  const [schools, setSchools] = useState([]);
 
   useEffect(() => {
     getPromotions()
       .then((response) => {
         setPromotions(response.data);
         setSelectedPromotions(response.data);
+      })
+      .catch((error) => console.error(error));
+  }, []);
+
+  useEffect(() => {
+    getSchools()
+      .then((response) => {
+        setSchools(response.data);
       })
       .catch((error) => console.error(error));
   }, []);
@@ -113,10 +123,10 @@ export default function MolTablePromotionsShowDelete() {
                       />
                     </th>
                     <th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
-                    Ubicación escuela
+                    Promoción
                     </th>
                     <th scope="col" className="min-w-[12rem] py-3.5 pr-3 text-left text-sm font-semibold text-gray-900">
-                    Promoción
+                    Escuela
                     </th>
                     <th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
                      Abreviatura
@@ -130,23 +140,23 @@ export default function MolTablePromotionsShowDelete() {
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-gray-200 ">
-                  {Promotions.map((e) => (
-                    <tr key={e.id} className="hover:bg-gray-50">
+                {Promotions.map((e) => {
+            // Buscar la provincia que corresponde a la empresa actual
+                  const school = schools.find((p) => p.id === e.school_id);
+                  return (
+                    <tr key={e.id}>
                       <td className="px-7 py-4 whitespace-nowrap">
                         <input
                           type="checkbox"
-                          name={e.id}
-                          className="h-4 w-4 text-indigo-600 focus:ring-indigo-500"
-                          checked={selectedPromotions.some((ev) => ev.id === e.id)}
-                          onChange={(Promotions) => {
-                            const isChecked = Promotions.target.checked;
-                            setSelectedPromotions((prevState) => {
-                              if (isChecked) {
-                                return [...prevState, e];
-                              } else {
-                                return prevState.filter((ev) => ev.id !== e.id);
-                              }
-                            });
+                          className="rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"
+                          checked={selectedPromotions.includes(e)}
+                          onChange={(e) => {
+                            const isChecked = e.target.checked;
+                            setSelectedPromotions((prev) =>
+                              isChecked
+                                ? [...prev, e]
+                                : prev.filter((c) => c !== e)
+                            );
                           }}
                         />
                       </td>
@@ -158,8 +168,8 @@ export default function MolTablePromotionsShowDelete() {
                       >
                         {e.name}
                       </td>
-                      {/* <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{e.name}</td> */}
-                      <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{e.school_id}</td>
+                      <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                        {school ? school.name : "-"}</td>
                       <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{e.nick}</td>
                       <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{e.quantity}</td>
                       <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
@@ -171,7 +181,8 @@ export default function MolTablePromotionsShowDelete() {
                         </Link>
                       </td>
                     </tr>
-                  ))}
+                  );
+                  })}
                 </tbody>
               </table>
             </div>
