@@ -2,7 +2,7 @@ import React from 'react';
 import { getMatch } from "../../../service/MatchesService";
 import { useEffect, useState } from "react";
 import MUIDataTable from "mui-datatables";
-// , getSearchMatch
+
 
 
 const MolTableMatchesFilterExcel = () => {
@@ -47,11 +47,11 @@ const MolTableMatchesFilterExcel = () => {
   return (
     
         <MUIDataTable 
-        title={"Show data with Axios"}
+        title={"Lista de Matches"}
         data={match}
         columns={columns}
         />
     );
 }
 
-export default MolTableMatchesFilterExcel
+export default MolTableMatchesFilterExcel;

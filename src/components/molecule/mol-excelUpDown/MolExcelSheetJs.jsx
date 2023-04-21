@@ -40,7 +40,7 @@ const MolExcelSheetJs = () => {
           return acc;
         }, {});
       });
-      // Assuming column names in excel are: name, lat, long, iso
+      
       rowsData.forEach(async (rowData) => {
         const formData = new FormData();
         formData.append("name", rowData.name.trim());
@@ -85,6 +85,11 @@ const MolExcelSheetJs = () => {
       formData.append('priority', priority);
       formData.append('province_id', province_id);
       
+      const province = provinces.find(p => p.id === province_id);
+      if (province) {
+        formData.append("province_name", province.name);
+      }
+      formData.append('province_id', province_id);
 
       const { data } = await createCompanies(formData);
       console.log(data);
