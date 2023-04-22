@@ -7,7 +7,6 @@ import MenuCompanies from "../mol-companies/MenuCompanies";
 import * as XLSX from "xlsx";
 
 const MolExcelSheetJs = () => {
-
   const [name, setName] = useState("");
   const [ubication, setUbication] = useState("");
   const [email, setEmail] = useState("");
@@ -36,11 +35,10 @@ const MolExcelSheetJs = () => {
       });
       // Assuming column names in excel are: name, lat, long, iso
       rowsData.forEach(async (rowData) => {
-        
         const formData = new FormData();
         formData.append("name", rowData.name);
         formData.append("ubication", rowData.ubication);
-        formData.append('email', rowData.email ? rowData.email.toString() : '');
+        formData.append("email", rowData.email ? rowData.email.toString() : "");
         formData.append("phone", rowData.phone);
         formData.append("priority", rowData.priority);
         formData.append("province_id", Number.isInteger(rowData.province_id));
@@ -68,15 +66,13 @@ const MolExcelSheetJs = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-
       const formData = new FormData();
-      formData.append('name', name);
-      formData.append('ubication', ubication);
-      formData.append('email', email.toString());
-      formData.append('phone', phone);
-      formData.append('priority', priority);
-      formData.append('province_id', parseInt(province_id));
-       
+      formData.append("name", name);
+      formData.append("ubication", ubication);
+      formData.append("email", email.toString());
+      formData.append("phone", phone);
+      formData.append("priority", priority);
+      formData.append("province_id", parseInt(province_id));
 
       const { data } = await createCompanies(formData);
       console.log(data);
@@ -110,22 +106,20 @@ const MolExcelSheetJs = () => {
       .catch((error) => console.error(error));
   }, []);
 
-  
   const handleClick = () => {
-      fileInput.current.click();
-    }
-  
-  
+    fileInput.current.click();
+  };
 
   return (
     <>
-    <MenuCompanies/>
+      <MenuCompanies />
       <div className="bg-stone6 w-full max-w-screen-lg rounded-xl p-20 m-20">
-        <h2 className="text-2xl font-semibold leading-7 text-orange">Añadir empresa</h2>
+        <h2 className="text-2xl font-semibold leading-7 text-orange">
+          Añadir empresa
+        </h2>
 
         <form className="bg-stone6" onSubmit={handleSubmit}>
           <div className="mt-10 space-y-8 border-b border-orange pb-12 sm:space-y-0 sm:divide-y sm:divide-orange sm:border-t sm:pb-0">
-            
             <div className="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
               <label
                 htmlFor="company-name"
@@ -169,7 +163,10 @@ const MolExcelSheetJs = () => {
             </div>
 
             <div className="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
-              <label htmlFor="province" className="block text-sm font-medium leading-6 text-white sm:pt-1.5">
+              <label
+                htmlFor="province"
+                className="block text-sm font-medium leading-6 text-white sm:pt-1.5"
+              >
                 Provincia <span className="text-orange">*</span>
               </label>
               <div className="mt-2 sm:col-span-2 sm:mt-0">
@@ -232,7 +229,10 @@ const MolExcelSheetJs = () => {
             </div>
 
             <div className="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
-              <label htmlFor="priority" className="block text-sm font-medium leading-6 text-white sm:pt-1.5">
+              <label
+                htmlFor="priority"
+                className="block text-sm font-medium leading-6 text-white sm:pt-1.5"
+              >
                 Prioridad de la empresa <span className="text-orange">*</span>
               </label>
               <div className="mt-2 sm:col-span-2 sm:mt-0">
@@ -242,43 +242,53 @@ const MolExcelSheetJs = () => {
                   value={priority}
                   onChange={(event) => setPriority(event.target.value)}
                   className="block w-full rounded-md border-0 py-1.5  text-stone6 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
-                >                 
-                    <option key={1} value="1">
-                      Alta
-                    </option>
-                    <option key={2} value="2">
-                      Media
-                    </option>
-                    <option key={3} value="3">
-                      Baja
-                    </option>
-                  
+                >
+                  <option key={1} value="1">
+                    Alta
+                  </option>
+                  <option key={2} value="2">
+                    Media
+                  </option>
+                  <option key={3} value="3">
+                    Baja
+                  </option>
                 </select>
               </div>
-            </div>            
+            </div>
           </div>
-          <div >
-          <button
-            type="submit"
-            className="text-sm text-white my-10 px-12 py-3.5 rounded-xl bg-gradient-to-r from-orange to-orangel hover:from-verde hover:to-verdel ..."
-          >
-            Crear empresa
-          </button>
-          <button
-            className="text-sm text-white my-10 mx-10 px-12 py-3.5 rounded-xl bg-gradient-to-r from-orangel to-orange hover:from-verde hover:to-verdel ..."
-            type="button"
-          >
-            <a href="/companiestable">Ver empresas</a>
-          </button>
-          <button htmlFor="excel" className="text-sm text-white my-10 mx-10 px-12 py-3.5 rounded-xl bg-gradient-to-r from-orangel to-orange hover:from-verde hover:to-verdel ..."
-            type="button" onClick={handleClick}>
-         Seleccionar excel
-         <input type="file" id="excel" name="excel" onChange={handleExcelUpload} accept=".xlsx" ref={fileInput} style={{ display: "none" }} />
-         </button>
-         </div>
+          <div>
+            <button
+              type="submit"
+              className="text-sm text-white my-10 px-12 py-3.5 rounded-xl bg-gradient-to-r from-orange to-orangel hover:from-verde hover:to-verdel ..."
+            >
+              Crear empresa
+            </button>
+            <button
+              className="text-sm text-white my-10 mx-10 px-12 py-3.5 rounded-xl bg-gradient-to-r from-orangel to-orange hover:from-verde hover:to-verdel ..."
+              type="button"
+            >
+              <a href="/companiestable">Ver empresas</a>
+            </button>
+            <button
+              htmlFor="excel"
+              className="text-sm text-white my-10 mx-10 px-12 py-3.5 rounded-xl bg-gradient-to-r from-orangel to-orange hover:from-verde hover:to-verdel ..."
+              type="button"
+              onClick={handleClick}
+            >
+              Seleccionar excel
+              <input
+                type="file"
+                id="excel"
+                name="excel"
+                onChange={handleExcelUpload}
+                accept=".xlsx"
+                ref={fileInput}
+                style={{ display: "none" }}
+              />
+            </button>
+          </div>
         </form>
       </div>
-      
     </>
   );
 };

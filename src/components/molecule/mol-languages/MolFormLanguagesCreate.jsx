@@ -5,8 +5,6 @@ import { createLanguages } from "../../../service/LanguagesService";
 import MolMenuAdmin from "../mol-regions/MolMenuAdmin";
 import * as XLSX from "xlsx";
 
-
-
 export default function MolFormLanguagesCreate() {
   const [name, setName] = useState("");
   const navigate = useNavigate();
@@ -30,14 +28,8 @@ export default function MolFormLanguagesCreate() {
       });
       // Assuming column names in excel are: name, lat, long, iso
       rowsData.forEach(async (rowData) => {
-        
         const formData = new FormData();
         formData.append("name", rowData.name);
-        formData.append("ubication", rowData.ubication);
-        formData.append('email', rowData.email ? rowData.email.toString() : '');
-        formData.append("phone", rowData.phone);
-        formData.append("priority", rowData.priority);
-        formData.append("province_id", Number.isInteger(rowData.province_id));
         try {
           const { data } = await createLanguages(formData);
           console.log(data);
@@ -88,16 +80,18 @@ export default function MolFormLanguagesCreate() {
       });
     }
   };
- 
+
   const handleClick = () => {
     fileInput.current.click();
-  }
+  };
 
   return (
     <>
-    <MolMenuAdmin/>
+      <MolMenuAdmin />
       <div className="bg-stone6 w-full max-w-screen-lg rounded-xl p-20 m-20">
-        <h2 className="text-2xl font-semibold leading-7 text-orange">Añadir idioma</h2>
+        <h2 className="text-2xl font-semibold leading-7 text-orange">
+          Añadir idioma
+        </h2>
 
         <form className="bg-stone6" onSubmit={handleSubmit}>
           <div className="mt-10 space-y-8 border-b border-orange pb-12 sm:space-y-0 sm:divide-y sm:divide-orange sm:border-t sm:pb-0">
@@ -121,26 +115,37 @@ export default function MolFormLanguagesCreate() {
                 />
               </div>
             </div>
-          
           </div>
           <div>
-          <button
-            type="submit"
-            className="text-sm text-white my-10 mx-10 px-12 py-3.5 rounded-xl bg-gradient-to-r from-orangel to-orange hover:from-verde hover:to-verdel ..."
-          >
-            Añadir idioma
-          </button>
-          <button
-            className="text-sm text-white my-10 mx-10 px-12 py-3.5 rounded-xl bg-gradient-to-r from-orangel to-orange hover:from-verde hover:to-verdel ..."
-            type="button"
-          >
-            <a href="/languagestable">Ver idioma</a>
-          </button>
-           <button htmlFor="excel" className="text-sm text-white my-10 mx-10 px-12 py-3.5 rounded-xl bg-gradient-to-r from-orangel to-orange hover:from-verde hover:to-verdel ..."
-            type="button" onClick={handleClick}>
-           Seleccionar excel
-          <input type="file" id="excel" name="excel" onChange={handleExcelUpload} accept=".xlsx" ref={fileInput} style={{ display: "none" }} />
-          </button>
+            <button
+              type="submit"
+              className="text-sm text-white my-10 mx-10 px-12 py-3.5 rounded-xl bg-gradient-to-r from-orangel to-orange hover:from-verde hover:to-verdel ..."
+            >
+              Añadir idioma
+            </button>
+            <button
+              className="text-sm text-white my-10 mx-10 px-12 py-3.5 rounded-xl bg-gradient-to-r from-orangel to-orange hover:from-verde hover:to-verdel ..."
+              type="button"
+            >
+              <a href="/languagestable">Ver idioma</a>
+            </button>
+            <button
+              htmlFor="excel"
+              className="text-sm text-white my-10 mx-10 px-12 py-3.5 rounded-xl bg-gradient-to-r from-orangel to-orange hover:from-verde hover:to-verdel ..."
+              type="button"
+              onClick={handleClick}
+            >
+              Seleccionar excel
+              <input
+                type="file"
+                id="excel"
+                name="excel"
+                onChange={handleExcelUpload}
+                accept=".xlsx"
+                ref={fileInput}
+                style={{ display: "none" }}
+              />
+            </button>
           </div>
         </form>
       </div>

@@ -7,7 +7,6 @@ import { getEvento } from "../../../service/EventService";
 import MenuSchool from "../mol-school/MenuSchools";
 import * as XLSX from "xlsx";
 
-
 const MolFormCodersCreate = () => {
   const [event, setEvent] = useState([]);
   const [promotions, setPromotions] = useState([]);
@@ -43,7 +42,6 @@ const MolFormCodersCreate = () => {
       });
 
       rowsData.forEach(async (rowData) => {
-        
         const formData = new FormData();
         formData.append("event_id", parseInt(event_id));
         formData.append("promo_id", parseInt(promo_id));
@@ -75,11 +73,11 @@ const MolFormCodersCreate = () => {
       }, 2000); // Delay the navigation for 2 seconds (2000 milliseconds)
     };
     reader.readAsArrayBuffer(file);
-  };  
+  };
 
   const handleClick = () => {
     fileInput.current.click();
-  }
+  };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -139,18 +137,17 @@ const MolFormCodersCreate = () => {
       .catch((error) => console.error(error));
   }, []);
 
- 
-
   return (
     <>
-    <MenuSchool/>
+      <MenuSchool />
       <div className="bg-stone6 w-full max-w-screen-lg rounded-xl p-20 m-20">
-        <h2 className="text-2xl font-semibold leading-7 text-orange">Añadir coder</h2>
+        <h2 className="text-2xl font-semibold leading-7 text-orange">
+          Añadir coder
+        </h2>
 
         <form className="bg-stone6" onSubmit={handleSubmit}>
           <div className="mt-10 space-y-8 border-b border-orange pb-12 sm:space-y-0 sm:divide-y sm:divide-orange sm:border-t sm:pb-0">
-
-          <div className="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
+            <div className="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
               <label
                 htmlFor="event"
                 className="block text-sm font-medium leading-6 text-white sm:pt-1.5"
@@ -164,10 +161,7 @@ const MolFormCodersCreate = () => {
                   value={event_id} // Cambiar 'regions' por el estado que representa la opción seleccionada
                   onChange={(event) => setEventId(event.target.value)} // Cambiar 'setRegions' por el método que actualiza el estado de la opción seleccionada
                   className="block w-full rounded-md border-0 py-1.5  text-stone6 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
-                  
                 >
-
-
                   {event.map((e) => (
                     <option key={e.id} value={e.id}>
                       {e.name}
@@ -191,7 +185,6 @@ const MolFormCodersCreate = () => {
                   value={promo_id} // Cambiar 'regions' por el estado que representa la opción seleccionada
                   onChange={(event) => setPromoId(event.target.value)} // Cambiar 'setRegions' por el método que actualiza el estado de la opción seleccionada
                   className="block w-full rounded-md border-0 py-1.5  text-stone6 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
-                  
                 >
                   {promotions.map((e) => (
                     <option key={e.id} value={e.id}>
@@ -200,9 +193,9 @@ const MolFormCodersCreate = () => {
                   ))}
                 </select>
               </div>
-            </div>         
+            </div>
 
-             <div className="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
+            <div className="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
               <label
                 htmlFor="name"
                 className="block text-sm font-medium leading-6 text-white sm:pt-1.5"
@@ -242,7 +235,7 @@ const MolFormCodersCreate = () => {
               </div>
             </div>
 
-           <div className="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
+            <div className="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
               <label
                 htmlFor="years"
                 className="block text-sm font-medium leading-6  text-white sm:pt-1.5"
@@ -299,8 +292,8 @@ const MolFormCodersCreate = () => {
               </div>
             </div>
 
-             <div className="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
-               <label
+            <div className="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
+              <label
                 htmlFor="email"
                 className="block text-sm font-medium leading-6  text-white sm:pt-1.5"
               >
@@ -337,7 +330,6 @@ const MolFormCodersCreate = () => {
               </div>
             </div>
 
-            
             <div className="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
               <label
                 htmlFor="linkedin"
@@ -375,7 +367,6 @@ const MolFormCodersCreate = () => {
                 />
               </div>
             </div>
-
           </div>
           <button
             type="submit"
@@ -389,11 +380,23 @@ const MolFormCodersCreate = () => {
           >
             <a href="/codertable">Ver Coders</a>
           </button>
-          <button htmlFor="excel" className="text-sm text-white my-10 mx-10 px-12 py-3.5 rounded-xl bg-gradient-to-r from-orangel to-orange hover:from-verde hover:to-verdel ..."
-            type="button" onClick={handleClick}>
-         Seleccionar excel
-         <input type="file" id="excel" name="excel" onChange={handleExcelUpload} accept=".xlsx" ref={fileInput} style={{ display: "none" }} />
-         </button>
+          <button
+            htmlFor="excel"
+            className="text-sm text-white my-10 mx-10 px-12 py-3.5 rounded-xl bg-gradient-to-r from-orangel to-orange hover:from-verde hover:to-verdel ..."
+            type="button"
+            onClick={handleClick}
+          >
+            Seleccionar excel
+            <input
+              type="file"
+              id="excel"
+              name="excel"
+              onChange={handleExcelUpload}
+              accept=".xlsx"
+              ref={fileInput}
+              style={{ display: "none" }}
+            />
+          </button>
         </form>
       </div>
     </>

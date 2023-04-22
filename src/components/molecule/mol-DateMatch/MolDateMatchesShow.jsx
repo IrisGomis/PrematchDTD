@@ -28,9 +28,6 @@ export default function MolTableMatchShow() {
       .catch((error) => console.error(error));
   }, []);
 
-
-
-
   useLayoutEffect(() => {
     const isIndeterminate =
       selectedMatch.length > 0 && selectedMatch.length < match.length;

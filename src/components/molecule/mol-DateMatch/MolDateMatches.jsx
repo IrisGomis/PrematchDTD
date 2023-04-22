@@ -394,16 +394,16 @@ export default function MolDateMatches() {
                                                 )}
                                               >
                                                 <thead className="w-96">
-                                                <tr>
-                                                  <th>Coder</th>
-                                                  <th>Afinidad</th>
-                                                  <th>Entrevista</th>
-                                                </tr>
+                                                  <tr>
+                                                    <th>Coder</th>
+                                                    <th>Afinidad</th>
+                                                    <th>Entrevista</th>
+                                                  </tr>
                                                 </thead>
                                                 <tbody className="w-96">
-                                                <td>{person.nameCoder}</td> 
-                                                <td>{person.afinity}</td>
-                                                <td>{person.interview}</td> 
+                                                  <td>{person.nameCoder}</td>
+                                                  <td>{person.afinity}</td>
+                                                  <td>{person.interview}</td>
                                                 </tbody>
                                               </span>
 

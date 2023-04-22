@@ -6,7 +6,6 @@ import MenuEvent from "./MenuEvent";
 import * as XLSX from "xlsx";
 
 const MolFormEventCreate = () => {
-  
   const [name, setName] = useState("");
   const [date, setDate] = useState("");
   const [url, setUrl] = useState("");
@@ -31,15 +30,14 @@ const MolFormEventCreate = () => {
           return acc;
         }, {});
       });
-      
+
       rowsData.forEach(async (rowData) => {
-        
         const formData = new FormData();
-        formData.append('name', name);
-        formData.append('date', date);
-        formData.append('url', url);
-        formData.append('max', max);
-        formData.append('min', min);
+        formData.append("name", name);
+        formData.append("date", date);
+        formData.append("url", url);
+        formData.append("max", max);
+        formData.append("min", min);
         try {
           const { data } = await createEvento(formData);
           console.log(data);
@@ -63,19 +61,17 @@ const MolFormEventCreate = () => {
 
   const handleClick = () => {
     fileInput.current.click();
-  }
+  };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-
       const formData = new FormData();
-      formData.append('name', name);
-      formData.append('date', date);
-      formData.append('url', url);
-      formData.append('max', max);
-      formData.append('min', min);
-      
+      formData.append("name", name);
+      formData.append("date", date);
+      formData.append("url", url);
+      formData.append("max", max);
+      formData.append("min", min);
 
       const { data } = await createEvento(formData);
       console.log(data);
@@ -100,13 +96,14 @@ const MolFormEventCreate = () => {
       });
     }
   };
- 
 
   return (
     <>
-    <MenuEvent/>
+      <MenuEvent />
       <div className="bg-stone6 w-full max-w-screen-lg rounded-xl p-20 m-20">
-        <h2 className="text-2xl font-semibold leading-7 text-orange">Crear Evento</h2>
+        <h2 className="text-2xl font-semibold leading-7 text-orange">
+          Crear Evento
+        </h2>
 
         <form className="bg-stone6" onSubmit={handleSubmit}>
           <div className="mt-10 space-y-8 border-b border-orange pb-12 sm:space-y-0 sm:divide-y sm:divide-orange sm:border-t sm:pb-0">
@@ -212,11 +209,23 @@ const MolFormEventCreate = () => {
           >
             <a href="/eventtable">Ver Evento</a>
           </button>
-          <button htmlFor="excel" className="text-sm text-white my-10 mx-10 px-12 py-3.5 rounded-xl bg-gradient-to-r from-orangel to-orange hover:from-verde hover:to-verdel ..."
-            type="button" onClick={handleClick}>
-         Seleccionar excel
-         <input type="file" id="excel" name="excel" onChange={handleExcelUpload} accept=".xlsx" ref={fileInput} style={{ display: "none" }} />
-         </button>
+          <button
+            htmlFor="excel"
+            className="text-sm text-white my-10 mx-10 px-12 py-3.5 rounded-xl bg-gradient-to-r from-orangel to-orange hover:from-verde hover:to-verdel ..."
+            type="button"
+            onClick={handleClick}
+          >
+            Seleccionar excel
+            <input
+              type="file"
+              id="excel"
+              name="excel"
+              onChange={handleExcelUpload}
+              accept=".xlsx"
+              ref={fileInput}
+              style={{ display: "none" }}
+            />
+          </button>
         </form>
       </div>
     </>
