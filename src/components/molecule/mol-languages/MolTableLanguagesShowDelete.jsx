@@ -72,7 +72,7 @@ export default function MolTableLanguagesShowDelete() {
   return (
     <>
     <MolMenuAdmin/>
-    <div className="bg-stone6 w-full max-w-screen-xl rounded-xl p-20 m-20 text-white">
+    <div className="bg-stone6 w-screen max-w-screen-xl rounded-xl p-20 m-20 text-white">
       <div className="sm:flex sm:items-center">
         <div className="sm:flex-auto">
           <h1 className="text-xl font-semibold leading-7">Lista de idiomas</h1>
