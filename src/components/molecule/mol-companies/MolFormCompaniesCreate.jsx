@@ -69,10 +69,10 @@ const MolExcelSheetJs = () => {
       const formData = new FormData();
       formData.append("name", name);
       formData.append("ubication", ubication);
-      formData.append("email", email.toString());
+      formData.append("email", email);
       formData.append("phone", phone);
       formData.append("priority", priority);
-      formData.append("province_id", parseInt(province_id));
+      formData.append("province_id",province_id);
 
       const { data } = await createCompanies(formData);
       console.log(data);

@@ -107,7 +107,7 @@ const MolFormCodersCreate = () => {
       });
 
       setTimeout(() => {
-        navigate("/");
+        navigate("/codertable");
       }, 2000); // Delay the navigation for 2 seconds (2000 milliseconds)
     } catch (error) {
       console.log(error);
