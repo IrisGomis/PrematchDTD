@@ -13,7 +13,7 @@ const data = [
 
 const MolStatisticsSimpleBarCharts = () => {
   return (
-    <ResponsiveContainer width="100%" aspect={2}>
+    <ResponsiveContainer width="80%" height="80%" aspect={2}>
         <BarChart 
             data={data}
             width={500}

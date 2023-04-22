@@ -95,7 +95,7 @@ const MolFormEdit = ({ event }) => {
   return (
     <>
     <MolMenuAdmin />
-      <div className="bg-stone6 w-full max-w-screen-lg rounded-xl p-20 m-20">
+    <div className="bg-stone6 w-screen max-w-screen-xl rounded-xl p-20 m-20 text-white">
         <h2 className="text-2xl font-semibold leading-7 text-orange">Editar provincia</h2>
 
         <form className="bg-stone6" onSubmit={handleSubmit}>
