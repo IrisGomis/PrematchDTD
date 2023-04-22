@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { createCompanies } from "../../../service/CompaniesService";
 import { getProvinces } from "../../../service/ProvincesService";
@@ -15,7 +15,7 @@ const MolExcelSheetJs = () => {
   const [priority, setPriority] = useState("");
   const [province_id, setProvince_id] = useState(0);
   const [provinces, setProvinces] = useState([]);
-
+  const fileInput = useRef(null);
   const navigate = useNavigate();
 
   const handleExcelUpload = (event) => {
@@ -59,7 +59,7 @@ const MolExcelSheetJs = () => {
         timer: 2000,
       });
       setTimeout(() => {
-        navigate("/regioncreate");
+        navigate("/companiescreate");
       }, 2000); // Delay the navigation for 2 seconds (2000 milliseconds)
     };
     reader.readAsArrayBuffer(file);
@@ -111,6 +111,11 @@ const MolExcelSheetJs = () => {
   }, []);
 
 
+  const handleClick = () => {
+      fileInput.current.click();
+    }
+  
+  
 
   return (
     <>
@@ -252,24 +257,28 @@ const MolExcelSheetJs = () => {
               </div>
             </div>            
           </div>
+          <div >
           <button
             type="submit"
-            className="text-sm my-10 px-24 py-3.5 rounded-xl bg-gradient-to-r from-orange to-orangel hover:from-verde hover:to-verdel ..."
+            className="text-sm text-white my-10 px-12 py-3.5 rounded-xl bg-gradient-to-r from-orange to-orangel hover:from-verde hover:to-verdel ..."
           >
             Crear empresa
           </button>
           <button
-            className="text-sm my-10 mx-10 px-24 py-3.5 rounded-xl bg-gradient-to-r from-orangel to-orange hover:from-verde hover:to-verdel ..."
+            className="text-sm text-white my-10 mx-10 px-12 py-3.5 rounded-xl bg-gradient-to-r from-orangel to-orange hover:from-verde hover:to-verdel ..."
             type="button"
           >
             <a href="/companiestable">Ver empresas</a>
           </button>
-        </form>
-        <div className="form-group">
-         <label htmlFor="excel"></label>
-         <input className=" text-white" type="file" id="excel" name="excel" onChange={handleExcelUpload} accept=".xlsx" />
+          <button htmlFor="excel" className="text-sm text-white my-10 mx-10 px-12 py-3.5 rounded-xl bg-gradient-to-r from-orangel to-orange hover:from-verde hover:to-verdel ..."
+            type="button" onClick={handleClick}>
+         Seleccionar excel
+         <input type="file" id="excel" name="excel" onChange={handleExcelUpload} accept=".xlsx" ref={fileInput} style={{ display: "none" }} />
+         </button>
          </div>
+        </form>
       </div>
+      
     </>
   );
 };

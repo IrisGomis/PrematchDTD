@@ -1,10 +1,12 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import { createCoders } from "../../../service/CodersService";
 import { getPromotions } from "../../../service/PromotionsServices";
 import { getEvento } from "../../../service/EventService";
 import MenuSchool from "../mol-school/MenuSchools";
+import * as XLSX from "xlsx";
+
 
 const MolFormCodersCreate = () => {
   const [event, setEvent] = useState([]);
@@ -20,9 +22,65 @@ const MolFormCodersCreate = () => {
   const [phone, setPhone] = useState("");
   const [linkedin, setLinkedin] = useState("");
   const [github, setGithub] = useState("");
- 
+  const fileInput = useRef(null);
   const navigate = useNavigate();
-//console.log(promo_id);
+
+  const handleExcelUpload = (event) => {
+    const file = event.target.files[0];
+    const reader = new FileReader();
+    reader.onload = async (event) => {
+      const data = new Uint8Array(event.target.result);
+      const workbook = XLSX.read(data, { type: "array" });
+      const worksheet = workbook.Sheets[workbook.SheetNames[0]];
+      const rows = XLSX.utils.sheet_to_json(worksheet, { header: 1 });
+      // assuming first row is header
+      const header = rows[0];
+      const rowsData = rows.slice(1).map((row) => {
+        return header.reduce((acc, curr, index) => {
+          acc[curr] = row[index];
+          return acc;
+        }, {});
+      });
+
+      rowsData.forEach(async (rowData) => {
+        
+        const formData = new FormData();
+        formData.append("event_id", parseInt(event_id));
+        formData.append("promo_id", parseInt(promo_id));
+        formData.append("name", name);
+        formData.append("gender", gender);
+        formData.append("years", years);
+        formData.append("avaliability", avaliability);
+        formData.append("remote", remote);
+        formData.append("email", email.toString());
+        formData.append("phone", phone);
+        formData.append("linkedin", linkedin);
+        formData.append("github", github);
+        try {
+          const { data } = await createCoders(formData);
+          console.log(data);
+        } catch (error) {
+          console.log(error);
+        }
+      });
+      Swal.fire({
+        position: "center",
+        icon: "success",
+        title: "¡Tus datos se han añadido con éxito!",
+        showConfirmButton: false,
+        timer: 2000,
+      });
+      setTimeout(() => {
+        navigate("/regioncreate");
+      }, 2000); // Delay the navigation for 2 seconds (2000 milliseconds)
+    };
+    reader.readAsArrayBuffer(file);
+  };  
+
+  const handleClick = () => {
+    fileInput.current.click();
+  }
+
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
@@ -321,16 +379,21 @@ const MolFormCodersCreate = () => {
           </div>
           <button
             type="submit"
-            className="text-sm my-10 px-24 py-3.5 rounded-xl bg-gradient-to-r from-orange to-orangel hover:from-verde hover:to-verdel ..."
+            className="text-sm text-white my-10 mx-10 px-12 py-3.5 rounded-xl bg-gradient-to-r from-orangel to-orange hover:from-verde hover:to-verdel ..."
           >
             Añadir coder
           </button>
           <button
-            className="text-sm my-10 mx-10 px-24 py-3.5 rounded-xl bg-gradient-to-r from-orangel to-orange hover:from-verde hover:to-verdel ..."
+            className="text-sm text-white my-10 mx-10 px-12 py-3.5 rounded-xl bg-gradient-to-r from-orangel to-orange hover:from-verde hover:to-verdel ..."
             type="button"
           >
             <a href="/codertable">Ver Coders</a>
           </button>
+          <button htmlFor="excel" className="text-sm text-white my-10 mx-10 px-12 py-3.5 rounded-xl bg-gradient-to-r from-orangel to-orange hover:from-verde hover:to-verdel ..."
+            type="button" onClick={handleClick}>
+         Seleccionar excel
+         <input type="file" id="excel" name="excel" onChange={handleExcelUpload} accept=".xlsx" ref={fileInput} style={{ display: "none" }} />
+         </button>
         </form>
       </div>
     </>

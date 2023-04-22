@@ -1,22 +1,69 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { createCompanies } from "../../../service/CompaniesService";
 import { getProvinces } from "../../../service/ProvincesService";
 import Swal from "sweetalert2";
-import MenuCompanies from "./MenuCompanies";
+import MenuCompanies from "../mol-companies/MenuCompanies";
+import * as XLSX from "xlsx";
 
-const MolFormCompaniesCreate = () => {
+const MolExcelSheetJs = () => {
 
   const [name, setName] = useState("");
   const [ubication, setUbication] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
-  const [priority, setPriority] = useState([]);
-  const [province_id, setProvince_id] = useState("");
+  const [priority, setPriority] = useState("");
+  const [province_id, setProvince_id] = useState(0);
   const [provinces, setProvinces] = useState([]);
-
-  
+  const fileInput = useRef(null);
   const navigate = useNavigate();
+
+  const handleExcelUpload = (event) => {
+    const file = event.target.files[0];
+    const reader = new FileReader();
+    reader.onload = async (event) => {
+      const data = new Uint8Array(event.target.result);
+      const workbook = XLSX.read(data, { type: "array" });
+      const worksheet = workbook.Sheets[workbook.SheetNames[0]];
+      const rows = XLSX.utils.sheet_to_json(worksheet, { header: 1 });
+      // assuming first row is header
+      const header = rows[0];
+      const rowsData = rows.slice(1).map((row) => {
+        return header.reduce((acc, curr, index) => {
+          acc[curr] = row[index];
+          return acc;
+        }, {});
+      });
+      // Assuming column names in excel are: name, lat, long, iso
+      rowsData.forEach(async (rowData) => {
+        
+        const formData = new FormData();
+        formData.append("name", rowData.name);
+        formData.append("ubication", rowData.ubication);
+        formData.append('email', rowData.email ? rowData.email.toString() : '');
+        formData.append("phone", rowData.phone);
+        formData.append("priority", rowData.priority);
+        formData.append("province_id", Number.isInteger(rowData.province_id));
+        try {
+          const { data } = await createCompanies(formData);
+          console.log(data);
+        } catch (error) {
+          console.log(error);
+        }
+      });
+      Swal.fire({
+        position: "center",
+        icon: "success",
+        title: "¡Tus datos se han añadido con éxito!",
+        showConfirmButton: false,
+        timer: 2000,
+      });
+      setTimeout(() => {
+        navigate("/companiestable");
+      }, 2000); // Delay the navigation for 2 seconds (2000 milliseconds)
+    };
+    reader.readAsArrayBuffer(file);
+  };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -25,11 +72,11 @@ const MolFormCompaniesCreate = () => {
       const formData = new FormData();
       formData.append('name', name);
       formData.append('ubication', ubication);
-      formData.append('email', email);
+      formData.append('email', email.toString());
       formData.append('phone', phone);
       formData.append('priority', priority);
-      formData.append('province_id', province_id);
-      
+      formData.append('province_id', parseInt(province_id));
+       
 
       const { data } = await createCompanies(formData);
       console.log(data);
@@ -63,13 +110,12 @@ const MolFormCompaniesCreate = () => {
       .catch((error) => console.error(error));
   }, []);
 
-  // useEffect(() => {
-  //   getCompanies()
-  //     .then((response) => {
-  //       setCompanies(response.data);
-  //     })
-  //     .catch((error) => console.error(error));
-  // }, []);
+  
+  const handleClick = () => {
+      fileInput.current.click();
+    }
+  
+  
 
   return (
     <>
@@ -197,13 +243,13 @@ const MolFormCompaniesCreate = () => {
                   onChange={(event) => setPriority(event.target.value)}
                   className="block w-full rounded-md border-0 py-1.5  text-stone6 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
                 >                 
-                    <option key={1} value={1}>
+                    <option key={1} value="1">
                       Alta
                     </option>
-                    <option key={2} value={2}>
+                    <option key={2} value="2">
                       Media
                     </option>
-                    <option key={3} value={3}>
+                    <option key={3} value="3">
                       Baja
                     </option>
                   
@@ -211,22 +257,30 @@ const MolFormCompaniesCreate = () => {
               </div>
             </div>            
           </div>
+          <div >
           <button
             type="submit"
-            className="text-sm my-10 px-24 py-3.5 rounded-xl bg-gradient-to-r from-orange to-orangel hover:from-verde hover:to-verdel ..."
+            className="text-sm text-white my-10 px-12 py-3.5 rounded-xl bg-gradient-to-r from-orange to-orangel hover:from-verde hover:to-verdel ..."
           >
             Crear empresa
           </button>
           <button
-            className="text-sm my-10 mx-10 px-24 py-3.5 rounded-xl bg-gradient-to-r from-orangel to-orange hover:from-verde hover:to-verdel ..."
+            className="text-sm text-white my-10 mx-10 px-12 py-3.5 rounded-xl bg-gradient-to-r from-orangel to-orange hover:from-verde hover:to-verdel ..."
             type="button"
           >
             <a href="/companiestable">Ver empresas</a>
           </button>
+          <button htmlFor="excel" className="text-sm text-white my-10 mx-10 px-12 py-3.5 rounded-xl bg-gradient-to-r from-orangel to-orange hover:from-verde hover:to-verdel ..."
+            type="button" onClick={handleClick}>
+         Seleccionar excel
+         <input type="file" id="excel" name="excel" onChange={handleExcelUpload} accept=".xlsx" ref={fileInput} style={{ display: "none" }} />
+         </button>
+         </div>
         </form>
       </div>
+      
     </>
   );
 };
 
-export default MolFormCompaniesCreate;
+export default MolExcelSheetJs;
