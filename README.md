@@ -1,6 +1,6 @@
 <h1 align="center"> PREMATCH-DTD</h1> 
 
-Este repositorio almacena la aplicación Prematch-DTD en Front-end que complementa el servicio API-PM-DTD creado en Laravel.
+Este repositorio almacena la aplicación Prematch-DTD en Front-end que complementa el servicio API-PM-DTD creado en Laravel (***https://github.com/MarielaYamilex70/api-pm-dtd.git***).
 
 ## Descripción del proyecto :speaking_head:
 Este proyecto es en herramienta que permite hacer Pre-Match entre un coder y un recruiter a través de especificaciones afines.
