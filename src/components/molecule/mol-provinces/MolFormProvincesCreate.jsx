@@ -85,7 +85,7 @@ const MolFormProvincesCreate = () => {
         timer: 2000,
       });
       setTimeout(() => {
-        navigate("/provincecreate");
+        navigate("/provincetable");
       }, 2000); // Delay the navigation for 2 seconds (2000 milliseconds)
     } catch (error) {
       console.log(error);
