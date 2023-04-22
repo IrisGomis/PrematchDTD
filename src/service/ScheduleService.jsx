@@ -14,9 +14,9 @@ export const getSchedule = () => {
 //   return axios.get(baseUrl + "/schedule/" + id)
 // }
 
-// export const createSchedule = (data) => {
-//   return axios.post(baseUrl + "/schedule", data)
-// }
+export const createSchedule = (data) => {
+  return axios.post(baseUrl + "/schedule", data)
+}
 
 // export const updateSchedule = (id, data) => {
 //   return axios.put(baseUrl + "/schedule/" + id, data)
