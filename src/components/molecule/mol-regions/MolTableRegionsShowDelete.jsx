@@ -154,7 +154,7 @@ export default function MolTableRegionsShowDelete() {
                       <td
                         className={classNames(
                           'whitespace-nowrap py-4 pr-3 text-sm font-medium',
-                          selectedRegions.includes(e.id) ? 'text-indigo-600' : 'text-gray-900'
+                          selectedRegions.includes(e.id) ? 'text-orange' : 'text-gray-900'
                         )}
                       >
                         {e.name}
@@ -166,7 +166,7 @@ export default function MolTableRegionsShowDelete() {
                       <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                         <Link
                           to={`/regionedit/${e.id}`}
-                          className="text-indigo-600 hover:text-indigo-900"
+                          className="text-orange hover:text-orangel"
                         >
                           Editar
                         </Link>

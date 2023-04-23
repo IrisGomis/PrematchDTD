@@ -143,73 +143,45 @@ export default function MolTableProvincesShowDelete() {
                     </th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-gray-200 ">
-                {/* {provinces.map((e) => {
-                  const region = regions.find((p) => p.id === e.region_id);
-                  return (
-                    <tr key={e.id}>
-                      <td className="px-7 py-4 whitespace-nowrap">
-                        <input
-                          type="checkbox"
-                          className="rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"
-                          checked={selectedProvinces.includes(e)}
-                          onChange={(e) => {
-                            const isChecked = e.target.checked;
-                            setSelectedProvinces((prev) =>
-                              isChecked
-                                ? [...prev, e]
-                                : prev.filter((c) => c !== e)
-                            );
-                          }}
-                        /> */}
-                         {provinces.map((e) => (
-                    <tr key={e.id} className="hover:bg-stone5">
-                      <td className="px-7 py-4 whitespace-nowrap">
-                        <input
-                          type="checkbox"
-                          name={e.id}
-                          className="h-4 w-4 text-indigo-600 focus:ring-indigo-500"
-                          checked={selectedProvinces.some((ev) => ev.id === e.id)}
-                          onChange={(event) => {
-                            const isChecked = event.target.checked;
-                            setSelectedProvinces((prevState) => {
-                              if (isChecked) {
-                                return [...prevState, e];
-                              } else {
-                                return prevState.filter((ev) => ev.id !== e.id);
-                              }
-                            });
-                          }}
-                        />
-                      </td>
-                      <td
-                        className={classNames(
-                          'whitespace-nowrap py-4 pr-3 text-sm font-medium',
-                          selectedProvinces.includes(e.id) ? 'text-orange' : 'text-white'
-                        )}
-                      >
-                        {e.name}
-                      </td>
+                <tbody className="divide-y divide-stone3 ">
+              {provinces.map((province) => (
+                <tr key={province.id}>
+                  <td className="px-7 sm:px-6">
+                    <input
+                      type="checkbox"
+                      className="h-4 w-4 text-indigo-600 rounded border-gray-300 focus:ring-indigo-600"
+                      checked={selectedProvinces.some((p) => p.id === province.id)}
+                      onChange={() => {
+                        const checked = selectedProvinces.some((p) => p.id === province.id);
+                        if (checked) {
+                          setSelectedProvinces(selectedProvinces.filter((p) => p.id !== province.id));
+                        } else {
+                          setSelectedProvinces([...selectedProvinces, province]);
+                        }
+                      }}
+                    />
+                  </td>
+                  <td className="py-4 px-6 whitespace-nowrap text-sm font-medium text-gray-900">{province.name}</td>
+                  <td className="py-4 px-6 whitespace-nowrap text-sm font-medium text-gray-900">
+                    {regions.find((r) => r.id === province.region_id)?.name}
+                  </td>
+                  <td className="whitespace-nowrap px-3 py-4 text-sm text-white">
+                        {province.lat}</td>
                       <td className="whitespace-nowrap px-3 py-4 text-sm text-white">
-                        {/* {region ? region.name : "-"} </td> */}
-                        {e.region}</td>
+                        {province.long}</td>
                       <td className="whitespace-nowrap px-3 py-4 text-sm text-white">
-                        {e.lat}</td>
-                      <td className="whitespace-nowrap px-3 py-4 text-sm text-white">
-                        {e.long}</td>
-                      <td className="whitespace-nowrap px-3 py-4 text-sm text-white">
-                        {e.iso}</td>
-                      <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                        <Link
-                          to={`/provincesedit/${e.id}`}
-                          className="text-orangel hover:text-orange"
-                        >
-                          Editar
-                        </Link>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
+                        {province.iso}</td>
+                  <td className="py-4 px-6 whitespace-nowrap text-sm font-medium text-gray-900">
+                    <Link
+                      to={`/provinces/${province.id}/edit`}
+                      className="text-indigo-600 hover:text-indigo-900"
+                    >
+                      Editar
+                    </Link>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
               </table>
             </div>
           </div>
