@@ -1,40 +1,59 @@
-import React from 'react'
-import { Bar, BarChart, CartesianGrid, Legend, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts'
-
-const data = [
-    {name: "María", age: 10, weight: 60},
-    {name: 'Karina', age: 25, weight: 70},
-    {name: 'Susana', age: 15, weight: 65},
-    {name: 'Pedro', age: 35, weight: 85},
-    {name: 'Felipe', age: 12, weight: 48},
-    {name: 'Laura', age: 30, weight: 69},
-    {name: 'Adrián', age: 15, weight: 78},
-]
+import React, { useEffect, useState } from "react";
+import { getScheduleCoder } from "../../../service/ScheduleService";
+import {
+  Bar,
+  BarChart,
+  CartesianGrid,
+  Legend,
+  ResponsiveContainer,
+  Tooltip,
+  XAxis,
+  YAxis
+} from "recharts";
 
 const MolStatisticsSimpleBarCharts = () => {
+  const [schedule, setSchedule] = useState([]);
+
+  useEffect(() => {
+    getScheduleCoder()
+      .then((response) => {
+        const schedules = response.data.map((schedule) => ({
+          idRecruiter: schedule.idRecruiter,
+          affinity: schedule.afinity, // corrected typo
+          maxInterview: schedule.maxInterview
+        }));
+        setSchedule(schedules);
+      })
+      .catch((error) => console.error(error));
+  }, []);
+
+  const data = schedule.map((schedule) => ({
+    idRecruiter: schedule.idRecruiter,
+    maxInterview: schedule.maxInterview
+  }));
+
   return (
     <ResponsiveContainer width="80%" height="80%" aspect={2}>
-        <BarChart 
-            data={data}
-            width={500}
-            height={150}
-            margin={{
-                top:5,
-                right:30,
-                left:20,
-                bottom:5
-            }}
-        >
-        <CartesianGrid strokeDasharray="4 1 2" />    
-        <XAxis dataKey="name"/>
+      <BarChart
+        data={data}
+        width={500}
+        height={150}
+        margin={{
+          top: 5,
+          right: 30,
+          left: 20,
+          bottom: 5
+        }}
+      >
+        <CartesianGrid strokeDasharray="4 1 2" />
+        <XAxis dataKey="idRecruiter" />
         <YAxis />
         <Tooltip />
         <Legend />
-        <Bar dataKey="weight" fill="#FF4700"/>
-        <Bar dataKey="age" fill="#FED2C0"/>
-        </BarChart>
+        <Bar dataKey="maxInterview" fill="#FF4700" />
+      </BarChart>
     </ResponsiveContainer>
-  )
-}
+  );
+};
 
 export default MolStatisticsSimpleBarCharts;

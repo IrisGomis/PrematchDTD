@@ -1,39 +1,58 @@
-import React from 'react'
-import { Area, AreaChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts'
+import React, { useEffect, useState } from "react";
+import { getScheduleCoder } from "../../../service/ScheduleService";
+import {
+  Bar,
+  BarChart,
+  CartesianGrid,
+  Legend,
+  ResponsiveContainer,
+  Tooltip,
+  XAxis,
+  YAxis
+} from "recharts";
 
-const data = [
-    {name: "María", age: 10, weight: 60},
-    {name: 'Karina', age: 25, weight: 70},
-    {name: 'Susana', age: 15, weight: 65},
-    {name: 'Pedro', age: 35, weight: 85},
-    {name: 'Felipe', age: 12, weight: 48},
-    {name: 'Laura', age: 30, weight: 69},
-    {name: 'Adrián', age: 15, weight: 78},
-]
+const MolStatisticsSimpleBarCharts = () => {
+  const [schedule, setSchedule] = useState([]);
 
-const MolStatisticsStackedAreaCharts = () => {
+  useEffect(() => {
+    getScheduleCoder()
+      .then((response) => {
+        const schedules = response.data.map((schedule) => ({
+          idRecruiter: schedule.idCoder,
+          maxInterview: schedule.maxInterview
+        }));
+        setSchedule(schedules);
+      })
+      .catch((error) => console.error(error));
+  }, []);
+
+  const data = schedule.map((schedule) => ({
+    idRecruiter: schedule.idCoder,
+    maxInterview: schedule.maxInterview
+  }));
+
   return (
     <ResponsiveContainer width="80%" height="80%" aspect={2}>
-        <AreaChart
-            width={500}
-            height={150}
-            data={data}
-            margin={{
-                top:10,
-                right:30,
-                left:0,
-                bottom:0 
-            }}
-        >
-            <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="name" />
-            <YAxis />
-            <Tooltip />
-            <Area type="monotone" dataKey="age" stackId="1" stroke='#FF4700' fill="#FF4700" />
-            <Area type="monotone" dataKey="weight" stackId="1" stroke='#FED2C0' fill="#FED2C0" />
-        </AreaChart>
+      <BarChart
+        data={data}
+        width={500}
+        height={150}
+        margin={{
+          top: 5,
+          right: 30,
+          left: 20,
+          bottom: 5
+        }}
+      >
+        <CartesianGrid strokeDasharray="4 1 2" />
+        <XAxis dataKey="idRecruiter" />
+        <YAxis />
+        <Tooltip />
+        <Legend />
+        <Bar dataKey="maxInterview" fill="#FF4700" />
+      </BarChart>
     </ResponsiveContainer>
-  )
-}
+  );
+};
 
-export default MolStatisticsStackedAreaCharts
+export default MolStatisticsSimpleBarCharts;
