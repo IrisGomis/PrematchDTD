@@ -56,7 +56,7 @@ export default function MolTableRegionsShowDelete() {
     // Delete all Regionss in parallel
     Promise.all(deletePromises)
       .then((responses) => {
-        console.log("Regionss deleted successfully!");
+        console.log("Regions deleted successfully!");
         // Remove all deleted Regionss from the Regions state
         const deletedIds = selectedRegions.map((Regions) => Regions.id);
         setRegions(Regions.filter((e) => !deletedIds.includes(e.id)));
