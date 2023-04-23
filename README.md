@@ -19,7 +19,7 @@ Este proyecto es en herramienta que permite hacer Pre-Match entre un coder y un 
 
 ### Estas son las vistas de la página:
 ![This is an image](./src/assets/img/vista1.jpg)
-![This is an image](./src/assets/img/vista1.5.jpg)
+![This is an image](./src/assets/img/vista1.5.png)
 ![This is an image](./src/assets/img/vista2.jpg)
 ![This is an image](./src/assets/img/vista3.jpg)
 ![This is an image](./src/assets/img/vista4.jpg)
