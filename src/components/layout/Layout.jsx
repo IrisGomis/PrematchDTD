@@ -1,22 +1,20 @@
 import Drawer from "../atome/drawer/Drawer";
-import AtomSearch from "../atome/header/AtomSearch";
 import AtomHour from "../atome/header/AtomHour";
 import AtomLogin from "../atome/header/AtomLogin";
 
 function Layout({ children }) {
   return (
     <>
-      <div className="flex">
+      <div className="flex justify-between w-full">
         <div>
           <Drawer />
         </div>
         <div>
-          <div className="w-full h-20 flex justify-between">
-            <AtomSearch />
+          <div className="w-full h-20 flex justify-end">
             <AtomHour />
             <AtomLogin />
           </div>
-          <div>{children}</div>
+          <div className="w-full mr-10">{children}</div>
         </div>
       </div>
     </>

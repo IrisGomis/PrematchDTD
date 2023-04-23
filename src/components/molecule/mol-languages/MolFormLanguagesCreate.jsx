@@ -1,12 +1,55 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import { createLanguages } from "../../../service/LanguagesService";
 import MolMenuAdmin from "../mol-regions/MolMenuAdmin";
+import * as XLSX from "xlsx";
 
 export default function MolFormLanguagesCreate() {
   const [name, setName] = useState("");
   const navigate = useNavigate();
+  const fileInput = useRef(null);
+
+  const handleExcelUpload = (event) => {
+    const file = event.target.files[0];
+    const reader = new FileReader();
+    reader.onload = async (event) => {
+      const data = new Uint8Array(event.target.result);
+      const workbook = XLSX.read(data, { type: "array" });
+      const worksheet = workbook.Sheets[workbook.SheetNames[0]];
+      const rows = XLSX.utils.sheet_to_json(worksheet, { header: 1 });
+      // assuming first row is header
+      const header = rows[0];
+      const rowsData = rows.slice(1).map((row) => {
+        return header.reduce((acc, curr, index) => {
+          acc[curr] = row[index];
+          return acc;
+        }, {});
+      });
+      // Assuming column names in excel are: name, lat, long, iso
+      rowsData.forEach(async (rowData) => {
+        const formData = new FormData();
+        formData.append("name", rowData.name);
+        try {
+          const { data } = await createLanguages(formData);
+          console.log(data);
+        } catch (error) {
+          console.log(error);
+        }
+      });
+      Swal.fire({
+        position: "center",
+        icon: "success",
+        title: "¡Tus datos se han añadido con éxito!",
+        showConfirmButton: false,
+        timer: 2000,
+      });
+      setTimeout(() => {
+        navigate("/languagestable");
+      }, 2000); // Delay the navigation for 2 seconds (2000 milliseconds)
+    };
+    reader.readAsArrayBuffer(file);
+  };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -24,7 +67,7 @@ export default function MolFormLanguagesCreate() {
         timer: 2000,
       });
       setTimeout(() => {
-        navigate("/languagescreate");
+        navigate("/languagestable");
       }, 2000); // Delay the navigation for 2 seconds (2000 milliseconds)
     } catch (error) {
       console.log(error);
@@ -38,11 +81,17 @@ export default function MolFormLanguagesCreate() {
     }
   };
 
+  const handleClick = () => {
+    fileInput.current.click();
+  };
+
   return (
     <>
-    <MolMenuAdmin/>
-      <div className="bg-stone6 w-full max-w-screen-lg rounded-xl p-20 m-20">
-        <h2 className="text-2xl font-semibold leading-7 text-orange">Añadir idioma</h2>
+      <MolMenuAdmin />
+      <div className="bg-stone6 w-screen max-w-screen-xl rounded-xl p-20 m-20 text-white">
+        <h2 className="text-2xl font-semibold leading-7 text-orange">
+          Añadir idioma
+        </h2>
 
         <form className="bg-stone6" onSubmit={handleSubmit}>
           <div className="mt-10 space-y-8 border-b border-orange pb-12 sm:space-y-0 sm:divide-y sm:divide-orange sm:border-t sm:pb-0">
@@ -66,20 +115,38 @@ export default function MolFormLanguagesCreate() {
                 />
               </div>
             </div>
-          
           </div>
-          <button
-            type="submit"
-            className="text-sm my-10 px-24 py-3.5 rounded-xl bg-gradient-to-r from-orange to-orangel hover:from-verde hover:to-verdel ..."
-          >
-            Añadir idioma
-          </button>
-          <button
-            className="text-sm my-10 mx-10 px-24 py-3.5 rounded-xl bg-gradient-to-r from-orangel to-orange hover:from-verde hover:to-verdel ..."
-            type="button"
-          >
-            <a href="/languagestable">Ver idioma</a>
-          </button>
+          <div>
+            <button
+              type="submit"
+              className="text-sm text-white my-10 mx-10 px-12 py-3.5 rounded-xl bg-gradient-to-r from-orangel to-orange hover:from-verde hover:to-verdel ..."
+            >
+              Añadir idioma
+            </button>
+            <button
+              className="text-sm text-white my-10 mx-10 px-12 py-3.5 rounded-xl bg-gradient-to-r from-orangel to-orange hover:from-verde hover:to-verdel ..."
+              type="button"
+            >
+              <a href="/languagestable">Ver idioma</a>
+            </button>
+            <button
+              htmlFor="excel"
+              className="text-sm text-white my-10 mx-10 px-12 py-3.5 rounded-xl bg-gradient-to-r from-orangel to-orange hover:from-verde hover:to-verdel ..."
+              type="button"
+              onClick={handleClick}
+            >
+              Seleccionar excel
+              <input
+                type="file"
+                id="excel"
+                name="excel"
+                onChange={handleExcelUpload}
+                accept=".xlsx"
+                ref={fileInput}
+                style={{ display: "none" }}
+              />
+            </button>
+          </div>
         </form>
       </div>
     </>

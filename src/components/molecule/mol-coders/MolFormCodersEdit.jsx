@@ -97,7 +97,7 @@ const MolFormCodersEdit = ({ eent }) => {
         timer: 2000,
       });
       setTimeout(() => {
-        navigate("/codercreate");
+        navigate("/codertable");
       }, 2000); // Delay the navigation for 2 seconds (2000 milliseconds)
     } catch (error) {
       console.log(error);
@@ -130,7 +130,7 @@ const MolFormCodersEdit = ({ eent }) => {
   return (
     <>
       <MenuSchool />
-      <div className="bg-stone6 w-full max-w-screen-lg rounded-xl p-20 m-20">
+      <div className="bg-stone6 w-screen max-w-screen-xl rounded-xl p-20 m-20 text-white">
         <h2 className="text-2xl font-semibold leading-7 text-orange">
           Editar Coder
         </h2>

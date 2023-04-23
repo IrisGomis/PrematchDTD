@@ -7,9 +7,9 @@ import MenuSchool from "../mol-school/MenuSchools";
 
 
 
-function classNames(...classes) {
-  return classes.filter(Boolean).join(' ')
-}
+// function classNames(...classes) {
+//   return classes.filter(Boolean).join(' ')
+// }
 
 export default function MolTableCodersShowDelete() {
   
@@ -94,7 +94,7 @@ export default function MolTableCodersShowDelete() {
   return (
     <>
     <MenuSchool/>
-    <div className="bg-stone6 w-full max-w-screen-xl rounded-xl p-20 m-20 text-white">
+    <div className="bg-stone6 w-screen max-w-screen-xl rounded-xl p-20 m-20 text-white">
       <div className="sm:flex sm:items-center">
         <div className="sm:flex-auto">
           <h1 className="text-xl font-semibold leading-7">Lista de coders</h1>
@@ -174,9 +174,8 @@ export default function MolTableCodersShowDelete() {
                     </th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-gray-200 ">
-                {coders.map((e) => {
-            // Buscar la provincia que corresponde a la empresa actual
+                <tbody className="divide-y divide-stone3 ">
+                {/* {coders.map((e) => {
                   const promotion = promotions.find((p) => p.id === e.promo_id);
                   const events = event.find((p) => p.id === e.event_id);
                   return (
@@ -195,47 +194,56 @@ export default function MolTableCodersShowDelete() {
                             );
                           }}
                         />
-                      </td>
-                      <td
-                        className={classNames(
-                          'whitespace-nowrap py-4 pr-3 text-sm font-medium',
-                          selectedCoders.includes(e.id) ? 'text-indigo-600' : 'text-gray-900'
-                        )}
-                      >
-                        {e.name}
-                      </td>
-                      <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                        {promotion ? promotion.name : "-"}</td>
-                      <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                        {events ? events.name : "-"}</td>
-                      <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                        {e.gender}</td>
-                      <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                        {e.years}</td>
-                      <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                        {e.email}</td>
-                      <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                        {e.phone}</td>
-                      <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                        {e.linkedin}</td>
-                      <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                        {e.github}</td>
-                      <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                        {e.remote}</td>
-                      <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                        {e.avaliability}</td>
+                      </td> */}
+                         {coders.map((coder) => (
+                       <tr key={coder.id}>
+                        <td className="px-7 sm:px-6">
+                          <input
+                            type="checkbox"
+                            className="h-4 w-4 text-orange rounded border-stone3 focus:ring-orange"
+                            checked={selectedCoders.some((e) => e.id === coder.id)}
+                            onChange={() => {
+                              const checked = selectedCoders.some((e) => e.id === coder.id);
+                              if (checked) {
+                                setSelectedCoders(selectedCoders.filter((e) => e.id !== coder.id));
+                              } else {
+                                setSelectedCoders([...selectedCoders, coder]);
+                              }
+                            }}
+                          />
+                        </td>
+                      <td className="py-4 px-6 whitespace-nowrap text-sm font-medium text-white">{coder.name}</td>
+                      <td className="whitespace-nowrap px-3 py-4 text-sm text-white">
+                        {promotions.find((e) => e.id === coder.promotion_id)?.name}</td>
+                      <td className="whitespace-nowrap px-3 py-4 text-sm text-white">
+                        {event.find((e) => e.id === coder.event_id)?.name}</td>
+                      <td className="whitespace-nowrap px-3 py-4 text-sm text-white">
+                        {coder.gender}</td>
+                      <td className="whitespace-nowrap px-3 py-4 text-sm text-white">
+                        {coder.years}</td>
+                      <td className="whitespace-nowrap px-3 py-4 text-sm text-white">
+                        {coder.email}</td>
+                      <td className="whitespace-nowrap px-3 py-4 text-sm text-white">
+                        {coder.phone}</td>
+                      <td className="whitespace-nowrap px-3 py-4 text-sm text-white">
+                        {coder.linkedin}</td>
+                      <td className="whitespace-nowrap px-3 py-4 text-sm text-white">
+                        {coder.github}</td>
+                      <td className="whitespace-nowrap px-3 py-4 text-sm text-white">
+                        {coder.remote}</td>
+                      <td className="whitespace-nowrap px-3 py-4 text-sm text-white">
+                        {coder.avaliability}</td>
 
                       <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                         <Link
-                          to={`/coderedit/${e.id}`}
-                          className="text-indigo-600 hover:text-indigo-900"
+                          to={`/coderedit/${coder.id}`}
+                          className="text-orangel hover:text-orange"
                         >
                           Editar
                         </Link>
                       </td>
                     </tr>
-                  );
-                  })}
+                  ))}
                 </tbody>
               </table>
             </div>

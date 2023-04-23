@@ -1,47 +1,77 @@
-import React, { useState, Fragment } from "react";
+import React, { useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { createEvento } from "../../../service/EventService";
 import Swal from "sweetalert2";
-import { Listbox, Transition } from "@headlessui/react";
-import { CheckIcon, ChevronUpDownIcon } from "@heroicons/react/20/solid";
 import MenuEvent from "./MenuEvent";
-
+import * as XLSX from "xlsx";
 
 const MolFormEventCreate = () => {
-  
-  const people = [
-    { id: 1, name: "Wade Cooper" },
-    { id: 2, name: "Arlene Mccoy" },
-    { id: 3, name: "Devon Webb" },
-    { id: 4, name: "Tom Cook" },
-    { id: 5, name: "Tanya Fox" },
-    { id: 6, name: "Hellen Schmidt" },
-    { id: 7, name: "Caroline Schultz" },
-    { id: 8, name: "Mason Heaney" },
-    { id: 9, name: "Claudie Smitham" },
-    { id: 10, name: "Emil Schaefer" },
-  ];
-
-  const [selected, setSelected] = useState(people[3]);
   const [name, setName] = useState("");
   const [date, setDate] = useState("");
   const [url, setUrl] = useState("");
   const [max, setMax] = useState("");
   const [min, setMin] = useState("");
-  
+  const fileInput = useRef(null);
   const navigate = useNavigate();
+
+  const handleExcelUpload = (event) => {
+    const file = event.target.files[0];
+    const reader = new FileReader();
+    reader.onload = async (event) => {
+      const data = new Uint8Array(event.target.result);
+      const workbook = XLSX.read(data, { type: "array" });
+      const worksheet = workbook.Sheets[workbook.SheetNames[0]];
+      const rows = XLSX.utils.sheet_to_json(worksheet, { header: 1 });
+      // assuming first row is header
+      const header = rows[0];
+      const rowsData = rows.slice(1).map((row) => {
+        return header.reduce((acc, curr, index) => {
+          acc[curr] = row[index];
+          return acc;
+        }, {});
+      });
+
+      rowsData.forEach(async (rowData) => {
+        const formData = new FormData();
+        formData.append("name", name);
+        formData.append("date", date);
+        formData.append("url", url);
+        formData.append("max", max);
+        formData.append("min", min);
+        try {
+          const { data } = await createEvento(formData);
+          console.log(data);
+        } catch (error) {
+          console.log(error);
+        }
+      });
+      Swal.fire({
+        position: "center",
+        icon: "success",
+        title: "¡Tus datos se han añadido con éxito!",
+        showConfirmButton: false,
+        timer: 2000,
+      });
+      setTimeout(() => {
+        navigate("/");
+      }, 2000); // Delay the navigation for 2 seconds (2000 milliseconds)
+    };
+    reader.readAsArrayBuffer(file);
+  };
+
+  const handleClick = () => {
+    fileInput.current.click();
+  };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-
       const formData = new FormData();
-      formData.append('name', name);
-      formData.append('date', date);
-      formData.append('url', url);
-      formData.append('max', max);
-      formData.append('min', min);
-      
+      formData.append("name", name);
+      formData.append("date", date);
+      formData.append("url", url);
+      formData.append("max", max);
+      formData.append("min", min);
 
       const { data } = await createEvento(formData);
       console.log(data);
@@ -66,15 +96,14 @@ const MolFormEventCreate = () => {
       });
     }
   };
-  function classNames(...classes) {
-    return classes.filter(Boolean).join(" ");
-  }
 
   return (
     <>
-    <MenuEvent/>
-      <div className="bg-stone6 w-full max-w-screen-lg rounded-xl p-20 m-20">
-        <h2 className="text-2xl font-semibold leading-7 text-orange">Crear Evento</h2>
+      <MenuEvent />
+      <div className="bg-stone6 w-screen max-w-screen-xl rounded-xl p-20 m-20 text-white">
+        <h2 className="text-2xl font-semibold leading-7 text-orange">
+          Crear Evento
+        </h2>
 
         <form className="bg-stone6" onSubmit={handleSubmit}>
           <div className="mt-10 space-y-8 border-b border-orange pb-12 sm:space-y-0 sm:divide-y sm:divide-orange sm:border-t sm:pb-0">
@@ -141,93 +170,6 @@ const MolFormEventCreate = () => {
 
             <div className="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
               <label
-                htmlFor="country"
-                className="block text-sm font-medium leading-6  text-white sm:pt-1.5"
-              >
-                Asistentes <span className="text-orange">*</span>
-              </label>
-              <div className="mt-2 sm:col-span-2 sm:mt-0">
-                <Listbox value={selected} onChange={setSelected}>
-                  {({ open }) => (
-                    <>
-                      
-                      <div className="relative mt-2">
-                        <Listbox.Button className="relative w-full cursor-default rounded-md py-1.5 pl-3 pr-10 text-left bg-white shadow-sm ring-1 ring-inset ring-orange focus:outline-none focus:ring-2 focus:ring-orangel sm:text-sm sm:leading-6">
-                          <span className="block truncate">
-                            {selected.name}
-                          </span>
-                          <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
-                            <ChevronUpDownIcon
-                              className="h-5 w-5 text-stone4"
-                              aria-hidden="true"
-                            />
-                          </span>
-                        </Listbox.Button>
-
-                        <Transition
-                          show={open}
-                          as={Fragment}
-                          leave="transition ease-in duration-100"
-                          leaveFrom="opacity-100"
-                          leaveTo="opacity-0"
-                        >
-                          <Listbox.Options className="absolute bg-stone5 z-10 mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
-                            {people.map((person) => (
-                              <Listbox.Option
-                                key={person.id}
-                                className={({ active }) =>
-                                  classNames(
-                                    active
-                                      ? "bg-orange text-white"
-                                      : "text-stone6",
-                                    "relative cursor-default select-none py-2 pl-3 pr-9"
-                                  )
-                                }
-                                value={person}
-                              >
-                                {({ selected, active }) => (
-                                  <>
-                                    <span
-                                      className={classNames(
-                                        selected
-                                          ? "font-semibold"
-                                          : "font-normal",
-                                        "block truncate"
-                                      )}
-                                    >
-                                      {person.name}
-                                    </span>
-
-                                    {selected ? (
-                                      <span
-                                        className={classNames(
-                                          active
-                                            ? "text-white"
-                                            : "text-orange",
-                                          "absolute inset-y-0 right-0 flex items-center pr-4"
-                                        )}
-                                      >
-                                        <CheckIcon
-                                          className="h-5 w-5"
-                                          aria-hidden="true"
-                                        />
-                                      </span>
-                                    ) : null}
-                                  </>
-                                )}
-                              </Listbox.Option>
-                            ))}
-                          </Listbox.Options>
-                        </Transition>
-                      </div>
-                    </>
-                  )}
-                </Listbox>
-              </div>
-            </div>
-
-            <div className="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
-              <label
                 htmlFor="street-address"
                 className="block text-sm font-medium leading-6  text-white sm:pt-1.5"
               >
@@ -257,15 +199,32 @@ const MolFormEventCreate = () => {
           </div>
           <button
             type="submit"
-            className="text-sm my-10 px-24 py-3.5 rounded-xl bg-gradient-to-r from-orange to-orangel hover:from-verde hover:to-verdel ..."
+            className="text-sm text-white my-10 mx-10 px-12 py-3.5 rounded-xl bg-gradient-to-r from-orangel to-orange hover:from-verde hover:to-verdel ..."
           >
             Crear evento
           </button>
           <button
-            className="text-sm my-10 mx-10 px-24 py-3.5 rounded-xl bg-gradient-to-r from-orangel to-orange hover:from-verde hover:to-verdel ..."
+            className="text-sm text-white my-10 mx-10 px-12 py-3.5 rounded-xl bg-gradient-to-r from-orangel to-orange hover:from-verde hover:to-verdel ..."
             type="button"
           >
             <a href="/eventtable">Ver Evento</a>
+          </button>
+          <button
+            htmlFor="excel"
+            className="text-sm text-white my-10 mx-10 px-12 py-3.5 rounded-xl bg-gradient-to-r from-orangel to-orange hover:from-verde hover:to-verdel ..."
+            type="button"
+            onClick={handleClick}
+          >
+            Seleccionar excel
+            <input
+              type="file"
+              id="excel"
+              name="excel"
+              onChange={handleExcelUpload}
+              accept=".xlsx"
+              ref={fileInput}
+              style={{ display: "none" }}
+            />
           </button>
         </form>
       </div>
