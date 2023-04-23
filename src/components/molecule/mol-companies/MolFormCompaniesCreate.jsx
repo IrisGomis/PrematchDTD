@@ -6,7 +6,6 @@ import Swal from "sweetalert2";
 import MenuCompanies from "./MenuCompanies";
 
 const MolFormCompaniesCreate = () => {
-
   const [name, setName] = useState("");
   const [ubication, setUbication] = useState("");
   const [email, setEmail] = useState("");
@@ -14,14 +13,12 @@ const MolFormCompaniesCreate = () => {
   const [priority, setPriority] = useState([]);
   const [province_id, setProvince_id] = useState("");
   const [provinces, setProvinces] = useState([]);
-
   
   const navigate = useNavigate();
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-
       const formData = new FormData();
       formData.append('name', name);
       formData.append('ubication', ubication);
@@ -62,14 +59,6 @@ const MolFormCompaniesCreate = () => {
       })
       .catch((error) => console.error(error));
   }, []);
-
-  // useEffect(() => {
-  //   getCompanies()
-  //     .then((response) => {
-  //       setCompanies(response.data);
-  //     })
-  //     .catch((error) => console.error(error));
-  // }, []);
 
   return (
     <>

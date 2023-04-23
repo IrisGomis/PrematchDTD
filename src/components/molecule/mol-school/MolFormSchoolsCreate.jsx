@@ -33,7 +33,7 @@ const MolFormSchoolsCreate = () => {
         timer: 2000,
       });
       setTimeout(() => {
-        navigate("/schoolscreate");
+        navigate("/schoolstable");
       }, 2000); // Delay the navigation for 2 seconds (2000 milliseconds)
     } catch (error) {
       console.log(error);
@@ -74,8 +74,8 @@ const MolFormSchoolsCreate = () => {
               <select
                   name="province_id"
                   id="province_id"
-                  value={province_id} // Cambiar 'regions' por el estado que representa la opción seleccionada
-                  onChange={(event) => setProvince_id(event.target.value)} // Cambiar 'setRegions' por el método que actualiza el estado de la opción seleccionada
+                  value={province_id} 
+                  onChange={(event) => setProvince_id(event.target.value)}
                   className="block w-full rounded-md border-0 py-1.5  text-stone6 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
                 >
                   {provinces.map((e) => (
