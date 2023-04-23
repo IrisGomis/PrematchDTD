@@ -1,5 +1,5 @@
 import React from "react";
-import MolTableMatchShow from "../molecule/mol-matches/MolTableMatchShow";
+import MolTableMatchesFilterExcel from "../molecule/mol-matches/MolTableMatchesFilterExcel";
 
 
 
@@ -7,7 +7,7 @@ const Match = () => {
   return (
     <>
    
-      <MolTableMatchShow />
+      <MolTableMatchesFilterExcel />
     </>
   );
 };

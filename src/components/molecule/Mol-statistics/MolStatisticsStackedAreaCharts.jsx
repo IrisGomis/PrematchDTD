@@ -13,7 +13,7 @@ const data = [
 
 const MolStatisticsStackedAreaCharts = () => {
   return (
-    <ResponsiveContainer width="100%" aspect={2}>
+    <ResponsiveContainer width="80%" height="80%" aspect={2}>
         <AreaChart
             width={500}
             height={150}

@@ -54,13 +54,13 @@ export default function MolTableProvincesShowDelete() {
 
   function handleDelete() {
     if (selectedProvinces.length === 0) {
-      console.warn("No Provincess selected to delete");
+      console.warn("No Provinces selected to delete");
       return;
     }
 
     // Create an array of promises to delete each selected Provinces
-    const deletePromises = selectedProvinces.map((Provinces) =>
-      deleteProvinces(Provinces.id)
+    const deletePromises = selectedProvinces.map((provinces) =>
+      deleteProvinces(provinces.id)
     );
 
     // Delete all Provincess in parallel
@@ -68,7 +68,7 @@ export default function MolTableProvincesShowDelete() {
       .then((responses) => {
         console.log("Provinces deleted successfully!");
         // Remove all deleted Provincess from the Provinces state
-        const deletedIds = selectedProvinces.map((Provinces) => Provinces.id);
+        const deletedIds = selectedProvinces.map((provinces) => provinces.id);
         setProvinces(provinces.filter((e) => !deletedIds.includes(e.id)));
         // Clear the selectedProvinces state
         setSelectedProvinces([]);
@@ -82,7 +82,7 @@ export default function MolTableProvincesShowDelete() {
   return (
     <>
     <MolMenuAdmin/>
-    <div className="bg-stone6 w-full max-w-screen-xl rounded-xl p-20 m-20 text-white">
+    <div className="bg-stone6 w-screen max-w-screen-xl rounded-xl p-20 m-20 text-white">
       <div className="sm:flex sm:items-center">
         <div className="sm:flex-auto">
           <h1 className="text-xl font-semibold leading-7">Lista de provincias</h1>
@@ -143,54 +143,45 @@ export default function MolTableProvincesShowDelete() {
                     </th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-gray-200 ">
-                {provinces.map((e) => {
-                  const region = regions.find((p) => p.id === e.region_id);
-                  return (
-                    <tr key={e.id}>
-                      <td className="px-7 py-4 whitespace-nowrap">
-                        <input
-                          type="checkbox"
-                          className="rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"
-                          checked={selectedProvinces.includes(e)}
-                          onChange={(e) => {
-                            const isChecked = e.target.checked;
-                            setSelectedProvinces((prev) =>
-                              isChecked
-                                ? [...prev, e]
-                                : prev.filter((c) => c !== e)
-                            );
-                          }}
-                        />
-                      </td>
-                      <td
-                        className={classNames(
-                          'whitespace-nowrap py-4 pr-3 text-sm font-medium',
-                          selectedProvinces.includes(e.id) ? 'text-indigo-600' : 'text-gray-900'
-                        )}
-                      >
-                        {e.name}
-                      </td>
-                      <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                        {region ? region.name : "-"}</td>
-                      <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                        {e.lat}</td>
-                      <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                        {e.long}</td>
-                      <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                        {e.iso}</td>
-                      <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                        <Link
-                          to={`/provincesedit/${e.id}`}
-                          className="text-indigo-600 hover:text-indigo-900"
-                        >
-                          Editar
-                        </Link>
-                      </td>
-                    </tr>
-                  );
-                  })}
-                </tbody>
+                <tbody className="divide-y divide-stone3 ">
+              {provinces.map((province) => (
+                <tr key={province.id}>
+                  <td className="px-7 sm:px-6">
+                    <input
+                      type="checkbox"
+                      className="h-4 w-4 text-indigo-600 rounded border-gray-300 focus:ring-indigo-600"
+                      checked={selectedProvinces.some((p) => p.id === province.id)}
+                      onChange={() => {
+                        const checked = selectedProvinces.some((p) => p.id === province.id);
+                        if (checked) {
+                          setSelectedProvinces(selectedProvinces.filter((p) => p.id !== province.id));
+                        } else {
+                          setSelectedProvinces([...selectedProvinces, province]);
+                        }
+                      }}
+                    />
+                  </td>
+                  <td className="py-4 px-6 whitespace-nowrap text-sm font-medium text-white">{province.name}</td>
+                  <td className="py-4 px-6 whitespace-nowrap text-sm font-medium text-white">
+                    {regions.find((r) => r.id === province.region_id)?.name}
+                  </td>
+                  <td className="whitespace-nowrap px-3 py-4 text-sm text-white">
+                        {province.lat}</td>
+                      <td className="whitespace-nowrap px-3 py-4 text-sm text-white">
+                        {province.long}</td>
+                      <td className="whitespace-nowrap px-3 py-4 text-sm text-white">
+                        {province.iso}</td>
+                  <td className="py-4 px-6 whitespace-nowrap text-sm font-medium text-white">
+                    <Link
+                      to={`/provinces/${province.id}/edit`}
+                      className="text-orangel hover:text-orange"
+                    >
+                      Editar
+                    </Link>
+                  </td>
+                </tr>
+              ))}
+               </tbody>
               </table>
             </div>
           </div>

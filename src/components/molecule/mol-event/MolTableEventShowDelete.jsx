@@ -71,7 +71,7 @@ export default function MolTableEventShowDelete() {
   return (
     <>
     <MenuEvent/>
-    <div className="bg-stone6 w-full max-w-screen-xl rounded-xl p-20 m-20 text-white">
+    <div className="bg-stone6 w-screen max-w-screen-xl rounded-xl p-20 m-20 text-white">
       <div className="sm:flex sm:items-center">
         <div className="sm:flex-auto">
           <h1 className="text-xl text-orange font-semibold leading-7">Lista de eventos</h1>
@@ -156,7 +156,7 @@ export default function MolTableEventShowDelete() {
                       <td
                         className={classNames(
                           'whitespace-nowrap py-4 pr-3 text-sm font-medium',
-                          selectedEvent.includes(e.id) ? 'text-indigo-600' : 'text-gray-900'
+                          selectedEvent.includes(e.id) ? 'text-orange' : 'text-white'
                         )}
                       >
                         {e.name}

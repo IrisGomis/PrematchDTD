@@ -26,7 +26,7 @@ function exportToExcel(selectedCompanies, provinces) {
     
   }
   const sheet = XLSX.utils.aoa_to_sheet(selectedCompaniesForExport, {
-    header: ["ID", "Nombre", "Provincia", "Email", "Teléfono", "Prioridad"],
+    header: ["ID", "Nombre", "ubicación",  "Provincia", "Email", "Teléfono", "Prioridad"],
   });
 
   const book = {
@@ -56,6 +56,7 @@ export default function MolTableDoungLoad() {
   const [selectedCompanies, setSelectedCompanies] = useState([]);
   const [companies, setCompanies] = useState([]);
   const [provinces, setProvinces] = useState([]);
+  
 
   useEffect(() => {
     getCompanies()
@@ -73,6 +74,7 @@ export default function MolTableDoungLoad() {
       })
       .catch((error) => console.error(error));
   }, []);
+
 
   useLayoutEffect(() => {
     const isIndeterminate =
@@ -122,6 +124,7 @@ export default function MolTableDoungLoad() {
   return (
     <>
     <MenuCompanies/>
+    
     <div className="bg-stone6 w-screen max-w-screen-xl rounded-xl p-20 m-20 text-white">
       <div className="sm:flex sm:items-center">
         <div className="sm:flex-auto">

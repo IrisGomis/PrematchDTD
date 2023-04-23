@@ -1,9 +1,9 @@
 import React from 'react';
-import MolDateMatches from '../molecule/mol-DateMatch/MolDateMatches';
+import MolTableDateMatchesFilterExcel from '../molecule/mol-DateMatch/MolTableDateMatchesFilterExcel';
 
 const DateMatches = () => {
   return (
-    <div><MolDateMatches/></div>
+    <div><MolTableDateMatchesFilterExcel/></div>
   )
 }
 

@@ -44,7 +44,7 @@ export default function MolTableRegionsShowDelete() {
 
   function handleDelete() {
     if (selectedRegions.length === 0) {
-      console.warn("No Regionss selected to delete");
+      console.warn("No Regions selected to delete");
       return;
     }
 
@@ -72,7 +72,7 @@ export default function MolTableRegionsShowDelete() {
   return (
     <>
     <MolMenuAdmin/>
-    <div className="bg-stone6 w-full max-w-screen-xl rounded-xl p-20 m-20 text-white">
+    <div className="bg-stone6 w-screen max-w-screen-xl rounded-xl p-20 m-20 text-white">
       <div className="sm:flex sm:items-center">
         <div className="sm:flex-auto">
           <h1 className="text-xl font-semibold leading-7">Lista de CC AA</h1>
@@ -154,7 +154,7 @@ export default function MolTableRegionsShowDelete() {
                       <td
                         className={classNames(
                           'whitespace-nowrap py-4 pr-3 text-sm font-medium',
-                          selectedRegions.includes(e.id) ? 'text-indigo-600' : 'text-gray-900'
+                          selectedRegions.includes(e.id) ? 'text-orange' : 'text-gray-900'
                         )}
                       >
                         {e.name}
@@ -166,7 +166,7 @@ export default function MolTableRegionsShowDelete() {
                       <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                         <Link
                           to={`/regionedit/${e.id}`}
-                          className="text-indigo-600 hover:text-indigo-900"
+                          className="text-orange hover:text-orangel"
                         >
                           Editar
                         </Link>
