@@ -15,7 +15,7 @@ Este proyecto es en herramienta que permite hacer Pre-Match entre un coder y un 
 
 ## Vistas :desktop_computer:
 ### Este es el logo de TooMatch
-![This is an image](./src/assets/img/logotoomatch.jpg)
+![This is an image](./src/assets/img/logo toomatch.jpg)
 
 ### Estas son las vistas de la página:
 ![This is an image](./src/assets/img/vista1.jpg)
