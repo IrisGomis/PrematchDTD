@@ -149,7 +149,7 @@ export default function MolTableProvincesShowDelete() {
                   <td className="px-7 sm:px-6">
                     <input
                       type="checkbox"
-                      className="h-4 w-4 text-indigo-600 rounded border-gray-300 focus:ring-indigo-600"
+                      className="h-4 w-4 text-orange rounded border-orangel focus:ring-orange"
                       checked={selectedProvinces.some((p) => p.id === province.id)}
                       onChange={() => {
                         const checked = selectedProvinces.some((p) => p.id === province.id);
