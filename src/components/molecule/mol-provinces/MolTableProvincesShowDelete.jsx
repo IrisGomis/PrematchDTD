@@ -5,9 +5,7 @@ import { Link } from "react-router-dom";
 import MolMenuAdmin from '../mol-regions/MolMenuAdmin';
 
 
-function classNames(...classes) {
-  return classes.filter(Boolean).join(' ')
-}
+
 
 export default function MolTableProvincesShowDelete() {
   
@@ -65,7 +63,7 @@ export default function MolTableProvincesShowDelete() {
 
     // Delete all Provincess in parallel
     Promise.all(deletePromises)
-      .then((responses) => {
+      .then((provinces) => {
         console.log("Provinces deleted successfully!");
         // Remove all deleted Provincess from the Provinces state
         const deletedIds = selectedProvinces.map((provinces) => provinces.id);
