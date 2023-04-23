@@ -105,7 +105,7 @@ function MolTableMatchesFilterExcel() {
       Swal.fire({
         position: "center",
         icon: "success",
-        title: "¡Tu match se ha creado con éxito!",
+        title: "¡Tu agenda se ha creado con éxito!",
         showConfirmButton: false,
         timer: 2000,
       });
