@@ -32,7 +32,6 @@ Este proyecto es en herramienta que permite hacer Pre-Match entre un coder y un 
 * **CSS** - utilizado para estilizar la interfaz de usuario
 * **Tailwind** - utilizado para estilizar la interfaz de usuario
 * **JavaScript** - utilizado para el desarrollo de página web
-* **React Bootstrap** - utilizado para estilizar la interfaz de usuario
 * **Material UI** - utilizado para estilizar la interfaz de usuario
 * **npm** - utilizado para manejar las dependencias
 
