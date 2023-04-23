@@ -42,7 +42,6 @@ Este proyecto es en herramienta que permite hacer Pre-Match entre un coder y un 
 * En tu terminal utiliza ***$ composer install*** 
 * En tu terminal utiliza ***$ npm install***
 * Para verlo, utiliza en tu terminal ***$ npm start***
-* Después, utiliza en tu terminal ***$ php artisan serve***
 
 ## Colaboradoras :family_woman_woman_girl_girl:
 Este proyecto ha sido realizado por un equipo de 5 programadoras en formación:
