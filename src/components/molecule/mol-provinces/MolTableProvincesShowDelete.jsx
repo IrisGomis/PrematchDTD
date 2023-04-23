@@ -154,7 +154,7 @@ export default function MolTableProvincesShowDelete() {
                         if (checked) {
                           setSelectedProvinces(selectedProvinces.filter((p) => p.id !== province.id));
                         } else {
-                          setSelectedProvinces([...selectedProvinces, province]);
+                          setSelectedProvinces([...selectedProvinces, province,]);
                         }
                       }}
                     />
