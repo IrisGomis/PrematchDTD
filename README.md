@@ -1,70 +1,52 @@
-# Getting Started with Create React App
+<h1 align="center"> PREMATCH-DTD</h1> 
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Este repositorio almacena la aplicación Prematch-DTD en Front-end que complementa el servicio API-PM-DTD creado en Laravel (***https://github.com/MarielaYamilex70/api-pm-dtd.git***).
 
-## Available Scripts
+## Descripción del proyecto :speaking_head:
+Este proyecto es en herramienta que permite hacer Pre-Match entre un coder y un recruiter a través de especificaciones afines.
 
-In the project directory, you can run:
+## Estado :page_facing_up:
+<p align="center">
+<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
+<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
+<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
+<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
+</p>
 
-### `npm start`
+## Vistas :desktop_computer:
+### Este es el logo de TooMatch
+![This is an image](./src/assets/img/logotoomatch.jpg)
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+### Estas son las vistas de la página:
+![This is an image](./src/assets/img/vista1.jpg)
+![This is an image](./src/assets/img/vista1.5.png)
+![This is an image](./src/assets/img/vista2.jpg)
+![This is an image](./src/assets/img/vista3.jpg)
+![This is an image](./src/assets/img/vista4.jpg)
+![This is an image](./src/assets/img/vista5.jpg)
+![This is an image](./src/assets/img/vista6.jpg)
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Tecnologías :hammer_and_wrench:
+* **React** - utilizado para diseñar los componentes y las vistas del proyecto
+* **HTML** - utilizado para crear la estructura básica de la página web
+* **CSS** - utilizado para estilizar la interfaz de usuario
+* **Tailwind** - utilizado para estilizar la interfaz de usuario
+* **JavaScript** - utilizado para el desarrollo de página web
+* **Material UI** - utilizado para estilizar la interfaz de usuario
+* **npm** - utilizado para manejar las dependencias
 
-### `npm test`
+## Instalación :computer:
+* Abre una terminal en tu ordenador
+* Después, clona el repositorio utilizando ***$ git clone https://github.com/IrisGomis/prematch-dtd.git***
+* En tu terminal utiliza ***$ composer install*** 
+* En tu terminal utiliza ***$ npm install***
+* Para verlo, utiliza en tu terminal ***$ npm start***
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Colaboradoras :family_woman_woman_girl_girl:
+Este proyecto ha sido realizado por un equipo de 5 programadoras en formación:
 
-### `npm run build`
+| [<img src="https://avatars.githubusercontent.com/u/117082608?v=4" width=115><br><sub>Mariela Yamilex </sub>](https://github.com/MarielaYamilex70) |  [<img src="https://avatars.githubusercontent.com/u/117083641?v=4" width=115><br><sub>Iris Gomis </sub>](https://github.com/IrisGomis) |  [<img src="https://avatars.githubusercontent.com/u/117080419?v=4" width=115><br><sub>Natalia Iriarte</sub>](https://github.com/Natalia-irlo) | [<img src="https://avatars.githubusercontent.com/u/90630004?v=4" width=115><br><sub>Diana Borrajo</sub>](https://github.com/Dianab177) | [<img src="https://avatars.githubusercontent.com/u/117688044?v=4" width=115><br><sub>Irene Fernández</sub>](https://github.com/irenefl) |
+| :---: | :---: | :---: | :---: | :---: |
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## Licencia :closed_lock_with_key:
+© [Prematch DTD]()
