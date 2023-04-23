@@ -174,14 +174,14 @@ export default function MolTableProvincesShowDelete() {
                   <td className="py-4 px-6 whitespace-nowrap text-sm font-medium text-gray-900">
                     <Link
                       to={`/provinces/${province.id}/edit`}
-                      className="text-indigo-600 hover:text-indigo-900"
+                      className="text-orangel hover:text-orange"
                     >
                       Editar
                     </Link>
                   </td>
                 </tr>
               ))}
-            </tbody>
+               </tbody>
               </table>
             </div>
           </div>
