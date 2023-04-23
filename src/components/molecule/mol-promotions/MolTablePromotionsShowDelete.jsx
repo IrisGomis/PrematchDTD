@@ -36,8 +36,7 @@ export default function MolTablePromotionsShowDelete() {
 
   useLayoutEffect(() => {
     const isIndeterminate =
-      selectedPromotions.length > 0 &&
-      selectedPromotions.length < promotions.length;
+      selectedPromotions.length > 0 && selectedPromotions.length < promotions.length;
     setChecked(selectedPromotions.length === promotions.length);
     setIndeterminate(isIndeterminate);
     checkbox.current.indeterminate = isIndeterminate;
@@ -162,24 +161,13 @@ Promise.all(deletePromises)
                           <input
                             type="checkbox"
                             className="h-4 w-4 text-orange rounded border-orangel focus:ring-orange"
-                            checked={selectedPromotions.some(
-                              (p) => p.id === promotion.id
-                            )}
+                            checked={selectedPromotions.some((p) => p.id === promotion.id)}
                             onChange={() => {
-                              const checked = selectedPromotions.some(
-                                (p) => p.id === promotion.id
-                              );
+                              const checked = selectedPromotions.some((p) => p.id === promotion.id);
                               if (checked) {
-                                setSelectedPromotions(
-                                  selectedPromotions.filter(
-                                    (p) => p.id !== promotion.id
-                                  )
-                                );
+                                setSelectedPromotions(selectedPromotions.filter((p) => p.id !== promotion.id));
                               } else {
-                                setSelectedPromotions([
-                                  ...selectedPromotions,
-                                  promotion,
-                                ]);
+                                setSelectedPromotions([...selectedPromotions,promotion,]);
                               }
                             }}
                           />
