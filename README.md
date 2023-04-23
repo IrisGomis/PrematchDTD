@@ -15,13 +15,16 @@ Este proyecto es en herramienta que permite hacer Pre-Match entre un coder y un 
 
 ## Vistas :desktop_computer:
 ### Este es el logo de TooMatch
-![This is an image](./src//assets//img//)
+![This is an image](./src/assets/img/logotoomatch.jpg)
 
 ### Estas son las vistas de la página:
-![This is an image](./src//assets//img/)
-![This is an image](./src//assets//img/)
-![This is an image](./src//assets//img/)
-![This is an image]()
+![This is an image](./src/assets/img/vista1.jpg)
+![This is an image](./src/assets/img/vista1.5.jpg)
+![This is an image](./src/assets/img/vista2.jpg)
+![This is an image](./src/assets/img/vista3.jpg)
+![This is an image](./src/assets/img/vista4.jpg)
+![This is an image](./src/assets/img/vista5.jpg)
+![This is an image](./src/assets/img/vista6.jpg)
 
 ## Tecnologías :hammer_and_wrench:
 * **React** - utilizado para diseñar los componentes y las vistas del proyecto
