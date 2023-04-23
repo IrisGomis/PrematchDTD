@@ -6,7 +6,7 @@ import Swal from "sweetalert2";
 import MenuCompanies from "../mol-companies/MenuCompanies";
 import * as XLSX from "xlsx";
 
-const MolExcelSheetJs = () => {
+const MolFromCompaniesCreate = () => {
   const [name, setName] = useState("");
   const [ubication, setUbication] = useState("");
   const [email, setEmail] = useState("");
@@ -295,4 +295,4 @@ const MolExcelSheetJs = () => {
   );
 };
 
-export default MolExcelSheetJs;
+export default MolFromCompaniesCreate;

@@ -7,9 +7,7 @@ import { Link } from "react-router-dom";
 import { getSchools } from "../../../service/SchoolsService";
 import MenuSchool from "../mol-school/MenuSchools";
 
-function classNames(...classes) {
-  return classes.filter(Boolean).join(" ");
-}
+
 
 export default function MolTablePromotionsShowDelete() {
   const checkbox = useRef();
@@ -60,29 +58,8 @@ export default function MolTablePromotionsShowDelete() {
       return;
     }
 
-  //   // Create an array of promises to delete each selected Promotions
-  //   const deletePromises = selectedPromotions.map((Promotions) =>
-  //     deletePromotions(promotions.id)
-  //   );
-
-  //   // Delete all Promotionss in parallel
-  //   Promise.all(deletePromises)
-  //     .then((responses) => {
-  //       console.log("Promotions deleted successfully!");
-  //       // Remove all deleted Promotionss from the Promotions state
-  //       const deletedIds = selectedPromotions.map((Promotions) => promotions.id);
-  //       setPromotions(promotions.filter((e) => !deletedIds.includes(e.id)));
-  //       // Clear the selectedPromotions state
-  //       setSelectedPromotions([]);
-  //       setChecked(false);
-  //       setIndeterminate(false);
-  //     })
-  //     .catch((error) => {
-  //       console.error(`Error deleting Promotions: ${error.message}`);
-  //     });
-  // Create an array of promises to delete each selected Promotions
 const deletePromises = selectedPromotions.map((promotion) =>
-deletePromotion(promotion.id)
+deletePromotions(promotion.id)
 );
 
 // Delete all Promotionss in parallel
@@ -91,7 +68,7 @@ Promise.all(deletePromises)
   console.log("Promotions deleted successfully!");
   // Remove all deleted Promotionss from the Promotions state
   const deletedIds = selectedPromotions.map((promotion) => promotion.id);
-  setPromotions(promotions.filter((e) => !deletedIds.includes(e.id)));
+  deletePromotions(promotions.filter((e) => !deletedIds.includes(e.id)));
   // Clear the selectedPromotions state
   setSelectedPromotions([]);
   setChecked(false);
