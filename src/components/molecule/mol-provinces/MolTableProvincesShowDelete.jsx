@@ -161,8 +161,8 @@ export default function MolTableProvincesShowDelete() {
                       }}
                     />
                   </td>
-                  <td className="py-4 px-6 whitespace-nowrap text-sm font-medium text-gray-900">{province.name}</td>
-                  <td className="py-4 px-6 whitespace-nowrap text-sm font-medium text-gray-900">
+                  <td className="py-4 px-6 whitespace-nowrap text-sm font-medium text-white">{province.name}</td>
+                  <td className="py-4 px-6 whitespace-nowrap text-sm font-medium text-white">
                     {regions.find((r) => r.id === province.region_id)?.name}
                   </td>
                   <td className="whitespace-nowrap px-3 py-4 text-sm text-white">
@@ -171,7 +171,7 @@ export default function MolTableProvincesShowDelete() {
                         {province.long}</td>
                       <td className="whitespace-nowrap px-3 py-4 text-sm text-white">
                         {province.iso}</td>
-                  <td className="py-4 px-6 whitespace-nowrap text-sm font-medium text-gray-900">
+                  <td className="py-4 px-6 whitespace-nowrap text-sm font-medium text-white">
                     <Link
                       to={`/provinces/${province.id}/edit`}
                       className="text-orangel hover:text-orange"
