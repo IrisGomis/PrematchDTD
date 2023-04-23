@@ -44,7 +44,7 @@ export default function MolTableRegionsShowDelete() {
 
   function handleDelete() {
     if (selectedRegions.length === 0) {
-      console.warn("No Regionss selected to delete");
+      console.warn("No Regions selected to delete");
       return;
     }
 

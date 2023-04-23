@@ -54,13 +54,13 @@ export default function MolTableProvincesShowDelete() {
 
   function handleDelete() {
     if (selectedProvinces.length === 0) {
-      console.warn("No Provincess selected to delete");
+      console.warn("No Provinces selected to delete");
       return;
     }
 
     // Create an array of promises to delete each selected Provinces
-    const deletePromises = selectedProvinces.map((Provinces) =>
-      deleteProvinces(Provinces.id)
+    const deletePromises = selectedProvinces.map((provinces) =>
+      deleteProvinces(provinces.id)
     );
 
     // Delete all Provincess in parallel
@@ -68,7 +68,7 @@ export default function MolTableProvincesShowDelete() {
       .then((responses) => {
         console.log("Provinces deleted successfully!");
         // Remove all deleted Provincess from the Provinces state
-        const deletedIds = selectedProvinces.map((Provinces) => Provinces.id);
+        const deletedIds = selectedProvinces.map((provinces) => provinces.id);
         setProvinces(provinces.filter((e) => !deletedIds.includes(e.id)));
         // Clear the selectedProvinces state
         setSelectedProvinces([]);
@@ -144,7 +144,7 @@ export default function MolTableProvincesShowDelete() {
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-gray-200 ">
-                {provinces.map((e) => {
+                {/* {provinces.map((e) => {
                   const region = regions.find((p) => p.id === e.region_id);
                   return (
                     <tr key={e.id}>
@@ -161,35 +161,54 @@ export default function MolTableProvincesShowDelete() {
                                 : prev.filter((c) => c !== e)
                             );
                           }}
+                        /> */}
+                         {provinces.map((e) => (
+                    <tr key={e.id} className="hover:bg-stone5">
+                      <td className="px-7 py-4 whitespace-nowrap">
+                        <input
+                          type="checkbox"
+                          name={e.id}
+                          className="h-4 w-4 text-indigo-600 focus:ring-indigo-500"
+                          checked={selectedProvinces.some((ev) => ev.id === e.id)}
+                          onChange={(event) => {
+                            const isChecked = event.target.checked;
+                            setSelectedProvinces((prevState) => {
+                              if (isChecked) {
+                                return [...prevState, e];
+                              } else {
+                                return prevState.filter((ev) => ev.id !== e.id);
+                              }
+                            });
+                          }}
                         />
                       </td>
                       <td
                         className={classNames(
                           'whitespace-nowrap py-4 pr-3 text-sm font-medium',
-                          selectedProvinces.includes(e.id) ? 'text-indigo-600' : 'text-gray-900'
+                          selectedProvinces.includes(e.id) ? 'text-orange' : 'text-white'
                         )}
                       >
                         {e.name}
                       </td>
-                      <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                        {region ? region.name : "-"}</td>
-                      <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                      <td className="whitespace-nowrap px-3 py-4 text-sm text-white">
+                        {/* {region ? region.name : "-"} </td> */}
+                        {e.region}</td>
+                      <td className="whitespace-nowrap px-3 py-4 text-sm text-white">
                         {e.lat}</td>
-                      <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                      <td className="whitespace-nowrap px-3 py-4 text-sm text-white">
                         {e.long}</td>
-                      <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                      <td className="whitespace-nowrap px-3 py-4 text-sm text-white">
                         {e.iso}</td>
                       <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                         <Link
                           to={`/provincesedit/${e.id}`}
-                          className="text-indigo-600 hover:text-indigo-900"
+                          className="text-orangel hover:text-orange"
                         >
                           Editar
                         </Link>
                       </td>
                     </tr>
-                  );
-                  })}
+                  ))}
                 </tbody>
               </table>
             </div>

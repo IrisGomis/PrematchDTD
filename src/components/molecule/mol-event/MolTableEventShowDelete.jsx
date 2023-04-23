@@ -156,7 +156,7 @@ export default function MolTableEventShowDelete() {
                       <td
                         className={classNames(
                           'whitespace-nowrap py-4 pr-3 text-sm font-medium',
-                          selectedEvent.includes(e.id) ? 'text-indigo-600' : 'text-gray-900'
+                          selectedEvent.includes(e.id) ? 'text-orange' : 'text-white'
                         )}
                       >
                         {e.name}
