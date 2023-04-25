@@ -66,19 +66,15 @@ export default function MolTableCodersShowDelete() {
       return;
     }
 
-    // Create an array of promises to delete each selected coders
     const deletePromises = selectedCoders.map((coders) =>
     deleteCoders(coders.id)
     );
 
-    // Delete all coderss in parallel
     Promise.all(deletePromises)
       .then((responses) => {
         console.log("coders deleted successfully!");
-        // Remove all deleted coderss from the coders state
         const deletedIds = selectedCoders.map((coders) => coders.id);
         setcoders(coders.filter((e) => !deletedIds.includes(e.id)));
-        // Clear the selectedCoders state
         setSelectedCoders([]);
         setChecked(false);
         setIndeterminate(false);
@@ -152,7 +148,7 @@ export default function MolTableCodersShowDelete() {
                     <th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
                       Teléfono
                     </th>
-                    <th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
+                    <th scope="col" className="max-w-[12rem] px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
                       Linkedin
                     </th>
                     <th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
@@ -171,26 +167,6 @@ export default function MolTableCodersShowDelete() {
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-stone3 ">
-                {/* {coders.map((e) => {
-                  const promotion = promotions.find((p) => p.id === e.promo_id);
-                  const events = event.find((p) => p.id === e.event_id);
-                  return (
-                    <tr key={e.id}>
-                      <td className="px-7 py-4 whitespace-nowrap">
-                        <input
-                          type="checkbox"
-                          className="rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"
-                          checked={selectedCoders.includes(e)}
-                          onChange={(e) => {
-                            const isChecked = e.target.checked;
-                            setSelectedCoders((prev) =>
-                              isChecked
-                                ? [...prev, e]
-                                : prev.filter((c) => c !== e)
-                            );
-                          }}
-                        />
-                      </td> */}
                          {coders.map((coder) => (
                        <tr key={coder.id}>
                         <td className="px-7 sm:px-6">
@@ -208,26 +184,27 @@ export default function MolTableCodersShowDelete() {
                             }}
                           />
                         </td>
-                      <td className="py-4 px-6 whitespace-nowrap text-sm font-medium text-white">{coder.name}</td>
-                      <td className="whitespace-nowrap px-3 py-4 text-sm text-white">
-                        {promotions.find((e) => e.id === coder.promotion_id)?.name}</td>
-                      <td className="whitespace-nowrap px-3 py-4 text-sm text-white">
+                      <td className="max-w-[12rem] overflow-hidden text-overflow-ellipsis hover:overflow-visible py-4 px-6 whitespace-nowrap text-sm font-medium text-white">
+                        {coder.name}</td>
+                      <td className="max-w-[12rem] overflow-hidden text-overflow-ellipsis hover:overflow-visible whitespace-nowrap px-3 py-4 text-sm text-white">
+                        {promotions.find((e) => e.id === coder.promo_id)?.name}</td>
+                      <td className="max-w-[12rem] overflow-hidden text-overflow-ellipsis hover:overflow-visible whitespace-nowrap px-3 py-4 text-sm text-white">
                         {event.find((e) => e.id === coder.event_id)?.name}</td>
-                      <td className="whitespace-nowrap px-3 py-4 text-sm text-white">
+                      <td className="max-w-[12rem] overflow-hidden text-overflow-ellipsis hover:overflow-visible whitespace-nowrap px-3 py-4 text-sm text-white">
                         {coder.gender}</td>
-                      <td className="whitespace-nowrap px-3 py-4 text-sm text-white">
+                      <td className="max-w-[12rem] overflow-hidden text-overflow-ellipsis hover:overflow-visible whitespace-nowrap px-3 py-4 text-sm text-white">
                         {coder.years}</td>
-                      <td className="whitespace-nowrap px-3 py-4 text-sm text-white">
+                      <td className="max-w-[12rem] overflow-hidden text-overflow-ellipsis hover:overflow-visible whitespace-nowrap px-3 py-4 text-sm text-white">
                         {coder.email}</td>
-                      <td className="whitespace-nowrap px-3 py-4 text-sm text-white">
+                      <td className="max-w-[12rem] overflow-hidden text-overflow-ellipsis hover:overflow-visible whitespace-nowrap px-3 py-4 text-sm text-white">
                         {coder.phone}</td>
-                      <td className="whitespace-nowrap px-3 py-4 text-sm text-white">
+                      <td className="max-w-[12rem] overflow-hidden text-overflow-ellipsis hover:overflow-visible whitespace-nowrap px-3 py-4 text-sm text-white">
                         {coder.linkedin}</td>
-                      <td className="whitespace-nowrap px-3 py-4 text-sm text-white">
+                      <td className="max-w-[12rem] overflow-hidden text-overflow-ellipsis hover:overflow-visible whitespace-nowrap px-3 py-4 text-sm text-white">
                         {coder.github}</td>
-                      <td className="whitespace-nowrap px-3 py-4 text-sm text-white">
+                      <td className="max-w-[12rem] overflow-hidden text-overflow-ellipsis hover:overflow-visible whitespace-nowrap px-3 py-4 text-sm text-white">
                         {coder.remote}</td>
-                      <td className="whitespace-nowrap px-3 py-4 text-sm text-white">
+                      <td className="max-w-[12rem] overflow-hidden text-overflow-ellipsis hover:overflow-visible whitespace-nowrap px-3 py-4 text-sm text-white">
                         {coder.avaliability}</td>
 
                       <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">

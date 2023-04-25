@@ -13,6 +13,7 @@ const MolFormCodersCreate = () => {
   const [event_id, setEventId] = useState("");
   const [promo_id, setPromoId] = useState("");
   const [name, setName] = useState("");
+  const [lastname, setLastname] = useState("");
   const [gender, setGender] = useState("");
   const [years, setYears] = useState("");
   const [avaliability, setAvaliability] = useState("");
@@ -21,6 +22,7 @@ const MolFormCodersCreate = () => {
   const [phone, setPhone] = useState("");
   const [linkedin, setLinkedin] = useState("");
   const [github, setGithub] = useState("");
+  const [profile, setProfile] = useState("");
   const fileInput = useRef(null);
   const navigate = useNavigate();
 
@@ -32,7 +34,6 @@ const MolFormCodersCreate = () => {
       const workbook = XLSX.read(data, { type: "array" });
       const worksheet = workbook.Sheets[workbook.SheetNames[0]];
       const rows = XLSX.utils.sheet_to_json(worksheet, { header: 1 });
-      // assuming first row is header
       const header = rows[0];
       const rowsData = rows.slice(1).map((row) => {
         return header.reduce((acc, curr, index) => {
@@ -46,6 +47,7 @@ const MolFormCodersCreate = () => {
         formData.append("event_id", parseInt(event_id));
         formData.append("promo_id", parseInt(promo_id));
         formData.append("name", name);
+        formData.append("lastname", lastname);
         formData.append("gender", gender);
         formData.append("years", years);
         formData.append("avaliability", avaliability);
@@ -54,6 +56,7 @@ const MolFormCodersCreate = () => {
         formData.append("phone", phone);
         formData.append("linkedin", linkedin);
         formData.append("github", github);
+        formData.append("profile", profile);
         try {
           const { data } = await createCoders(formData);
           console.log(data);
@@ -70,7 +73,7 @@ const MolFormCodersCreate = () => {
       });
       setTimeout(() => {
         navigate("/regioncreate");
-      }, 2000); // Delay the navigation for 2 seconds (2000 milliseconds)
+      }, 2000);
     };
     reader.readAsArrayBuffer(file);
   };
@@ -86,6 +89,7 @@ const MolFormCodersCreate = () => {
       formData.append("event_id", event_id);
       formData.append("promo_id", promo_id);
       formData.append("name", name);
+      formData.append("lastname", lastname);
       formData.append("gender", gender);
       formData.append("years", years);
       formData.append("avaliability", avaliability);
@@ -94,6 +98,7 @@ const MolFormCodersCreate = () => {
       formData.append("phone", phone);
       formData.append("linkedin", linkedin);
       formData.append("github", github);
+      formData.append("profile", profile);
 
       const { data } = await createCoders(formData);
       console.log(data);
@@ -108,7 +113,7 @@ const MolFormCodersCreate = () => {
 
       setTimeout(() => {
         navigate("/codertable");
-      }, 2000); // Delay the navigation for 2 seconds (2000 milliseconds)
+      }, 2000); 
     } catch (error) {
       console.log(error);
       Swal.fire({
@@ -152,16 +157,17 @@ const MolFormCodersCreate = () => {
                 htmlFor="event"
                 className="block text-sm font-medium leading-6 text-white sm:pt-1.5"
               >
-                Evento
+                Evento <span className="text-orange">*</span>
               </label>
               <div className="mt-2 sm:col-span-2 sm:mt-0">
                 <select
                   name="event_id"
                   id="event_id"
-                  value={event_id} // Cambiar 'regions' por el estado que representa la opción seleccionada
-                  onChange={(event) => setEventId(event.target.value)} // Cambiar 'setRegions' por el método que actualiza el estado de la opción seleccionada
+                  value={event_id} 
+                  onChange={(event) => setEventId(event.target.value)}
                   className="block w-full rounded-md border-0 py-1.5  text-stone6 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
                 >
+                  <option value="">Seleccione un evento</option>
                   {event.map((e) => (
                     <option key={e.id} value={e.id}>
                       {e.name}
@@ -176,16 +182,17 @@ const MolFormCodersCreate = () => {
                 htmlFor="regions"
                 className="block text-sm font-medium leading-6 text-white sm:pt-1.5"
               >
-                Promoción
+                Promoción <span className="text-orange">*</span>
               </label>
               <div className="mt-2 sm:col-span-2 sm:mt-0">
                 <select
                   name="promo_id"
                   id="promo_id"
-                  value={promo_id} // Cambiar 'regions' por el estado que representa la opción seleccionada
-                  onChange={(event) => setPromoId(event.target.value)} // Cambiar 'setRegions' por el método que actualiza el estado de la opción seleccionada
+                  value={promo_id}
+                  onChange={(event) => setPromoId(event.target.value)}
                   className="block w-full rounded-md border-0 py-1.5  text-stone6 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
                 >
+                  <option value="">Seleccione una promoción</option>
                   {promotions.map((e) => (
                     <option key={e.id} value={e.id}>
                       {e.name}
@@ -217,39 +224,68 @@ const MolFormCodersCreate = () => {
 
             <div className="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
               <label
-                htmlFor="gender"
-                className="block text-sm font-medium leading-6  text-white sm:pt-1.5"
+                htmlFor="name"
+                className="block text-sm font-medium leading-6 text-white sm:pt-1.5"
               >
-                Género <span className="text-orange">*</span>
+                Apellidos <span className="text-orange">*</span>
               </label>
-              <div className="mt-2 sm:col-span-2 sm:mt-0">
+              <div className="flex mt-2 sm:col-span-2 sm:mt-0">
                 <input
-                  id="gender"
-                  name="gender"
                   type="text"
-                  value={gender}
-                  onChange={(event) => setGender(event.target.value)}
-                  autoComplete="url"
-                  className="block w-full rounded-md border-0 py-1.5  text-stone6 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-md sm:text-sm sm:leading-6"
+                  name="lastname"
+                  id="lastname"
+                  value={lastname}
+                  onChange={(event) => setLastname(event.target.value)}
+                  autoComplete="Lastname"
+                  className="block w-full mr-10 rounded-md border-0 px-2 py-1.5 text-stone6 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
                 />
               </div>
             </div>
 
             <div className="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
               <label
-                htmlFor="years"
-                className="block text-sm font-medium leading-6  text-white sm:pt-1.5"
+                htmlFor="gender"
+                className="block text-sm font-medium leading-6 text-white sm:pt-1.5"
               >
-                Años <span className="text-orange">*</span>
+                Género <span className="text-orange">*</span>
               </label>
-              <div className="flex mt-2 sm:col-span-2 sm:mt-0">
+              <div className="mt-2 sm:col-span-2 sm:mt-0">
+                <select
+                  name="gender"
+                  id="gender"
+                  value={gender}
+                  onChange={(event) => setGender(event.target.value)}
+                  className="block w-full rounded-md border-0 mr-10 py-1.5 px.2 text-stone6 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
+                >
+                  <option value="">Seleccione una género</option>
+                  <option key={1} value="Mujer">
+                    Mujer
+                  </option>
+                  <option key={2} value="Hombre">
+                    Hombre
+                  </option>
+                  <option key={3} value="Otros">
+                    Otros
+                  </option>
+                </select>
+              </div>
+            </div>
+
+            <div className="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
+              <label
+                htmlFor="years"
+                className="block text-sm font-medium leading-6 text-white sm:pt-1.5"
+              >
+                Años
+              </label>
+              <div className="mt-2 sm:col-span-2 sm:mt-0">
                 <input
                   type="number"
                   name="years"
                   id="years"
                   value={years}
                   onChange={(event) => setYears(event.target.value)}
-                  className="block w-full rounded-md border-0 mr-10 py-1.5 px-2 text-stone6 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xl sm:text-sm sm:leading-6"
+                  className="block w-full rounded-md border-0 mr-10 py-1.5 px.2 text-stone6 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
                 />
               </div>
             </div>
@@ -268,7 +304,7 @@ const MolFormCodersCreate = () => {
                   id="avaliability"
                   value={avaliability}
                   onChange={(event) => setAvaliability(event.target.value)}
-                  className="block w-full rounded-md border-0 mr-10 py-1.5 px-2 text-stone6 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xl sm:text-sm sm:leading-6"
+                  className="block w-full rounded-md border-0 mr-10 py-1.5 px.2 text-stone6 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
                 />
               </div>
             </div>
@@ -287,7 +323,7 @@ const MolFormCodersCreate = () => {
                   id="remote"
                   value={remote}
                   onChange={(event) => setRemote(event.target.value)}
-                  className="block w-full rounded-md border-0 mr-10 py-1.5 px-2 text-stone6 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xl sm:text-sm sm:leading-6"
+                  className="block w-full rounded-md border-0 mr-10 py-1.5 px.2 text-stone6 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
                 />
               </div>
             </div>
@@ -306,7 +342,7 @@ const MolFormCodersCreate = () => {
                   id="email"
                   value={email}
                   onChange={(event) => setEmail(event.target.value)}
-                  className="block w-full rounded-md border-0 mr-10 py-1.5 px-2 text-stone6 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xl sm:text-sm sm:leading-6"
+                  className="block w-full rounded-md border-0 mr-10 py-1.5 px.2 text-stone6 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
                 />
               </div>
             </div>
@@ -325,7 +361,7 @@ const MolFormCodersCreate = () => {
                   id="phone"
                   value={phone}
                   onChange={(event) => setPhone(event.target.value)}
-                  className="block w-full rounded-md border-0 mr-10 py-1.5 px-2 text-stone6 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xl sm:text-sm sm:leading-6"
+                  className="block w-full rounded-md border-0 mr-10 py-1.5 px.2 text-stone6 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
                 />
               </div>
             </div>
@@ -335,7 +371,7 @@ const MolFormCodersCreate = () => {
                 htmlFor="linkedin"
                 className="block text-sm font-medium leading-6  text-white sm:pt-1.5"
               >
-                Linkedin <span className="text-orange">*</span>
+                Linkedin
               </label>
               <div className="flex mt-2 sm:col-span-2 sm:mt-0">
                 <input
@@ -344,7 +380,7 @@ const MolFormCodersCreate = () => {
                   id="linkedin"
                   value={linkedin}
                   onChange={(event) => setLinkedin(event.target.value)}
-                  className="block w-full rounded-md border-0 mr-10 py-1.5 px-2 text-stone6 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xl sm:text-sm sm:leading-6"
+                  className="block w-full rounded-md border-0 mr-10 py-1.5 px.2 text-stone6 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
                 />
               </div>
             </div>
@@ -354,7 +390,7 @@ const MolFormCodersCreate = () => {
                 htmlFor="github"
                 className="block text-sm font-medium leading-6  text-white sm:pt-1.5"
               >
-                GitHub <span className="text-orange">*</span>
+                GitHub
               </label>
               <div className="flex mt-2 sm:col-span-2 sm:mt-0">
                 <input
@@ -363,40 +399,72 @@ const MolFormCodersCreate = () => {
                   id="github"
                   value={github}
                   onChange={(event) => setGithub(event.target.value)}
-                  className="block w-full rounded-md border-0 mr-10 py-1.5 px-2 text-stone6 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xl sm:text-sm sm:leading-6"
+                  className="block w-full rounded-md border-0 mr-10 py-1.5 px.2 text-stone6 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
                 />
               </div>
             </div>
+
+            <div className="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
+              <label
+                htmlFor="priority"
+                className="block text-sm font-medium leading-6 text-white sm:pt-1.5"
+              >
+                Perfil de desarollador/a <span className="text-orange">*</span>
+              </label>
+              <div className="mt-2 sm:col-span-2 sm:mt-0">
+                <select
+                  name="profile"
+                  id="profile"
+                  value={profile}
+                  onChange={(event) => setProfile(event.target.value)}
+                  className="block w-full rounded-md border-0 py-1.5  text-stone6 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
+                >
+                  <option value="">Seleccione una perfil</option>
+                  <option key={1} value="FullStack">
+                    FullStack
+                  </option>
+                  <option key={2} value="Frontend">
+                    Frontend
+                  </option>
+                  <option key={3} value="Backend">
+                    Backend
+                  </option>
+                </select>
+              </div>
+            </div>
           </div>
-          <button
-            type="submit"
-            className="text-sm text-white my-10 mx-10 px-12 py-3.5 rounded-xl bg-gradient-to-r from-orangel to-orange hover:from-verde hover:to-verdel ..."
-          >
-            Añadir coder
-          </button>
-          <button
-            className="text-sm text-white my-10 mx-10 px-12 py-3.5 rounded-xl bg-gradient-to-r from-orangel to-orange hover:from-verde hover:to-verdel ..."
-            type="button"
-          >
-            <a href="/codertable">Ver Coders</a>
-          </button>
-          <button
-            htmlFor="excel"
-            className="text-sm text-white my-10 mx-10 px-12 py-3.5 rounded-xl bg-gradient-to-r from-orangel to-orange hover:from-verde hover:to-verdel ..."
-            type="button"
-            onClick={handleClick}
-          >
-            Seleccionar excel
-            <input
-              type="file"
-              id="excel"
-              name="excel"
-              onChange={handleExcelUpload}
-              accept=".xlsx"
-              ref={fileInput}
-              style={{ display: "none" }}
-            />
-          </button>
+
+          <div className="flex justify-center">
+            <button
+              type="submit"
+              className="text-sm text-white my-10 mx-10 px-12 py-3.5 rounded-xl bg-gradient-to-r from-orangel to-orange hover:from-verde hover:to-verdel ..."
+            >
+              Añadir coder
+            </button>
+            <button
+              className="text-sm text-white my-10 mx-10 px-12 py-3.5 rounded-xl bg-gradient-to-r from-orangel to-orange hover:from-verde hover:to-verdel ..."
+              type="button"
+            >
+              <a href="/codertable">Ver Coders</a>
+            </button>
+            <button
+              htmlFor="excel"
+              className="text-sm text-white my-10 mx-10 px-12 py-3.5 rounded-xl bg-gradient-to-r from-orangel to-orange hover:from-verde hover:to-verdel ..."
+              type="button"
+              onClick={handleClick}
+            >
+              Seleccionar excel
+              <input
+                type="file"
+                id="excel"
+                name="excel"
+                onChange={handleExcelUpload}
+                accept=".xlsx"
+                ref={fileInput}
+                style={{ display: "none" }}
+              />
+            </button>
+          </div>
         </form>
       </div>
     </>

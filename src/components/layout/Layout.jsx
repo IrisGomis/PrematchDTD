@@ -10,11 +10,11 @@ function Layout({ children }) {
           <Drawer />
         </div>
         <div>
-          <div className="w-full h-20 flex justify-end">
+          <div className="w-screen h-20 flex justify-end">
             <AtomHour />
             <AtomLogin />
           </div>
-          <div className="w-full mr-10">{children}</div>
+          <div className="w-screen">{children}</div>
         </div>
       </div>
     </>

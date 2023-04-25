@@ -4,9 +4,6 @@ import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import MolMenuAdmin from '../mol-regions/MolMenuAdmin';
 
-
-
-
 export default function MolTableProvincesShowDelete() {
   
   const checkbox = useRef();
