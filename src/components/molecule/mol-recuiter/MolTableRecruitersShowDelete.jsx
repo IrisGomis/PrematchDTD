@@ -144,23 +144,35 @@ export default function MolTableRecruitersShowDelete() {
                       Nombre
                     </th>
                     <th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
+                     Apellidos
+                    </th>
+                    <th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
                      Cargo
-                    </th>
-                    <th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
-                    Linkedin
-                    </th>
-                    <th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
-                      Email
                     </th>
                     <th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
                       Teléfono
                     </th>
                     <th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
+                      Email
+                    </th>
+                    <th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
+                      Primer entrevista
+                    </th>
+                    <th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
+                      Última entrevistas
+                    </th>
+                    <th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
                       Remoto
                     </th>
                     <th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
-                      Nº entrevistas
+                    Linkedin
                     </th>
+                    <th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
+                    Preferencia género
+                    </th>
+                   
+                   
+                   
                     <th scope="col" className="relative py-3.5 pl-3 pr-4 sm:pr-3">
                       <span className="sr-only">Editar</span>
                     </th>
@@ -199,20 +211,28 @@ export default function MolTableRecruitersShowDelete() {
                       {/* <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{e.name}</td> */}
                       <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
                       {company ? company.name : '-'}</td>
-                      <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                        <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
                         {e.name}</td>
-                      <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                        <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                        {e.lastname}</td>
+                        <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
                         {e.charge}</td>
-                      <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                        {e.linkedin}</td>
-                      <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                        {e.email}</td>
-                      <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                        <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
                         {e.phone}</td>
-                      <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                        <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                        {e.email}</td>
+                        <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                        {e.first_interview}</td>
+                        <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                        {e.last_interview}</td>
+                        <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
                         {e.remote}</td>
-                      <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                        {e.interviews_quantity}</td>
+                        <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                        {e.linkedin}</td>
+                      
+                     
+                      
+                      
                       <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                         <Link
                           to={`/recruitersedit/${e.id}`}

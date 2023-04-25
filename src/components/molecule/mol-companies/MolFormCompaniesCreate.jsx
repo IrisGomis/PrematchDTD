@@ -25,7 +25,7 @@ const MolFormCompaniesCreate = () => {
       const workbook = XLSX.read(data, { type: "array" });
       const worksheet = workbook.Sheets[workbook.SheetNames[0]];
       const rows = XLSX.utils.sheet_to_json(worksheet, { header: 1 });
-      // assuming first row is header
+      
       const header = rows[0];
       const rowsData = rows.slice(1).map((row) => {
         return header.reduce((acc, curr, index) => {
@@ -33,13 +33,12 @@ const MolFormCompaniesCreate = () => {
           return acc;
         }, {});
       });
-      // Assuming column names in excel are: name, lat, long, iso
+      
       rowsData.forEach(async (rowData) => {
         const formData = new FormData();
         formData.append("name", rowData.name);
         formData.append("ubication", rowData.ubication);
         formData.append("email", toString(rowData.email))
-        // formData.append("email", rowData.email ? rowData.email.toString() : "");
         formData.append("phone", rowData.phone);
         formData.append("priority", rowData.priority);
         formData.append("province_id", parseInt(rowData.province_id));
@@ -60,7 +59,7 @@ const MolFormCompaniesCreate = () => {
       });
       setTimeout(() => {
         navigate("/companiestable");
-      }, 2000); // Delay the navigation for 2 seconds (2000 milliseconds)
+      }, 2000); 
     };
     reader.readAsArrayBuffer(file);
   };
@@ -256,7 +255,9 @@ const MolFormCompaniesCreate = () => {
                   </option>
                 </select>
               </div>
+
             </div>
+            
           </div>
           <div>
             <button

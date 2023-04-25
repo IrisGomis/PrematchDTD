@@ -13,12 +13,15 @@ const MolFormRecruitersCreate = () => {
   const [event_id, setEventId] = useState("");
   const [company_id, setCompanyId] = useState("");
   const [name, setName] = useState("");
+  const [lastname, setlastname] = useState("");
   const [charge, setCharge] = useState("");
-  const [interviews_quantity, setInterviews_quantity] = useState("");
+  const [first_interview, setFirst_interview] = useState("");
+  const [last_interview, setLast_interview] = useState("");
   const [remote, setRemote] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [linkedin, setLinkedin] = useState("");
+  const [gender, setGender] = useState("");
   const fileInput = useRef(null);
   const navigate = useNavigate();
 
@@ -30,7 +33,7 @@ const MolFormRecruitersCreate = () => {
       const workbook = XLSX.read(data, { type: "array" });
       const worksheet = workbook.Sheets[workbook.SheetNames[0]];
       const rows = XLSX.utils.sheet_to_json(worksheet, { header: 1 });
-      // assuming first row is header
+      
       const header = rows[0];
       const rowsData = rows.slice(1).map((row) => {
         return header.reduce((acc, curr, index) => {
@@ -38,18 +41,21 @@ const MolFormRecruitersCreate = () => {
           return acc;
         }, {});
       });
-      // Assuming column names in excel are: name, lat, long, iso
+      
       rowsData.forEach(async (rowData) => {
         const formData = new FormData();
         formData.append("event_id", Number.isInteger(event_id));
         formData.append("company_id", Number.isInteger(company_id));
         formData.append("name", name);
+        formData.append("lastname", lastname);
         formData.append("charge", charge);
-        formData.append("interviews_quantity", interviews_quantity);
+        formData.append("first_interview", first_interview);
+        formData.append("last_interview", last_interview);
         formData.append("remote", remote);
         formData.append("email", rowData.email ? rowData.email.toString() : "");
         formData.append("phone", phone);
         formData.append("linkedin", linkedin);
+        formData.append("gender", gender);
         try {
           const { data } = await createRecruiters(formData);
           console.log(data);
@@ -66,7 +72,7 @@ const MolFormRecruitersCreate = () => {
       });
       setTimeout(() => {
         navigate("/recruiterstable");
-      }, 2000); // Delay the navigation for 2 seconds (2000 milliseconds)
+      }, 2000);
     };
     reader.readAsArrayBuffer(file);
   };
@@ -82,12 +88,15 @@ const MolFormRecruitersCreate = () => {
       formData.append("event_id", event_id);
       formData.append("company_id", company_id);
       formData.append("name", name);
+      formData.append("lastname", lastname);
       formData.append("charge", charge);
-      formData.append("interviews_quantity", interviews_quantity);
+      formData.append("first_interview", first_interview);
+      formData.append("last_interview", last_interview);
       formData.append("remote", remote);
       formData.append("email", email);
       formData.append("phone", phone);
       formData.append("linkedin", linkedin);
+      formData.append("gender", gender);
 
       const { data } = await createRecruiters(formData);
       console.log(data);
@@ -102,7 +111,7 @@ const MolFormRecruitersCreate = () => {
 
       setTimeout(() => {
         navigate("/recruiterstable");
-      }, 2000); // Delay the navigation for 2 seconds (2000 milliseconds)
+      }, 2000); 
     } catch (error) {
       console.log(error);
       Swal.fire({
@@ -152,10 +161,11 @@ const MolFormRecruitersCreate = () => {
                 <select
                   name="event_id"
                   id="event_id"
-                  value={event_id} // Cambiar 'regions' por el estado que representa la opción seleccionada
-                  onChange={(event) => setEventId(event.target.value)} // Cambiar 'setRegions' por el método que actualiza el estado de la opción seleccionada
+                  value={event_id} 
+                  onChange={(event) => setEventId(event.target.value)}
                   className="block w-full rounded-md border-0 py-1.5  text-stone6 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
                 >
+                  <option value="">Selecciona un evento</option>
                   {event.map((e) => (
                     <option key={e.id} value={e.id}>
                       {e.name}
@@ -176,10 +186,11 @@ const MolFormRecruitersCreate = () => {
                 <select
                   name="company_id"
                   id="company_id"
-                  value={company_id} // Cambiar 'regions' por el estado que representa la opción seleccionada
-                  onChange={(event) => setCompanyId(event.target.value)} // Cambiar 'setRegions' por el método que actualiza el estado de la opción seleccionada
+                  value={company_id} 
+                  onChange={(event) => setCompanyId(event.target.value)}
                   className="block w-full rounded-md border-0 py-1.5  text-stone6 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
                 >
+                  <option value="">Selecciona una empresa</option>
                   {Companies.map((e) => (
                     <option key={e.id} value={e.id}>
                       {e.name}
@@ -211,38 +222,20 @@ const MolFormRecruitersCreate = () => {
 
             <div className="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
               <label
-                htmlFor="charge"
-                className="block text-sm font-medium leading-6  text-white sm:pt-1.5"
+                htmlFor="name"
+                className="block text-sm font-medium leading-6 text-white sm:pt-1.5"
               >
-                Cargo <span className="text-orange">*</span>
+                Apellidos <span className="text-orange">*</span>
               </label>
               <div className="flex mt-2 sm:col-span-2 sm:mt-0">
                 <input
                   type="text"
-                  name="charge"
-                  id="charge"
-                  value={charge}
-                  onChange={(event) => setCharge(event.target.value)}
-                  className="block w-full rounded-md border-0 mr-10 py-1.5 px-2 text-stone6 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xl sm:text-sm sm:leading-6"
-                />
-              </div>
-            </div>
-
-            <div className="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
-              <label
-                htmlFor="linkedin"
-                className="block text-sm font-medium leading-6  text-white sm:pt-1.5"
-              >
-                Linkedin
-              </label>
-              <div className="flex mt-2 sm:col-span-2 sm:mt-0">
-                <input
-                  type="text"
-                  name="linkedin"
-                  id="linkedin"
-                  value={linkedin}
-                  onChange={(event) => setLinkedin(event.target.value)}
-                  className="block w-full rounded-md border-0 mr-10 py-1.5 px-2 text-stone6 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xl sm:text-sm sm:leading-6"
+                  name="name"
+                  id="name"
+                  value={lastname}
+                  onChange={(event) => setlastname(event.target.value)}
+                  autoComplete="Name"
+                  className="block w-full mr-10 rounded-md border-0 px-2 py-1.5 text-stone6 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
                 />
               </div>
             </div>
@@ -304,27 +297,124 @@ const MolFormRecruitersCreate = () => {
               </div>
             </div>
 
+            
             <div className="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
               <label
-                htmlFor="interviews_quantity"
+                htmlFor="charge"
                 className="block text-sm font-medium leading-6  text-white sm:pt-1.5"
               >
-                Nº entrevistas <span className="text-orange">*</span>
+                Cargo
               </label>
               <div className="flex mt-2 sm:col-span-2 sm:mt-0">
                 <input
                   type="text"
-                  name="interviews_quantity"
-                  id="interviews_quantity"
-                  value={interviews_quantity}
+                  name="charge"
+                  id="charge"
+                  value={charge}
+                  onChange={(event) => setCharge(event.target.value)}
+                  className="block w-full rounded-md border-0 mr-10 py-1.5 px-2 text-stone6 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xl sm:text-sm sm:leading-6"
+                />
+              </div>
+            </div>
+
+            <div className="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
+              <label
+                htmlFor="linkedin"
+                className="block text-sm font-medium leading-6  text-white sm:pt-1.5"
+              >
+                Linkedin
+              </label>
+              <div className="flex mt-2 sm:col-span-2 sm:mt-0">
+                <input
+                  type="text"
+                  name="linkedin"
+                  id="linkedin"
+                  value={linkedin}
+                  onChange={(event) => setLinkedin(event.target.value)}
+                  className="block w-full rounded-md border-0 mr-10 py-1.5 px-2 text-stone6 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xl sm:text-sm sm:leading-6"
+                />
+              </div>
+            </div>
+            
+            <div className="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
+              <label
+                htmlFor="gender"
+                className="block text-sm font-medium leading-6 text-white sm:pt-1.5"
+              >
+                 Preferencias género
+              </label>
+              <div className="mt-2 sm:col-span-2 sm:mt-0">
+
+                <select
+                   type="text"
+                   name="gender"
+                   id="gender"
+                   value={gender}
+                   onChange={(event) => setGender(event.target.value)}
+                  className="block w-full rounded-md border-0 py-1.5  text-stone6 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
+                >
+                  <option>Seleciona una opción</option>
+                  <option key={1} value="Mujer">
+                    Mujer
+                  </option>
+                  <option key={2} value="Hombre">
+                    Hombre
+                  </option>
+                  <option key={3} value="Otros">
+                    Otros
+                  </option>
+                </select>
+              </div>
+
+            </div>
+
+
+            <div className="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
+              <label
+                htmlFor="first_interview"
+                className="block text-sm font-medium leading-6  text-white sm:pt-1.5"
+              >
+                Primer entrevista 
+              </label>
+              <div className="flex mt-2 sm:col-span-2 sm:mt-0">
+                <input
+                  type="text"
+                  name="first_interview"
+                  id="first_interview"
+                  value={first_interview}
                   onChange={(event) =>
-                    setInterviews_quantity(event.target.value)
+                    setFirst_interview(event.target.value)
                   }
                   className="block w-full rounded-md border-0 mr-10 py-1.5 px-2 text-stone6 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xl sm:text-sm sm:leading-6"
                 />
               </div>
             </div>
+
+            <div className="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
+              <label
+                htmlFor="last_interview"
+                className="block text-sm font-medium leading-6  text-white sm:pt-1.5"
+              >
+                Ultima entrevista 
+              </label>
+              <div className="flex mt-2 sm:col-span-2 sm:mt-0">
+                <input
+                  type="text"
+                  name="last_interview"
+                  id="last_interview"
+                  value={last_interview}
+                  onChange={(event) =>
+                    setLast_interview(event.target.value)
+                  }
+                  className="block w-full rounded-md border-0 mr-10 py-1.5 px-2 text-stone6 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xl sm:text-sm sm:leading-6"
+                />
+              </div>
+            </div>
+
           </div>
+
+          
+          <div className="flex justify-center">
           <button
             type="submit"
             className="text-sm text-white my-10 mx-10 px-12 py-3.5 rounded-xl bg-gradient-to-r from-orangel to-orange hover:from-verde hover:to-verdel ..."
@@ -354,6 +444,7 @@ const MolFormRecruitersCreate = () => {
               style={{ display: "none" }}
             />
           </button>
+          </div>
         </form>
       </div>
     </>
