@@ -24,7 +24,6 @@ const MolFormProvincesCreate = () => {
       const workbook = XLSX.read(data, { type: "array" });
       const worksheet = workbook.Sheets[workbook.SheetNames[0]];
       const rows = XLSX.utils.sheet_to_json(worksheet, { header: 1 });
-      // assuming first row is header
       const header = rows[0];
       const rowsData = rows.slice(1).map((row) => {
         return header.reduce((acc, curr, index) => {
@@ -32,7 +31,6 @@ const MolFormProvincesCreate = () => {
           return acc;
         }, {});
       });
-      // Assuming column names in excel are: name, lat, long, iso
       rowsData.forEach(async (rowData) => {
         const formData = new FormData();
         formData.append("region_id", parseInt(region_id));
@@ -56,7 +54,7 @@ const MolFormProvincesCreate = () => {
       });
       setTimeout(() => {
         navigate("/provincecreate");
-      }, 2000); // Delay the navigation for 2 seconds (2000 milliseconds)
+      }, 2000);
     };
     reader.readAsArrayBuffer(file);
   };
@@ -86,7 +84,7 @@ const MolFormProvincesCreate = () => {
       });
       setTimeout(() => {
         navigate("/provincetable");
-      }, 2000); // Delay the navigation for 2 seconds (2000 milliseconds)
+      }, 2000);
     } catch (error) {
       console.log(error);
       Swal.fire({
@@ -128,9 +126,9 @@ const MolFormProvincesCreate = () => {
                 <select
                   name="region_id"
                   id="region_id"
-                  value={region_id} // Cambiar 'regions' por el estado que representa la opción seleccionada
-                  onChange={(event) => setRegion_id(event.target.value)} // Cambiar 'setRegions' por el método que actualiza el estado de la opción seleccionada
-                  placeholder="Inserte nombre de la CCAA."
+                  value={region_id} 
+                  onChange={(event) => setRegion_id(event.target.value)} 
+                                    placeholder="Inserte nombre de la CCAA."
                   className="block w-full rounded-md border-0 py-1.5  text-stone6 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
                 >
                   {regions.map((e) => (
@@ -224,6 +222,7 @@ const MolFormProvincesCreate = () => {
               </div>
             </div>
           </div>
+          <div className="flex justify-center">
           <button
             type="submit"
             className="text-sm text-white my-10 mx-10 px-12 py-3.5 rounded-xl bg-gradient-to-r from-orangel to-orange hover:from-verde hover:to-verdel ..."
@@ -253,6 +252,7 @@ const MolFormProvincesCreate = () => {
               style={{ display: "none" }}
             />
           </button>
+          </div>
         </form>
       </div>
     </>

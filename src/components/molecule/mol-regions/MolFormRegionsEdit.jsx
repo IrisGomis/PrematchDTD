@@ -61,7 +61,7 @@ const MolFormRegionsEdit = ({ event }) => {
       });
       setTimeout(() => {
         navigate("/regiontable");
-      }, 2000); // Delay the navigation for 2 seconds (2000 milliseconds)
+      }, 2000);
     } catch (error) {
       console.log(error);
       Swal.fire({
@@ -162,7 +162,7 @@ const MolFormRegionsEdit = ({ event }) => {
             </div>
 
           </div>
-
+          <div className="flex justify-center">
           <button
             type="submit"
             className="text-sm my-10 px-24 py-3.5 rounded-xl bg-gradient-to-r from-orange to-orangel hover:from-verde hover:to-verdel ..."
@@ -175,6 +175,7 @@ const MolFormRegionsEdit = ({ event }) => {
           >
             <a href="/regiontable">Ver CC AA</a>
           </button>
+          </div>
         </form>
         
       </div>

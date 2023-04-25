@@ -54,7 +54,7 @@ const MolFormEventCreate = () => {
       });
       setTimeout(() => {
         navigate("/");
-      }, 2000); // Delay the navigation for 2 seconds (2000 milliseconds)
+      }, 2000);
     };
     reader.readAsArrayBuffer(file);
   };
@@ -84,7 +84,7 @@ const MolFormEventCreate = () => {
       });
       setTimeout(() => {
         navigate("/");
-      }, 2000); // Delay the navigation for 2 seconds (2000 milliseconds)
+      }, 2000);
     } catch (error) {
       console.log(error);
       Swal.fire({
@@ -197,6 +197,7 @@ const MolFormEventCreate = () => {
               </div>
             </div>
           </div>
+          <div className="flex justify-center">
           <button
             type="submit"
             className="text-sm text-white my-10 mx-10 px-12 py-3.5 rounded-xl bg-gradient-to-r from-orangel to-orange hover:from-verde hover:to-verdel ..."
@@ -226,6 +227,7 @@ const MolFormEventCreate = () => {
               style={{ display: "none" }}
             />
           </button>
+         </div> 
         </form>
       </div>
     </>

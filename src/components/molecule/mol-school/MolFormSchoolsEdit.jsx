@@ -61,7 +61,7 @@ const MolFormSchoolsEdit = ({ event }) => {
       });
       setTimeout(() => {
         navigate("/schoolstable");
-      }, 2000); // Delay the navigation for 2 seconds (2000 milliseconds)
+      }, 2000);
     } catch (error) {
       console.log(error);
       Swal.fire({
@@ -103,8 +103,8 @@ const MolFormSchoolsEdit = ({ event }) => {
                 type="text"
                 name="province_id"
                 id="province_id"
-                value={province_id} // Cambiar 'regions' por el estado que representa la opción seleccionada
-                onChange={(event) => setProvince_id(event.target.value)} // Cambiar 'setRegions' por el método que actualiza el estado de la opción seleccionada
+                value={province_id}
+                onChange={(event) => setProvince_id(event.target.value)}
                 className="block w-full rounded-md border-0 py-1.5  text-stone6 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
               >
                 {provinces.map((e) => (
@@ -173,7 +173,7 @@ const MolFormSchoolsEdit = ({ event }) => {
               </div>
             </div>
           </div>
-
+          <div className="flex justify-center">
           <button
             type="submit"
             className="text-sm my-10 px-24 py-3.5 rounded-xl bg-gradient-to-r from-orange to-orangel hover:from-verde hover:to-verdel ..."
@@ -186,6 +186,7 @@ const MolFormSchoolsEdit = ({ event }) => {
           >
             <a href="/schoolstable">Ver Escuela</a>
           </button>
+          </div>
         </form>
       </div>
     </>

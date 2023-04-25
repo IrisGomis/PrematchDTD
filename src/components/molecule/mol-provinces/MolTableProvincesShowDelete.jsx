@@ -4,9 +4,6 @@ import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import MolMenuAdmin from '../mol-regions/MolMenuAdmin';
 
-
-
-
 export default function MolTableProvincesShowDelete() {
   
   const checkbox = useRef();
@@ -56,19 +53,15 @@ export default function MolTableProvincesShowDelete() {
       return;
     }
 
-    // Create an array of promises to delete each selected Provinces
     const deletePromises = selectedProvinces.map((provinces) =>
       deleteProvinces(provinces.id)
     );
 
-    // Delete all Provincess in parallel
     Promise.all(deletePromises)
       .then((provinces) => {
         console.log("Provinces deleted successfully!");
-        // Remove all deleted Provincess from the Provinces state
         const deletedIds = selectedProvinces.map((provinces) => provinces.id);
         setProvinces(provinces.filter((e) => !deletedIds.includes(e.id)));
-        // Clear the selectedProvinces state
         setSelectedProvinces([]);
         setChecked(false);
         setIndeterminate(false);

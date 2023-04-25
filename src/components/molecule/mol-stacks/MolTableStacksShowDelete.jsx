@@ -4,7 +4,6 @@ import { Link } from "react-router-dom";
 import MolMenuAdmin from "../mol-regions/MolMenuAdmin";
 
 
-
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
 }
@@ -49,19 +48,15 @@ export default function MolTableStacksShowDelete() {
       return;
     }
 
-    // Create an array of promises to delete each selected Stacks
     const deletePromises = selectedStacks.map((Stacks) =>
       deleteStacks(Stacks.id)
     );
 
-    // Delete all Stackss in parallel
     Promise.all(deletePromises)
       .then((responses) => {
         console.log("Stackss deleted successfully!");
-        // Remove all deleted Stackss from the Stacks state
         const deletedIds = selectedStacks.map((stacks) => stacks.id);
         setStacks(stacks.filter((e) => !deletedIds.includes(e.id)));
-        // Clear the selectedStacks state
         setSelectedStacks([]);
         setChecked(false);
         setIndeterminate(false);

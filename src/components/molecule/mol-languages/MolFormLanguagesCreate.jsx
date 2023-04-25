@@ -26,7 +26,6 @@ export default function MolFormLanguagesCreate() {
           return acc;
         }, {});
       });
-      // Assuming column names in excel are: name, lat, long, iso
       rowsData.forEach(async (rowData) => {
         const formData = new FormData();
         formData.append("name", rowData.name);
@@ -46,7 +45,7 @@ export default function MolFormLanguagesCreate() {
       });
       setTimeout(() => {
         navigate("/languagestable");
-      }, 2000); // Delay the navigation for 2 seconds (2000 milliseconds)
+      }, 2000);
     };
     reader.readAsArrayBuffer(file);
   };
@@ -68,7 +67,7 @@ export default function MolFormLanguagesCreate() {
       });
       setTimeout(() => {
         navigate("/languagestable");
-      }, 2000); // Delay the navigation for 2 seconds (2000 milliseconds)
+      }, 2000);
     } catch (error) {
       console.log(error);
       Swal.fire({
@@ -116,7 +115,7 @@ export default function MolFormLanguagesCreate() {
               </div>
             </div>
           </div>
-          <div>
+          <div className="flex justify-center">
             <button
               type="submit"
               className="text-sm text-white my-10 mx-10 px-12 py-3.5 rounded-xl bg-gradient-to-r from-orangel to-orange hover:from-verde hover:to-verdel ..."

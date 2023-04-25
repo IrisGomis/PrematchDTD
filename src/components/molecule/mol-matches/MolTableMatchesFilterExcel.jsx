@@ -106,7 +106,7 @@ const MolTableMatchesFilterExcel = () => {
       });
       setTimeout(() => {
         navigate("/match");
-      }, 2000); // Delay the navigation for 2 seconds (2000 milliseconds)
+      }, 2000);
     } catch (error) {
       console.log(error);
       Swal.fire({

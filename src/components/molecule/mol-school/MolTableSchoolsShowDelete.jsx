@@ -53,19 +53,15 @@ export default function MolTableSchoolsShowDelete() {
       return;
     }
 
-    // Create an array of promises to delete each selected Schools
     const deletePromises = selectedSchools.map((schools) =>
       deleteSchools(schools.id)
     );
 
-    // Delete all Schoolss in parallel
     Promise.all(deletePromises)
       .then((responses) => {
         console.log("Schools deleted successfully!");
-        // Remove all deleted Schoolss from the Schools state
         const deletedIds = selectedSchools.map((schools) => schools.id);
         setSchools(schools.filter((e) => !deletedIds.includes(e.id)));
-        // Clear the selectedSchools state
         setSelectedSchools([]);
         setChecked(false);
         setIndeterminate(false);

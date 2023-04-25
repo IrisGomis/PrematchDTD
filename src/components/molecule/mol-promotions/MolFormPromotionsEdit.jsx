@@ -69,7 +69,7 @@ const MolFormPromotionsEdit = ({ event }) => {
       });
       setTimeout(() => {
         navigate("/promotionstable");
-      }, 2000); // Delay the navigation for 2 seconds (2000 milliseconds)
+      }, 2000);
     } catch (error) {
       console.log(error);
       Swal.fire({
@@ -132,8 +132,8 @@ const MolFormPromotionsEdit = ({ event }) => {
                 type="text"
                 name="school_id"
                 id="school_id"
-                value={school_id} // Cambiar 'regions' por el estado que representa la opción seleccionada
-                onChange={(event) => setSchool_id(event.target.value)} // Cambiar 'setRegions' por el método que actualiza el estado de la opción seleccionada
+                value={school_id}
+                onChange={(event) => setSchool_id(event.target.value)}
                 className="block w-full rounded-md border-0 py-1.5  text-stone6 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
               >
                 {schools.map((e) => (
@@ -187,6 +187,7 @@ const MolFormPromotionsEdit = ({ event }) => {
             </div>
 
           </div>
+          <div className="flex justify-center">
           <button
             type="submit"
             className="text-sm my-10 px-24 py-3.5 rounded-xl bg-gradient-to-r from-orange to-orangel hover:from-verde hover:to-verdel ..."
@@ -199,6 +200,7 @@ const MolFormPromotionsEdit = ({ event }) => {
           >
             <a href="/promotionstable">Ver promociones</a>
           </button>
+         </div> 
         </form>
       </div>
     </>

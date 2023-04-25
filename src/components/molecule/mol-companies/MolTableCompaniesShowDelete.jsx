@@ -60,19 +60,15 @@ export default function MolTableCompaniesShowDelete() {
       return;
     }
 
-    // Create an array of promises to delete each selected e
     const deletePromises = selectedCompanies.map((event) =>
       deleteCompanies(event.id)
     );
 
-    // Delete all companiess in parallel
     Promise.all(deletePromises)
       .then((responses) => {
         console.log("Companies deleted successfully!");
-        // Remove all deleted companies from the e state
         const deletedIds = selectedCompanies.map((event) => event.id);
         setCompanies(companies.filter((e) => !deletedIds.includes(e.id)));
-        // Clear the selectedCompanies state
         setSelectedCompanies([]);
         setChecked(false);
         setIndeterminate(false);

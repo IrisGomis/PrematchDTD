@@ -7,8 +7,6 @@ import { Link } from "react-router-dom";
 import { getSchools } from "../../../service/SchoolsService";
 import MenuSchool from "../mol-school/MenuSchools";
 
-
-
 export default function MolTablePromotionsShowDelete() {
   const checkbox = useRef();
   const [checked, setChecked] = useState(false);
@@ -61,14 +59,11 @@ const deletePromises = selectedPromotions.map((promotion) =>
 deletePromotions(promotion.id)
 );
 
-// Delete all Promotionss in parallel
 Promise.all(deletePromises)
 .then((promotion) => {
   console.log("Promotions deleted successfully!");
-  // Remove all deleted Promotionss from the Promotions state
   const deletedIds = selectedPromotions.map((promotion) => promotion.id);
   deletePromotions(promotions.filter((e) => !deletedIds.includes(e.id)));
-  // Clear the selectedPromotions state
   setSelectedPromotions([]);
   setChecked(false);
   setIndeterminate(false);

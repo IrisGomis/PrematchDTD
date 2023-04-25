@@ -48,19 +48,15 @@ export default function MolTableRegionsShowDelete() {
       return;
     }
 
-    // Create an array of promises to delete each selected Regions
     const deletePromises = selectedRegions.map((Regions) =>
       deleteRegions(Regions.id)
     );
 
-    // Delete all Regionss in parallel
     Promise.all(deletePromises)
       .then((responses) => {
         console.log("Regions deleted successfully!");
-        // Remove all deleted Regionss from the Regions state
         const deletedIds = selectedRegions.map((Regions) => Regions.id);
         setRegions(Regions.filter((e) => !deletedIds.includes(e.id)));
-        // Clear the selectedRegions state
         setSelectedRegions([]);
         setChecked(false);
         setIndeterminate(false);
@@ -159,7 +155,6 @@ export default function MolTableRegionsShowDelete() {
                       >
                         {e.name}
                       </td>
-                      {/* <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{e.name}</td> */}
                       <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{e.lat}</td>
                       <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{e.long}</td>
                       <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{e.iso}</td>

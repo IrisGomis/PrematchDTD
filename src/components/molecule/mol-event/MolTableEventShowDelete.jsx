@@ -47,19 +47,15 @@ export default function MolTableEventShowDelete() {
       return;
     }
 
-    // Create an array of promises to delete each selected event
     const deletePromises = selectedEvent.map((event) =>
       deleteEvento(event.id)
     );
 
-    // Delete all events in parallel
     Promise.all(deletePromises)
       .then((responses) => {
         console.log("Events deleted successfully!");
-        // Remove all deleted events from the event state
         const deletedIds = selectedEvent.map((event) => event.id);
         setEvent(event.filter((e) => !deletedIds.includes(e.id)));
-        // Clear the selectedEvent state
         setSelectedEvent([]);
         setChecked(false);
         setIndeterminate(false);
@@ -161,7 +157,6 @@ export default function MolTableEventShowDelete() {
                       >
                         {e.name}
                       </td>
-                      {/* <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{e.name}</td> */}
                       <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{e.date}</td>
                       <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{e.url}</td>
                       <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{e.max}</td>

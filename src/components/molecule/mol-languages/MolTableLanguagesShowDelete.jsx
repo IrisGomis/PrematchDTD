@@ -48,19 +48,15 @@ export default function MolTableLanguagesShowDelete() {
       return;
     }
 
-    // Create an array of promises to delete each selected Languages
     const deletePromises = selectedLanguages.map((Languages) =>
       deleteLanguages(Languages.id)
     );
 
-    // Delete all Languages in parallel
     Promise.all(deletePromises)
       .then((responses) => {
         console.log("Languages deleted successfully!");
-        // Remove all deleted Languages from the Languages state
         const deletedIds = selectedLanguages.map((Languages) => Languages.id);
         setLanguages(Languages.filter((e) => !deletedIds.includes(e.id)));
-        // Clear the selectedLanguages state
         setSelectedLanguages([]);
         setChecked(false);
         setIndeterminate(false);
@@ -150,7 +146,6 @@ export default function MolTableLanguagesShowDelete() {
                       >
                         {e.name}
                       </td>
-                      {/* <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{e.name}</td> */}
                       <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{e.date}</td>
                       <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{e.url}</td>
                       <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{e.max}</td>

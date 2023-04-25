@@ -21,7 +21,6 @@ const MolFormRegionsCreate = () => {
       const workbook = XLSX.read(data, { type: "array" });
       const worksheet = workbook.Sheets[workbook.SheetNames[0]];
       const rows = XLSX.utils.sheet_to_json(worksheet, { header: 1 });
-      // assuming first row is header
       const header = rows[0];
       const rowsData = rows.slice(1).map((row) => {
         return header.reduce((acc, curr, index) => {
@@ -29,7 +28,6 @@ const MolFormRegionsCreate = () => {
           return acc;
         }, {});
       });
-      // Assuming column names in excel are: name, lat, long, iso
       rowsData.forEach(async (rowData) => {
         const formData = new FormData();
         formData.append("name", name);
@@ -52,7 +50,7 @@ const MolFormRegionsCreate = () => {
       });
       setTimeout(() => {
         navigate("/regiontable");
-      }, 2000); // Delay the navigation for 2 seconds (2000 milliseconds)
+      }, 2000);
     };
     reader.readAsArrayBuffer(file);
   };
@@ -81,7 +79,7 @@ const MolFormRegionsCreate = () => {
       });
       setTimeout(() => {
         navigate("/regiontable");
-      }, 2000); // Delay the navigation for 2 seconds (2000 milliseconds)
+      }, 2000); 
     } catch (error) {
       console.log(error);
       Swal.fire({
@@ -186,7 +184,7 @@ const MolFormRegionsCreate = () => {
               </div>
             </div>
           </div>
-          <div>
+          <div className="flex justify-center">
             <button
               type="submit"
               className="text-sm text-white my-10 mx-10 px-12 py-3.5 rounded-xl bg-gradient-to-r from-orangel to-orange hover:from-verde hover:to-verdel ..."

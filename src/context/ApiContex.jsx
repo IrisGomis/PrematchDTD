@@ -4,7 +4,7 @@ import React, { createContext, useState, useEffect } from "react";
 export const ApiContext = createContext();
 
 export const Provider = ({ children }) => {
-  const [apiData, setApiData] = useState(null) // Data original
+  const [apiData, setApiData] = useState(null)
 
   useEffect(() => {
     async function fetchData() {
