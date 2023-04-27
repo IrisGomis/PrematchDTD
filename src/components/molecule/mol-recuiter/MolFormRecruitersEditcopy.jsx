@@ -155,6 +155,18 @@ const MolFormRecruitersEdit = ({ prop }) => {
       .catch((error) => console.error(error));
   }, []);
 
+
+
+ const handleSubmitStack = async (event) => {
+    event.preventDefault();
+    try {
+      const stacksAttachCreate = await updateRecruitersStacksAttach();
+      console.log(stacksAttachCreate);
+    }catch{
+      console.log(error);
+    }
+  };
+
   const handleChangeLanguages = async (event) => {
     event.preventDefault();
     try {

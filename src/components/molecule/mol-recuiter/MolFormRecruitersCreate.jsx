@@ -63,6 +63,7 @@ const MolFormRecruitersCreate = () => {
           console.log(error);
         }
       });
+      
       Swal.fire({
         position: "center",
         icon: "success",
