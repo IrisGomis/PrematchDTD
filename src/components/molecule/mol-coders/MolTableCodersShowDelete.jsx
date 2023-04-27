@@ -86,10 +86,10 @@ export default function MolTableCodersShowDelete() {
   return (
     <>
     <MenuSchool/>
-    <div className="bg-stone6 w-screen max-w-screen-xl rounded-xl p-20 m-20 text-white">
+    <div className="bg-stone6 w-3/4 max-w-screen-xl rounded-xl p-20 m-20 text-white">
       <div className="sm:flex sm:items-center">
         <div className="sm:flex-auto">
-          <h1 className="text-xl font-semibold leading-7">Lista de coders</h1>
+          <h1 className="text-2xl font-semibold leading-7 text-orange">Lista de coders</h1>
         </div>
         <div className="mt-4 sm:ml-16 sm:mt-0 sm:flex-none">
         <button
@@ -127,13 +127,16 @@ export default function MolTableCodersShowDelete() {
                         onChange={toggleAll}
                       />
                     </th>
-                    <th scope="col" className="min-w-[12rem] py-3.5 pr-3 text-left text-sm font-semibold text-gray-900">
-                      Nombre del coder
+                    <th scope="col" className=" py-3.5 pr-3 text-left text-sm font-semibold text-gray-900">
+                      Nombre
                     </th>
-                    <th scope="col" className="min-w-[12rem] py-3.5 pr-3 text-left text-sm font-semibold text-gray-900">
+                    <th scope="col" className=" py-3.5 pr-3 text-left text-sm font-semibold text-gray-900">
+                      Apellidos
+                    </th>
+                    <th scope="col" className=" py-3.5 pr-3 text-left text-sm font-semibold text-gray-900">
                       Promoción
                     </th>
-                    <th scope="col" className="min-w-[12rem] py-3.5 pr-3 text-left text-sm font-semibold text-gray-900">
+                    <th scope="col" className=" py-3.5 pr-3 text-left text-sm font-semibold text-gray-900">
                       Evento
                     </th>
                     <th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
@@ -143,17 +146,26 @@ export default function MolTableCodersShowDelete() {
                       Edad
                     </th>
                     <th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
+                      Idiomas
+                    </th>
+                    <th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
+                      Perfil de desarrollador/a
+                    </th>
+                    <th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
+                      Stacks
+                    </th>
+                    <th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
                       Email
                     </th>
                     <th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
                       Teléfono
                     </th>
-                    <th scope="col" className="max-w-[12rem] px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
+                    <th scope="col" className=" px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
                       Linkedin
                     </th>
                     <th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
                       GitHub
-                    </th>
+                    </th>                    
                     <th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
                       Remoto
                     </th>
@@ -184,27 +196,35 @@ export default function MolTableCodersShowDelete() {
                             }}
                           />
                         </td>
-                      <td className="max-w-[12rem] overflow-hidden text-overflow-ellipsis hover:overflow-visible py-4 px-6 whitespace-nowrap text-sm font-medium text-white">
+                      <td className="py-4 px-6 whitespace-nowrap text-sm font-medium text-white">
                         {coder.name}</td>
-                      <td className="max-w-[12rem] overflow-hidden text-overflow-ellipsis hover:overflow-visible whitespace-nowrap px-3 py-4 text-sm text-white">
+                        <td className="py-4 px-6 whitespace-nowrap text-sm font-medium text-white">
+                        {coder.lastname}</td>
+                      <td className="whitespace-nowrap px-3 py-4 text-sm text-white">
                         {promotions.find((e) => e.id === coder.promo_id)?.name}</td>
-                      <td className="max-w-[12rem] overflow-hidden text-overflow-ellipsis hover:overflow-visible whitespace-nowrap px-3 py-4 text-sm text-white">
+                      <td className="whitespace-nowrap px-3 py-4 text-sm text-white">
                         {event.find((e) => e.id === coder.event_id)?.name}</td>
-                      <td className="max-w-[12rem] overflow-hidden text-overflow-ellipsis hover:overflow-visible whitespace-nowrap px-3 py-4 text-sm text-white">
+                      <td className="whitespace-nowrap px-3 py-4 text-sm text-white">
                         {coder.gender}</td>
-                      <td className="max-w-[12rem] overflow-hidden text-overflow-ellipsis hover:overflow-visible whitespace-nowrap px-3 py-4 text-sm text-white">
+                      <td className="whitespace-nowrap px-3 py-4 text-sm text-white">
                         {coder.years}</td>
-                      <td className="max-w-[12rem] overflow-hidden text-overflow-ellipsis hover:overflow-visible whitespace-nowrap px-3 py-4 text-sm text-white">
+                        <td className="whitespace-nowrap px-3 py-4 text-sm text-white">
+                        {coder.years}</td>
+                        <td className="whitespace-nowrap px-3 py-4 text-sm text-white">
+                        {coder.profile}</td>
+                        <td className="whitespace-nowrap px-3 py-4 text-sm text-white">
+                        {coder.years}</td>
+                      <td className="whitespace-nowrap px-3 py-4 text-sm text-white">
                         {coder.email}</td>
-                      <td className="max-w-[12rem] overflow-hidden text-overflow-ellipsis hover:overflow-visible whitespace-nowrap px-3 py-4 text-sm text-white">
+                      <td className="whitespace-nowrap px-3 py-4 text-sm text-white">
                         {coder.phone}</td>
-                      <td className="max-w-[12rem] overflow-hidden text-overflow-ellipsis hover:overflow-visible whitespace-nowrap px-3 py-4 text-sm text-white">
+                      <td className="whitespace-nowrap px-3 py-4 text-sm text-white">
                         {coder.linkedin}</td>
-                      <td className="max-w-[12rem] overflow-hidden text-overflow-ellipsis hover:overflow-visible whitespace-nowrap px-3 py-4 text-sm text-white">
+                      <td className="whitespace-nowrap px-3 py-4 text-sm text-white">
                         {coder.github}</td>
-                      <td className="max-w-[12rem] overflow-hidden text-overflow-ellipsis hover:overflow-visible whitespace-nowrap px-3 py-4 text-sm text-white">
+                      <td className="whitespace-nowrap px-3 py-4 text-sm text-white">
                         {coder.remote}</td>
-                      <td className="max-w-[12rem] overflow-hidden text-overflow-ellipsis hover:overflow-visible whitespace-nowrap px-3 py-4 text-sm text-white">
+                      <td className="whitespace-nowrap px-3 py-4 text-sm text-white">
                         {coder.avaliability}</td>
 
                       <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">

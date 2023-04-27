@@ -4,6 +4,8 @@ import Swal from "sweetalert2";
 import { createCoders } from "../../../service/CodersService";
 import { getPromotions } from "../../../service/PromotionsServices";
 import { getEvento } from "../../../service/EventService";
+// import { getLanguages } from "../../service/LanguagesServices";
+// import { getStacks } from "../../service/StacksServices";
 import MenuSchool from "../mol-school/MenuSchools";
 import * as XLSX from "xlsx";
 
@@ -16,6 +18,8 @@ const MolFormCodersCreate = () => {
   const [lastname, setLastname] = useState("");
   const [gender, setGender] = useState("");
   const [years, setYears] = useState("");
+  // const [languages, setLanguages] = useState("");
+  // const [stacks, setStacks] = useState("");
   const [avaliability, setAvaliability] = useState("");
   const [remote, setRemote] = useState("");
   const [email, setEmail] = useState("");
@@ -50,6 +54,8 @@ const MolFormCodersCreate = () => {
         formData.append("lastname", lastname);
         formData.append("gender", gender);
         formData.append("years", years);
+        // formData.append("languages", languages);
+        // formData.append("stacks", stacks);
         formData.append("avaliability", avaliability);
         formData.append("remote", remote);
         formData.append("email", email.toString());
@@ -92,6 +98,8 @@ const MolFormCodersCreate = () => {
       formData.append("lastname", lastname);
       formData.append("gender", gender);
       formData.append("years", years);
+      // formData.append("languages", languages);
+      // formData.append("stacks", stacks);
       formData.append("avaliability", avaliability);
       formData.append("remote", remote);
       formData.append("email", email);
@@ -113,7 +121,7 @@ const MolFormCodersCreate = () => {
 
       setTimeout(() => {
         navigate("/codertable");
-      }, 2000); 
+      }, 2000);
     } catch (error) {
       console.log(error);
       Swal.fire({
@@ -145,7 +153,7 @@ const MolFormCodersCreate = () => {
   return (
     <>
       <MenuSchool />
-      <div className="bg-stone6 w-screen max-w-screen-xl rounded-xl p-20 m-20 text-white">
+      <div className="bg-stone6 w-3/4 max-w-screen-xl rounded-xl p-20 m-20 text-white">
         <h2 className="text-2xl font-semibold leading-7 text-orange">
           Añadir coder
         </h2>
@@ -163,7 +171,7 @@ const MolFormCodersCreate = () => {
                 <select
                   name="event_id"
                   id="event_id"
-                  value={event_id} 
+                  value={event_id}
                   onChange={(event) => setEventId(event.target.value)}
                   className="block w-full rounded-md border-0 py-1.5  text-stone6 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
                 >
@@ -276,7 +284,7 @@ const MolFormCodersCreate = () => {
                 htmlFor="years"
                 className="block text-sm font-medium leading-6 text-white sm:pt-1.5"
               >
-                Años
+                Edad
               </label>
               <div className="mt-2 sm:col-span-2 sm:mt-0">
                 <input
@@ -292,113 +300,18 @@ const MolFormCodersCreate = () => {
 
             <div className="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
               <label
-                htmlFor="avaliability"
-                className="block text-sm font-medium leading-6  text-white sm:pt-1.5"
+                htmlFor="languages"
+                className="block text-sm font-medium leading-6 text-white sm:pt-1.5"
               >
-                Disponibilidad
+                Idiomas
               </label>
-              <div className="flex mt-2 sm:col-span-2 sm:mt-0">
+              <div className="mt-2 sm:col-span-2 sm:mt-0">
                 <input
                   type="text"
-                  name="avaliability"
-                  id="avaliability"
-                  value={avaliability}
-                  onChange={(event) => setAvaliability(event.target.value)}
-                  className="block w-full rounded-md border-0 mr-10 py-1.5 px.2 text-stone6 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
-                />
-              </div>
-            </div>
-
-            <div className="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
-              <label
-                htmlFor="remote"
-                className="block text-sm font-medium leading-6  text-white sm:pt-1.5"
-              >
-                Remote
-              </label>
-              <div className="flex mt-2 sm:col-span-2 sm:mt-0">
-                <input
-                  type="text"
-                  name="remote"
-                  id="remote"
-                  value={remote}
-                  onChange={(event) => setRemote(event.target.value)}
-                  className="block w-full rounded-md border-0 mr-10 py-1.5 px.2 text-stone6 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
-                />
-              </div>
-            </div>
-
-            <div className="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
-              <label
-                htmlFor="email"
-                className="block text-sm font-medium leading-6  text-white sm:pt-1.5"
-              >
-                Email <span className="text-orange">*</span>
-              </label>
-              <div className="flex mt-2 sm:col-span-2 sm:mt-0">
-                <input
-                  type="email"
-                  name="email"
-                  id="email"
-                  value={email}
-                  onChange={(event) => setEmail(event.target.value)}
-                  className="block w-full rounded-md border-0 mr-10 py-1.5 px.2 text-stone6 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
-                />
-              </div>
-            </div>
-
-            <div className="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
-              <label
-                htmlFor="phone"
-                className="block text-sm font-medium leading-6  text-white sm:pt-1.5"
-              >
-                Teléfono <span className="text-orange">*</span>
-              </label>
-              <div className="flex mt-2 sm:col-span-2 sm:mt-0">
-                <input
-                  type="tel"
-                  name="phone"
-                  id="phone"
-                  value={phone}
-                  onChange={(event) => setPhone(event.target.value)}
-                  className="block w-full rounded-md border-0 mr-10 py-1.5 px.2 text-stone6 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
-                />
-              </div>
-            </div>
-
-            <div className="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
-              <label
-                htmlFor="linkedin"
-                className="block text-sm font-medium leading-6  text-white sm:pt-1.5"
-              >
-                Linkedin
-              </label>
-              <div className="flex mt-2 sm:col-span-2 sm:mt-0">
-                <input
-                  type="text"
-                  name="linkedin"
-                  id="linkedin"
-                  value={linkedin}
-                  onChange={(event) => setLinkedin(event.target.value)}
-                  className="block w-full rounded-md border-0 mr-10 py-1.5 px.2 text-stone6 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
-                />
-              </div>
-            </div>
-
-            <div className="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
-              <label
-                htmlFor="github"
-                className="block text-sm font-medium leading-6  text-white sm:pt-1.5"
-              >
-                GitHub
-              </label>
-              <div className="flex mt-2 sm:col-span-2 sm:mt-0">
-                <input
-                  type="text"
-                  name="github"
-                  id="github"
-                  value={github}
-                  onChange={(event) => setGithub(event.target.value)}
+                  name="language"
+                  id="languages"
+                  value={years}
+                  onChange={(event) => setYears(event.target.value)}
                   className="block w-full rounded-md border-0 mr-10 py-1.5 px.2 text-stone6 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
                 />
               </div>
@@ -431,6 +344,139 @@ const MolFormCodersCreate = () => {
                   </option>
                 </select>
               </div>
+            </div>
+          </div>
+
+          <div className="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
+            <label
+              htmlFor="stacks"
+              className="block text-sm font-medium leading-6 text-white sm:pt-1.5"
+            >
+              Stacks <span className="text-orange">*</span>
+            </label>
+            <div className="mt-2 sm:col-span-2 sm:mt-0">
+              <input
+                type="text"
+                name="stacksge"
+                id="stacks"
+                value={years}
+                onChange={(event) => setYears(event.target.value)}
+                className="block w-full rounded-md border-0 mr-10 py-1.5 px.2 text-stone6 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
+              />
+            </div>
+          </div>
+
+          <div className="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
+            <label
+              htmlFor="email"
+              className="block text-sm font-medium leading-6  text-white sm:pt-1.5"
+            >
+              Email <span className="text-orange">*</span>
+            </label>
+            <div className="flex mt-2 sm:col-span-2 sm:mt-0">
+              <input
+                type="email"
+                name="email"
+                id="email"
+                value={email}
+                onChange={(event) => setEmail(event.target.value)}
+                className="block w-full rounded-md border-0 mr-10 py-1.5 px.2 text-stone6 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
+              />
+            </div>
+          </div>
+
+          <div className="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
+            <label
+              htmlFor="phone"
+              className="block text-sm font-medium leading-6  text-white sm:pt-1.5"
+            >
+              Teléfono <span className="text-orange">*</span>
+            </label>
+            <div className="flex mt-2 sm:col-span-2 sm:mt-0">
+              <input
+                type="tel"
+                name="phone"
+                id="phone"
+                value={phone}
+                onChange={(event) => setPhone(event.target.value)}
+                className="block w-full rounded-md border-0 mr-10 py-1.5 px.2 text-stone6 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
+              />
+            </div>
+          </div>
+
+          <div className="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
+            <label
+              htmlFor="linkedin"
+              className="block text-sm font-medium leading-6  text-white sm:pt-1.5"
+            >
+              Linkedin
+            </label>
+            <div className="flex mt-2 sm:col-span-2 sm:mt-0">
+              <input
+                type="text"
+                name="linkedin"
+                id="linkedin"
+                value={linkedin}
+                onChange={(event) => setLinkedin(event.target.value)}
+                className="block w-full rounded-md border-0 mr-10 py-1.5 px.2 text-stone6 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
+              />
+            </div>
+          </div>
+
+          <div className="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
+            <label
+              htmlFor="github"
+              className="block text-sm font-medium leading-6  text-white sm:pt-1.5"
+            >
+              GitHub
+            </label>
+            <div className="flex mt-2 sm:col-span-2 sm:mt-0">
+              <input
+                type="text"
+                name="github"
+                id="github"
+                value={github}
+                onChange={(event) => setGithub(event.target.value)}
+                className="block w-full rounded-md border-0 mr-10 py-1.5 px.2 text-stone6 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
+              />
+            </div>
+          </div>
+
+          <div className="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
+            <label
+              htmlFor="remote"
+              className="block text-sm font-medium leading-6  text-white sm:pt-1.5"
+            >
+              Remote
+            </label>
+            <div className="flex mt-2 sm:col-span-2 sm:mt-0">
+              <input
+                type="text"
+                name="remote"
+                id="remote"
+                value={remote}
+                onChange={(event) => setRemote(event.target.value)}
+                className="block w-full rounded-md border-0 mr-10 py-1.5 px.2 text-stone6 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
+              />
+            </div>
+          </div>
+
+          <div className="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
+            <label
+              htmlFor="avaliability"
+              className="block text-sm font-medium leading-6  text-white sm:pt-1.5"
+            >
+              Disponibilidad
+            </label>
+            <div className="flex mt-2 sm:col-span-2 sm:mt-0">
+              <input
+                type="text"
+                name="avaliability"
+                id="avaliability"
+                value={avaliability}
+                onChange={(event) => setAvaliability(event.target.value)}
+                className="block w-full rounded-md border-0 mr-10 py-1.5 px.2 text-stone6 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
+              />
             </div>
           </div>
 

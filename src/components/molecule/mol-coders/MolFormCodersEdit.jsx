@@ -1,6 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { getCodersById, updateCoders } from "../../../service/CodersService";
+import { 
+  getCodersById, 
+  updateCoders,
+  updateCodersLanguagesAttach,
+  updateCodersStacksAttach
+} from "../../../service/CodersService";
 import Swal from "sweetalert2";
 import { getPromotions } from "../../../service/PromotionsServices";
 import { getEvento } from "../../../service/EventService";
@@ -12,17 +17,23 @@ const MolFormCodersEdit = ({ eent }) => {
 
   const [event, setEvent] = useState([]);
   const [promotions, setPromotions] = useState([]);
+   // const [languages, setLanguages] = useState("");
+  // const [stacks, setStacks] = useSta
   const [event_id, setEventId] = useState("");
   const [promo_id, setPromoId] = useState("");
   const [name, setName] = useState("");
+  const [lastname, setLastname] = useState("");
   const [gender, setGender] = useState("");
   const [years, setYears] = useState("");
+   // const [languages, setLanguages] = useState("");
+  // const [stacks, setStacks] = useState("");
   const [avaliability, setAvaliability] = useState("");
   const [remote, setRemote] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [linkedin, setLinkedin] = useState("");
   const [github, setGithub] = useState("");
+  const [profile, setProfile] = useState("");
 
   useEffect(() => {
     const fetchCoder = async () => {
@@ -31,6 +42,7 @@ const MolFormCodersEdit = ({ eent }) => {
         setEventId(data.coder.event_id);
         setPromoId(data.coder.promo_id);
         setName(data.coder.name);
+        setLastname(data.coder.lastname);
         setGender(data.coder.gender);
         setYears(data.coder.years);
         setAvaliability(data.coder.avaliability);
@@ -39,6 +51,7 @@ const MolFormCodersEdit = ({ eent }) => {
         setPhone(data.coder.phone);
         setLinkedin(data.coder.linkedin);
         setGithub(data.coder.github);
+        setProfile(data.coder.profile);
         console.log(data);
       } catch (error) {
         console.log(error);
@@ -54,6 +67,7 @@ const MolFormCodersEdit = ({ eent }) => {
         event_id,
         promo_id,
         name,
+        lastname,
         gender,
         years,
         avaliability,
@@ -62,6 +76,7 @@ const MolFormCodersEdit = ({ eent }) => {
         phone,
         linkedin,
         github,
+        profile,
       ].some((value) => value === "")
     ) {
       Swal.fire({
@@ -78,6 +93,7 @@ const MolFormCodersEdit = ({ eent }) => {
         event_id,
         promo_id,
         name,
+        lastname,
         gender,
         years,
         avaliability,
@@ -86,6 +102,7 @@ const MolFormCodersEdit = ({ eent }) => {
         phone,
         linkedin,
         github,
+        profile,
       };
 
       await updateCoders(id, coderData);
@@ -130,7 +147,7 @@ const MolFormCodersEdit = ({ eent }) => {
   return (
     <>
       <MenuSchool />
-      <div className="bg-stone6 w-screen max-w-screen-xl rounded-xl p-20 m-20 text-white">
+      <div className="bg-stone6 w-3/4 max-w-screen-xl rounded-xl p-20 m-20 text-white">
         <h2 className="text-2xl font-semibold leading-7 text-orange">
           Editar Coder
         </h2>
@@ -140,10 +157,64 @@ const MolFormCodersEdit = ({ eent }) => {
             
             <div className="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
               <label
+                htmlFor="event_id"
+                className="block text-sm font-medium leading-6 text-white sm:pt-1.5"
+              >
+                Evento <span className="text-orange">*</span>
+              </label>
+              <div className="mt-2 sm:col-span-2 sm:mt-0">
+                <select
+                  type="number"
+                  name="event_id"
+                  id="event_id"
+                  value={event_id}
+                  onChange={(event) => setEventId(event.target.value)}
+                  autoComplete="given-name"
+                  className="block w-full rounded-md border-0 py-1.5  text-stone6 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
+                >
+                  <option value="">Seleccione un evento</option>
+                  {event.map((event) => (
+                    <option key={event.id} value={event.id}>
+                      {event.name}
+                    </option>
+                  ))}
+                </select>
+              </div>
+            </div>
+
+            <div className="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
+              <label
+                htmlFor="promo_id"
+                className="block text-sm font-medium leading-6 text-white sm:pt-1.5"
+              >
+                Promoción <span className="text-orange">*</span>
+              </label>
+              <div className="mt-2 sm:col-span-2 sm:mt-0">
+                <select
+                  type="number"
+                  name="promo_id"
+                  id="promo_id"
+                  value={promo_id}
+                  onChange={(event) => setPromoId(event.target.value)}
+                  autoComplete="given-name"
+                  className="block w-full rounded-md border-0 py-1.5  text-stone6 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
+                >
+                  <option value="">Seleccione una promoción</option>
+                  {promotions.map((e) => (
+                    <option key={e.id} value={e.id}>
+                      {e.name}
+                    </option>
+                  ))}
+                </select>
+              </div>
+            </div>
+
+            <div className="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
+              <label
                 htmlFor="name"
                 className="block text-sm font-medium leading-6 text-white sm:pt-1.5"
               >
-                Nombre del coder
+                Nombre <span className="text-orange">*</span>
               </label>
               <div className="mt-2 sm:col-span-2 sm:mt-0">
                 <input
@@ -160,53 +231,21 @@ const MolFormCodersEdit = ({ eent }) => {
 
             <div className="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
               <label
-                htmlFor="promo_id"
+                htmlFor="lastname"
                 className="block text-sm font-medium leading-6 text-white sm:pt-1.5"
               >
-                Promoción
+                Apellidos <span className="text-orange">*</span>
               </label>
               <div className="mt-2 sm:col-span-2 sm:mt-0">
-                <select
-                  type="number"
-                  name="promo_id"
-                  id="promo_id"
-                  value={promo_id}
-                  onChange={(event) => setPromoId(event.target.value)}
-                  autoComplete="given-name"
+                <input
+                  type="text"
+                  name="lastname"
+                  id="lastname"
+                  value={lastname}
+                  onChange={(event) => setName(event.target.value)}
+                  autoComplete="given-lastname"
                   className="block w-full rounded-md border-0 py-1.5  text-stone6 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
-                >
-                  {promotions.map((e) => (
-                    <option key={e.id} value={e.id}>
-                      {e.name}
-                    </option>
-                  ))}
-                </select>
-              </div>
-            </div>
-
-            <div className="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
-              <label
-                htmlFor="event_id"
-                className="block text-sm font-medium leading-6 text-white sm:pt-1.5"
-              >
-                Evento
-              </label>
-              <div className="mt-2 sm:col-span-2 sm:mt-0">
-                <select
-                  type="number"
-                  name="event_id"
-                  id="event_id"
-                  value={event_id}
-                  onChange={(event) => setEventId(event.target.value)}
-                  autoComplete="given-name"
-                  className="block w-full rounded-md border-0 py-1.5  text-stone6 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
-                >
-                  {event.map((event) => (
-                    <option key={event.id} value={event.id}>
-                      {event.name}
-                    </option>
-                  ))}
-                </select>
+                />
               </div>
             </div>
 
@@ -215,25 +254,34 @@ const MolFormCodersEdit = ({ eent }) => {
                 htmlFor="gender"
                 className="block text-sm font-medium leading-6 text-white sm:pt-1.5"
               >
-                Género
+                Género <span className="text-orange">*</span>
               </label>
-              <div className="flex mt-2 sm:col-span-2 sm:mt-0">
-                <input
-                  type="text"
+              <div className="mt-2 sm:col-span-2 sm:mt-0">
+                <select
                   name="gender"
                   id="gender"
                   value={gender}
                   onChange={(event) => setGender(event.target.value)}
-                  autoComplete="gender"
-                  className="block w-full mr-10 rounded-md border-0 px-2 py-1.5 text-stone6 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
-                />
+                  className="block w-full rounded-md border-0 mr-10 py-1.5 px.2 text-stone6 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
+                >
+                  <option value="">Seleccione una género</option>
+                  <option key={1} value="Mujer">
+                    Mujer
+                  </option>
+                  <option key={2} value="Hombre">
+                    Hombre
+                  </option>
+                  <option key={3} value="Otros">
+                    Otros
+                  </option>
+                </select>
               </div>
             </div>
 
             <div className="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
               <label
                 htmlFor="years"
-                className="block text-sm font-medium leading-6  text-white sm:pt-1.5"
+                className="block text-sm font-medium leading-6 text-white sm:pt-1.5"
               >
                 Edad
               </label>
@@ -245,7 +293,75 @@ const MolFormCodersEdit = ({ eent }) => {
                   value={years}
                   onChange={(event) => setYears(event.target.value)}
                   autoComplete="edad"
-                  className="block w-full rounded-md border-0 py-1.5  text-stone6 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-md sm:text-sm sm:leading-6"
+                  className="block w-full rounded-md border-0 py-1.5  text-stone6 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
+                />
+              </div>
+            </div>
+
+            <div className="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
+              <label
+                htmlFor="languages"
+                className="block text-sm font-medium leading-6 text-white sm:pt-1.5"
+              >
+                Idiomas
+              </label>
+              <div className="mt-2 sm:col-span-2 sm:mt-0">
+                <input
+                  type="text"
+                  name="language"
+                  id="languages"
+                  value={years}
+                  onChange={(event) => setYears(event.target.value)}
+                  className="block w-full rounded-md border-0 mr-10 py-1.5 px.2 text-stone6 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
+                />
+              </div>
+            </div>
+
+            <div className="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
+              <label
+                htmlFor="priority"
+                className="block text-sm font-medium leading-6 text-white sm:pt-1.5"
+              >
+                Perfil de desarollador/a <span className="text-orange">*</span>
+              </label>
+              <div className="mt-2 sm:col-span-2 sm:mt-0">
+                <select
+                  name="profile"
+                  id="profile"
+                  value={profile}
+                  onChange={(event) => setProfile(event.target.value)}
+                  className="block w-full rounded-md border-0 py-1.5  text-stone6 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
+                >
+                  <option value="">Seleccione una perfil</option>
+                  <option key={1} value="FullStack">
+                    FullStack
+                  </option>
+                  <option key={2} value="Frontend">
+                    Frontend
+                  </option>
+                  <option key={3} value="Backend">
+                    Backend
+                  </option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+            <div className="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
+              <label
+                htmlFor="stacks"
+                className="block text-sm font-medium leading-6 text-white sm:pt-1.5"
+              >
+                Stacks <span className="text-orange">*</span>
+              </label>
+              <div className="mt-2 sm:col-span-2 sm:mt-0">
+                <input
+                  type="text"
+                  name="stacksge"
+                  id="stacks"
+                  value={years}
+                  onChange={(event) => setYears(event.target.value)}
+                  className="block w-full rounded-md border-0 mr-10 py-1.5 px.2 text-stone6 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
                 />
               </div>
             </div>
@@ -253,9 +369,9 @@ const MolFormCodersEdit = ({ eent }) => {
             <div className="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
               <label
                 htmlFor="email"
-                className="block text-sm font-medium leading-6  text-white sm:pt-1.5"
+                className="block text-sm font-medium leading-6 text-white sm:pt-1.5"
               >
-                Email
+                Email <span className="text-orange">*</span>
               </label>
               <div className="flex mt-2 sm:col-span-2 sm:mt-0">
                 <input
@@ -264,7 +380,7 @@ const MolFormCodersEdit = ({ eent }) => {
                   id="email"
                   value={email}
                   onChange={(event) => setEmail(event.target.value)}
-                  className="block w-full rounded-md border-0 mr-10 py-1.5 px-2 text-stone6 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xl sm:text-sm sm:leading-6"
+                  className="block w-full rounded-md border-0 py-1.5  text-stone6 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
                 />
               </div>
             </div>
@@ -272,9 +388,9 @@ const MolFormCodersEdit = ({ eent }) => {
             <div className="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
               <label
                 htmlFor="phone"
-                className="block text-sm font-medium leading-6  text-white sm:pt-1.5"
+                className="block text-sm font-medium leading-6 text-white sm:pt-1.5"
               >
-                Teléfono
+                Teléfono <span className="text-orange">*</span>
               </label>
               <div className="flex mt-2 sm:col-span-2 sm:mt-0">
                 <input
@@ -283,7 +399,7 @@ const MolFormCodersEdit = ({ eent }) => {
                   id="phone"
                   value={phone}
                   onChange={(event) => setPhone(event.target.value)}
-                  className="block w-full rounded-md border-0 mr-10 py-1.5 px-2 text-stone6 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xl sm:text-sm sm:leading-6"
+                  className="block w-full rounded-md border-0 py-1.5  text-stone6 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
                 />
               </div>
             </div>
@@ -291,7 +407,7 @@ const MolFormCodersEdit = ({ eent }) => {
             <div className="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
               <label
                 htmlFor="linkedin"
-                className="block text-sm font-medium leading-6  text-white sm:pt-1.5"
+                className="block text-sm font-medium leading-6 text-white sm:pt-1.5"
               >
                 Linkedin
               </label>
@@ -302,7 +418,7 @@ const MolFormCodersEdit = ({ eent }) => {
                   id="linkedin"
                   value={linkedin}
                   onChange={(event) => setLinkedin(event.target.value)}
-                  className="block w-full rounded-md border-0 mr-10 py-1.5 px-2 text-stone6 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xl sm:text-sm sm:leading-6"
+                  className="block w-full rounded-md border-0 py-1.5  text-stone6 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
                 />
               </div>
             </div>
@@ -310,7 +426,7 @@ const MolFormCodersEdit = ({ eent }) => {
             <div className="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
               <label
                 htmlFor="github"
-                className="block text-sm font-medium leading-6  text-white sm:pt-1.5"
+                className="block text-sm font-medium leading-6 text-white sm:pt-1.5"
               >
                 Github
               </label>
@@ -321,63 +437,66 @@ const MolFormCodersEdit = ({ eent }) => {
                   id="github"
                   value={github}
                   onChange={(event) => setGithub(event.target.value)}
-                  className="block w-full rounded-md border-0 mr-10 py-1.5 px-2 text-stone6 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xl sm:text-sm sm:leading-6"
+                  className="block w-full rounded-md border-0 py-1.5  text-stone6 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
                 />
               </div>
             </div>
 
-            <div className="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
-              <label
-                htmlFor="remote"
-                className="block text-sm font-medium leading-6  text-white sm:pt-1.5"
-              >
-                Remoto
-              </label>
-              <div className="flex mt-2 sm:col-span-2 sm:mt-0">
-                <input
-                  type="text"
-                  name="remote"
-                  id="remote"
-                  value={remote}
-                  onChange={(event) => setRemote(event.target.value)}
-                  className="block w-full rounded-md border-0 mr-10 py-1.5 px-1.5 text-stone6 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xl sm:text-sm sm:leading-6"
-                />
-              </div>
-            </div>
+            
 
-            <div className="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
-              <label
-                htmlFor="avaliability"
-                className="block text-sm font-medium leading-6  text-white sm:pt-1.5"
-              >
-                Disponibilidad
-              </label>
-              <div className="flex mt-2 sm:col-span-2 sm:mt-0">
-                <input
-                  type="text"
-                  name="avaliability"
-                  id="avaliability"
-                  value={avaliability}
-                  onChange={(event) => setAvaliability(event.target.value)}
-                  className="block w-full rounded-md border-0 mr-10 py-1.5 px-2 text-stone6 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xl sm:text-sm sm:leading-6"
-                />
-              </div>
+          <div className="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
+            <label
+              htmlFor="remote"
+              className="block text-sm font-medium leading-6 text-white sm:pt-1.5"
+            >
+              Remoto
+            </label>
+            <div className="flex mt-2 sm:col-span-2 sm:mt-0">
+              <input
+                type="text"
+                name="remote"
+                id="remote"
+                value={remote}
+                onChange={(event) => setRemote(event.target.value)}
+                className="block w-full rounded-md border-0 py-1.5  text-stone6 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
+              />
             </div>
           </div>
 
-          <button
-            type="submit"
-            className="text-sm my-10 px-24 py-3.5 rounded-xl bg-gradient-to-r from-orange to-orangel hover:from-verde hover:to-verdel ..."
-          >
-            Editar coder
-          </button>
+          <div className="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
+            <label
+              htmlFor="avaliability"
+              className="bblock text-sm font-medium leading-6 text-white sm:pt-1.5"
+            >
+              Disponibilidad
+            </label>
+            <div className="flex mt-2 sm:col-span-2 sm:mt-0">
+              <input
+                type="text"
+                name="avaliability"
+                id="avaliability"
+                value={avaliability}
+                onChange={(event) => setAvaliability(event.target.value)}
+                className="block w-full rounded-md border-0 py-1.5  text-stone6 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
+              />
+            </div>
+          </div>
 
-          <button
-            className="text-sm my-10 mx-10 px-24 py-3.5 rounded-xl bg-gradient-to-r from-orangel to-orange hover:from-verde hover:to-verdel ..."
-            type="button"
-          >
-            <a href="/codertable">Ver Coder</a>
-          </button>
+          <div className="flex justify-center">
+            <button
+              type="submit"
+              className="text-sm my-10 px-24 py-3.5 rounded-xl bg-gradient-to-r from-orange to-orangel hover:from-verde hover:to-verdel ..."
+            >
+              Editar coder
+            </button>
+
+            <button
+              className="text-sm my-10 mx-10 px-24 py-3.5 rounded-xl bg-gradient-to-r from-orangel to-orange hover:from-verde hover:to-verdel ..."
+              type="button"
+            >
+              <a href="/codertable">Ver Coder</a>
+            </button>
+          </div>
         </form>
       </div>
     </>

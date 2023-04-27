@@ -1,18 +1,21 @@
-import { faUser } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { useState } from 'react';
+import { faUser } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useState } from "react";
 
 function LoginIcon() {
   const [showOptions, setShowOptions] = useState(false);
 
   const handleButtonClick = () => {
     setShowOptions(!showOptions);
-  }
+  };
 
   return (
     <div className="flex justify-end my-7 mx-10">
       <div className="relative h-8">
-        <button onClick={handleButtonClick} className="flex items-center space-x-2 items-end">
+        <button
+          onClick={handleButtonClick}
+          className="flex items-center space-x-2 items-end"
+        >
           <FontAwesomeIcon icon={faUser} className="text-stone6 fa-xl" />
         </button>
         {showOptions && (
@@ -31,4 +34,3 @@ function LoginIcon() {
 }
 
 export default LoginIcon;
-

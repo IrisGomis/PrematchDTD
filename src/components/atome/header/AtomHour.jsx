@@ -1,11 +1,18 @@
 import React, { useState, useEffect } from "react";
 
 function Reloj() {
-  const [hora, setHora] = useState(new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}));
+  const [hora, setHora] = useState(
+    new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })
+  );
 
   useEffect(() => {
     const intervalo = setInterval(() => {
-      setHora(new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}));
+      setHora(
+        new Date().toLocaleTimeString([], {
+          hour: "2-digit",
+          minute: "2-digit",
+        })
+      );
     }, 1000);
 
     return () => {
