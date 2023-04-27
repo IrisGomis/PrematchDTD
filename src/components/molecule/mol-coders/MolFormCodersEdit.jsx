@@ -17,8 +17,8 @@ const MolFormCodersEdit = ({ eent }) => {
 
   const [event, setEvent] = useState([]);
   const [promotions, setPromotions] = useState([]);
-   // const [languages, setLanguages] = useState("");
-  // const [stacks, setStacks] = useSta
+   // const [languages, setLanguages] = useState([]);
+  // const [stacks, setStacks] = useState([]);
   const [event_id, setEventId] = useState("");
   const [promo_id, setPromoId] = useState("");
   const [name, setName] = useState("");
