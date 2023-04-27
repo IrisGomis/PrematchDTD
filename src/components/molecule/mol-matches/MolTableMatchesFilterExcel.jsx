@@ -103,7 +103,7 @@ const MolTableMatchesFilterExcel = () => {
         title: "¡Tu match se ha creado con éxito!",
         showConfirmButton: false,
         timer: 2000,
-      });
+      }); 
       setTimeout(() => {
         navigate("/match");
       }, 2000); // Delay the navigation for 2 seconds (2000 milliseconds)

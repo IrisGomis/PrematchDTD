@@ -13,7 +13,7 @@ import { getLanguages } from "../../../service/LanguagesService";
 import MenuCompanies from "../mol-companies/MenuCompanies";
 import Swal from "sweetalert2";
 
-const MolFormRecruitersEdit = ({ prop }) => {
+const MolFormRecruitersEditcopy = ({ prop }) => {
   const { id } = useParams();
   const navigate = useNavigate();
 
@@ -33,8 +33,8 @@ const MolFormRecruitersEdit = ({ prop }) => {
   const [phone, setPhone] = useState("");
   const [linkedin, setLinkedin] = useState("");
   const [gender, setGender] = useState("");
-  const [stack, setStack] = useState("");
-  const [language, setLanguage] = useState(""); 
+  const [stack_id, setStack_id] = useState("");
+  const [language_id, setLanguage_id] = useState(""); 
 
   useEffect(() => {
     const fetchRecruiters = async () => {
@@ -142,7 +142,7 @@ const MolFormRecruitersEdit = ({ prop }) => {
   useEffect(() => {
     getLanguages()
       .then((response) => {
-        setEvent(response.data);
+        setLanguages(response.data);
       })
       .catch((error) => console.error(error));
   }, []);
@@ -150,37 +150,32 @@ const MolFormRecruitersEdit = ({ prop }) => {
   useEffect(() => {
     getStacks()
       .then((response) => {
-        setCompanies(response.data);
+        setStacks(response.data);
       })
       .catch((error) => console.error(error));
   }, []);
 
 
 
- const handleSubmitStack = async (event) => {
+  const handleChangeStacks = async (event) => {
     event.preventDefault();
     try {
-      const stacksAttachCreate = await updateRecruitersStacksAttach();
-      console.log(stacksAttachCreate);
-    }catch{
-      console.log(error);
-    }
-  };
+      const formData = new FormData();
+      formData.append("stack_id", stack_id);
 
-  const handleChangeLanguages = async (event) => {
-    event.preventDefault();
-    try {
-      const scheduleCreate = await updateRecruitersLanguagesAttach();
-      console.log(scheduleCreate);
+      const attachLanguageCreate = await updateRecruitersLanguagesAttach();
+      console.log(attachLanguageCreate);
     } catch (error) {
       console.log(error);
     }
   };
-  const handleChangeStacks = async (event) => {
+  const handleChangeLenguages = async (event) => {
     event.preventDefault();
     try {
-      const scheduleCreate = await updateRecruitersStacksAttach();
-      console.log(scheduleCreate);
+      const formData = new FormData();
+      formData.append("language_id", language_id);
+      const attchStacksCreate = await updateRecruitersStacksAttach();
+      console.log(attchStacksCreate);
     } catch (error) {
       console.log(error);
     }
@@ -196,6 +191,7 @@ const MolFormRecruitersEdit = ({ prop }) => {
 
         <form className="bg-stone6" onSubmit={handleSubmit}>
           <div className="mt-10 space-y-8 border-b border-orange pb-12 sm:space-y-0 sm:divide-y sm:divide-orange sm:border-t sm:pb-0">
+
             <div className="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
               <label
                 htmlFor="event_id"
@@ -391,7 +387,6 @@ const MolFormRecruitersEdit = ({ prop }) => {
                  Preferencias género
               </label>
               <div className="mt-2 sm:col-span-2 sm:mt-0">
-                <form onChange={handleChange}>
                 <select
                    type="text"
                    name="gender"
@@ -411,7 +406,6 @@ const MolFormRecruitersEdit = ({ prop }) => {
                     Otros
                   </option>
                 </select>
-                </form>
               </div>
             </div>
             
@@ -457,6 +451,64 @@ const MolFormRecruitersEdit = ({ prop }) => {
               </div>
             </div>
 
+            <div className="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
+              <label
+                htmlFor="stack_id"
+                className="block text-sm font-medium leading-6 text-white sm:pt-1.5"
+              >
+                 Stacks
+              </label>
+              <div className="mt-2 sm:col-span-2 sm:mt-0">
+                <form onChange={handleChangeStacks}>
+                <select
+                type="text"
+                name="stack_id"
+                id="stack_id"
+                value={stack_id} 
+                onChange={(event) => setStack_id(event.target.value)}
+                className="block w-full rounded-md border-0 py-1.5  text-stone6 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
+              >
+                {stacks &&
+                  stacks.map((e) => (
+                    <option key={e.id} value={e.id}>
+                      {e.name}
+                    </option>
+                  ))}
+              </select>
+
+                </form>
+              </div>
+            </div>
+
+            <div className="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
+              <label
+                htmlFor="language_id"
+                className="block text-sm font-medium leading-6 text-white sm:pt-1.5"
+              >
+                 Lenguages
+              </label>
+              <div className="mt-2 sm:col-span-2 sm:mt-0">
+                <form onChange={handleChangeLenguages}>
+                <select
+                type="text"
+                name="language_id"
+                id="language_id"
+                value={language_id} 
+                onChange={(event) => setLanguage_id(event.target.value)}
+                className="block w-full rounded-md border-0 py-1.5  text-stone6 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
+              >
+                {languages &&
+                  languages.map((e) => (
+                    <option key={e.id} value={e.id}>
+                      {e.name}
+                    </option>
+                  ))}
+              </select>
+
+                </form>
+              </div>
+            </div>
+            
           </div>
 
           <button
@@ -478,4 +530,4 @@ const MolFormRecruitersEdit = ({ prop }) => {
   );
 };
 
-export default MolFormRecruitersEdit;
+export default MolFormRecruitersEditcopy;
