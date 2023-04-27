@@ -23,3 +23,10 @@ export const updateCompanies = (id, data) => {
 export const deleteCompanies = (id) => {
   return axios.delete(baseUrl + "/companies/" + id)
 }
+
+export const createExcelCompanies = (data) => {
+  return axios.post(baseUrl + "/upload/excel/companies", data, {
+  headers: {
+    'Content-Type': 'multipart/form-data',
+    'Access-Control-Allow-Origin': '*'
+}});}

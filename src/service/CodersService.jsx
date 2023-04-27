@@ -24,3 +24,27 @@ export const updateCoders = (id, data) => {
 export const deleteCoders = (id) => {
   return axios.delete(baseUrl + "/coders/" + id)
 }
+
+export const updateCodersLanguagesAttach = (id, data) => {
+  return axios.post(baseUrl + "/coders/languages" + id, data)
+}
+
+export const updateCodersLanguagesDeAttach = (id, data) => {
+  return axios.post(baseUrl + "/coders/languages/detach" + id, data)
+}
+
+export const updateCodersStacksAttach = (id, data) => {
+  return axios.post(baseUrl + "/coders/stacks" + id, data)
+}
+
+export const updateCodersStacksDeAttach = (id, data) => {
+  return axios.post(baseUrl + "/coders/stacks/detach" + id, data)
+}
+
+export const updateCodersUbicationAttach = (id, data) => {
+  return axios.post(baseUrl + "/recruiters/ubication" + id, data)
+}
+
+export const updateCodersUbicationDeAttach = (id, data) => {
+  return axios.post(baseUrl + "/recruiters/ubication/detach" + id, data)
+}

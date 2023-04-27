@@ -41,9 +41,9 @@ export const updateRecruitersStacksDeAttach = (id, data) => {
 }
 
 export const updateRecruitersUbicationAttach = (id, data) => {
-  return axios.post(baseUrl + "/recruiters/stacks" + id, data)
+  return axios.post(baseUrl + "/recruiters/ubication" + id, data)
 }
 
 export const updateRecruitersUbicationDeAttach = (id, data) => {
-  return axios.post(baseUrl + "/recruiters/stacks/detach" + id, data)
+  return axios.post(baseUrl + "/recruiters/ubication/detach" + id, data)
 }
