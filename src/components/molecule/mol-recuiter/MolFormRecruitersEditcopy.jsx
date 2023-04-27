@@ -1,15 +1,26 @@
-import React, { useState, useEffect, useRef } from "react";
-import { useNavigate } from "react-router-dom";
-import Swal from "sweetalert2";
-import { createRecruiters } from "../../../service/RecruitersService";
+import React, { useState, useEffect } from "react";
+import { useParams, useNavigate } from "react-router-dom";
+import {
+  getRecruitersById,
+  updateRecruiters,
+  updateRecruitersStacksAttach,
+  updateRecruitersLanguagesAttach,
+} from "../../../service/RecruitersService";
 import { getCompanies } from "../../../service/CompaniesService";
 import { getEvento } from "../../../service/EventService";
+import { getStacks } from "../../../service/StacksService";
+import { getLanguages } from "../../../service/LanguagesService";
 import MenuCompanies from "../mol-companies/MenuCompanies";
-import * as XLSX from "xlsx";
+import Swal from "sweetalert2";
 
-const MolFormRecruitersCreate = () => {
+const MolFormRecruitersEditcopy = ({ prop }) => {
+  const { id } = useParams();
+  const navigate = useNavigate();
+
   const [event, setEvent] = useState([]);
-  const [Companies, setCompanies] = useState([]);
+  const [companies, setCompanies] = useState([]);
+  const [languages, setLanguages] = useState([]);
+  const [stacks, setStacks] = useState([]);
   const [event_id, setEventId] = useState("");
   const [company_id, setCompanyId] = useState("");
   const [name, setName] = useState("");
@@ -22,103 +33,91 @@ const MolFormRecruitersCreate = () => {
   const [phone, setPhone] = useState("");
   const [linkedin, setLinkedin] = useState("");
   const [gender, setGender] = useState("");
-  const fileInput = useRef(null);
-  const navigate = useNavigate();
+  const [stack_id, setStack_id] = useState("");
+  const [language_id, setLanguage_id] = useState(""); 
 
-  const handleExcelUpload = (event) => {
-    const file = event.target.files[0];
-    const reader = new FileReader();
-    reader.onload = async (event) => {
-      const data = new Uint8Array(event.target.result);
-      const workbook = XLSX.read(data, { type: "array" });
-      const worksheet = workbook.Sheets[workbook.SheetNames[0]];
-      const rows = XLSX.utils.sheet_to_json(worksheet, { header: 1 });
-      
-      const header = rows[0];
-      const rowsData = rows.slice(1).map((row) => {
-        return header.reduce((acc, curr, index) => {
-          acc[curr] = row[index];
-          return acc;
-        }, {});
-      });
-      
-      rowsData.forEach(async (rowData) => {
-        const formData = new FormData();
-        formData.append("event_id", Number.isInteger(event_id));
-        formData.append("company_id", Number.isInteger(company_id));
-        formData.append("name", name);
-        formData.append("lastname", lastname);
-        formData.append("charge", charge);
-        formData.append("first_interview", first_interview);
-        formData.append("last_interview", last_interview);
-        formData.append("remote", remote);
-        formData.append("email", rowData.email ? rowData.email.toString() : "");
-        formData.append("phone", phone);
-        formData.append("linkedin", linkedin);
-        formData.append("gender", gender);
-        try {
-          const { data } = await createRecruiters(formData);
-          console.log(data);
-        } catch (error) {
-          console.log(error);
-        }
-      });
-      
-      Swal.fire({
-        position: "center",
-        icon: "success",
-        title: "¡Tus datos se han añadido con éxito!",
-        showConfirmButton: false,
-        timer: 2000,
-      });
-      setTimeout(() => {
-        navigate("/recruiterstable");
-      }, 2000);
+  useEffect(() => {
+    const fetchRecruiters = async () => {
+      try {
+        const { data } = await getRecruitersById(id);
+        setEventId(data.recruiter.event_id);
+        setCompanyId(data.recruiter.company_id);
+        setName(data.recruiter.name);
+        setlastname(data.recruiter.lastname);
+        setCharge(data.recruiter.charge);
+        setFirst_interview(data.recruiter.first_interview);
+        setLast_interview(data.recruiter.last_interview);
+        setRemote(data.recruiter.remote);
+        setEmail(data.recruiter.email);
+        setPhone(data.recruiter.phone);
+        setLinkedin(data.recruiter.linkedin);
+        setGender(data.recruiter.gender);
+        
+        
+        console.log(data);
+      } catch (error) {
+        console.log(error);
+      }
     };
-    reader.readAsArrayBuffer(file);
-  };
-
-  const handleClick = () => {
-    fileInput.current.click();
-  };
+    fetchRecruiters();
+  }, [id]);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    try {
-      const formData = new FormData();
-      formData.append("event_id", event_id);
-      formData.append("company_id", company_id);
-      formData.append("name", name);
-      formData.append("lastname", lastname);
-      formData.append("charge", charge);
-      formData.append("first_interview", first_interview);
-      formData.append("last_interview", last_interview);
-      formData.append("remote", remote);
-      formData.append("email", email);
-      formData.append("phone", phone);
-      formData.append("linkedin", linkedin);
-      formData.append("gender", gender);
-
-      const { data } = await createRecruiters(formData);
-      console.log(data);
-
+    if (
+      [
+        event_id,
+        company_id,
+        name,
+        first_interview,
+        last_interview,
+        charge,
+        remote,
+        email,
+        phone,
+        linkedin,
+      ].some((value) => value === undefined)
+    ) {
       Swal.fire({
         position: "center",
-        icon: "success",
-        title: "¡Tu recruiter se ha creado con éxito!",
+        icon: "error",
+        title: "Debe completar todos los campos",
         showConfirmButton: false,
         timer: 2000,
       });
+      return;
+    }
+    try {
+      const recruiterData = {
+        event_id,
+        company_id,
+        name,
+        remote,
+        email,
+        phone,
+        linkedin,
+        first_interview,
+        last_interview,
+        charge,
+      };
 
+      await updateRecruiters(id, recruiterData);
+      Swal.fire({
+        position: "center",
+        icon: "success",
+        title: "¡Tu recruiter se ha actualizado con éxito!",
+        showConfirmButton: false,
+        timer: 2000,
+      });
       setTimeout(() => {
         navigate("/recruiterstable");
-      }, 2000); 
+      }, 2000); // Delay the navigation for 2 seconds (2000 milliseconds)
     } catch (error) {
       console.log(error);
       Swal.fire({
         position: "center",
         icon: "error",
-        title: "Ha habido un problema, ¡prueba de nuevo!",
+        title: "Ha habido un problema ¡prueba de nuevo!",
         showConfirmButton: false,
         timer: 2000,
       });
@@ -140,83 +139,126 @@ const MolFormRecruitersCreate = () => {
       })
       .catch((error) => console.error(error));
   }, []);
+  useEffect(() => {
+    getLanguages()
+      .then((response) => {
+        setLanguages(response.data);
+      })
+      .catch((error) => console.error(error));
+  }, []);
+
+  useEffect(() => {
+    getStacks()
+      .then((response) => {
+        setStacks(response.data);
+      })
+      .catch((error) => console.error(error));
+  }, []);
+
+
+
+  const handleChangeStacks = async (event) => {
+    event.preventDefault();
+    try {
+      const formData = new FormData();
+      formData.append("stack_id", stack_id);
+
+      const attachLanguageCreate = await updateRecruitersLanguagesAttach();
+      console.log(attachLanguageCreate);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const handleChangeLenguages = async (event) => {
+    event.preventDefault();
+    try {
+      const formData = new FormData();
+      formData.append("language_id", language_id);
+      const attchStacksCreate = await updateRecruitersStacksAttach();
+      console.log(attchStacksCreate);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <>
       <MenuCompanies />
       <div className="bg-stone6 w-screen max-w-screen-xl rounded-xl p-20 m-20 text-white">
         <h2 className="text-2xl font-semibold leading-7 text-orange">
-          Añadir recruiter
+          Editar Recruiter
         </h2>
 
         <form className="bg-stone6" onSubmit={handleSubmit}>
           <div className="mt-10 space-y-8 border-b border-orange pb-12 sm:space-y-0 sm:divide-y sm:divide-orange sm:border-t sm:pb-0">
+
             <div className="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
               <label
-                htmlFor="event"
+                htmlFor="event_id"
                 className="block text-sm font-medium leading-6 text-white sm:pt-1.5"
               >
                 Evento <span className="text-orange">*</span>
               </label>
               <div className="mt-2 sm:col-span-2 sm:mt-0">
                 <select
+                  type="text"
                   name="event_id"
                   id="event_id"
-                  value={event_id} 
+                  value={event_id}
                   onChange={(event) => setEventId(event.target.value)}
+                  autoComplete="given-name"
                   className="block w-full rounded-md border-0 py-1.5  text-stone6 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
                 >
-                  <option value="">Selecciona un evento</option>
-                  {event.map((e) => (
-                    <option key={e.id} value={e.id}>
-                      {e.name}
-                    </option>
-                  ))}
+                  {event &&
+                    event.map((e) => (
+                      <option key={e.id} value={e.id}>
+                        {e.name}
+                      </option>
+                    ))}
                 </select>
               </div>
             </div>
 
             <div className="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
               <label
-                htmlFor="regions"
+                htmlFor="province_id"
                 className="block text-sm font-medium leading-6 text-white sm:pt-1.5"
               >
-                Empresa <span className="text-orange">*</span>
+                Nombre de la empresa <span className="text-orange">*</span>
               </label>
-              <div className="mt-2 sm:col-span-2 sm:mt-0">
-                <select
-                  name="company_id"
-                  id="company_id"
-                  value={company_id} 
-                  onChange={(event) => setCompanyId(event.target.value)}
-                  className="block w-full rounded-md border-0 py-1.5  text-stone6 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
-                >
-                  <option value="">Selecciona una empresa</option>
-                  {Companies.map((e) => (
+              <select
+                type="text"
+                name="companies_id"
+                id="companies_id"
+                value={company_id} // Cambiar 'regions' por el estado que representa la opción seleccionada
+                onChange={(event) => setCompanyId(event.target.value)} // Cambiar 'setRegions' por el método que actualiza el estado de la opción seleccionada
+                className="block w-full rounded-md border-0 py-1.5  text-stone6 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
+              >
+                {companies &&
+                  companies.map((e) => (
                     <option key={e.id} value={e.id}>
                       {e.name}
                     </option>
                   ))}
-                </select>
-              </div>
+              </select>
             </div>
 
             <div className="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
               <label
                 htmlFor="name"
-                className="block text-sm font-medium leading-6 text-white sm:pt-1.5"
+                className="block text-sm font-medium leading-6  text-white sm:pt-1.5"
               >
                 Nombre <span className="text-orange">*</span>
               </label>
-              <div className="flex mt-2 sm:col-span-2 sm:mt-0">
+              <div className="mt-2 sm:col-span-2 sm:mt-0">
                 <input
-                  type="text"
-                  name="name"
                   id="name"
+                  name="name"
+                  type="text"
                   value={name}
                   onChange={(event) => setName(event.target.value)}
-                  autoComplete="Name"
-                  className="block w-full mr-10 rounded-md border-0 px-2 py-1.5 text-stone6 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
+                  autoComplete="nombre"
+                  className="block w-full rounded-md border-0 py-1.5  text-stone6 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-md sm:text-sm sm:leading-6"
                 />
               </div>
             </div>
@@ -224,19 +266,19 @@ const MolFormRecruitersCreate = () => {
             <div className="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
               <label
                 htmlFor="name"
-                className="block text-sm font-medium leading-6 text-white sm:pt-1.5"
+                className="block text-sm font-medium leading-6  text-white sm:pt-1.5"
               >
                 Apellidos <span className="text-orange">*</span>
               </label>
-              <div className="flex mt-2 sm:col-span-2 sm:mt-0">
+              <div className="mt-2 sm:col-span-2 sm:mt-0">
                 <input
+                  id="lastname"
+                  name="lastname"
                   type="text"
-                  name="name"
-                  id="name"
                   value={lastname}
                   onChange={(event) => setlastname(event.target.value)}
-                  autoComplete="Name"
-                  className="block w-full mr-10 rounded-md border-0 px-2 py-1.5 text-stone6 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
+                  autoComplete="lastname"
+                  className="block w-full rounded-md border-0 py-1.5  text-stone6 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-md sm:text-sm sm:leading-6"
                 />
               </div>
             </div>
@@ -279,18 +321,19 @@ const MolFormRecruitersCreate = () => {
               </div>
             </div>
 
+            
             <div className="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
               <label
                 htmlFor="remote"
                 className="block text-sm font-medium leading-6  text-white sm:pt-1.5"
               >
-                Remoto <span className="text-orange">*</span>
+                En remoto 
               </label>
               <div className="flex mt-2 sm:col-span-2 sm:mt-0">
                 <input
                   type="text"
                   name="remote"
-                  id="remote"
+                  id="remoten"
                   value={remote}
                   onChange={(event) => setRemote(event.target.value)}
                   className="block w-full rounded-md border-0 mr-10 py-1.5 px-2 text-stone6 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xl sm:text-sm sm:leading-6"
@@ -298,13 +341,13 @@ const MolFormRecruitersCreate = () => {
               </div>
             </div>
 
-            
+
             <div className="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
               <label
                 htmlFor="charge"
                 className="block text-sm font-medium leading-6  text-white sm:pt-1.5"
               >
-                Cargo
+                Cargo 
               </label>
               <div className="flex mt-2 sm:col-span-2 sm:mt-0">
                 <input
@@ -332,11 +375,10 @@ const MolFormRecruitersCreate = () => {
                   id="linkedin"
                   value={linkedin}
                   onChange={(event) => setLinkedin(event.target.value)}
-                  className="block w-full rounded-md border-0 mr-10 py-1.5 px-2 text-stone6 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xl sm:text-sm sm:leading-6"
+                  className="block w-full rounded-md border-0 mr-10 py-1.5 px-1.5 text-stone6 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xl sm:text-sm sm:leading-6"
                 />
               </div>
             </div>
-            
             <div className="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
               <label
                 htmlFor="gender"
@@ -345,7 +387,6 @@ const MolFormRecruitersCreate = () => {
                  Preferencias género
               </label>
               <div className="mt-2 sm:col-span-2 sm:mt-0">
-
                 <select
                    type="text"
                    name="gender"
@@ -366,10 +407,8 @@ const MolFormRecruitersCreate = () => {
                   </option>
                 </select>
               </div>
-
             </div>
-
-
+            
             <div className="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
               <label
                 htmlFor="first_interview"
@@ -390,7 +429,7 @@ const MolFormRecruitersCreate = () => {
                 />
               </div>
             </div>
-
+           
             <div className="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
               <label
                 htmlFor="last_interview"
@@ -412,44 +451,83 @@ const MolFormRecruitersCreate = () => {
               </div>
             </div>
 
+            <div className="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
+              <label
+                htmlFor="stack_id"
+                className="block text-sm font-medium leading-6 text-white sm:pt-1.5"
+              >
+                 Stacks
+              </label>
+              <div className="mt-2 sm:col-span-2 sm:mt-0">
+                <form onChange={handleChangeStacks}>
+                <select
+                type="text"
+                name="stack_id"
+                id="stack_id"
+                value={stack_id} 
+                onChange={(event) => setStack_id(event.target.value)}
+                className="block w-full rounded-md border-0 py-1.5  text-stone6 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
+              >
+                {stacks &&
+                  stacks.map((e) => (
+                    <option key={e.id} value={e.id}>
+                      {e.name}
+                    </option>
+                  ))}
+              </select>
+
+                </form>
+              </div>
+            </div>
+
+            <div className="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
+              <label
+                htmlFor="language_id"
+                className="block text-sm font-medium leading-6 text-white sm:pt-1.5"
+              >
+                 Lenguages
+              </label>
+              <div className="mt-2 sm:col-span-2 sm:mt-0">
+                <form onChange={handleChangeLenguages}>
+                <select
+                type="text"
+                name="language_id"
+                id="language_id"
+                value={language_id} 
+                onChange={(event) => setLanguage_id(event.target.value)}
+                className="block w-full rounded-md border-0 py-1.5  text-stone6 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
+              >
+                {languages &&
+                  languages.map((e) => (
+                    <option key={e.id} value={e.id}>
+                      {e.name}
+                    </option>
+                  ))}
+              </select>
+
+                </form>
+              </div>
+            </div>
+            
           </div>
 
-          
-          <div className="flex justify-center">
           <button
             type="submit"
-            className="text-sm text-white my-10 mx-10 px-12 py-3.5 rounded-xl bg-gradient-to-r from-orangel to-orange hover:from-verde hover:to-verdel ..."
+            className="text-sm my-10 px-24 py-3.5 rounded-xl bg-gradient-to-r from-orange to-orangel hover:from-verde hover:to-verdel ..."
           >
-            <a href="/recruiterstable">Añadir recruiter</a>
+            Editar recruiter
           </button>
+
           <button
-            className="text-sm text-white my-10 mx-10 px-12 py-3.5 rounded-xl bg-gradient-to-r from-orangel to-orange hover:from-verde hover:to-verdel ..."
+            className="text-sm my-10 mx-10 px-24 py-3.5 rounded-xl bg-gradient-to-r from-orangel to-orange hover:from-verde hover:to-verdel ..."
             type="button"
           >
             <a href="/recruiterstable">Ver recruiters</a>
           </button>
-          <button
-            htmlFor="excel"
-            className="text-sm text-white my-10 mx-10 px-12 py-3.5 rounded-xl bg-gradient-to-r from-orangel to-orange hover:from-verde hover:to-verdel ..."
-            type="button"
-            onClick={handleClick}
-          >
-            Seleccionar excel
-            <input
-              type="file"
-              id="excel"
-              name="excel"
-              onChange={handleExcelUpload}
-              accept=".xlsx"
-              ref={fileInput}
-              style={{ display: "none" }}
-            />
-          </button>
-          </div>
         </form>
       </div>
     </>
   );
 };
 
-export default MolFormRecruitersCreate;
+export default MolFormRecruitersEditcopy;

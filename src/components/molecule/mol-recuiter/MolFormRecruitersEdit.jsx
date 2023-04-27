@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import {
   getRecruitersById,
-  updateRecruiters,
+  updateRecruiters,updateRecruitersStacksAttach
 } from "../../../service/RecruitersService";
 import Swal from "sweetalert2";
 import { getCompanies } from "../../../service/CompaniesService";
@@ -18,12 +18,15 @@ const MolFormRecruitersEdit = ({ prop }) => {
   const [event_id, setEventId] = useState("");
   const [company_id, setCompanyId] = useState("");
   const [name, setName] = useState("");
+  const [lastname, setlastname] = useState("");
   const [charge, setCharge] = useState("");
-  const [interviews_quantity, setInterviews_quantity] = useState("");
+  const [first_interview, setFirst_interview] = useState("");
+  const [last_interview, setLast_interview] = useState("");
   const [remote, setRemote] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [linkedin, setLinkedin] = useState("");
+  const [gender, setGender] = useState("");
 
   useEffect(() => {
     const fetchRecruiters = async () => {
@@ -32,12 +35,17 @@ const MolFormRecruitersEdit = ({ prop }) => {
         setEventId(data.recruiter.event_id);
         setCompanyId(data.recruiter.company_id);
         setName(data.recruiter.name);
+        setlastname(data.recruiter.lastname);
+        setCharge(data.recruiter.charge);
+        setFirst_interview(data.recruiter.first_interview);
+        setLast_interview(data.recruiter.last_interview);
         setRemote(data.recruiter.remote);
         setEmail(data.recruiter.email);
         setPhone(data.recruiter.phone);
         setLinkedin(data.recruiter.linkedin);
-        setInterviews_quantity(data.recruiter.interviews_quantity);
-        setCharge(data.recruiter.charge);
+        setGender(data.recruiter.gender);
+        
+        
         console.log(data);
       } catch (error) {
         console.log(error);
@@ -53,7 +61,8 @@ const MolFormRecruitersEdit = ({ prop }) => {
         event_id,
         company_id,
         name,
-        interviews_quantity,
+        first_interview,
+        last_interview,
         charge,
         remote,
         email,
@@ -79,7 +88,8 @@ const MolFormRecruitersEdit = ({ prop }) => {
         email,
         phone,
         linkedin,
-        interviews_quantity,
+        first_interview,
+        last_interview,
         charge,
       };
 
@@ -121,6 +131,16 @@ const MolFormRecruitersEdit = ({ prop }) => {
       })
       .catch((error) => console.error(error));
   }, []);
+
+  const handleChange = async (event) => {
+    event.preventDefault();
+    try {
+      const scheduleCreate = await updateRecruitersStacksAttach();
+      console.log(scheduleCreate);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <>
@@ -205,38 +225,20 @@ const MolFormRecruitersEdit = ({ prop }) => {
 
             <div className="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
               <label
-                htmlFor="charge"
+                htmlFor="name"
                 className="block text-sm font-medium leading-6  text-white sm:pt-1.5"
               >
-                Cargo <span className="text-orange">*</span>
+                Apellidos <span className="text-orange">*</span>
               </label>
-              <div className="flex mt-2 sm:col-span-2 sm:mt-0">
+              <div className="mt-2 sm:col-span-2 sm:mt-0">
                 <input
+                  id="lastname"
+                  name="lastname"
                   type="text"
-                  name="charge"
-                  id="charge"
-                  value={charge}
-                  onChange={(event) => setCharge(event.target.value)}
-                  className="block w-full rounded-md border-0 mr-10 py-1.5 px-2 text-stone6 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xl sm:text-sm sm:leading-6"
-                />
-              </div>
-            </div>
-
-            <div className="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
-              <label
-                htmlFor="linkedin"
-                className="block text-sm font-medium leading-6  text-white sm:pt-1.5"
-              >
-                Linkedin
-              </label>
-              <div className="flex mt-2 sm:col-span-2 sm:mt-0">
-                <input
-                  type="text"
-                  name="linkedin"
-                  id="linkedin"
-                  value={linkedin}
-                  onChange={(event) => setLinkedin(event.target.value)}
-                  className="block w-full rounded-md border-0 mr-10 py-1.5 px-1.5 text-stone6 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xl sm:text-sm sm:leading-6"
+                  value={lastname}
+                  onChange={(event) => setlastname(event.target.value)}
+                  autoComplete="lastname"
+                  className="block w-full rounded-md border-0 py-1.5  text-stone6 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-md sm:text-sm sm:leading-6"
                 />
               </div>
             </div>
@@ -279,12 +281,13 @@ const MolFormRecruitersEdit = ({ prop }) => {
               </div>
             </div>
 
+            
             <div className="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
               <label
                 htmlFor="remote"
                 className="block text-sm font-medium leading-6  text-white sm:pt-1.5"
               >
-                En remoto <span className="text-orange">*</span>
+                En remoto 
               </label>
               <div className="flex mt-2 sm:col-span-2 sm:mt-0">
                 <input
@@ -298,26 +301,118 @@ const MolFormRecruitersEdit = ({ prop }) => {
               </div>
             </div>
 
+
             <div className="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
               <label
-                htmlFor="interviews_quantity"
+                htmlFor="charge"
                 className="block text-sm font-medium leading-6  text-white sm:pt-1.5"
               >
-                Nº entrevistas <span className="text-orange">*</span>
+                Cargo 
               </label>
               <div className="flex mt-2 sm:col-span-2 sm:mt-0">
                 <input
-                  type="number"
-                  name="interviews_quantity"
-                  id="interviews_quantity"
-                  value={interviews_quantity}
+                  type="text"
+                  name="charge"
+                  id="charge"
+                  value={charge}
+                  onChange={(event) => setCharge(event.target.value)}
+                  className="block w-full rounded-md border-0 mr-10 py-1.5 px-2 text-stone6 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xl sm:text-sm sm:leading-6"
+                />
+              </div>
+            </div>
+
+            <div className="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
+              <label
+                htmlFor="linkedin"
+                className="block text-sm font-medium leading-6  text-white sm:pt-1.5"
+              >
+                Linkedin
+              </label>
+              <div className="flex mt-2 sm:col-span-2 sm:mt-0">
+                <input
+                  type="text"
+                  name="linkedin"
+                  id="linkedin"
+                  value={linkedin}
+                  onChange={(event) => setLinkedin(event.target.value)}
+                  className="block w-full rounded-md border-0 mr-10 py-1.5 px-1.5 text-stone6 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xl sm:text-sm sm:leading-6"
+                />
+              </div>
+            </div>
+            <div className="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
+              <label
+                htmlFor="gender"
+                className="block text-sm font-medium leading-6 text-white sm:pt-1.5"
+              >
+                 Preferencias género
+              </label>
+              <div className="mt-2 sm:col-span-2 sm:mt-0">
+                <form onChange={handleChange}>
+                <select
+                   type="text"
+                   name="gender"
+                   id="gender"
+                   value={gender}
+                   onChange={(event) => setGender(event.target.value)}
+                  className="block w-full rounded-md border-0 py-1.5  text-stone6 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
+                >
+                  <option>Seleciona una opción</option>
+                  <option key={1} value="Mujer">
+                    Mujer
+                  </option>
+                  <option key={2} value="Hombre">
+                    Hombre
+                  </option>
+                  <option key={3} value="Otros">
+                    Otros
+                  </option>
+                </select>
+                </form>
+              </div>
+            </div>
+            
+            <div className="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
+              <label
+                htmlFor="first_interview"
+                className="block text-sm font-medium leading-6  text-white sm:pt-1.5"
+              >
+                Primer entrevista 
+              </label>
+              <div className="flex mt-2 sm:col-span-2 sm:mt-0">
+                <input
+                  type="text"
+                  name="first_interview"
+                  id="first_interview"
+                  value={first_interview}
                   onChange={(event) =>
-                    setInterviews_quantity(event.target.value)
+                    setFirst_interview(event.target.value)
                   }
                   className="block w-full rounded-md border-0 mr-10 py-1.5 px-2 text-stone6 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xl sm:text-sm sm:leading-6"
                 />
               </div>
             </div>
+           
+            <div className="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
+              <label
+                htmlFor="last_interview"
+                className="block text-sm font-medium leading-6  text-white sm:pt-1.5"
+              >
+                Ultima entrevista 
+              </label>
+              <div className="flex mt-2 sm:col-span-2 sm:mt-0">
+                <input
+                  type="text"
+                  name="last_interview"
+                  id="last_interview"
+                  value={last_interview}
+                  onChange={(event) =>
+                    setLast_interview(event.target.value)
+                  }
+                  className="block w-full rounded-md border-0 mr-10 py-1.5 px-2 text-stone6 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xl sm:text-sm sm:leading-6"
+                />
+              </div>
+            </div>
+
           </div>
 
           <button

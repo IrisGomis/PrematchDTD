@@ -10,9 +10,19 @@ export const getSchedule = () => {
   });
 };
 
-// export const getScheduleById = (id) => {
-//   return axios.get(baseUrl + "/schedule/" + id)
-// }
+
+export const getScheduleCoder = () => {
+  return axios.get(baseUrl + "/schedule/countCoder").then((response) => {
+    return { data: response.data.match };
+  });
+};
+
+export const getScheduleRecruiter = () => {
+  return axios.get(baseUrl + "/schedule/countRecruiter").then((response) => {
+    return { data: response.data.match };
+  });
+};
+
 
 export const createSchedule = (data) => {
   return axios.post(baseUrl + "/schedule", data)

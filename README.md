@@ -38,7 +38,10 @@ Este proyecto es en herramienta que permite hacer Pre-Match entre un coder y un 
 ## Instalación :computer:
 * Abre una terminal en tu ordenador
 * Después, clona el repositorio utilizando ***$ git clone https://github.com/IrisGomis/prematch-dtd.git***
+<<<<<<< HEAD
 * En tu terminal utiliza ***$ composer install*** 
+=======
+>>>>>>> a4d55c8a1afbe2a06083688c9c706cc6c53f02df
 * En tu terminal utiliza ***$ npm install***
 * Para verlo, utiliza en tu terminal ***$ npm start***
 
@@ -49,4 +52,8 @@ Este proyecto ha sido realizado por un equipo de 5 programadoras en formación:
 | :---: | :---: | :---: | :---: | :---: |
 
 ## Licencia :closed_lock_with_key:
+<<<<<<< HEAD
 © [Prematch DTD]()
+=======
+© [Prematch DTD]()
+>>>>>>> a4d55c8a1afbe2a06083688c9c706cc6c53f02df

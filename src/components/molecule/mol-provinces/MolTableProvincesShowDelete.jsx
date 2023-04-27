@@ -144,21 +144,25 @@ export default function MolTableProvincesShowDelete() {
                   <td className="px-7 sm:px-6">
                     <input
                       type="checkbox"
-                      className="h-4 w-4 text-orange rounded border-orangel focus:ring-orange"
+                      className="h-4 w-4 text-orangel rounded border-stone3 focus:ring-orange"
                       checked={selectedProvinces.some((p) => p.id === province.id)}
                       onChange={() => {
                         const checked = selectedProvinces.some((p) => p.id === province.id);
                         if (checked) {
                           setSelectedProvinces(selectedProvinces.filter((p) => p.id !== province.id));
                         } else {
-                          setSelectedProvinces([...selectedProvinces, province]);
+                          setSelectedProvinces([...selectedProvinces, province,]);
                         }
                       }}
                     />
                   </td>
-                  <td className="py-4 px-6 whitespace-nowrap text-sm font-medium text-white">{province.name}</td>
                   <td className="py-4 px-6 whitespace-nowrap text-sm font-medium text-white">
-                    {regions.find((r) => r.id === province.region_id)?.name}
+                    {province.name}
+                    </td>
+                  <td className="py-4 px-6 whitespace-nowrap text-sm font-medium text-white">
+                    {
+                    regions.find((p) => p.id === province.region_id)?.name
+                    }
                   </td>
                   <td className="whitespace-nowrap px-3 py-4 text-sm text-white">
                         {province.lat}</td>
@@ -168,7 +172,7 @@ export default function MolTableProvincesShowDelete() {
                         {province.iso}</td>
                   <td className="py-4 px-6 whitespace-nowrap text-sm font-medium text-white">
                     <Link
-                      to={`/provinces/${province.id}/edit`}
+                      to={`/provincedit/${province.id}`}
                       className="text-orangel hover:text-orange"
                     >
                       Editar
