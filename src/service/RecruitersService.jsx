@@ -47,3 +47,10 @@ export const updateRecruitersUbicationAttach = (id, data) => {
 export const updateRecruitersUbicationDeAttach = (id, data) => {
   return axios.post(baseUrl + "/recruiters/ubication/detach" + id, data)
 }
+
+export const createExcelRecruiters = (data) => {
+  return axios.post(baseUrl + "/upload/excel/recruiters", data, {
+  headers: {
+    'Content-Type': 'multipart/form-data',
+    'Access-Control-Allow-Origin': '*'
+}});}

@@ -208,7 +208,6 @@ export default function MolTableRecruitersShowDelete() {
                       >
                         {event ? event.name : "-" }
                       </td>
-                      {/* <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{e.name}</td> */}
                       <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
                       {company ? company.name : '-'}</td>
                         <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
@@ -229,10 +228,9 @@ export default function MolTableRecruitersShowDelete() {
                         {e.remote}</td>
                         <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
                         {e.linkedin}</td>
-                      
-                     
-                      
-                      
+                        <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                        {e.gender}</td>
+                                              
                       <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                         <Link
                           to={`/recruitersedit/${e.id}`}

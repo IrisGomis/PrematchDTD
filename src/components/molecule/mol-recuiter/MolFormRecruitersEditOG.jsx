@@ -2,29 +2,23 @@ import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import {
   getRecruitersById,
-  updateRecruiters,
-  updateRecruitersStacksAttach,
-  updateRecruitersLanguagesAttach,
+  updateRecruiters
 } from "../../../service/RecruitersService";
+import Swal from "sweetalert2";
 import { getCompanies } from "../../../service/CompaniesService";
 import { getEvento } from "../../../service/EventService";
-import { getStacks } from "../../../service/StacksService";
-import { getLanguages } from "../../../service/LanguagesService";
 import MenuCompanies from "../mol-companies/MenuCompanies";
-import Swal from "sweetalert2";
 
-const MolFormRecruitersEditcopy = ({ prop }) => {
+const MolFormRecruitersEdit = ({ prop }) => {
   const { id } = useParams();
   const navigate = useNavigate();
 
   const [event, setEvent] = useState([]);
   const [companies, setCompanies] = useState([]);
-  const [languages, setLanguages] = useState([]);
-  const [stacks, setStacks] = useState([]);
   const [event_id, setEventId] = useState("");
   const [company_id, setCompanyId] = useState("");
   const [name, setName] = useState("");
-  const [lastname, setlastname] = useState("");
+  const [lastname, setLastname] = useState("");
   const [charge, setCharge] = useState("");
   const [first_interview, setFirst_interview] = useState("");
   const [last_interview, setLast_interview] = useState("");
@@ -33,8 +27,6 @@ const MolFormRecruitersEditcopy = ({ prop }) => {
   const [phone, setPhone] = useState("");
   const [linkedin, setLinkedin] = useState("");
   const [gender, setGender] = useState("");
-  const [stack_id, setStack_id] = useState("");
-  const [language_id, setLanguage_id] = useState(""); 
 
   useEffect(() => {
     const fetchRecruiters = async () => {
@@ -43,7 +35,7 @@ const MolFormRecruitersEditcopy = ({ prop }) => {
         setEventId(data.recruiter.event_id);
         setCompanyId(data.recruiter.company_id);
         setName(data.recruiter.name);
-        setlastname(data.recruiter.lastname);
+        setLastname(data.recruiter.lastname);
         setCharge(data.recruiter.charge);
         setFirst_interview(data.recruiter.first_interview);
         setLast_interview(data.recruiter.last_interview);
@@ -69,6 +61,7 @@ const MolFormRecruitersEditcopy = ({ prop }) => {
         event_id,
         company_id,
         name,
+        lastname,
         first_interview,
         last_interview,
         charge,
@@ -92,6 +85,7 @@ const MolFormRecruitersEditcopy = ({ prop }) => {
         event_id,
         company_id,
         name,
+        lastname,
         remote,
         email,
         phone,
@@ -139,47 +133,7 @@ const MolFormRecruitersEditcopy = ({ prop }) => {
       })
       .catch((error) => console.error(error));
   }, []);
-  useEffect(() => {
-    getLanguages()
-      .then((response) => {
-        setLanguages(response.data);
-      })
-      .catch((error) => console.error(error));
-  }, []);
 
-  useEffect(() => {
-    getStacks()
-      .then((response) => {
-        setStacks(response.data);
-      })
-      .catch((error) => console.error(error));
-  }, []);
-
-
-
-  const handleChangeStacks = async (event) => {
-    event.preventDefault();
-    try {
-      const formData = new FormData();
-      formData.append("stack_id", stack_id);
-
-      const attachLanguageCreate = await updateRecruitersLanguagesAttach();
-      console.log(attachLanguageCreate);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-  const handleChangeLenguages = async (event) => {
-    event.preventDefault();
-    try {
-      const formData = new FormData();
-      formData.append("language_id", language_id);
-      const attchStacksCreate = await updateRecruitersStacksAttach();
-      console.log(attchStacksCreate);
-    } catch (error) {
-      console.log(error);
-    }
-  };
 
   return (
     <>
@@ -191,7 +145,6 @@ const MolFormRecruitersEditcopy = ({ prop }) => {
 
         <form className="bg-stone6" onSubmit={handleSubmit}>
           <div className="mt-10 space-y-8 border-b border-orange pb-12 sm:space-y-0 sm:divide-y sm:divide-orange sm:border-t sm:pb-0">
-
             <div className="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
               <label
                 htmlFor="event_id"
@@ -276,7 +229,7 @@ const MolFormRecruitersEditcopy = ({ prop }) => {
                   name="lastname"
                   type="text"
                   value={lastname}
-                  onChange={(event) => setlastname(event.target.value)}
+                  onChange={(event) => setLastname(event.target.value)}
                   autoComplete="lastname"
                   className="block w-full rounded-md border-0 py-1.5  text-stone6 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-md sm:text-sm sm:leading-6"
                 />
@@ -379,6 +332,7 @@ const MolFormRecruitersEditcopy = ({ prop }) => {
                 />
               </div>
             </div>
+            
             <div className="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
               <label
                 htmlFor="gender"
@@ -451,64 +405,6 @@ const MolFormRecruitersEditcopy = ({ prop }) => {
               </div>
             </div>
 
-            <div className="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
-              <label
-                htmlFor="stack_id"
-                className="block text-sm font-medium leading-6 text-white sm:pt-1.5"
-              >
-                 Stacks
-              </label>
-              <div className="mt-2 sm:col-span-2 sm:mt-0">
-                <form onChange={handleChangeStacks}>
-                <select
-                type="text"
-                name="stack_id"
-                id="stack_id"
-                value={stack_id} 
-                onChange={(event) => setStack_id(event.target.value)}
-                className="block w-full rounded-md border-0 py-1.5  text-stone6 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
-              >
-                {stacks &&
-                  stacks.map((e) => (
-                    <option key={e.id} value={e.id}>
-                      {e.name}
-                    </option>
-                  ))}
-              </select>
-
-                </form>
-              </div>
-            </div>
-
-            <div className="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
-              <label
-                htmlFor="language_id"
-                className="block text-sm font-medium leading-6 text-white sm:pt-1.5"
-              >
-                 Lenguages
-              </label>
-              <div className="mt-2 sm:col-span-2 sm:mt-0">
-                <form onChange={handleChangeLenguages}>
-                <select
-                type="text"
-                name="language_id"
-                id="language_id"
-                value={language_id} 
-                onChange={(event) => setLanguage_id(event.target.value)}
-                className="block w-full rounded-md border-0 py-1.5  text-stone6 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
-              >
-                {languages &&
-                  languages.map((e) => (
-                    <option key={e.id} value={e.id}>
-                      {e.name}
-                    </option>
-                  ))}
-              </select>
-
-                </form>
-              </div>
-            </div>
-            
           </div>
 
           <button
@@ -530,4 +426,4 @@ const MolFormRecruitersEditcopy = ({ prop }) => {
   );
 };
 
-export default MolFormRecruitersEditcopy;
+export default MolFormRecruitersEdit;

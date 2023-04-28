@@ -6,6 +6,7 @@ import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { getProvinces } from "../../../service/ProvincesService";
 import MenuCompanies from "./MenuCompanies";
+import Button from "../../atome/Button";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
@@ -98,6 +99,9 @@ export default function MolTableCompaniesShowDelete() {
             >
               <a href="/companiescreate">Crear empresa</a>
             </button>
+
+            <Button />
+
           </div>
         </div>
         <div className="mt-8 flow-root">

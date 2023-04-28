@@ -3,8 +3,8 @@ import { useParams, useNavigate } from "react-router-dom";
 import { 
   getCodersById, 
   updateCoders,
-  updateCodersLanguagesAttach,
-  updateCodersStacksAttach
+  // updateCodersLanguagesAttach,
+  // updateCodersStacksAttach
 } from "../../../service/CodersService";
 import Swal from "sweetalert2";
 import { getPromotions } from "../../../service/PromotionsServices";
@@ -172,7 +172,7 @@ const MolFormCodersEdit = ({ eent }) => {
                   autoComplete="given-name"
                   className="block w-full rounded-md border-0 py-1.5  text-stone6 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
                 >
-                  <option value="">Seleccione un evento</option>
+                  <option value="">Seleccione una opción</option>
                   {event.map((event) => (
                     <option key={event.id} value={event.id}>
                       {event.name}
@@ -199,7 +199,7 @@ const MolFormCodersEdit = ({ eent }) => {
                   autoComplete="given-name"
                   className="block w-full rounded-md border-0 py-1.5  text-stone6 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
                 >
-                  <option value="">Seleccione una promoción</option>
+                  <option value="">Seleccione una opción</option>
                   {promotions.map((e) => (
                     <option key={e.id} value={e.id}>
                       {e.name}
@@ -264,7 +264,7 @@ const MolFormCodersEdit = ({ eent }) => {
                   onChange={(event) => setGender(event.target.value)}
                   className="block w-full rounded-md border-0 mr-10 py-1.5 px.2 text-stone6 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
                 >
-                  <option value="">Seleccione una género</option>
+                  <option value="">Seleccione una opción</option>
                   <option key={1} value="Mujer">
                     Mujer
                   </option>
@@ -332,7 +332,7 @@ const MolFormCodersEdit = ({ eent }) => {
                   onChange={(event) => setProfile(event.target.value)}
                   className="block w-full rounded-md border-0 py-1.5  text-stone6 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
                 >
-                  <option value="">Seleccione una perfil</option>
+                  <option value="">Seleccione una opción</option>
                   <option key={1} value="FullStack">
                     FullStack
                   </option>
@@ -440,9 +440,7 @@ const MolFormCodersEdit = ({ eent }) => {
                   className="block w-full rounded-md border-0 py-1.5  text-stone6 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
                 />
               </div>
-            </div>
-
-            
+            </div>            
 
           <div className="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
             <label
