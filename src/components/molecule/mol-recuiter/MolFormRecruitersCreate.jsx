@@ -6,6 +6,7 @@ import { getCompanies } from "../../../service/CompaniesService";
 import { getEvento } from "../../../service/EventService";
 import MenuCompanies from "../mol-companies/MenuCompanies";
 import * as XLSX from "xlsx";
+import MolFormUploadRecruiters from "./MolFormUploadRecruiters";
 
 const MolFormRecruitersCreate = () => {
   const [event, setEvent] = useState([]);
@@ -145,9 +146,13 @@ const MolFormRecruitersCreate = () => {
     <>
       <MenuCompanies />
       <div className="bg-stone6 w-screen max-w-screen-xl rounded-xl p-20 m-20 text-white">
+        <div className="flex justify-between">
         <h2 className="text-2xl font-semibold leading-7 text-orange">
           Añadir recruiter
         </h2>
+        <MolFormUploadRecruiters/>
+        </div>
+        
 
         <form className="bg-stone6" onSubmit={handleSubmit}>
           <div className="mt-10 space-y-8 border-b border-orange pb-12 sm:space-y-0 sm:divide-y sm:divide-orange sm:border-t sm:pb-0">

@@ -1,10 +1,11 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { createCompanies } from "../../../service/CompaniesService";
 import { getProvinces } from "../../../service/ProvincesService";
 import Swal from "sweetalert2";
 import MenuCompanies from "../mol-companies/MenuCompanies";
-import * as XLSX from "xlsx";
+//import * as XLSX from "xlsx";
+import MolFormUploadCompanies from "./MolFormUploadCompanies";
 
 const MolFormCompaniesCreate = () => {
   const [name, setName] = useState("");
@@ -14,55 +15,55 @@ const MolFormCompaniesCreate = () => {
   const [priority, setPriority] = useState("");
   const [province_id, setProvince_id] = useState(0);
   const [provinces, setProvinces] = useState([]);
-  const fileInput = useRef(null);
+  //const fileInput = useRef(null);
   const navigate = useNavigate();
 
-  const handleExcelUpload = (event) => {
-    const file = event.target.files[0];
-    const reader = new FileReader();
-    reader.onload = async (event) => {
-      const data = new Uint8Array(event.target.result);
-      const workbook = XLSX.read(data, { type: "array" });
-      const worksheet = workbook.Sheets[workbook.SheetNames[0]];
-      const rows = XLSX.utils.sheet_to_json(worksheet, { header: 1 });
+  // const handleExcelUpload = (event) => {
+  //   const file = event.target.files[0];
+  //   const reader = new FileReader();
+  //   reader.onload = async (event) => {
+  //     const data = new Uint8Array(event.target.result);
+  //     const workbook = XLSX.read(data, { type: "array" });
+  //     const worksheet = workbook.Sheets[workbook.SheetNames[0]];
+  //     const rows = XLSX.utils.sheet_to_json(worksheet, { header: 1 });
       
-      const header = rows[0];
-      const rowsData = rows.slice(1).map((row) => {
-        return header.reduce((acc, curr, index) => {
-          acc[curr] = row[index];
-          return acc;
-        }, {});
-      });
+  //     const header = rows[0];
+  //     const rowsData = rows.slice(1).map((row) => {
+  //       return header.reduce((acc, curr, index) => {
+  //         acc[curr] = row[index];
+  //         return acc;
+  //       }, {});
+  //     });
       
-      rowsData.forEach(async (rowData) => {
-        const formData = new FormData();
-        formData.append("name", rowData.name);
-        formData.append("ubication", rowData.ubication);
-        formData.append("email", toString(rowData.email))
-        formData.append("phone", rowData.phone);
-        formData.append("priority", rowData.priority);
-        formData.append("province_id", parseInt(rowData.province_id));
+  //     rowsData.forEach(async (rowData) => {
+  //       const formData = new FormData();
+  //       formData.append("name", rowData.name);
+  //       formData.append("ubication", rowData.ubication);
+  //       formData.append("email", toString(rowData.email))
+  //       formData.append("phone", rowData.phone);
+  //       formData.append("priority", rowData.priority);
+  //       formData.append("province_id", parseInt(rowData.province_id));
 
-        try {
-          const { data } = await createCompanies(formData);
-          console.log(data);
-        } catch (error) {
-          console.log(error);
-        }
-      });
-      Swal.fire({
-        position: "center",
-        icon: "success",
-        title: "¡Tus datos se han añadido con éxito!",
-        showConfirmButton: false,
-        timer: 2000,
-      });
-      setTimeout(() => {
-        navigate("/companiestable");
-      }, 2000); 
-    };
-    reader.readAsArrayBuffer(file);
-  };
+  //       try {
+  //         const { data } = await createCompanies(formData);
+  //         console.log(data);
+  //       } catch (error) {
+  //         console.log(error);
+  //       }
+  //     });
+  //     Swal.fire({
+  //       position: "center",
+  //       icon: "success",
+  //       title: "¡Tus datos se han añadido con éxito!",
+  //       showConfirmButton: false,
+  //       timer: 2000,
+  //     });
+  //     setTimeout(() => {
+  //       navigate("/companiestable");
+  //     }, 2000); 
+  //   };
+  //   reader.readAsArrayBuffer(file);
+  // };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -107,18 +108,18 @@ const MolFormCompaniesCreate = () => {
       .catch((error) => console.error(error));
   }, []);
 
-  const handleClick = () => {
-    fileInput.current.click();
-  };
 
   return (
     <>
       <MenuCompanies />
       <div className="bg-stone6 w-screen max-w-screen-xl rounded-xl p-20 m-20 text-white">
+        <div className="flex justify-between">
         <h2 className="text-2xl font-semibold leading-7 text-orange">
           Añadir empresa
         </h2>
-
+        <MolFormUploadCompanies/>
+        </div>
+       
         <form className="bg-stone6" onSubmit={handleSubmit}>
           <div className="mt-10 space-y-8 border-b border-orange pb-12 sm:space-y-0 sm:divide-y sm:divide-orange sm:border-t sm:pb-0">
             <div className="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
@@ -259,7 +260,7 @@ const MolFormCompaniesCreate = () => {
             </div>
             
           </div>
-          <div>
+          <div className="flex justify-around">
             <button
               type="submit"
               className="text-sm text-white my-10 px-12 py-3.5 rounded-xl bg-gradient-to-r from-orange to-orangel hover:from-verde hover:to-verdel ..."
@@ -272,7 +273,10 @@ const MolFormCompaniesCreate = () => {
             >
               <a href="/companiestable">Ver empresas</a>
             </button>
-            <button
+
+           
+            
+            {/* <button
               htmlFor="excel"
               className="text-sm text-white my-10 mx-10 px-12 py-3.5 rounded-xl bg-gradient-to-r from-orangel to-orange hover:from-verde hover:to-verdel ..."
               type="button"
@@ -288,7 +292,7 @@ const MolFormCompaniesCreate = () => {
                 ref={fileInput}
                 style={{ display: "none" }}
               />
-            </button>
+            </button> */}
           </div>
         </form>
       </div>

@@ -6,6 +6,7 @@ import { getPromotions } from "../../../service/PromotionsServices";
 import { getEvento } from "../../../service/EventService";
 import MenuSchool from "../mol-school/MenuSchools";
 import * as XLSX from "xlsx";
+import MolFormUploadCoders from "./MolFormUploadCoders";
 
 const MolFormCodersCreate = () => {
   const [event, setEvent] = useState([]);
@@ -141,9 +142,13 @@ const MolFormCodersCreate = () => {
     <>
       <MenuSchool />
       <div className="bg-stone6 w-screen max-w-screen-xl rounded-xl p-20 m-20 text-white">
+        <div className="flex justify-between">
         <h2 className="text-2xl font-semibold leading-7 text-orange">
           Añadir coder
         </h2>
+        <MolFormUploadCoders/>
+        </div>
+       
 
         <form className="bg-stone6" onSubmit={handleSubmit}>
           <div className="mt-10 space-y-8 border-b border-orange pb-12 sm:space-y-0 sm:divide-y sm:divide-orange sm:border-t sm:pb-0">
