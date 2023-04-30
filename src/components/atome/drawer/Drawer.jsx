@@ -29,10 +29,10 @@ const Drawer = () => {
   }
   return (
     <div className="h-screen sticky top-0 drawer-component flex grow flex-col gap-y-5 overflow-y-auto border-r border-gray-200 bg-orange px-6">
-      <div className="flex h-16 shrink-0 items-center">
+      <div className="flex h-16 shrink-0 items-center my-8">
         <Link to="/">
         <img
-          className="h-8 w-auto"
+          className="h-12 w-auto"
           src={SomosF5LogoWhite}
           alt="Logo de SomosF5"
         />
@@ -41,22 +41,22 @@ const Drawer = () => {
       <nav className="flex flex-1 flex-col">
         <ul className="flex flex-1 flex-col gap-y-7">
           <li>
-            <ul className="names -mx-2 space-y-1">
+            <ul className="names mx-2 space-y-6">
               {navigation.map((item) => (
                 <li key={item.name}>
                   <a
                     href={item.href}
                     className={classNames(
                       item.current
-                        ? 'bg-gray-50 text-white'
-                        : 'text-white hover:text-orangel hover:bg-stone5',
-                      'group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold text-white'
+                        ? 'bg-stone3 text-white'
+                        : 'text-white hover:text-orangel hover:bg-white',
+                      'group flex gap-x-3 rounded-md p-2 text-lg leading-6 font-semibold text-white'
                     )}
                   >
                     <item.icon
                       className={classNames(
-                        item.current ? 'text-white' : 'text-white group-hover:text-indigo-600',
-                        'h-6 w-6 shrink-0'
+                        item.current ? 'text-white' : 'text-white group-hover:text-stone7',
+                        'h-8 w-8 shrink-0'
                       )}
                       aria-hidden="true"
                     />
