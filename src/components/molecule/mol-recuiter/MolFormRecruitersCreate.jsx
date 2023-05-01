@@ -1,11 +1,10 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import { createRecruiters } from "../../../service/RecruitersService";
 import { getCompanies } from "../../../service/CompaniesService";
 import { getEvento } from "../../../service/EventService";
 import MenuCompanies from "../mol-companies/MenuCompanies";
-import * as XLSX from "xlsx";
 import MolFormUploadRecruiters from "./MolFormUploadRecruiters";
 
 const MolFormRecruitersCreate = () => {
@@ -23,65 +22,8 @@ const MolFormRecruitersCreate = () => {
   const [phone, setPhone] = useState("");
   const [linkedin, setLinkedin] = useState("");
   const [gender, setGender] = useState("");
-  const fileInput = useRef(null);
   const navigate = useNavigate();
 
-  const handleExcelUpload = (event) => {
-    const file = event.target.files[0];
-    const reader = new FileReader();
-    reader.onload = async (event) => {
-      const data = new Uint8Array(event.target.result);
-      const workbook = XLSX.read(data, { type: "array" });
-      const worksheet = workbook.Sheets[workbook.SheetNames[0]];
-      const rows = XLSX.utils.sheet_to_json(worksheet, { header: 1 });
-      
-      const header = rows[0];
-      const rowsData = rows.slice(1).map((row) => {
-        return header.reduce((acc, curr, index) => {
-          acc[curr] = row[index];
-          return acc;
-        }, {});
-      });
-      
-      rowsData.forEach(async (rowData) => {
-        const formData = new FormData();
-        formData.append("event_id", Number.isInteger(event_id));
-        formData.append("company_id", Number.isInteger(company_id));
-        formData.append("name", name);
-        formData.append("lastname", lastname);
-        formData.append("charge", charge);
-        formData.append("first_interview", first_interview);
-        formData.append("last_interview", last_interview);
-        formData.append("remote", remote);
-        formData.append("email", rowData.email ? rowData.email.toString() : "");
-        formData.append("phone", phone);
-        formData.append("linkedin", linkedin);
-        formData.append("gender", gender);
-        try {
-          const { data } = await createRecruiters(formData);
-          console.log(data);
-        } catch (error) {
-          console.log(error);
-        }
-      });
-      
-      Swal.fire({
-        position: "center",
-        icon: "success",
-        title: "¡Tus datos se han añadido con éxito!",
-        showConfirmButton: false,
-        timer: 2000,
-      });
-      setTimeout(() => {
-        navigate("/recruiterstable");
-      }, 2000);
-    };
-    reader.readAsArrayBuffer(file);
-  };
-
-  const handleClick = () => {
-    fileInput.current.click();
-  };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -432,23 +374,6 @@ const MolFormRecruitersCreate = () => {
             type="button"
           >
             <a href="/recruiterstable">Ver recruiters</a>
-          </button>
-          <button
-            htmlFor="excel"
-            className="text-sm text-white my-10 mx-10 px-12 py-3.5 rounded-xl bg-gradient-to-r from-orangel to-orange hover:from-verde hover:to-verdel ..."
-            type="button"
-            onClick={handleClick}
-          >
-            Seleccionar excel
-            <input
-              type="file"
-              id="excel"
-              name="excel"
-              onChange={handleExcelUpload}
-              accept=".xlsx"
-              ref={fileInput}
-              style={{ display: "none" }}
-            />
           </button>
           </div>
         </form>

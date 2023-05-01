@@ -91,6 +91,15 @@ const MolTableMatchesFilterExcel = () => {
       label: "AFINIDAD",
     },
   ];
+
+  const options = {
+    download: true,
+    downloadOptions: {
+      filename: "agenda_evento.xlsx",
+      separator: ",",
+    },
+  };
+
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
@@ -137,6 +146,7 @@ const MolTableMatchesFilterExcel = () => {
             title={<h5 style={{ color: "#FF4700" }}>{"Lista de matches"}</h5>}
             data={match}
             columns={columns}
+            options={options}
           />
         </ThemeProvider>
       </div>

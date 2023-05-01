@@ -1,6 +1,6 @@
 import React from 'react';
 import "../css/styles.css";
-import SomosF5LogoWhite from '../../../assets/img/SomosF5LogoWhite.png';
+import SomosF5LogoOrange from '../../../assets/img/SomosF5LogoOrange.png';
 import { Link } from 'react-router-dom';
 import {
   CalendarIcon,
@@ -28,12 +28,12 @@ const Drawer = () => {
     return classes.filter(Boolean).join(' ')
   }
   return (
-    <div className="h-screen sticky top-0 drawer-component flex grow flex-col gap-y-5 overflow-y-auto border-r border-gray-200 bg-orange px-6">
+    <div className="h-screen sticky top-0 drawer-component flex grow flex-col gap-y-5 overflow-y-auto border-r border-orange bg-stone6 px-6">
       <div className="flex h-16 shrink-0 items-center my-8">
         <Link to="/">
         <img
-          className="h-12 w-auto"
-          src={SomosF5LogoWhite}
+          className="h-14 w-auto"
+          src={SomosF5LogoOrange}
           alt="Logo de SomosF5"
         />
         </Link>
