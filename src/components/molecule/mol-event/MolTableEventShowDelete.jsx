@@ -71,7 +71,7 @@ export default function MolTableEventShowDelete() {
   return (
     <>
     <MenuEvent/>
-    <div className="bg-verde w-screen max-w-screen-xl rounded-xl p-20 m-20 text-white">
+    <div className="bg-stone6 w-screen max-w-screen-xl rounded-xl p-20 m-20 text-white">
       <div className="sm:flex sm:items-center">
         <div className="sm:flex-auto">
           <h1 className="text-2xl text-stone3 font-semibold leading-7">Lista de eventos</h1>
@@ -166,7 +166,7 @@ export default function MolTableEventShowDelete() {
                       <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                         <Link
                           to={`/eventedit/${e.id}`}
-                          className="text-verdel hover:text-white text-lg"
+                          className="text-orange hover:text-white text-lg"
                         >
                           Editar
                         </Link>
